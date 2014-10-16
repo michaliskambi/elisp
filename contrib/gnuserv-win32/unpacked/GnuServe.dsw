@@ -1,0 +1,113 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "All"=.\All.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name gnuclient
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name gnudoit
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name gnuserv
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name gnuclientw
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "gnuclient"=.\gnuclient.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name gnuslib
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "gnuclientw"=.\gnuclientw.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name gnuslib
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "gnudoit"=.\gnudoit.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name gnuslib
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "gnuserv"=.\gnuserv.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name gnuslib
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "gnuslib"=.\gnuslib.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+

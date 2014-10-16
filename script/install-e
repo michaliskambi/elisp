@@ -1,0 +1,2 @@
+ln -s `pwd`/e ~/bin/
+ln -s `pwd`/e-wait ~/bin/

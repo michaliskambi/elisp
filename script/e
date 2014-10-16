@@ -1,0 +1,26 @@
+#!/bin/bash
+set -eu
+
+# Note: Michalis finds it useful to set
+#   (focus-follows-mouse nil)
+# This notifies Emacs that your window system does *not* change window
+# when you mouse over them. Otherwise opening file with emacsclient
+# (actually, "raising a frame" which is done at this point) moves mouse
+# pointer to upper-right corner of Emacs, which is distracting for me.
+
+# Note: raising window unfortunately doesn't really work for me.
+#
+# Changing it to
+#   emacsclient --alternate-editor=emacs --no-wait \
+#     --eval "(raise-frame (selected-frame))" "(find-file \"$1\")"
+# doesn't make any difference (probably emacsclient does raise-frame already,
+# and it's just not enough? focus-frame in Emacs is ignored...).
+#
+# Fix using xdotool inspired by https://bbs.archlinux.org/viewtopic.php?id=59238 :
+#   WID=`xdotool search --class Emacs | head -n1`
+#   xdotool set_desktop_for_window $WID `xdotool get_desktop`
+#   xdotool windowraise $WID
+#   xdotool windowfocus $WID
+# ... unfortunately also fails, no difference, although it works AFAICS.
+
+emacsclient --alternate-editor=emacs --no-wait "$@"

@@ -1,0 +1,127 @@
+Random stuff and notes about using Emacs.
+
+------------------------------------------------------------------------------
+Some key shortcuts (that I (used to) forget sometimes):
+
+C-x C-x = exchange-point-and-mark
+C-x Esc Esc = repeat-complex-command
+  (czyli Redo gdzie widzisz to co zrobiles w Lispie)
+C-x C-e = evaluate Lisp expression you're standing on in current buffer
+M-:     = evaluate Lisp expression you give in minibuffer
+
+C-x ( = Start defining a keyboard macro (`start-kbd-macro').
+C-x ) = End the definition of a keyboard macro (`end-kbd-macro').
+C-x e = Execute the most recent keyboard macro (`call-last-kbd-macro').
+
+eshell: C-c C-u = kill input (kill current command line)
+
+GUD:
+<prefix> = C-c in GUD buffer and C-x C-a in other buffers
+<prefix> C-l : goto last line referred to in the GUD buffer
+<prefix> C-s : step (step into function call)
+<prefix> C-n : next (step over function call)
+<prefix> C-r : continue execution (until next breakpoint / program exit etc.)
+<prefix> C-t : set temporary breakpoint here
+<prefix> C-b : set breakpoint here
+
+shell buffer
+C-c C-p / C-c C-n : jump to previous / next prompt
+
+------------------------------------------------------------------------------
+Obsoleted by CUA key shortcuts (that I (used to) forget sometimes):
+
+(Not relevant anymore, with CUA I can cut/paste rectangle using normal C-x / C-v)
+C-x r k = kill rectangle
+C-x r y = yank rectangle
+
+(Not relevant anymore, with CUA I can cut/copy/paste using normal C-x / C-v)
+Below:
+  Emacs standard key (that works on console too)
+   / emacs name for command (Lisp function name)
+   / my name for command
+   / key for this command that I like to use (all of them were already
+     bound in my Emacs)
+C-w / kill-region    / cut   / S-Del
+M-w / kill-ring-save / copy  / C-Insert
+C-y / yank           / paste / S-Insert
+
+------------------------------------------------------------------------------
+Emacs coding systems:
+
+- raw-text is good if file contains characters from #127 - #255 range
+  that are NOT to be interpreted as multibyte sequences. In other words,
+  raw-text tells Emacs that there are no MBCS in this file.
+
+- no-conversion is something like raw-text AND additionally tells Emacs
+  to NOT try to guess line endings. You can open file with find-file-literally
+  to use 'no-conversion' coding (and also do some other things to avoid
+  changing file contents), this is useful for editing binary files.
+
+- before opening file with Polish ogonki in win encoding:
+    M-x prefer-coding-system windows-1250
+  F12+c with my bindings to convert it to e.g. utf-8 then.
+
+--------------------------------------------------------------------------------
+Krotka metoda jak zmienic indentation jakiegos mode :
+- Zrob derived mode:
+  (define-derived-mode
+    kambi-foo-mode foo-mode "Kambi-Foo"
+    "Kambi's version of `foo-mode' -- removed automatic indentation.")
+
+- Zerknij na oryginalne keymap, tzn. zazwyczaj poszukaj w foo.el
+  inicjalizacji zmiennej foo-mode-map. Musisz sie zorientowac ktore klawisze
+  odpowiadaja za robienie automatycznego indentation.
+
+  Nastepnie dopisz do kambi-foo.el kod
+  (define-keys-to-nil kambi-foo-mode-map '(... lista klawiszy do ktorych
+    nie chcesz przywiazywac specjalnego indentation ...))
+
+- I w zasadzie to wszystko - masz gotowy mode w ktorym pozbyles sie
+  indentation. Musisz jeszcze opakowac go ladnie.
+  Calosc znajduje sie w ponizszym szablonie:
+
+  (require 'foo)
+
+  (define-derived-mode
+    kambi-foo-mode foo-mode "Kambi-Foo"
+    "Wersja foo-mode by Kambi - wyciete automatyczne indentation.")
+
+  (define-keys-to-nil kambi-foo-mode-map '(... lista klawiszy do ktorych
+    nie chcesz przywiazywac specjalnego indentation ...))
+
+  (add-to-list 'auto-mode-alist '("\\.bar1\\'" . kambi-foo-mode))
+  (add-to-list 'auto-mode-alist '("\\.bar2\\'" . kambi-foo-mode))
+  ...
+
+  (provide 'kambi-foo)
+
+------------------------------------------------------------------------------
+http://linuxcommando.blogspot.com/2008/05/root-edit-file-using-emacs-in-same.html
+
+Terribly useful. Just type "/su::" or "/sudo::" in front of the
+filename to edit as root (using respective method, su or sudo,
+depending on taste).
+
+------------------------------------------------------------------------------
+Printing:
+http://ldc.usb.ve/docs/emacs/Printing.html
+http://www.emacswiki.org/cgi-bin/wiki/PrintingFromEmacs
+
+Do not use standard print-buffer / print-region commands:
+they produce ugly document (header font same as text font),
+and they cannot handle correctly long lines that wrap (they will cause
+the text to flow to the next page, without emacs knowing; which will cause
+almost-empty pages in the middle of print, and the page numbering will be
+wrong).
+
+PostScript printing is what you want in usual case.
+ps-print-region-with-faces
+- Replace "print" with "spool" to only get a buffer that you can save
+  as *.ps file for preview.
+- Replace "region" with "buffer" for buffer print.
+- Remove -with-faces from the end to avoid color (from font-lock).
+
+customize-group postscript
+contains all the settings.
+
+eof --------------------------------------------------------------------------

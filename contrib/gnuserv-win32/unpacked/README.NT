@@ -1,0 +1,116 @@
+This is a somewhat modified version of Andy Norman's Gnuserv package.
+See README for more details.
+
+
+September 12, 1999.  Guy Gascoigne - Piggford <guy@wyrdrune.com>
+
+Two further changes.
+
+1) Added a -x (execute) option to gnuclient[w].  This simply makes
+   sure that Emacs is running and visible.  I got fed up of running
+   Runemacs only to find that it was already running but minimized.
+
+2) Added a -e (evaluate) option to gnuclient[w].  This causes the
+   following elisp to be evaluated. This pretty much obsoletes
+   gnudoit. The advantage of doing it this way is that since a good
+   chunk of the code between the two is common, this allow all of the
+   NT specific modifications to gnuclient to be available with the
+   functionality of gnudoit.  E.g. checking that emacs is running and
+   showing the window.
+
+September 11, 1999.  Guy Gascoigne - Piggford <guy@wyrdrune.com>
+
+This is a port of the original Internet socket version of gnuserv to
+NT and Win95.  As well as allowing the usual connection from client to
+server when both are executing on the same machine, this version
+allows connections to be made over a network from a telnet or xterm on
+a Unix machine to an Emacs and gnuserv on an NT machine.
+
+On the whole I've taken bits and pieces from both the version written
+by Peter Breton & Nico Francois as well as the original version by
+Andy Norman.
+
+I took Andy Norman's stock Unix version and ported the socket code
+over to NT (coincidentally this seems to work on Win9x).  To this I
+added some of the NT specific stuff from Peter Breton & Nico Francois'
+version.
+
+Changes from either version.
+
+1) This version only uses sockets for connection on NT.  There is no
+   mailslot support in this port.  This does mean that it can accept
+   connections from other machines.
+
+2) As per the original docs you need to set the environment variable
+   GNU_SECURE if you want to be able to make connections from other
+   machines.
+
+3) Unlike the original docs, connections from the local machine are
+   allowed without adding the localhost to the GNU_SECURE file. I
+   judged that local connections are going to be much less of a
+   security threat on a single user NT machine than they would be on a
+   potentially multi-unser Unix machine.  Of course if you end out
+   running NT Terminal Server you may want to compile a version with
+   this switched off.
+
+4) There is support for topping the Emacs window in both gnuserv as
+   well as gnuclient. See later for details.
+
+5) gnuclientw is exactly the same as gnuclient except that it defaults
+   to topping the Emacs window.  It is also compiled as a Windows
+   application, this means that it doesn't flash up a console window
+   when run.
+
+6) Since I didn't want to get into changing the emacs-lisp I added
+   support into gnuserv to allow it to top it's emacs window.  The
+   reason being that gnuclient can only top the window when it's run
+   from the same machine as the server.  By default this support is
+   disabled but defining the environment variable GNUSERV_SHOW_EMACS
+   enables it.
+
+   Either define in globally or add:
+
+   (setenv "GNUSERV_SHOW_EMACS" "1"); force gnuserv to show emacs
+                                    ; window, always
+   to your .emacs file.
+
+7) I didn't bother trying to get the unix uid function working in a
+   useful manner on NT.  This means that unlink the unix version the
+   port used is the default value as opposed to the default value +
+   uid. This only really matters to you if you try to get separate
+   machines to talk to each other, in which case you'll want to
+   explicity set the port value by setting GNU_PORT.
+
+   For example, I have NT emacs with gnuserv running on my NT
+   machine. I have GNU_SECURE set and pointing to a file containing a
+   list of machine names that I want to accept connections from.
+
+   In my .bashrc on Solaris I have:
+
+   --------------------
+   export GNU_PORT=21490			# the default port number
+   export GNU_HOST=cerebus			# my NT machine
+   export GNU_NODE=/ggp@`hostname`:		# a suitable ange-ftp prefix
+
+   export EDITOR=gnuclient
+   alias gc=gnuclient
+   --------------------
+
+   With this set, I can telnet into a unix machine, type 'gc filename'
+   and have it pop up in my editor on NT.  This is so much faster than
+   having to muck around with a different editor instance on every
+   machine that I'm logged into.
+
+8) If Emacs isn't running on the NT machine, gnuclient will attempt to
+   start it.  First it looks in the registry for the path.  This
+   should be there is addpm has been run, failing that it attempts to
+   find runemacs on the path.
+   The registry check should meean that you don't need to add the
+   emacs bin directory to your path any longer.
+
+9) There is a full VC6 project included as well as makefile for unix.
+   The binaries were built using VC6SP3.
+
+NOTE:  The win9x support is barely tested, do let me know if there are
+any problems.
+

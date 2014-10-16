@@ -1,0 +1,6 @@
+#!/bin/bash
+set -eu
+
+# Edit file with Emacs. Closes only when you finished editing.
+
+emacsclient --alternate-editor=emacs "$@"

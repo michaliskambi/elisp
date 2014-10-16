@@ -1,0 +1,26 @@
+! -*- mode: xrdb -*-
+! ~/.Xresources contents that configure Emacs.
+! After editing ~/.Xresources, reload it for existing X session
+! by "xrdb ~/.Xresources".
+
+! emacs ------------------------------------------------------------
+
+! Font for Emacs. Although this can be set by elisp (see
+! set-default-font function), it''s better to set 1st font by Xresources.
+! Reason: this way Emacs initializes frame with this font,
+! which means it will honour Emacs.geometry with this font.
+! Otherwise, initial frame could be created with larger font,
+! making Emacs.geometry clamped to something smaller.
+! Emacs.font: -misc-fixed-medium-*-normal-*-15-*-*-*-c-*-iso8859-2
+Emacs.font: DejaVu Sans Mono-15
+
+! Window size
+Emacs.geometry: 83x32+0+0
+
+! Hide toolbar
+Emacs.toolBar: 0
+
+! use Emacs icon with window managers (otherwise Emacs gets standard
+! window manager icon).
+! Later: does not seem useful anymore, modern Emacs does this by default.
+! Emacs.bitmapIcon: on
