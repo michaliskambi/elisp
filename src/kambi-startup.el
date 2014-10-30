@@ -1177,6 +1177,8 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   )
   t)
 
+(add-to-list 'auto-mode-alist '("\\.org.txt\\'" . org-mode))
+
 ;; load my files -------------------------------------------------------------
 
 ;; TODO: kambi-cc-mode pod XEmacsa nie jest gotowe (font-lock nie dziala)
