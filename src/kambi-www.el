@@ -50,7 +50,12 @@
   ;;
   ;; Wiec chcac byc po bezpiecznej stronie, usuwam tez odpowiedni
   ;; element z auto-mode-alist.
-  (setq php-file-patterns (remove "\\.inc\\'" php-file-patterns))
+  ;;
+  ;; Note that later php-mode versions (since 1.13.5 in Debian?)
+  ;; seem to remove php-file-patterns symbol (also removing .inc automatic
+  ;; registration, BTW).
+  (when (boundp 'php-file-patterns)
+    (setq php-file-patterns (remove "\\.inc\\'" php-file-patterns)))
   (setq auto-mode-alist (remove '("\\.inc\\'" . php-mode) auto-mode-alist))
   (when kam-inc-extension-default-php
     (add-to-list 'auto-mode-alist '("\\.inc\\'" . kambi-php-mode)))
