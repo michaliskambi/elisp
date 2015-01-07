@@ -2028,7 +2028,7 @@ no args, if that value is non-nil."
 
   ;; We need to keep track of changes to the buffer to determine if we need
   ;; to retokenize changed text.
-  (make-local-hook 'after-change-functions)
+;;  (make-local-hook 'after-change-functions)
   (add-hook 'after-change-functions 'delphi-after-change nil t)
 
   (widen)
