@@ -1104,8 +1104,10 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 (add-to-list 'load-path
   (concat kambi-elisp-path "contrib/auto-complete/"))
 
-(require 'auto-complete)
 (require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/elisp/contrib/auto-complete//ac-dict")
+(ac-config-default)
+
 (global-auto-complete-mode t)
 (add-to-list 'ac-modes 'kambi-pascal-mode)
 (add-to-list 'ac-modes 'kambi-c-mode)
