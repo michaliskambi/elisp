@@ -395,7 +395,7 @@ this way you can use ffap when standing over \"uses\" clauses of your units."
 ;; be in hook, not in kambi-pascal-mode.
 (add-hook 'kambi-pascal-mode-hook
   (lambda ()
-    (set-local-compile-command "castle-engine compile --mode=debug")
+    (set-local-compile-command "castle-engine compile --mode=debug | grep --invert-match --line-regexp ''")
   ) t)
 
 ;; for pasdoc

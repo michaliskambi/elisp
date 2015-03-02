@@ -850,15 +850,6 @@ maybe I'll invent some use for this)."
   (untabify (point-min) (point-max))
 )
 
-(defun kam-gdb ()
-  "Run gdb. Give executable as (basename (buffer-file-name)).
-This way current directory (wd inside gdb) will be dir of
-buffer-file-name and the executable file will be found by gdb on
-$PATH. And that's what Kambi likes."
-  (interactive)
-  (gdb (concat "gdb -silent " (basename (buffer-file-name))))
-)
-
 (defun set-local-compile-command (VALUE)
   "Just a shortcut for
   (make-local-variable 'compile-command)
@@ -1067,6 +1058,11 @@ regardless of current position and regardless of mark position
       (delete-matching-lines regexp (point-min-marker) (point-max-marker))
       (let ((lines-after (kam-count-lines-buffer)))
         (message "Removed %d lines, remaining %d." (- lines-before lines-after) lines-after)))))
+
+(defun kam-compile-immediate ()
+  "Run compile withot asking for a command."
+  (interactive)
+  (compile compile-command))
 
 ;; ------------------------------------------------------------
 

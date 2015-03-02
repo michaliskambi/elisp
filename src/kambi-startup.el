@@ -889,6 +889,7 @@ parses local variables written in buffer."
 (global-set-key (kbd "<C-f4>") 'kill-this-buffer)
 
 (global-set-key (kbd "<C-f9>") 'compile)
+(global-set-key (kbd "<f9>") 'kam-compile-immediate)
 (global-set-key (kbd "<C-f10>") 'kam-compile-release)
 (global-set-key (kbd "<f4>") 'next-error)
 (global-set-key (kbd "<C-tab>") 'switch-buf)
@@ -936,7 +937,7 @@ parses local variables written in buffer."
 ;; zapamietaj jako "w = wrap / unwrap"
 (global-set-key (kbd "C-x w") 'invert-truncate-lines)
 
-(global-set-key (kbd "<f9>") 'shell-command)
+;; (global-set-key (kbd "<f9>") 'shell-command)
 
 ;; f12 to klawisz ktory u mnie uruchamia jakas rzadko uzywana
 ;; komende ktora dziala na calym aktualnym buforze
