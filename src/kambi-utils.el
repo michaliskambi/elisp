@@ -118,7 +118,7 @@ to make result at least MINLENGTH long."
 (defconst kam-is-windows
   (or (string-pos "windows" system-configuration)
       (string-pos "msvc-nt" system-configuration)
-      (string-pos "mingw-nt" system-configuration) )
+      (string-pos "mingw" system-configuration) )
   "Non-nil if we're under Windows, else nil.")
 
 (defconst kam-is-freebsd
