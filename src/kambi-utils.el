@@ -101,6 +101,14 @@ Wpp. zwraca niezmodyfikowane str."
 ;; (string-is-prefix "aa" "aabb")
 ;; (string-is-prefix "ab" "aabb")
 
+(defun string-is-suffix (ending s)
+  "Return non-nil if string S ends with ENDING.
+From http://emacswiki.org/emacs/ElispCookbook#toc4 ."
+    (cond ((>= (length s) (length ending))
+      (let ((elength (length ending)))
+        (string= (substring s (- 0 elength)) ending)))
+          (t nil)))
+
 (defun kam-number-to-string-zero-pad (num minlength)
   "Converts NUM to string, adding zeros at the beginning if needed,
 to make result at least MINLENGTH long."
