@@ -184,14 +184,6 @@ may be screwed up after running some program that changed screen size
 (add-to-list 'auto-mode-alist '("\\.x3dv\\'" . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\\.po[tx]?\\'\\|\\.po\\." . shell-script-mode))
 
-(define-derived-mode kambi-no-tab-mode fundamental-mode
-  "Kambi-No-Tabs"
-  "Fundamental mode with tabs auto-converted to spaces."
-  (setq indent-tabs-mode nil))
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . kambi-no-tab-mode))
-(add-to-list 'auto-mode-alist '("\\.lock\\'" . kambi-no-tab-mode))
-(add-to-list 'auto-mode-alist '("\\.json\\'" . kambi-no-tab-mode))
-
 ;; automatycznie dekompresuj / kompresuj edytowane pliki
 (auto-compression-mode 1)
 
@@ -274,33 +266,60 @@ may be screwed up after running some program that changed screen size
 ;; "ustaw mu indent-tabs-mode na nil" to moze byc katastrofa;; a jesli
 ;; robie tak jak teraz to co najwyzej w jakims mode bedzie zapisywal z tabami,
 ;; co katastrofa nie jest).
-(defun set-buffer-just-space () (setq indent-tabs-mode nil))
-(add-hook 'kambi-pascal-mode-hook 'set-buffer-just-space t)
-(add-hook 'kambi-php-mode 'set-buffer-just-space t)
-(add-hook 'cc-mode-hook 'set-buffer-just-space t)
-(add-hook 'java-mode-hook 'set-buffer-just-space t)
-(add-hook 'tuareg-mode-hook 'set-buffer-just-space t)
-(add-hook 'emacs-lisp-mode-hook 'set-buffer-just-space t)
-(add-hook 'sh-mode-hook 'set-buffer-just-space t)
-(add-hook 'html-mode-hook 'set-buffer-just-space t)
-(add-hook 'octave-mode-hook 'set-buffer-just-space t)
-(add-hook 'sql-mode-hook 'set-buffer-just-space t)
-(add-hook 'latex-mode-hook 'set-buffer-just-space t)
-(add-hook 'text-mode-hook 'set-buffer-just-space t)
-(add-hook 'ada-mode-hook 'set-buffer-just-space t)
-(add-hook 'sml-mode-hook 'set-buffer-just-space t)
-;; (add-hook 'nxml-mode-hook 'set-buffer-just-space t)
-(add-hook 'scheme-mode-hook 'set-buffer-just-space t)
-;; (add-hook 'python-mode-hook 'set-buffer-just-space t)
-(add-hook 'js-mode-hook 'set-buffer-just-space t)
-(add-hook 'css-mode-hook 'set-buffer-just-space t)
+(defun set-buffer-space-or-tabs ()
+  (if (and (buffer-file-name)       
+        (or
+          (and (string-is-prefix "/srv/webroot/huntdev-" (buffer-file-name))
+               (string-is-suffix ".js" (buffer-file-name)))
+          (and (string-is-prefix "/srv/webroot/huntdev-" (buffer-file-name))
+               (string-is-suffix ".php" (buffer-file-name)))
+        )
+      )
+      (progn
+        (message "USE TABS (detected as LH web files)")
+        (setq indent-tabs-mode t)
+      )
+    (progn
+      (message "DO NOT USE TABS")
+      (setq indent-tabs-mode t)
+    )
+  )
+)
+
+(define-derived-mode kambi-no-tab-mode fundamental-mode
+  "Kambi-No-Tabs"
+  "Fundamental mode with tabs auto-converted to spaces."
+  (set-buffer-space-or-tabs))
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . kambi-no-tab-mode))
+(add-to-list 'auto-mode-alist '("\\.lock\\'" . kambi-no-tab-mode))
+(add-to-list 'auto-mode-alist '("\\.json\\'" . kambi-no-tab-mode))
+
+(add-hook 'kambi-pascal-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'kambi-php-mode 'set-buffer-space-or-tabs t)
+(add-hook 'cc-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'java-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'tuareg-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'emacs-lisp-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'sh-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'html-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'octave-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'sql-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'latex-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'text-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'ada-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'sml-mode-hook 'set-buffer-space-or-tabs t)
+;; (add-hook 'nxml-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'scheme-mode-hook 'set-buffer-space-or-tabs t)
+;; (add-hook 'python-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'js-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'css-mode-hook 'set-buffer-space-or-tabs t)
 
 ;; Usually I don't want tabs, but sometimes I have to work on php projects
 ;; where tabs must be used.
 (defconst kam-tabs-in-php nil)
 (unless kam-tabs-in-php
-  (add-hook 'c-mode-hook 'set-buffer-just-space t)
-  (add-hook 'php-mode-user-hook 'set-buffer-just-space t))
+  (add-hook 'c-mode-hook 'set-buffer-space-or-tabs t)
+  (add-hook 'php-mode-user-hook 'set-buffer-space-or-tabs t))
 
 ;; disable todoo mode
 (setq auto-mode-alist

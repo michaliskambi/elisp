@@ -1,11 +1,12 @@
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(Man-notify-method (quote pushy))
  '(ac-auto-start 3)
  '(ac-ignore-case t)
+ '(ac-trigger-key "TAB")
  '(ada-auto-case nil)
  '(ada-clean-buffer-before-saving nil)
  '(ada-indent 2)
@@ -14,14 +15,16 @@
  '(ada-indent-comment-as-code nil)
  '(bibtex-comment-start "%%")
  '(blink-matching-paren-distance nil)
- '(comint-password-prompt-regexp "Kambi put here regexp impossible to match to disable comint-watch-for-password-prompt")
+ '(comint-password-prompt-regexp
+   "Kambi put here regexp impossible to match to disable comint-watch-for-password-prompt")
  '(cua-rectangle-mark-key [C-f12])
  '(dabbrev-case-replace nil)
  '(dired-backup-overwrite t t)
  '(dired-listing-switches "-al --group-directories-first")
  '(focus-follows-mouse nil)
  '(grep-command "grep -i -n -e ")
- '(grep-find-template "find . <X> -type f <F> -print0 | xargs -0 -e grep <C> -i -n -e <R>")
+ '(grep-find-template
+   "find . <X> -type f <F> -print0 | xargs -0 -e grep <C> -i -n -e <R>")
  '(grep-template "grep <C> -i -n -e <R> <F>")
  '(ibuffer-expert t)
  '(inhibit-startup-screen t)
@@ -38,7 +41,72 @@
  '(recentf-auto-cleanup (quote never))
  '(recentf-exclude nil)
  '(recentf-max-saved-items 100)
- '(safe-local-variable-values (quote ((kam-compile-release-command-unix . "clean_castle_window_unit; fpcrelease") (kam-compile-release-command-windows . "clean_castle_window_unit; fpcrelease") (kam-compile-release-command-unix . "./compile.sh && mv -fv view3dscene     tovrmlx3d     ~/bin/") (kam-compile-release-command-windows . "./compile.sh && mv -fv view3dscene.exe tovrmlx3d.exe c:\\\\bin\\\\") (compile-release-command-win32 . "fpcrelease") (kam-compile-release-command-unix . "./compile.sh && mv -fv glinformation     glinformation_glut      ~/bin/") (kam-compile-release-command-windows . "./compile.sh && mv -fv glinformation.exe glinformation_glut.exe c:\\\\bin") (encoding . cp852) (kam-compile-release-command-windows . "./compile.sh && mv -fv glcaps.exe glcaps_glut.exe c:\\\\bin") (kam-compile-release-command-windows . "./compile.sh && mv -fv rayhunter.exe c:\\\\bin\\\\") (kam-compile-release-command-windows . "./compile.sh && mv -fv gen_function.exe c:\\\\bin\\\\") (kam-compile-release-command-windows . "./compile.sh && mv -fv glplotter.exe c:\\\\bin\\\\") (kam-compile-release-command-windows . "./compile.sh && mv -fv glViewImage.exe c:\\\\bin\\\\") (kam-compile-release-command-windows . "./compile.sh && mv -fv view3dscene.exe c:\\\\bin\\\\") (kam-compile-release-command-windows . "make -C ../ build-windows") (kam-compile-release-command-unix . "./compile_unix.sh && mv -fv lets_take_a_walk ~/bin/") (kam-compile-release-command-unix . "./compile.sh && mv -fv rayhunter      ~/bin/") (kam-compile-release-command-windows . "./compile.sh && mv -fv rayhunter.exe c:/bin/") (kam-compile-release-command-windows . "clean_glwindow_unit; fpcrelease") (kam-compile-release-command-unix . "clean_glwindow_unit; fpcrelease") (kam-compile-release-command-unix . "make -C ../ build-unix    && mv -fv ../castle      ~/bin/") (kam-compile-release-command-unix . "make -C ../ build-unix  && mv -fv ../castle      ~/bin/") (kam-compile-release-command-windows . "make -C ../ build-windows && mv -fv ../castle.exe c:/bin/") (kam-compile-release-command-unix . "./compile.sh && mv -fv gen_function      ~/bin/") (kam-compile-release-command-windows . "./compile.sh && mv -fv gen_function.exe c:/bin/") (kam-compile-release-command-unix . "./compile.sh && mv -fv gen_funkcja      ~/bin/") (kam-compile-release-command-windows . "./compile.sh && mv -fv gen_funkcja.exe c:/bin/") (kam-compile-release-command-unix . "./compile.sh && mv -fv view3dscene      ~/bin/") (kam-compile-release-command-windows . "./compile.sh && mv -fv view3dscene.exe c:/bin/") (kam-compile-release-command-unix . "make clean && make -C ../ build-unix  && mv -fv ../castle      ~/bin/") (kam-compile-release-command-windows . "make clean && make -C ../ build-windows && mv -fv ../castle.exe c:/bin/") (kam-compile-release-command-unix . "./compile_unix.sh && mv -fv rift ~/bin/") (kam-compile-release-command-unix . "./compile_unix.sh && mv -fv malfunction ~/bin/") (kam-compile-release-command-unix . "./compile_unix.sh && mv -fv kambi_lines ~/bin/") (kam-compile-release-command-unix . "./compile_unix.sh && mv -fv bezier_curves ~/bin/") (kam-compile-release-command-windows . "./compile_windows.sh") (kam-compile-release-command-unix . "./compile.sh && mv -fv glViewImage      ~/bin/") (kam-compile-release-command-windows . "./compile.sh && mv -fv glViewImage.exe c:/bin/") (kam-compile-release-command-unix . "./compile.sh && mv -fv glplotter      ~/bin/") (kam-compile-release-command-windows . "./compile.sh && mv -fv glplotter.exe c:/bin/") (kam-compile-release-command-windows . "fpcreleaseb") (kam-compile-release-command-unix . "fpcreleaseb") (kam-compile-release-command-unix . "./compile.sh && mv -fv glcaps     glcaps_glut      ~/bin/") (kam-compile-release-command-windows . "./compile.sh && mv -fv glcaps.exe glcaps_glut.exe c:/bin/") (kam-compile-release-command-unix . "./compile.sh && mv -fv gen_funkcja  ~/bin/") (kam-compile-release-command-windows . "./compile.sh && mv -fv gen_funkcja c:/bin/") (kam-compile-release-command-unix . "./compile.sh && mv -fv bezier_curves ~/bin/") (kam-compile-release-command-unix . "clean_glwindow_unit && make clean && make -C ../ build-unix  && mv -fv ../castle      ~/bin/") (kam-compile-release-command-unix . "clean_glwindow_unit && make clean && make -C ../ build-unix  && mv -fv ../castle ~/bin/") (kam-compile-release-command-windows . "clean_glwindow_unit && make clean && make -C ../ build-windows && mv -fv ../castle.exe c:/bin/") (kam-compile-release-command-unix . "clean_glwindow_unit && make clean && make build-unix  && mv -fv ../castle ~/bin/") (kam-compile-release-command-windows . "clean_glwindow_unit && make clean && make build-windows && mv -fv ../castle.exe c:/bin/") (kam-compile-release-command-unix . "./compile.sh && mv -fv view3dscene  ~/bin/") (kam-compile-release-command-windows . "./compile.sh && mv -fv view3dscene c:/bin/") (kam-compile-release-command-windows . "./compile.sh && mv -fv view3dscene ~/bin/") (kam-compile-release-command-unix . "./compile.sh && mv -fv view3dscene c:/bin/") (kam-compile-release-command-windows . "./compile.sh") (kam-compile-release-command-unix . "./compile.sh") (kam-compile-release-command-windows . "clean_glwindow_unit && fpcreleaseb") (kam-compile-release-command-unix . "clean_glwindow_unit && fpcreleaseb") (kam-compile-release-command-windows . "clean_glwindow_unit && make clean && fpcrelease --exe-output-dir ../") (kam-compile-release-command-unix . "clean_glwindow_unit && make clean && fpcreleaseb -dGLWINDOW_XLIB") (kam-compile-release-command-windows . "clean_glwindow_unit && fpcrelease") (kam-compile-release-command-unix . "clean_glwindow_unit && fpcreleaseb -dGLWINDOW_XLIB"))))
+ '(safe-local-variable-values
+   (quote
+    ((kam-compile-release-command-unix . "clean_castle_window_unit; fpcrelease")
+     (kam-compile-release-command-windows . "clean_castle_window_unit; fpcrelease")
+     (kam-compile-release-command-unix . "./compile.sh && mv -fv view3dscene     tovrmlx3d     ~/bin/")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv view3dscene.exe tovrmlx3d.exe c:\\\\bin\\\\")
+     (compile-release-command-win32 . "fpcrelease")
+     (kam-compile-release-command-unix . "./compile.sh && mv -fv glinformation     glinformation_glut      ~/bin/")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv glinformation.exe glinformation_glut.exe c:\\\\bin")
+     (encoding . cp852)
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv glcaps.exe glcaps_glut.exe c:\\\\bin")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv rayhunter.exe c:\\\\bin\\\\")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv gen_function.exe c:\\\\bin\\\\")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv glplotter.exe c:\\\\bin\\\\")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv glViewImage.exe c:\\\\bin\\\\")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv view3dscene.exe c:\\\\bin\\\\")
+     (kam-compile-release-command-windows . "make -C ../ build-windows")
+     (kam-compile-release-command-unix . "./compile_unix.sh && mv -fv lets_take_a_walk ~/bin/")
+     (kam-compile-release-command-unix . "./compile.sh && mv -fv rayhunter      ~/bin/")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv rayhunter.exe c:/bin/")
+     (kam-compile-release-command-windows . "clean_glwindow_unit; fpcrelease")
+     (kam-compile-release-command-unix . "clean_glwindow_unit; fpcrelease")
+     (kam-compile-release-command-unix . "make -C ../ build-unix    && mv -fv ../castle      ~/bin/")
+     (kam-compile-release-command-unix . "make -C ../ build-unix  && mv -fv ../castle      ~/bin/")
+     (kam-compile-release-command-windows . "make -C ../ build-windows && mv -fv ../castle.exe c:/bin/")
+     (kam-compile-release-command-unix . "./compile.sh && mv -fv gen_function      ~/bin/")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv gen_function.exe c:/bin/")
+     (kam-compile-release-command-unix . "./compile.sh && mv -fv gen_funkcja      ~/bin/")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv gen_funkcja.exe c:/bin/")
+     (kam-compile-release-command-unix . "./compile.sh && mv -fv view3dscene      ~/bin/")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv view3dscene.exe c:/bin/")
+     (kam-compile-release-command-unix . "make clean && make -C ../ build-unix  && mv -fv ../castle      ~/bin/")
+     (kam-compile-release-command-windows . "make clean && make -C ../ build-windows && mv -fv ../castle.exe c:/bin/")
+     (kam-compile-release-command-unix . "./compile_unix.sh && mv -fv rift ~/bin/")
+     (kam-compile-release-command-unix . "./compile_unix.sh && mv -fv malfunction ~/bin/")
+     (kam-compile-release-command-unix . "./compile_unix.sh && mv -fv kambi_lines ~/bin/")
+     (kam-compile-release-command-unix . "./compile_unix.sh && mv -fv bezier_curves ~/bin/")
+     (kam-compile-release-command-windows . "./compile_windows.sh")
+     (kam-compile-release-command-unix . "./compile.sh && mv -fv glViewImage      ~/bin/")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv glViewImage.exe c:/bin/")
+     (kam-compile-release-command-unix . "./compile.sh && mv -fv glplotter      ~/bin/")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv glplotter.exe c:/bin/")
+     (kam-compile-release-command-windows . "fpcreleaseb")
+     (kam-compile-release-command-unix . "fpcreleaseb")
+     (kam-compile-release-command-unix . "./compile.sh && mv -fv glcaps     glcaps_glut      ~/bin/")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv glcaps.exe glcaps_glut.exe c:/bin/")
+     (kam-compile-release-command-unix . "./compile.sh && mv -fv gen_funkcja  ~/bin/")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv gen_funkcja c:/bin/")
+     (kam-compile-release-command-unix . "./compile.sh && mv -fv bezier_curves ~/bin/")
+     (kam-compile-release-command-unix . "clean_glwindow_unit && make clean && make -C ../ build-unix  && mv -fv ../castle      ~/bin/")
+     (kam-compile-release-command-unix . "clean_glwindow_unit && make clean && make -C ../ build-unix  && mv -fv ../castle ~/bin/")
+     (kam-compile-release-command-windows . "clean_glwindow_unit && make clean && make -C ../ build-windows && mv -fv ../castle.exe c:/bin/")
+     (kam-compile-release-command-unix . "clean_glwindow_unit && make clean && make build-unix  && mv -fv ../castle ~/bin/")
+     (kam-compile-release-command-windows . "clean_glwindow_unit && make clean && make build-windows && mv -fv ../castle.exe c:/bin/")
+     (kam-compile-release-command-unix . "./compile.sh && mv -fv view3dscene  ~/bin/")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv view3dscene c:/bin/")
+     (kam-compile-release-command-windows . "./compile.sh && mv -fv view3dscene ~/bin/")
+     (kam-compile-release-command-unix . "./compile.sh && mv -fv view3dscene c:/bin/")
+     (kam-compile-release-command-windows . "./compile.sh")
+     (kam-compile-release-command-unix . "./compile.sh")
+     (kam-compile-release-command-windows . "clean_glwindow_unit && fpcreleaseb")
+     (kam-compile-release-command-unix . "clean_glwindow_unit && fpcreleaseb")
+     (kam-compile-release-command-windows . "clean_glwindow_unit && make clean && fpcrelease --exe-output-dir ../")
+     (kam-compile-release-command-unix . "clean_glwindow_unit && make clean && fpcreleaseb -dGLWINDOW_XLIB")
+     (kam-compile-release-command-windows . "clean_glwindow_unit && fpcrelease")
+     (kam-compile-release-command-unix . "clean_glwindow_unit && fpcreleaseb -dGLWINDOW_XLIB"))))
  '(scroll-conservatively 100000)
  '(truncate-lines t)
  '(vc-handled-backends (quote (RCS SCCS)))
@@ -46,10 +114,10 @@
  '(w3m-key-binding (quote info))
  '(warning-suppress-types (quote ((undo discard-info)))))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(mmm-code-submode-face ((t nil)))
  '(nxml-comment-content-face ((t (:foreground "gray"))))
  '(t2t-bold-face ((t (:background unspecified :foreground unspecified :weight bold :width extra-expanded))))
