@@ -281,7 +281,7 @@ may be screwed up after running some program that changed screen size
       )
     (progn
       (message "DO NOT USE TABS")
-      (setq indent-tabs-mode t)
+      (setq indent-tabs-mode nil)
     )
   )
 )
