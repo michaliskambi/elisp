@@ -396,7 +396,10 @@ this way you can use ffap when standing over \"uses\" clauses of your units."
 (add-hook 'kambi-pascal-mode-hook
   (lambda ()
     (if (string-is-suffix "castle_game_engine/tools/"  (file-name-directory (buffer-file-name)))
-        (set-local-compile-command "sh castle-engine_compile.sh | grep --invert-match --line-regexp '' && /bin/mv castle-engine.exe ~/bin/")
+        (set-local-compile-command (concat
+          "sh castle-engine_compile.sh | grep --invert-match --line-regexp '' && /bin/mv castle-engine"
+          (if kam-is-windows ".exe" "")
+          " ~/bin/"))
       (set-local-compile-command "castle-engine compile --mode=debug | grep --invert-match --line-regexp ''")
     )
   ) t)
