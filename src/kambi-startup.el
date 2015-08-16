@@ -267,7 +267,7 @@ may be screwed up after running some program that changed screen size
 ;; robie tak jak teraz to co najwyzej w jakims mode bedzie zapisywal z tabami,
 ;; co katastrofa nie jest).
 (defun set-buffer-space-or-tabs ()
-  (if (and (buffer-file-name)       
+  (if (and (buffer-file-name)
         (or
           (and (string-is-prefix "/srv/webroot/huntdev-" (buffer-file-name))
                (string-is-suffix ".js" (buffer-file-name)))
@@ -392,18 +392,31 @@ i.e. point remains in the occur buffer."
 )
 (define-key occur-mode-map (kbd "SPC") 'occur-mode-show-occurrence)
 
+;; special-mode keymap (used e.g. by diff-mode, used by git-status) breaks our M-digits,
+;; hijacking it again to mean digit-argument. That is because special-mode-map
+;; calls suppress-keymap, which is a really shitty way to disable editing a buffer,
+;; since it just blindly remaps the keys, even when they would not cause editing.
+(add-hook 'special-mode-hook
+  (lambda ()
+    (local-set-key (kbd "M-0") 'kam-buffer)
+    (local-set-key (kbd "M-1") 'delete-other-windows)
+    (local-set-key (kbd "M-2") 'split-window-vertically)
+    (local-set-key (kbd "M-3") 'split-window-horizontally)
+  ) t)
+
 ;; diff-mode
 (add-hook 'diff-mode-hook
   (lambda ()
     ;; redefine to use my standard shortcut, since diff-mode overrides
-    ;; the global definitions for these keys
+    ;; the global definitions for these keys.
+    ;; Note that special-mode-hook above is not enough,
+    ;; we need to repeat this, since diff-mode doesn't inherit from special-mode,
+    ;; it only uses it's keymap as a starting point.
     (local-set-key (kbd "M-o") 'other-window)
-    (local-set-key (kbd "M-1") 'delete-other-windows)       ; jak C-x 1
-    (local-set-key (kbd "M-2") 'split-window-vertically)    ; jak C-x 2
-    (local-set-key (kbd "M-3") 'split-window-horizontally)  ; jak C-x 3
-    (if kam-use-ibuffer
-        (local-set-key (kbd "M-0") 'kam-ibuffer)
-      (local-set-key (kbd "M-0") 'buffer-menu))
+    (local-set-key (kbd "M-1") 'delete-other-windows)       ; like C-x 1
+    (local-set-key (kbd "M-2") 'split-window-vertically)    ; like C-x 2
+    (local-set-key (kbd "M-3") 'split-window-horizontally)  ; like C-x 3
+    (local-set-key (kbd "M-0") 'kam-buffer)
   ) t)
 
 ;; java
@@ -848,10 +861,13 @@ parses local variables written in buffer."
   (redraw-frame (selected-frame))
 )
 
-(defun kam-ibuffer ()
+(defun kam-buffer ()
+  "Call my preferred buffer-menu'-like function."
   (interactive)
-  ;; Kambi really likes to call ibuffer with update=t
-  (ibuffer nil nil nil t))
+  (if kam-use-ibuffer
+      ;; Kambi really likes to call ibuffer with update=t
+      (ibuffer nil nil nil t)
+    (buffer-menu)))
 
 ;; ---------------------------------------------------------------------------
 ;; git emacs, code initially following http://www.emacswiki.org/emacs/Git
@@ -915,10 +931,7 @@ parses local variables written in buffer."
 (global-set-key (kbd "C-x k") 'browse-kill-ring)
 ;; (global-set-key (kbd "<C-SPC>") 'dabbrev-completion) ; default is uncomfortable C-M-\
 
-(if kam-use-ibuffer
-    (global-set-key (kbd "M-0") 'kam-ibuffer)
-  (global-set-key (kbd "M-0") 'buffer-menu))
-
+(global-set-key (kbd "M-0") 'kam-buffer)
 (global-set-key (kbd "M-o") 'other-window)               ; jak C-x o
 (global-set-key (kbd "M-1") 'delete-other-windows)       ; jak C-x 1
 (global-set-key (kbd "M-2") 'split-window-vertically)    ; jak C-x 2
