@@ -269,18 +269,21 @@ may be screwed up after running some program that changed screen size
 (defun set-buffer-space-or-tabs ()
   (if (and (buffer-file-name)
         (or
+          ;; LH JS and PHP and .shader files
           (and (string-is-prefix "/srv/webroot/huntdev-" (buffer-file-name))
                (string-is-suffix ".js" (buffer-file-name)))
           (and (string-is-prefix "/srv/webroot/huntdev-" (buffer-file-name))
                (string-is-suffix ".php" (buffer-file-name)))
+          (string-is-suffix ".shader" (buffer-file-name))
+          (string-is-suffix ".cginc" (buffer-file-name))
         )
       )
       (progn
-        (message "USE TABS (detected as LH web files)")
+        (message "USE TABS (detected as LH file with tabs)")
         (setq indent-tabs-mode t)
       )
     (progn
-      (message "DO NOT USE TABS")
+      ;; (message "DO NOT USE TABS")
       (setq indent-tabs-mode nil)
     )
   )

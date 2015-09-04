@@ -111,6 +111,8 @@ Uwaga : kompletnie untested no nigdy nie pisalem nic w 'objective C' !"
     ("\\.gs\\'" . kambi-c-mode)
     ("\\.fs\\'" . kambi-c-mode)
     ("\\.glsl\\'" . kambi-c-mode)
+    ("\\.shader\\'" . kambi-c-mode) ;; unity shaders
+    ("\\.cginc\\'" . kambi-c-mode) ;; unity shaders
    )
 ))
 
