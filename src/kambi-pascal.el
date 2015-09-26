@@ -131,6 +131,14 @@ names mentioned here."
       (castle-engine-path "castle_game_engine/src/ui/opengl/")
       (castle-engine-path "castle_game_engine/src/game/")
       (castle-engine-path "castle_game_engine/src/net/")
+      ;; castle-engine platform-specific (add to search path regardless
+      ;; of kam-is-windows, kam-is-unix, because filenames must be unique
+      ;; (for Lazarus packages) anyway)
+      (castle-engine-path "castle_game_engine/src/base/windows/")
+      (castle-engine-path "castle_game_engine/src/fonts/windows/")
+      (castle-engine-path "castle_game_engine/src/opengl/windows/")
+      (castle-engine-path "castle_game_engine/src/base/unix/")
+      (castle-engine-path "castle_game_engine/src/opengl/unix/")
       ;; pasdoc
       (concat kam-home-directory "/sources/pasdoc/trunk/source/component/")
       (concat kam-home-directory "/sources/pasdoc/trunk/source/console/")
@@ -170,10 +178,6 @@ names mentioned here."
     )
     (when kam-is-windows
       (list
-        ;; castle-engine
-        (castle-engine-path "castle_game_engine/src/base/windows/")
-        (castle-engine-path "castle_game_engine/src/fonts/windows/")
-        (castle-engine-path "castle_game_engine/src/opengl/windows/")
         ;; fpc source (windows-specific)
         (fpc-source-path "rtl/win/")
         (fpc-source-path "rtl/win/wininc/")
@@ -181,9 +185,6 @@ names mentioned here."
     )
     (when kam-is-unix
       (list
-        ;; mine in castle-engine
-        (castle-engine-path "castle_game_engine/src/base/unix/")
-        (castle-engine-path "castle_game_engine/src/opengl/unix/")
         ;; fpc source (Unix-specific)
         (fpc-source-path "rtl/unix/")
       )
@@ -389,29 +390,126 @@ this way you can use ffap when standing over \"uses\" clauses of your units."
 
 ;; compiling-related things ----------------------------------------
 
+(defun kam-is-castle-engine-project-p (file-name)
+  "Is the file inside a castle-engine project, that is inside
+a project with CastleEngineManifest.xml."
+  (or
+    (file-exists-p (concat (file-name-directory file-name) "CastleEngineManifest.xml"))
+    (and
+      (not (equal (file-name-directory file-name) "/"))
+      (kam-is-castle-engine-project-p
+        (file-name-directory (directory-file-name (file-name-directory file-name))))
+    )
+  )
+)
+
+(defun kam-pascal-compile-command (file-name)
+  "Return compile-command for file-name calculated the way I like
+for Pascal sources. Detects my various projects and their compilation setup."
+  (let
+    (
+      ;; for buffer-file-name like
+      ;; .../castle_game_engine/examples/3d_rendering_processing/multiple_viewports.lpr
+      ;; return "multiple_viewports".
+      (file-base-name (file-name-sans-extension
+        (file-name-nondirectory file-name)))
+
+      ;; for buffer-file-name like
+      ;; .../castle_game_engine/examples/3d_rendering_processing/multiple_viewports.lpr
+      ;; return "3d_rendering_processing".
+      ;; (last-dir-name (file-name-nondirectory
+      ;;   (directory-file-name (file-name-directory file-name))))
+
+      ;; for buffer-file-name like
+      ;; .../castle_game_engine/examples/3d_rendering_processing/multiple_viewports.lpr
+      ;; return ".../castle_game_engine/examples/3d_rendering_processing/".
+      (dir-name (file-name-directory file-name))
+
+      ;; for buffer-file-name like
+      ;; .../castle_game_engine/examples/3d_rendering_processing/multiple_viewports.lpr
+      ;; return ".../castle_game_engine/examples/".
+      (dir-parent (file-name-directory (directory-file-name (file-name-directory file-name))))
+
+      ;; for buffer-file-name like
+      ;; .../castle_game_engine/examples/3d_rendering_processing/multiple_viewports.lpr
+      ;; return ".../castle_game_engine/examples/3d_rendering_processing/multiple_viewports_compile.sh".
+      (compile-script (concat
+        (file-name-sans-extension file-name)
+        "_compile.sh"))
+
+      (is-runnable (or
+        (string-match-p ".pasprogram$" file-name)
+        (string-match-p ".dpr$" file-name)
+        (string-match-p ".lpr$" file-name)
+      ))
+    )
+
+    (if (string-is-suffix "pasdoc/trunk/source/" dir-parent)
+        (concat "cd ../.. && make")
+      (if (string-is-suffix "tools/build-tool/" dir-name)
+          (concat "sh castle-engine_compile.sh && /bin/mv castle-engine" kam-os-exe-extension " ~/bin/")
+        (if (string-is-suffix "castle_game_engine/tests/" dir-name)
+            (concat "./compile_console.sh && ./test_castle_game_engine -a")
+          (if (file-exists-p compile-script)
+              (concat "sh " file-base-name "_compile.sh && ./" file-base-name kam-os-exe-extension)
+            (if (kam-is-castle-engine-project-p file-name)
+                (concat "castle-engine compile --mode=debug && castle-engine run")
+              (if (string-match-p "castle_game_engine" dir-name)
+                  (concat "castle-engine simple-compile " (file-name-nondirectory file-name) (when is-runnable " && ./" file-base-name))
+                (concat "fpc " (file-name-nondirectory file-name) (when is-runnable " && ./" file-base-name))
+              )
+            )
+          )
+        )
+      )
+    )
+  ) ;; let
+) ;; defun
+
+(defun kam-pascal-compilation-filter-remove-lines (line-regexp)
+  "Use within compilation-filter-hook implementations.
+From https://github.com/haskell/haskell-mode/blob/master/haskell-compile.el ."
+  (delete-matching-lines line-regexp
+    (if (boundp 'compilation-filter-start) ;; available since Emacs 24.2
+        (save-excursion (goto-char compilation-filter-start)
+                        (line-beginning-position))
+      (point-min))
+    (point))
+)
+
+(defun kam-pascal-compilation-filter ()
+  "Filter FPC output.
+
+Note: It's unhandy to do it in compile-command using grep --invert-match,
+because
+
+1.It breaks exit status of command, thus breaking sequence like
+  ./foo_compile.sh fpc-filter && ./aaa
+  Unless you use pipefail or other solutions
+  http://unix.stackexchange.com/questions/14270/get-exit-status-of-process-thats-piped-to-another
+
+2.But this all makes your compile-command awfully long, which is bas
+  because it's often useful to adjust it when running from a particular
+  buffer. So it's not a good idea to make it ultra-complicated.
+
+I also don't want to move this into some private compilation script.
+My castle-engine tool should handle all stuff and eliminate the need
+for a special compilation script... But I don't workaround there FPC output
+problems, at least for now."
+  (kam-pascal-compilation-filter-remove-lines "^$")
+  ;; TODO: why 2 lines below never work?
+  (kam-pascal-compilation-filter-remove-lines "contains output sections")
+  (kam-pascal-compilation-filter-remove-lines "not found, this will probably cause a linking failure")
+)
+
 ;; I could add this to kambi-pascal-mode function, instead of defining
 ;; my hook. But I simply prefer to use hooks as far as I can.
 ;; Moreover adjustments below are my personal preferences, so they should
 ;; be in hook, not in kambi-pascal-mode.
 (add-hook 'kambi-pascal-mode-hook
   (lambda ()
-    (if (string-is-suffix "castle_game_engine/tools/"  (file-name-directory (buffer-file-name)))
-        (set-local-compile-command (concat
-          "sh castle-engine_compile.sh | grep --invert-match --line-regexp '' && /bin/mv castle-engine"
-          (if kam-is-windows ".exe" "")
-          " ~/bin/"))
-      (set-local-compile-command "castle-engine compile --mode=debug | grep --invert-match --line-regexp ''")
-    )
-  ) t)
-
-;; for pasdoc
-(add-hook 'kambi-pascal-mode-hook
-  (lambda ()
-    (when (or
-        (string-is-prefix (concat kam-home-directory "/sources/pasdoc/trunk/source/") (buffer-file-name))
-        (string-is-prefix "h:/sources/pasdoc/trunk/source/" (buffer-file-name))
-      )
-     (set-local-compile-command "cd ../..; make"))
+    (set-local-compile-command (kam-pascal-compile-command (buffer-file-name)))
+    (add-hook 'compilation-filter-hook 'kam-pascal-compilation-filter t)
   ) t)
 
 ;; FPC kiedy drukuje komunikat error/warning/itp. podaje nazwe pliku
