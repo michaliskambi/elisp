@@ -455,7 +455,7 @@ for Pascal sources. Detects my various projects and their compilation setup."
             (if (kam-is-castle-engine-project-p file-name)
                 (concat "castle-engine compile --mode=debug && castle-engine run")
               (if (string-match-p "castle_game_engine" dir-name)
-                  (concat "castle-engine simple-compile " (file-name-nondirectory file-name) (when is-runnable (concat " && ./" file-base-name)))
+                  (concat "castle-engine simple-compile --mode=debug " (file-name-nondirectory file-name) (when is-runnable (concat " && ./" file-base-name)))
                 (concat "fpc " (file-name-nondirectory file-name) (when is-runnable (concat " && ./" file-base-name)))
               )
             )
