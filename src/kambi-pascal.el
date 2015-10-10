@@ -469,12 +469,16 @@ for Pascal sources. Detects my various projects and their compilation setup."
 (defun kam-pascal-compilation-filter-remove-lines (line-regexp)
   "Use within compilation-filter-hook implementations.
 From https://github.com/haskell/haskell-mode/blob/master/haskell-compile.el ."
-  (delete-matching-lines line-regexp
-    (if (boundp 'compilation-filter-start) ;; available since Emacs 24.2
-        (save-excursion (goto-char compilation-filter-start)
-                        (line-beginning-position))
-      (point-min))
-    (point))
+  ;; because delete-matching-lines changes point, it seems
+  ;; without this, only 1st kam-pascal-compilation-filter-remove-lines
+  ;; call works. save-excursion around goto-char is *not* enough.
+  (save-excursion
+    (delete-matching-lines line-regexp
+      (if (boundp 'compilation-filter-start) ;; available since Emacs 24.2
+          (save-excursion (goto-char compilation-filter-start)
+                          (line-beginning-position))
+        (point-min))
+      (point)))
 )
 
 (defun kam-pascal-compilation-filter ()
@@ -497,9 +501,14 @@ My castle-engine tool should handle all stuff and eliminate the need
 for a special compilation script... But I don't workaround there FPC output
 problems, at least for now."
   (kam-pascal-compilation-filter-remove-lines "^$")
-  ;; TODO: why 2 lines below never work?
   (kam-pascal-compilation-filter-remove-lines "contains output sections")
   (kam-pascal-compilation-filter-remove-lines "not found, this will probably cause a linking failure")
+  ;; 1 less extra line from output, to make it shorter
+  ;; (but still see FPC version by fpc -l).
+  ;; FPC is the basis of my game engine, which is the coolest thing I ever did,
+  ;; and I love you Florian Klaempfl --- but I don't need to see this line
+  ;; on every compilation.
+  (kam-pascal-compilation-filter-remove-lines "Copyright (c) .* by Florian Klaempfl and others")
 )
 
 ;; I could add this to kambi-pascal-mode function, instead of defining
