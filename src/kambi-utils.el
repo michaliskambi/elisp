@@ -1072,6 +1072,13 @@ regardless of current position and regardless of mark position
   (interactive)
   (compile compile-command))
 
+(defun kam-build-immediate ()
+  "Clear CGE, and run compile again, withot asking for a command."
+  (interactive)
+  (unless (string-is-prefix "cc && ")
+    (setq compile-command (concat "cc && " compile-command)))
+  (compile compile-command))
+
 ;; ------------------------------------------------------------
 
 (provide 'kambi-utils)
