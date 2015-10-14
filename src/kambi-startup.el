@@ -801,7 +801,7 @@ parses local variables written in buffer."
 (global-set-key (kbd "C-w") 'kill-this-buffer)
 
 (global-set-key (kbd "<C-f9>") 'compile)
-(global-set-key (kbd "<S-f9>") 'kam-build-immediate)
+(global-set-key (kbd "<S-f9>") 'kam-build-clean)
 (global-set-key (kbd "<f9>") 'kam-compile-immediate)
 (global-set-key (kbd "<C-f10>") 'kam-compile-release)
 (global-set-key (kbd "<f4>") 'next-error)
