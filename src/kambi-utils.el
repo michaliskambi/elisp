@@ -1075,7 +1075,7 @@ regardless of current position and regardless of mark position
 (defun kam-build-immediate ()
   "Clear CGE, and run compile again, withot asking for a command."
   (interactive)
-  (unless (string-is-prefix "cc && ")
+  (unless (string-is-prefix "cc && " compile-command)
     (setq compile-command (concat "cc && " compile-command)))
   (compile compile-command))
 
