@@ -131,6 +131,7 @@ names mentioned here."
       (castle-engine-path "castle_game_engine/src/ui/opengl/")
       (castle-engine-path "castle_game_engine/src/game/")
       (castle-engine-path "castle_game_engine/src/net/")
+      (castle-engine-path "castle_game_engine/src/services/")
       ;; castle-engine platform-specific (add to search path regardless
       ;; of kam-is-windows, kam-is-unix, because filenames must be unique
       ;; (for Lazarus packages) anyway)
