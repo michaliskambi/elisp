@@ -255,6 +255,14 @@ and brackets and indentation.")
 (add-to-list 'auto-mode-alist '("\\.less\\'" . kambi-css-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . kambi-css-mode))
 
+;; nxml mode -----------------------------------------------------------------
+
+(add-hook 'nxml-mode-hook
+  (lambda ()
+    ;; nxml overrides this with it's utility, we override it back
+    (local-set-key (kbd "C-M-u") 'uncomment-region)
+  ) t)
+
 ;; provide ------------------------------------------------------------
 
 (provide 'kambi-www)
