@@ -234,7 +234,10 @@ differs from the default."
      to try type unit uses until var while with xor
 
      ;; These routines should be keywords, if Borland had the balls.
-     break exit)
+     break exit
+     
+     ;; Michalis extra
+     strict)
 
    ;; We want directives to look like keywords.
    delphi-directives)

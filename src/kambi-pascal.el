@@ -558,7 +558,10 @@ problems, at least for now."
       "of" "object" "on" "or" "out" "package" "packed" "procedure" "program" "property"
       "raise" "record" "repeat" "requires" "result" "self" "set" "shl" "shr" "then" "threadvar"
       "to" "try" "type" "unit" "uses" "until" "var" "while" "with" "xor"
-      "break" "exit") #'(lambda (a b) (> (length a) (length b)))))
+      "break" "exit"
+      ;; extra
+      "strict"
+      ) #'(lambda (a b) (> (length a) (length b)))))
 
 (defvar kam-ac-source-pascal
   '((candidates
