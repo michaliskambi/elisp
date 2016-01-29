@@ -73,11 +73,33 @@ delphi-mode-hook are also called by this mode."
 
 ;; kilka stalych do operowania do filenames --------------------
 
+(defconst castle-engine-path-base
+  (let
+    ((env-value (getenv "CASTLE_ENGINE_PATH")))
+    ;; <rant>
+    ;; file-accessible-directory-p is a brain-dead name for "directory exists"
+    ;; function. Why does everything in Emacs and EmacsLisp must have
+    ;; weird and/or outdated names, that do not match any nomenclature
+    ;; used in modern programming languages and editors?
+    ;; </rant>
+    (if (and (stringp env-value) (file-accessible-directory-p env-value))
+        (if (file-accessible-directory-p (kam-file-name-in-directory env-value "castle_game_engine"))
+            (kam-file-name-in-directory env-value "castle_game_engine")
+          (if (file-accessible-directory-p (kam-file-name-in-directory env-value "castle-engine"))
+              (kam-file-name-in-directory env-value "castle-engine")
+            env-value))
+      (kam-file-name-in-directory kam-home-directory "/sources/castle-engine/trunk/castle_game_engine")
+    )
+  )
+  "Path to Castle Game Engine units. From $CASTLE_ENGINE_PATH
+environment variable, if possible."
+)
+
 (unless (fboundp 'castle-engine-path)
   ;; Do not define `castle-engine-path' if it's already there.
   ;; This allows to override this in ~/.emacs before executing kambi-startup.
   (defun castle-engine-path (s)
-    (concat kam-home-directory "/sources/castle-engine/trunk/" s)))
+    (kam-file-name-in-directory castle-engine-path-base s)))
 
 (defun fpc-source-path (s)
   (concat kam-home-directory "/installed/fpc/current/src/" s))
@@ -109,37 +131,37 @@ names mentioned here."
   (append
     (list
       ;; castle-engine
-      (castle-engine-path "castle_game_engine/src/base/")
-      (castle-engine-path "castle_game_engine/src/base/android/")
-      (castle-engine-path "castle_game_engine/src/base/unix/")
-      (castle-engine-path "castle_game_engine/src/base/windows/")
-      (castle-engine-path "castle_game_engine/src/opengl/")
-      (castle-engine-path "castle_game_engine/src/images/")
-      (castle-engine-path "castle_game_engine/src/3d/")
-      (castle-engine-path "castle_game_engine/src/3d/opengl/")
-      (castle-engine-path "castle_game_engine/src/window/")
-      (castle-engine-path "castle_game_engine/src/window/gtk/")
-      (castle-engine-path "castle_game_engine/src/window/unix/")
-      (castle-engine-path "castle_game_engine/src/window/windows/")
-      (castle-engine-path "castle_game_engine/src/x3d/")
-      (castle-engine-path "castle_game_engine/src/x3d/opengl/")
-      (castle-engine-path "castle_game_engine/src/x3d/opengl/glsl/")
-      (castle-engine-path "castle_game_engine/src/audio/")
-      (castle-engine-path "castle_game_engine/src/fonts/")
-      (castle-engine-path "castle_game_engine/src/castlescript/")
-      (castle-engine-path "castle_game_engine/src/ui/")
-      (castle-engine-path "castle_game_engine/src/ui/opengl/")
-      (castle-engine-path "castle_game_engine/src/game/")
-      (castle-engine-path "castle_game_engine/src/net/")
-      (castle-engine-path "castle_game_engine/src/services/")
+      (castle-engine-path "src/base/")
+      (castle-engine-path "src/base/android/")
+      (castle-engine-path "src/base/unix/")
+      (castle-engine-path "src/base/windows/")
+      (castle-engine-path "src/opengl/")
+      (castle-engine-path "src/images/")
+      (castle-engine-path "src/3d/")
+      (castle-engine-path "src/3d/opengl/")
+      (castle-engine-path "src/window/")
+      (castle-engine-path "src/window/gtk/")
+      (castle-engine-path "src/window/unix/")
+      (castle-engine-path "src/window/windows/")
+      (castle-engine-path "src/x3d/")
+      (castle-engine-path "src/x3d/opengl/")
+      (castle-engine-path "src/x3d/opengl/glsl/")
+      (castle-engine-path "src/audio/")
+      (castle-engine-path "src/fonts/")
+      (castle-engine-path "src/castlescript/")
+      (castle-engine-path "src/ui/")
+      (castle-engine-path "src/ui/opengl/")
+      (castle-engine-path "src/game/")
+      (castle-engine-path "src/net/")
+      (castle-engine-path "src/services/")
       ;; castle-engine platform-specific (add to search path regardless
       ;; of kam-is-windows, kam-is-unix, because filenames must be unique
       ;; (for Lazarus packages) anyway)
-      (castle-engine-path "castle_game_engine/src/base/windows/")
-      (castle-engine-path "castle_game_engine/src/fonts/windows/")
-      (castle-engine-path "castle_game_engine/src/opengl/windows/")
-      (castle-engine-path "castle_game_engine/src/base/unix/")
-      (castle-engine-path "castle_game_engine/src/opengl/unix/")
+      (castle-engine-path "src/base/windows/")
+      (castle-engine-path "src/fonts/windows/")
+      (castle-engine-path "src/opengl/windows/")
+      (castle-engine-path "src/base/unix/")
+      (castle-engine-path "src/opengl/unix/")
       ;; pasdoc
       (concat kam-home-directory "/sources/pasdoc/trunk/source/component/")
       (concat kam-home-directory "/sources/pasdoc/trunk/source/console/")
