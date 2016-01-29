@@ -130,13 +130,20 @@ names mentioned here."
 (defconst pascal-units-paths
   (append
     (list
-      ;; castle-engine
+      ;; castle-engine.
+      ;; Includes platform-specific paths
+      ;; (added to search path regardless of kam-is-windows, kam-is-unix,
+      ;; because filenames must be unique (for Lazarus packages) anyway).
       (castle-engine-path "src/base/")
       (castle-engine-path "src/base/android/")
       (castle-engine-path "src/base/unix/")
       (castle-engine-path "src/base/windows/")
+      (castle-engine-path "src/base/opengl/")
       (castle-engine-path "src/opengl/")
+      (castle-engine-path "src/opengl/windows/")
+      (castle-engine-path "src/opengl/unix/")
       (castle-engine-path "src/images/")
+      (castle-engine-path "src/images/opengl/")
       (castle-engine-path "src/3d/")
       (castle-engine-path "src/3d/opengl/")
       (castle-engine-path "src/window/")
@@ -148,20 +155,15 @@ names mentioned here."
       (castle-engine-path "src/x3d/opengl/glsl/")
       (castle-engine-path "src/audio/")
       (castle-engine-path "src/fonts/")
+      (castle-engine-path "src/fonts/opengl/")
+      (castle-engine-path "src/fonts/windows/")
       (castle-engine-path "src/castlescript/")
+      (castle-engine-path "src/castlescript/opengl/")
       (castle-engine-path "src/ui/")
       (castle-engine-path "src/ui/opengl/")
       (castle-engine-path "src/game/")
       (castle-engine-path "src/net/")
       (castle-engine-path "src/services/")
-      ;; castle-engine platform-specific (add to search path regardless
-      ;; of kam-is-windows, kam-is-unix, because filenames must be unique
-      ;; (for Lazarus packages) anyway)
-      (castle-engine-path "src/base/windows/")
-      (castle-engine-path "src/fonts/windows/")
-      (castle-engine-path "src/opengl/windows/")
-      (castle-engine-path "src/base/unix/")
-      (castle-engine-path "src/opengl/unix/")
       ;; pasdoc
       (concat kam-home-directory "/sources/pasdoc/trunk/source/component/")
       (concat kam-home-directory "/sources/pasdoc/trunk/source/console/")
@@ -473,13 +475,19 @@ for Pascal sources. Detects my various projects and their compilation setup."
           (concat "sh castle-engine_compile.sh && /bin/mv castle-engine" kam-os-exe-extension " ~/bin/")
         (if (string-is-suffix "castle_game_engine/tests/" dir-name)
             (concat "./compile_console.sh && ./test_castle_game_engine -a")
-          (if (file-exists-p compile-script)
-              (concat "sh " file-base-name "_compile.sh && ./" file-base-name kam-os-exe-extension)
-            (if (kam-is-castle-engine-project-p file-name)
-                (concat "castle-engine compile --mode=debug && castle-engine run")
-              (if (string-match-p "castle_game_engine" dir-name)
-                  (concat "castle-engine simple-compile --mode=debug " (file-name-nondirectory file-name) (when is-runnable (concat " && ./" file-base-name)))
-                (concat "fpc " (file-name-nondirectory file-name) (when is-runnable (concat " && ./" file-base-name)))
+          (if (string-is-suffix "castle-engine/tests/" dir-name)
+              (concat "./compile_console.sh && ./test_castle_game_engine -a")
+            (if (file-exists-p compile-script)
+                (concat "sh " file-base-name "_compile.sh && ./" file-base-name kam-os-exe-extension)
+              (if (kam-is-castle-engine-project-p file-name)
+                  (concat "castle-engine compile --mode=debug && castle-engine run")
+                (if (string-match-p "castle_game_engine" dir-name)
+                    (concat "castle-engine simple-compile --mode=debug " (file-name-nondirectory file-name) (when is-runnable (concat " && ./" file-base-name)))
+                  (if (string-match-p "castle-engine" dir-name)
+                      (concat "castle-engine simple-compile --mode=debug " (file-name-nondirectory file-name) (when is-runnable (concat " && ./" file-base-name)))
+                    (concat "fpc " (file-name-nondirectory file-name) (when is-runnable (concat " && ./" file-base-name)))
+                  )
+                )
               )
             )
           )
