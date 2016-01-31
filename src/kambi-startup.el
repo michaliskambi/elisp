@@ -232,7 +232,7 @@ may be screwed up after running some program that changed screen size
       ".cmo" ".cmi" ".cmx" ; ocamlc/opt
       ".blend1"            ; blender
       ".bak"               ; various editors (e.g. Lazarus by default)
-      ".lpi" ".compiled"   ; Lazarus
+      ".lpi" ".compiled" ".lps" ; Lazarus
      )
 ))
 

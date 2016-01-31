@@ -110,11 +110,13 @@ names mentioned here."
     (list
       ;; castle-engine
       (castle-engine-path "castle_game_engine/src/base/")
+      (castle-engine-path "castle_game_engine/src/base/opengl/")
       (castle-engine-path "castle_game_engine/src/base/android/")
       (castle-engine-path "castle_game_engine/src/base/unix/")
       (castle-engine-path "castle_game_engine/src/base/windows/")
       (castle-engine-path "castle_game_engine/src/opengl/")
       (castle-engine-path "castle_game_engine/src/images/")
+      (castle-engine-path "castle_game_engine/src/images/opengl/")
       (castle-engine-path "castle_game_engine/src/3d/")
       (castle-engine-path "castle_game_engine/src/3d/opengl/")
       (castle-engine-path "castle_game_engine/src/window/")
@@ -126,7 +128,9 @@ names mentioned here."
       (castle-engine-path "castle_game_engine/src/x3d/opengl/glsl/")
       (castle-engine-path "castle_game_engine/src/audio/")
       (castle-engine-path "castle_game_engine/src/fonts/")
+      (castle-engine-path "castle_game_engine/src/fonts/opengl/")
       (castle-engine-path "castle_game_engine/src/castlescript/")
+      (castle-engine-path "castle_game_engine/src/castlescript/opengl/")
       (castle-engine-path "castle_game_engine/src/ui/")
       (castle-engine-path "castle_game_engine/src/ui/opengl/")
       (castle-engine-path "castle_game_engine/src/game/")

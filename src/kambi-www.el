@@ -71,8 +71,11 @@
 (add-hook 'html-mode-hook
   'php-suspicious-code-check-add-write-contents-hooks t)
 
-(defun kam-bind-ctrl-z-undo () (local-set-key (kbd "C-z") 'undo))
-(add-hook 'html-mode-hook 'kam-bind-ctrl-z-undo t)
+(defun kam-customize-html-mode-hook ()
+  (local-set-key (kbd "C-z") 'undo)
+  (local-set-key (kbd "C-c C-f") 'sgml-close-tag)
+)
+(add-hook 'html-mode-hook 'kam-customize-html-mode-hook t)
 
 ;; If this is non-nil, then when you init html-mode on empty buffer
 ;; (e.g. when creating new buffer with filename *.html) then
@@ -143,11 +146,7 @@ Requires mmm-mode, php-mode, css-mode (others?) available."
 )
 
 ;; call one of configure-*-www
-(if (and php-mode-available ;;mmm-available
-      ;; For now: just don't use mmm-mode for php/html,
-      ;; it really doesn't work smoothly (not always colors like it should),
-      ;; and can make enormous slowdown on large files.
-      nil)
+(if (and php-mode-available mmm-available)
     (configure-mmm-www)
   (configure-no-mmm-www)
 )
