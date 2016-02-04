@@ -497,6 +497,11 @@ for Pascal sources. Detects my various projects and their compilation setup."
   ) ;; let
 ) ;; defun
 
+(defun kam-clean-cge ()
+  "Clear CGE (useful to recompile it cleanly, or after FPC internal error)."
+  (interactive)
+  (async-shell-command "cc"))
+
 (defun kam-pascal-compilation-filter-remove-lines (line-regexp)
   "Use within compilation-filter-hook implementations.
 From https://github.com/haskell/haskell-mode/blob/master/haskell-compile.el ."

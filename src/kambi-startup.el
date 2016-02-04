@@ -556,18 +556,21 @@ there).")
   (setq dired-backup-overwrite t))
 (add-hook 'dired-mode-hook 'set-dired-backup-overwrite)
 
-;; kam-delete-by-moving-to-trash must be called (or not) in ~/.emacs,
-;; I don't want to turn in on by default on all systems.
 (defun kam-delete-by-moving-to-trash (directory)
-  (when (>= emacs-major-version 23)
+  (when (and (file-accessible-directory-p directory)
+              (>= emacs-major-version 23))
     (setq delete-by-moving-to-trash t)
     (setq trash-directory directory)))
+(kam-delete-by-moving-to-trash "~/tmp")
 
 (define-derived-mode kambi-text-eof-mode text-mode
   "Kambi-Text-EOF"
   "A trivial extension of text mode to automatically jump to
 the end of the file when opening."
   (kam-end-of-buf))
+
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 
 ;; emacs-goodies ----------------------------------------------------------------
 
@@ -644,37 +647,6 @@ the end of the file when opening."
 
 (when (fboundp 'savehist-mode) ;; savehist-mode is only in emacs >= 22
   (savehist-mode 1))
-
-;; kam-compile-relase -----------------------------------------------------
-
-(defvar kam-compile-release-command-unix "fpcreleaseb"
-  "Determines how `kam-compile-release' will behave on UNIX system.")
-
-(defvar kam-compile-release-command-windows "fpcreleaseb"
-  "Determines how `kam-compile-release' will behave on Windows system.")
-
-(defun kam-compile-release ()
-  "Calls `compile' with COMMAND set to
- (concat compile-relase-command-??? \" \" (extract-file-name buffer-file-name)),
-e.g. if you're on UNIX, `kam-compile-relase-command-unix' is
-\"fpcrelease -dNOT_USE_LIBPNG\"
-and current buffer filename is \"/win/mojepasy/openGL/glcaps/glcaps.dpr\" then this
-function will call (compile \"fpcrelease -dNOT_USE_LIBPNG glcaps.dpr\").
-
-Why not use ONE variable (like kam-compile-relase-command) for each operating system ?
-Why not just define something like (i-want-to-compile-release) and add in Local
-Variables something like eval: (if i-want-to-compile-release (setq compile-command
-\"bla-bla\")) ?
-Because I want to use different commands on different OSes and I want
-to set these variables in file's Local Variables section without triggering Emacs
-question \"Do you want to evaluate local vars in this file ?\""
-  (interactive)
-  (compile-prompt
-    (concat
-    (if kam-is-windows
-        kam-compile-release-command-windows
-      kam-compile-release-command-unix)))
-)
 
 ;; key bindings helper funcs ----------------------------------------------------
 
@@ -800,11 +772,13 @@ parses local variables written in buffer."
 (global-set-key (kbd "<C-f4>") 'kill-this-buffer)
 (global-set-key (kbd "C-w") 'kill-this-buffer)
 
-(global-set-key (kbd "<C-f9>") 'compile)
-(global-set-key (kbd "<S-f9>") 'kam-build-clean)
 (global-set-key (kbd "<f9>") 'kam-compile-immediate)
-(global-set-key (kbd "<C-f10>") 'kam-compile-release)
+(global-set-key (kbd "<C-f9>") 'compile)
+(global-set-key (kbd "<S-f9>") 'kam-clean-cge)
+(global-set-key (kbd "<S-f10>") 'kam-clean-here)
+
 (global-set-key (kbd "<f4>") 'next-error)
+
 (global-set-key (kbd "<C-tab>") 'switch-buf)
 (global-set-key (kbd "C-x k") 'browse-kill-ring)
 ;; (global-set-key (kbd "<C-SPC>") 'dabbrev-completion) ; default is uncomfortable C-M-\

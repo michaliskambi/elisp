@@ -1072,10 +1072,13 @@ regardless of current position and regardless of mark position
   (interactive)
   (compile compile-command))
 
-(defun kam-build-clean ()
-  "Clear CGE (useful to recompile it cleanly, or after FPC internal error)."
+(defun kam-clean-here ()
+  "Clear this project."
   (interactive)
-  (async-shell-command "cc"))
+  (if (kam-is-castle-engine-project-p (buffer-file-name))
+      (async-shell-command "castle-engine clean")
+    (async-shell-command "dircleaner . clean")
+  ))
 
 ;; ------------------------------------------------------------
 
