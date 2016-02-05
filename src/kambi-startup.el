@@ -774,8 +774,8 @@ parses local variables written in buffer."
 
 (global-set-key (kbd "<f9>") 'kam-compile-immediate)
 (global-set-key (kbd "<C-f9>") 'compile)
-(global-set-key (kbd "<S-f9>") 'kam-clean-cge)
-(global-set-key (kbd "<S-f10>") 'kam-clean-here)
+(global-set-key (kbd "<S-f9>") 'kam-clean-here)
+(global-set-key (kbd "<S-f10>") 'kam-clean-cge)
 
 (global-set-key (kbd "<f4>") 'next-error)
 
