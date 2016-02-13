@@ -162,9 +162,17 @@ may be screwed up after running some program that changed screen size
 (add-hook 'compilation-mode-hook
   (lambda () (setq truncate-lines nil)) t)
 
-;; on .pl extension run prolog mode, not perl. Color Prolog source.
-(add-to-list 'auto-mode-alist '("\\.pl\\'" . prolog-mode))
+;; Prolog
+;; On .pl extension run prolog mode, not perl (later commented out, back to Perl:).
+;; (add-to-list 'auto-mode-alist '("\\.pl\\'" . prolog-mode))
+;; Color Prolog source.
 (add-hook 'prolog-mode-hook 'font-lock-mode)
+
+;; Perl
+(add-hook 'perl-mode-hook
+  (lambda ()
+    (set-local-compile-command (concat "perl " (buffer-file-name)))
+  ) t)
 
 ;; load shell-script-mode for VRML/classic X3D and PO.
 ;; Works good enough: syntax of strings (double quotes, backslash)
