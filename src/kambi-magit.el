@@ -9,7 +9,8 @@
   (local-set-key (kbd "C-2") 'magit-show-level-2-all)
   (local-set-key (kbd "C-3") 'magit-show-level-3-all)
   (local-set-key (kbd "C-4") 'magit-show-level-4-all)
-  (local-set-key (kbd "C-w") 'kill-this-buffer)
+  ;; this is the usual way to view diffs in magit
+  (local-set-key (kbd "=") 'magit-show-level-4-all)
 )
 (add-hook 'magit-mode-hook 'kam-magit-mode-hook t)
 
