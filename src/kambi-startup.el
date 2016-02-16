@@ -1092,6 +1092,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 (require 'kambi-log)
 (require 'kambi-csharp)
 (require 'kambi-shell)
+(require 'kambi-magit)
 
 ;; ------------------------------------------------------------
 
