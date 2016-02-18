@@ -32,6 +32,7 @@
  '(ispell-highlight-face (quote highlight))
  '(jka-compr-load-suffixes (quote (".gz" ".x3dz")))
  '(js-auto-indent-flag nil)
+ '(magit-pull-arguments (quote ("--rebase")))
  '(mmm-submode-decoration-level 0)
  '(org-replace-disputed-keys t)
  '(org-support-shift-select (quote always))
@@ -41,9 +42,7 @@
  '(recentf-auto-cleanup (quote never))
  '(recentf-exclude nil)
  '(recentf-max-saved-items 100)
- '(safe-local-variable-values
-   (quote
-    ((encoding . cp852))))
+ '(safe-local-variable-values (quote ((encoding . cp852))))
  '(scroll-conservatively 100000)
  '(truncate-lines t)
  '(vc-handled-backends (quote (RCS SCCS)))
