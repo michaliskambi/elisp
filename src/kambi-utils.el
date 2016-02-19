@@ -586,20 +586,19 @@ jeszcze z edytorow Borlanda."
 ;; including gpl ----------------------------------------
 
 (defun kam-gpl-licensed (program-name copyright-years copyright-holder)
-  "Returns english text stating that this file is part of PROGRAM-NAME
+  "Returns English text stating that this file is part of PROGRAM-NAME
 and that it is distributed on GNU GPL (without any warranty).
 At the beginning we also add appropriate Copyright line,
 with given COPYRIGHT-YEARS and COPYRIGHT-HOLDER names.
 See http://www.gnu.org/licenses/gpl-howto.html.
 
-Tekst jest wciêty 2 spacjami, na koñcu jest znak nowej linii.
-PROGRAM-NAME nie jest automatycznie otoczony cudzys³owami -
-je¶li chcesz ¿eby by³ dopisz je explicite przekazuj±c parametr PROGRAM-NAME
-do tej funkcji.
+Text is indented by 2 spaces, there is newline at the end.
+PROGRAM-NAME is not automatically surrounded in double-quotes -
+add them yourself if you want.
 
-Przyk³ad u¿ycia:
+Usage example:
  (insert
-  (gpl-licensed \"\\\"Bad Blaster\\\"\" \"2004\" \"Michalis Kamburelis\")
+  (kam-gpl-licensed \"\\\"Bad Blaster\\\"\" \"2004\" \"Michalis Kamburelis\")
 )"
   (concat
   "  Copyright " copyright-years " " copyright-holder ".
@@ -624,11 +623,9 @@ Przyk³ad u¿ycia:
 )
 
 (defun kam-gpl-licensed-comment (program-name copyright-years copyright-holder)
-  "Zwraca (`gpl-licensed' program-name copyright-years copyright-holder)
-  otoczone przez comment-begin
-i comment-end (wiêc to nie mog± byæ komentarze jednolinijkowe; mo¿e w
-przysz³o¶ci rozszerzê t± funkcjê ¿eby dzia³a³a tak¿e gdy komentarze s±
-jedno-linijkowe). Na koñcu jest znak nowej linii."
+  "Returns typical GPL license and copyright header,
+surrounded by comment markers. Uses comment-begin and comment-end,
+so these cannot be one-line comment markers. There is a newline at the end."
   (concat comment-start "\n"
     (kam-gpl-licensed program-name copyright-years copyright-holder)
     comment-end "\n")
@@ -1078,6 +1075,15 @@ regardless of current position and regardless of mark position
   (if (kam-is-castle-engine-project-p (buffer-file-name))
       (async-shell-command "castle-engine clean")
     (async-shell-command "dircleaner . clean")
+  ))
+
+(defun kam-run-here ()
+  "Run this project."
+  (interactive)
+  (if (kam-is-castle-engine-project-p (buffer-file-name))
+      (async-shell-command "castle-engine run")
+    (async-shell-command (concat "./"
+      (file-name-sans-extension (file-name-nondirectory file-name))))
   ))
 
 ;; ------------------------------------------------------------
