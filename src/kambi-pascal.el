@@ -578,25 +578,9 @@ problems, at least for now."
 
 (defconst kam-ac-pascal-keywords
   (sort
-    (list
-      ;; Taken from delphi-directives value, but expressed as strings.
-      "absolute" "abstract" "assembler" "automated" "cdecl" "default" "dispid" "dynamic"
-      "export" "external" "far" "forward" "index" "inline" "message" "name" "near" "nodefault"
-      "overload" "override" "pascal" "private" "protected" "public" "published" "read" "readonly"
-      "register" "reintroduce" "resident" "resourcestring" "safecall" "stdcall" "stored"
-      "virtual" "write" "writeonly"
-      ;; Taken from delphi-keywords value, but expressed as strings.
-      "and" "array" "as" "asm" "at" "begin" "case" "class" "const" "constructor" "contains"
-      "destructor" "dispinterface" "div" "do" "downto" "else" "end" "except" "exports"
-      "file" "finalization" "finally" "for" "function" "goto" "if" "implementation" "implements"
-      "in" "inherited" "initialization" "interface" "is" "label" "library" "mod" "nil" "not"
-      "of" "object" "on" "or" "out" "package" "packed" "procedure" "program" "property"
-      "raise" "record" "repeat" "requires" "result" "self" "set" "shl" "shr" "then" "threadvar"
-      "to" "try" "type" "unit" "uses" "until" "var" "while" "with" "xor"
-      "break" "exit"
-      ;; extra
-      "strict"
-      ) #'(lambda (a b) (> (length a) (length b)))))
+    ;; keywords and directives, as strings.
+    (mapcar 'symbol-name delphi-keywords)
+    #'(lambda (a b) (> (length a) (length b)))))
 
 (defvar kam-ac-source-pascal
   '((candidates
@@ -604,10 +588,31 @@ problems, at least for now."
          (all-completions ac-target kam-ac-pascal-keywords))))
   "Source for Pascal keywords.")
 
-;; (add-hook 'kambi-pascal-mode-hook
-;;   (lambda ()
-;;     (make-local-variable 'ac-sources)
-;;     (add-to-list 'ac-sources 'kam-ac-source-pascal)))
+(add-hook 'kambi-pascal-mode-hook
+  (lambda ()
+    (make-local-variable 'ac-sources)
+    (add-to-list 'ac-sources 'kam-ac-source-pascal)))
+
+;; ---------------------------------------------------------------------------
+;; just some Pascal helpers, to be invoked explicitly 
+
+(defun kam-insert-guid ()
+  (interactive)
+  (call-process "gen_guid" nil t)
+)
+
+(defun kam-clear-pascal-method-implementation ()
+  "Remove Pascal functions bodies. Useful when simplifying multi-unit
+testcase for FPC bug report, and trimming away code that doesn't affect bug."
+  (interactive)
+  ;; [^`] is used just as "any character including newline"
+  ;; [^e] is added to not catch "begin end; another proc begin end;"
+
+  ;; remove first function bodies with preceding "var" sections
+;;  (query-replace-regexp "\nvar\n[^`]+?\nbegin\n" "\\nbegin\n")
+
+  (query-replace-regexp "\nbegin\n[^e][^`]+?\nend;\n" "\nbegin { single line, to not match anymore } end;\n")
+)
 
 ;; ------------------------------------------------------------
 

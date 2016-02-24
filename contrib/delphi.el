@@ -236,8 +236,8 @@ differs from the default."
      ;; These routines should be keywords, if Borland had the balls.
      break exit
      
-     ;; Michalis extra
-     strict)
+     ;; Michalis additions
+     strict specialize generic)
 
    ;; We want directives to look like keywords.
    delphi-directives)

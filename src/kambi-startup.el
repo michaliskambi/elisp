@@ -1079,7 +1079,6 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 (unless (featurep 'xemacs)
   (require 'kambi-cc-mode))
 (require 'kambi-pascal)
-(require 'kambi-pascal-functions)
 (require 'kambi-vrmls)
 (require 'kambi-www)
 (require 'kambi-ocaml)
