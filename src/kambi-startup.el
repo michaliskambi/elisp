@@ -839,6 +839,7 @@ parses local variables written in buffer."
 (global-set-key (kbd "<f12> u") 'rename-uniquely)
 (global-set-key (kbd "<f12> g") 'goto-line)
 (global-set-key (kbd "<f12> s") 'shell)
+(global-set-key (kbd "<f12> m") 'magit-status)
 
 ;; Also cua-rectangle-mark-key is set to [(control f12)]
 
