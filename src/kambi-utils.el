@@ -1072,7 +1072,9 @@ regardless of current position and regardless of mark position
 (defun kam-clean-here ()
   "Clear this project."
   (interactive)
-  (if (kam-is-castle-engine-project-p (buffer-file-name))
+  ;; use default-directory instead of (buffer-file-name),
+  ;; so it also works in non-file buffers, like compilation or "asynch shell command"
+  (if (kam-is-castle-engine-project-p default-directory)
       (async-shell-command "castle-engine clean")
     (async-shell-command "dircleaner . clean")
   ))
@@ -1080,7 +1082,7 @@ regardless of current position and regardless of mark position
 (defun kam-run-here ()
   "Run this project."
   (interactive)
-  (if (kam-is-castle-engine-project-p (buffer-file-name))
+  (if (kam-is-castle-engine-project-p default-directory)
       (async-shell-command "castle-engine run")
     (async-shell-command (concat "./"
       (file-name-sans-extension (file-name-nondirectory file-name))))
