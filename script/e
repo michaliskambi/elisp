@@ -22,5 +22,11 @@ set -eu
 #   xdotool windowraise $WID
 #   xdotool windowfocus $WID
 # ... unfortunately also fails, no difference, although it works AFAICS.
+#
+# Use empty --alternate-editor? man says:
+#   If EDITOR is the empty string, start Emacs in daemon
+#   mode and try connecting again
+# ... yeah, but it fails horrribly, since the "Emacs in daemon mode"
+# is a console Emacs, not X one...
 
-emacsclient --alternate-editor=emacs --no-wait "$@"
+emacsclient --alternate-editor='emacs' --no-wait "$@"
