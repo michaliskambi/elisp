@@ -6,6 +6,11 @@
   (local-set-key (kbd "M-3") 'split-window-horizontally)
   (local-set-key (kbd "C-w") 'kill-this-buffer)
 
+  ;; redefine back to Kambi standard shortcuts - these are overridden in diff view
+  ;; when committing
+  (local-set-key (kbd "<C-tab>") 'switch-buf)
+  (local-set-key (kbd "<C-return>") 'find-file-at-point)
+
   ;; use XXX to invoke magit-show-level-XXX
   ;; (by default under M-XXX in Magit, at least on Magit version in Elementary OS;
   ;; in Debian testing, with Magit 2.1.0, these functions have different names
