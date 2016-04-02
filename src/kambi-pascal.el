@@ -165,38 +165,38 @@ names mentioned here."
       (castle-engine-path "src/net/")
       (castle-engine-path "src/services/")
       ;; pasdoc
-      (concat kam-home-directory "/sources/pasdoc/trunk/source/component/")
-      (concat kam-home-directory "/sources/pasdoc/trunk/source/console/")
-      (concat kam-home-directory "/sources/pasdoc/trunk/source/tools/")
+      ;; (concat kam-home-directory "/sources/pasdoc/trunk/source/component/")
+      ;; (concat kam-home-directory "/sources/pasdoc/trunk/source/console/")
+      ;; (concat kam-home-directory "/sources/pasdoc/trunk/source/tools/")
       ;; Kambi private library
-      (kam-private-pascal-lib-path "dbase/units/")
-      (kam-private-pascal-lib-path "net/units/")
-      (kam-private-pascal-lib-path "units/regexpr/")
-      (kam-private-pascal-lib-path "video/units/")
-      (kam-private-pascal-lib-path "sdl/units/")
-      (kam-private-pascal-lib-path "units/bigint/")
-      (kam-private-pascal-lib-path "units/bigint/unpacked/")
-      (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL/Pas/")
-      (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_Mixer/Pas/")
-      (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_Image/Pas/")
-      (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_Net/Pas/")
-      (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_ttf/Pas/")
-      (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/smpeg/Pas/")
-      (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SFont/Pas/")
-      (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_Sound/Pas/")
-      (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDLMonoFonts/Pas/")
-      (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDLSpriteEngine/Pas/")
-      (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDLCtrls/Pas/")
-      (kam-private-pascal-lib-path "graph/units/")
-      (kam-private-pascal-lib-path "units/synapse/source/lib/")
-      (kam-private-pascal-lib-path "units/macroprocessor/")
-      (kam-private-pascal-lib-path "mpi/units/")
-      (kam-private-pascal-lib-path "delphi/units/components/units/")
-      (kam-private-pascal-lib-path "delphi/units/base/")
-      (kam-private-pascal-lib-path "delphi/units/dbase/")
-      (kam-private-pascal-lib-path "delphi/units/dbase/components/")
-      (kam-private-pascal-lib-path "delphi/units/graphics/")
-      (kam-private-pascal-lib-path "delphi/units/mdi_mimic/components/")
+      ;; (kam-private-pascal-lib-path "dbase/units/")
+      ;; (kam-private-pascal-lib-path "net/units/")
+      ;; (kam-private-pascal-lib-path "units/regexpr/")
+      ;; (kam-private-pascal-lib-path "video/units/")
+      ;; (kam-private-pascal-lib-path "sdl/units/")
+      ;; (kam-private-pascal-lib-path "units/bigint/")
+      ;; (kam-private-pascal-lib-path "units/bigint/unpacked/")
+      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL/Pas/")
+      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_Mixer/Pas/")
+      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_Image/Pas/")
+      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_Net/Pas/")
+      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_ttf/Pas/")
+      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/smpeg/Pas/")
+      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SFont/Pas/")
+      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_Sound/Pas/")
+      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDLMonoFonts/Pas/")
+      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDLSpriteEngine/Pas/")
+      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDLCtrls/Pas/")
+      ;; (kam-private-pascal-lib-path "graph/units/")
+      ;; (kam-private-pascal-lib-path "units/synapse/source/lib/")
+      ;; (kam-private-pascal-lib-path "units/macroprocessor/")
+      ;; (kam-private-pascal-lib-path "mpi/units/")
+      ;; (kam-private-pascal-lib-path "delphi/units/components/units/")
+      ;; (kam-private-pascal-lib-path "delphi/units/base/")
+      ;; (kam-private-pascal-lib-path "delphi/units/dbase/")
+      ;; (kam-private-pascal-lib-path "delphi/units/dbase/components/")
+      ;; (kam-private-pascal-lib-path "delphi/units/graphics/")
+      ;; (kam-private-pascal-lib-path "delphi/units/mdi_mimic/components/")
       ;; fpc source
       (fpc-source-path "rtl/i386/")
       (fpc-source-path "rtl/inc/")
@@ -330,9 +330,12 @@ has a Pascal extension."
       ;; on recursive paths.
 
       (dolist
-        ;; search 1st inside (file-name-directory str),
-        ;; then in every item on pascal-units-paths
-        (dir-to-search (cons (file-name-directory str) pascal-units-paths))
+        ;; search 1st inside (extract-file-path str),
+        ;; then in every item on pascal-units-paths.
+        ;;
+        ;; Note the need for extract-file-path, instead of file-name-directory,
+        ;; below: we need empty string in case there's no directory.
+        (dir-to-search (cons (extract-file-path str) pascal-units-paths))
 
         (setq file-name (concat dir-to-search search-name))
         (when (nondir-file-readable-p file-name) (return-from func-block file-name))
@@ -340,15 +343,24 @@ has a Pascal extension."
         (when (nondir-file-readable-p file-name) (return-from func-block file-name))
       )
 
-      (dolist
-        (dir-to-search pascal-units-recursive-paths)
+      (let ((dirs-to-search-recursively pascal-units-recursive-paths)
+            (project-dir (kam-project-dir str)))
 
-        (setq file-name (kam-search-for-file dir-to-search search-name
-          pascal-units-dirs-not-descend t))
-        (when file-name (return-from func-block file-name))
-        (setq file-name (kam-search-for-file dir-to-search search-name-lower
-          pascal-units-dirs-not-descend t))
-        (when file-name (return-from func-block file-name))
+        (when project-dir
+          (setq dirs-to-search-recursively (cons project-dir dirs-to-search-recursively))
+        )
+        ;; search dir of STR 1st
+        (setq dirs-to-search-recursively (cons (extract-file-path str) dirs-to-search-recursively))
+
+        (dolist (dir-to-search dirs-to-search-recursively)
+
+          (setq file-name (kam-search-for-file dir-to-search search-name
+            pascal-units-dirs-not-descend t))
+          (when file-name (return-from func-block file-name))
+          (setq file-name (kam-search-for-file dir-to-search search-name-lower
+            pascal-units-dirs-not-descend t))
+          (when file-name (return-from func-block file-name))
+        )
       )
     )
 
@@ -594,7 +606,7 @@ problems, at least for now."
     (add-to-list 'ac-sources 'kam-ac-source-pascal)))
 
 ;; ---------------------------------------------------------------------------
-;; just some Pascal helpers, to be invoked explicitly 
+;; just some Pascal helpers, to be invoked explicitly
 
 (defun kam-insert-guid ()
   (interactive)

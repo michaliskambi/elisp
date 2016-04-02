@@ -153,16 +153,21 @@ definition is \"whatever FPC considers as UNIX\"), else nil.")
 ;; filenames operations -------------------------------------------------
 
 (defun extract-file-path (fname)
-  "Obetnij czesc FNAME za ostatnia /. Jesli nie ma / w FNAME to zwroc
-lancuch pusty. Mowiac po ludzku - zwroc sciezke w jakiej znajduje sie
-plik FNAME, gdzie sciezka (o ile w ogole jakas bedzie zawarta w FNAME)
-bedzie zawierac koncowy znak /."
-  (file-name-directory fname))
+  "Return the directory part, including final slash or backslash,
+from given FNAME. Returns empty string (as opposed to nil, like
+file-name-directory) if there's no directory part."
+  (let ((result (file-name-directory fname)))
+    (if result
+        result
+      "")
+  )
+)
 
 ;; tests:
 ;; (extract-file-path "/")
 ;; (extract-file-path "/blah")
 ;; (extract-file-path "/blah/")
+;; (extract-file-path "blah")
 
 (defun extract-file-name (fname)
   (file-name-nondirectory fname))
@@ -176,7 +181,7 @@ bedzie zawierac koncowy znak /."
   (file-name-sans-extension (extract-file-name fname)))
 
 (defun extract-file-ext (filename)
-  "Find the extension in FILENAME, i.e. part of the basename after the last
+  "Find the extension in FILENAME, which is part of the basename after the last
 dot. Examples:
   \"foo\" => \"\" (extensionless files give empty extension)
   \"foo.\" => \".\" (under UNIX-like filesystems,
@@ -198,14 +203,22 @@ filename is, look at `extract-file-ext') and replace it with NEW-EXT."
   (concat (file-name-sans-extension filename) new-ext))
 
 (defun kam-file-name-in-directory (dir file-name)
-  "DIR is a directory name, not necessary ending with PathDelim.
+  "DIR is a directory name, not necessary ending with a path delimiter.
+Works even in case dir is nil or empty (interpreted as current dir).
 This returns DIR and FILE-NAME concatenated making sure that between
-DIR and FILE-NAME there is PathDelim."
-  (concat (directory-file-name dir) "/" file-name))
+DIR and FILE-NAME there is a path delimiter (slash or backslash)."
+  (let ((dir-only (directory-file-name dir)))
+    (if (and (stringp dir-only) (not (equal dir-only "")))
+        (concat dir-only "/" file-name)
+      file-name)
+  )
+)
 
 ;; tests:
 ;; (kam-file-name-in-directory "bla" "foo")
 ;; (kam-file-name-in-directory "bla/" "foo")
+;; (kam-file-name-in-directory "/" "foo")
+;; (kam-file-name-in-directory "" "foo") ;; should return "foo", not "/foo"
 
 (defun special-directory-name-p (dir)
   "Returns non-nil if DIR is some special directory name that is a
@@ -284,13 +297,11 @@ This function is clean."
 
 
 ;; tests:
-;; (kam-search-for-file "d:/elisp/" "kambi-pascal.el")
-;; (kam-search-for-file "jamy_i_nory" "bzdura")
-;; (kam-search-for-file "jamy_i_nory" "JamySingle.class")
-;; (kam-search-for-file "d:/elisp" "tuareg")
-;; (kam-search-for-file "d:/mojepasy/units/" "Images.pas" nil)
-;; (kam-search-for-file "d:/mojepasy/units/" "Images.pas" '("images"))
-;; (kam-search-for-file "d:/mojepasy/units/" "vrmloctree.pas" '("images"))
+;; (kam-search-for-file "/home/michalis/elisp/" "kambi-pascal.el")
+;; (kam-search-for-file "/home/michalis/elisp" "tuareg")
+;; (kam-search-for-file "/home/michalis/sources/castle-engine/castle-engine/" "castleimages.pas" nil)
+;; (kam-search-for-file "/home/michalis/sources/castle-engine/castle-engine/" "castleimages.pas" '("images"))
+;; (kam-search-for-file "/home/michalis/sources/castle-engine/castle-engine/" "x3dnodes.pas" '("images"))
 
 (defun kam-search-for-file-regexp-in-dirs (dir-list file-name-regexp)
   "This searches for file with name (only name, without any directory parts)
@@ -1087,6 +1098,29 @@ regardless of current position and regardless of mark position
     (async-shell-command (concat "./"
       (file-name-sans-extension (file-name-nondirectory file-name))))
   ))
+
+(defun kam-project-dir (file-name)
+  "Is the file FILE-NAME inside a project. A ``project'' is just a directory
+with .git or .svn subdirectory, which is a simple and working way
+inspired by https://github.com/bbatsov/projectile .
+FILE-NAME may be relative or even empty, will be resolved with respect
+to default-directory.
+
+Note: we don't use the existence of CastleEngineManifest.xml to
+indicate project's root dir, because some projects have several
+subdirs, each with their own CastleEngineManifest.xml,
+and with code using each other. IOW, .git or .svn subdirectory
+is just a wider and more comfortable definition of a ``project'' right now
+for us."
+  (let ((path (extract-file-path (expand-file-name file-name))))
+    (if (or (file-exists-p (concat path "/.git"))
+            (file-exists-p (concat path "/.svn")))
+        path
+      (when (not (member path '("/" "~/")))
+        (kam-project-dir (file-name-directory (directory-file-name path))))
+    )
+  )
+)
 
 ;; ------------------------------------------------------------
 
