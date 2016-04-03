@@ -1119,9 +1119,9 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
               " Projectile"
             (format " P[%s]" (projectile-project-name)))))
 
-  (define-key projectile-mode-map [?\s-d] 'projectile-find-dir)
-  (define-key projectile-mode-map [?\s-p] 'projectile-switch-project)
-  (define-key projectile-mode-map [?\s-f] 'projectile-find-file)
+  (define-key projectile-mode-map (kbd "M-d") 'projectile-find-dir)
+  (define-key projectile-mode-map (kbd "M-p") 'projectile-switch-project)
+  (define-key projectile-mode-map (kbd "M-f") 'projectile-find-file)
 
   (defun kam-projectile-grep-or-ag ()
     "Run projectile-ag, if ag.el is available, otherwise projectile-grep."
@@ -1129,9 +1129,11 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
     (if (require 'ag nil 'noerror)
         (call-interactively 'projectile-ag)
       (call-interactively 'projectile-grep)))
-  (define-key projectile-mode-map [?\s-g] 'kam-projectile-grep-or-ag)
+  (define-key projectile-mode-map (kbd "M-g") 'kam-projectile-grep-or-ag)
 
-  (define-key projectile-mode-map (kbd "<s-f12>") 'projectile-find-tag)
+  ;; unfortunately, ctags for Pascal projects is not much useful
+  ;; (only procedures/functions)
+  ;; (define-key projectile-mode-map (kbd "<s-f12>") 'projectile-find-tag)
 )
 
 ;; provides (keep at the end) ------------------------------------------------

@@ -13,16 +13,22 @@
  '(ada-indent-after-return nil)
  '(ada-indent-align-comments nil)
  '(ada-indent-comment-as-code nil)
+ '(ag-arguments
+   (quote
+    ("--line-number" "--ignore-case" "--nogroup" "--column" "--stats" "--")))
+ '(ag-highlight-search t)
  '(bibtex-comment-start "%%")
  '(blink-matching-paren-distance nil)
- '(comint-password-prompt-regexp "Kambi put here regexp impossible to match to disable comint-watch-for-password-prompt")
+ '(comint-password-prompt-regexp
+   "Kambi put here regexp impossible to match to disable comint-watch-for-password-prompt")
  '(cua-rectangle-mark-key [C-f12])
  '(dabbrev-case-replace nil)
- '(dired-backup-overwrite t)
+ '(dired-backup-overwrite t t)
  '(dired-listing-switches "-al --group-directories-first")
  '(focus-follows-mouse nil)
  '(grep-command "grep -i -n -e ")
- '(grep-find-template "find . <X> -type f <F> -print0 | xargs -0 -e grep <C> -i -n -e <R>")
+ '(grep-find-template
+   "find . <X> -type f <F> -print0 | xargs -0 -e grep <C> -i -n -e <R>")
  '(grep-template "grep <C> -i -n -e <R> <F>")
  '(ibuffer-expert t)
  '(inhibit-startup-screen t)
@@ -34,8 +40,12 @@
  '(mmm-submode-decoration-level 0)
  '(org-replace-disputed-keys t)
  '(org-support-shift-select (quote always))
- '(projectile-globally-ignored-directories (quote (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "gfx" "data")))
- '(projectile-globally-ignored-file-suffixes (quote (".ppu" ".blend" ".blend1" ".blend2" ".pdf" ".png" ".xcf" ".jpg" ".jpeg" "castletexturefont_*.pas" ".ttf" ".otf" ".wav" ".dll")))
+ '(projectile-globally-ignored-directories
+   (quote
+    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "gfx" "data")))
+ '(projectile-globally-ignored-file-suffixes
+   (quote
+    (".ppu" ".blend" ".blend1" ".blend2" ".pdf" ".png" ".xcf" ".jpg" ".jpeg" "castletexturefont_*.pas" ".ttf" ".otf" ".wav" ".dll")))
  '(ps-header-lines 1)
  '(ps-left-header (quote (ps-get-buffer-name)))
  '(ps-right-header (quote ("/pagenumberstring load")))
