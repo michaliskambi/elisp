@@ -1106,23 +1106,33 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 
 ;; projectile ----------------------------------------------------------------
 
-;; see https://github.com/bbatsov/projectile
-;; installable through melpa added above
-(projectile-global-mode)
-(setq projectile-enable-caching t)
-(define-key projectile-mode-map [?\s-d] 'projectile-find-dir)
-(define-key projectile-mode-map [?\s-p] 'projectile-switch-project)
-(define-key projectile-mode-map [?\s-f] 'projectile-find-file)
+(when (require 'projectile nil 'noerror)
+  ;; see https://github.com/bbatsov/projectile
+  ;; installable through melpa added above
+  (projectile-global-mode)
+  (setq projectile-enable-caching t)
 
-(defun kam-projectile-grep-or-ag ()
-  "Run projectile-ag, if ag.el is available, otherwise projectile-grep."
-  (interactive)
-  (if (require 'ag nil 'noerror)
-      (call-interactively 'projectile-ag)
-    (call-interactively 'projectile-grep)))
-(define-key projectile-mode-map [?\s-g] 'kam-projectile-grep-or-ag)
+  ;; setting projectile-mode-line through customize doesn't work reliably
+  ;; (on Debian river)
+  (setq projectile-mode-line
+    '(:eval (if (file-remote-p default-directory)
+              " Projectile"
+            (format " P[%s]" (projectile-project-name)))))
 
-(define-key projectile-mode-map (kbd "<s-f12>") 'projectile-find-tag)
+  (define-key projectile-mode-map [?\s-d] 'projectile-find-dir)
+  (define-key projectile-mode-map [?\s-p] 'projectile-switch-project)
+  (define-key projectile-mode-map [?\s-f] 'projectile-find-file)
+
+  (defun kam-projectile-grep-or-ag ()
+    "Run projectile-ag, if ag.el is available, otherwise projectile-grep."
+    (interactive)
+    (if (require 'ag nil 'noerror)
+        (call-interactively 'projectile-ag)
+      (call-interactively 'projectile-grep)))
+  (define-key projectile-mode-map [?\s-g] 'kam-projectile-grep-or-ag)
+
+  (define-key projectile-mode-map (kbd "<s-f12>") 'projectile-find-tag)
+)
 
 ;; provides (keep at the end) ------------------------------------------------
 
