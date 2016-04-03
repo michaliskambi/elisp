@@ -466,6 +466,7 @@ i.e. point remains in the occur buffer."
 ;;  (redraw-frame (selected-frame))
 )
 (add-hook 'grep-mode-hook 'kam-no-wrap-lines)
+(add-hook 'ag-mode-hook 'kam-no-wrap-lines)
 
 ;; ispell --------------------------------------------------------------------
 
@@ -1112,7 +1113,15 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 (define-key projectile-mode-map [?\s-d] 'projectile-find-dir)
 (define-key projectile-mode-map [?\s-p] 'projectile-switch-project)
 (define-key projectile-mode-map [?\s-f] 'projectile-find-file)
-(define-key projectile-mode-map [?\s-g] 'projectile-grep)
+
+(defun kam-projectile-grep-or-ag ()
+  "Run projectile-ag, if ag.el is available, otherwise projectile-grep."
+  (interactive)
+  (if (require 'ag nil 'noerror)
+      (call-interactively 'projectile-ag)
+    (call-interactively 'projectile-grep)))
+(define-key projectile-mode-map [?\s-g] 'kam-projectile-grep-or-ag)
+
 (define-key projectile-mode-map (kbd "<s-f12>") 'projectile-find-tag)
 
 ;; provides (keep at the end) ------------------------------------------------
