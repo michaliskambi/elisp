@@ -838,8 +838,7 @@ parses local variables written in buffer."
 ;; zapamietaj jako "w = wrap / unwrap"
 (global-set-key (kbd "C-x w") 'invert-truncate-lines)
 
-;; f12 to klawisz ktory u mnie uruchamia jakas rzadko uzywana
-;; komende ktora dziala na calym aktualnym buforze
+;; f12 is Michalis prefix for various special global commands
 (global-set-key (kbd "<f12> a") 'after-find-file-i)
 (global-set-key (kbd "<f12> c") 'set-buffer-file-coding-system)
 (global-set-key (kbd "<f12> t") 'delete-trailing-whitespace)
@@ -848,6 +847,7 @@ parses local variables written in buffer."
 (global-set-key (kbd "<f12> g") 'goto-line)
 (global-set-key (kbd "<f12> s") 'shell)
 (global-set-key (kbd "<f12> m") 'magit-status)
+(global-set-key (kbd "<f12> d") 'kam-open-dir-external)
 
 ;; Also cua-rectangle-mark-key is set to [(control f12)]
 
