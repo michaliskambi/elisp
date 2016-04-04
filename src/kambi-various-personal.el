@@ -1120,7 +1120,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
             (format " P[%s]" (projectile-project-name)))))
 
   (define-key projectile-mode-map (kbd "M-d") 'projectile-find-dir)
-  (define-key projectile-mode-map (kbd "M-p") 'projectile-switch-project)
+  (define-key projectile-mode-map (kbd "M-s") 'projectile-switch-project)
   (define-key projectile-mode-map (kbd "M-f") 'projectile-find-file)
 
   (defun kam-projectile-grep-or-ag ()
