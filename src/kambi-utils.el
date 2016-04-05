@@ -1108,12 +1108,12 @@ regardless of current position and regardless of mark position
       ;; xdg-open seems to just immediately exit withot doing anything?
       ;;    "xdg-open" default-directory
       ;;    "bash" "-i" "-c" (concat "xdg-open '" default-directory "'")
-      "caja" default-directory)
+      "caja" (expand-file-name default-directory))
     (error
       ;; fallback from caja (MATE file manager)
       ;; to pantheon-files (Elementary file manager)
       (start-process (concat "kam-open-dir-external " default-directory) nil
-        "pantheon-files" default-directory))
+        "pantheon-files" (expand-file-name default-directory)))
   )
 )
 

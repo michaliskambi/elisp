@@ -1097,12 +1097,17 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;; from https://www.emacswiki.org/emacs/InteractivelyDoThings
 ;; also see https://www.masteringemacs.org/article/introduction-to-ido-mode
 (require 'ido)
-;; (setq ido-enable-flex-matching t)
+(setq ido-enable-flex-matching t)
 ;; (setq ido-everywhere t)
 (ido-mode t)
 ;; (setq ido-use-filename-at-point 'guess)
 ;; (setq ido-ignore-extensions t)
 ;; (setq ido-create-new-buffer 'always)
+
+;; following https://github.com/lewang/flx
+(when (require 'flx-ido nil 'noerror)
+  (flx-ido-mode 1)
+  (setq flx-ido-use-faces nil))
 
 ;; projectile ----------------------------------------------------------------
 
@@ -1111,6 +1116,8 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   ;; installable through melpa added above
   (projectile-global-mode)
   (setq projectile-enable-caching t)
+  (setq projectile-switch-project-action 'projectile-dired)
+  (setq projectile-find-dir-includes-top-level t)
 
   ;; setting projectile-mode-line through customize doesn't work reliably
   ;; (on Debian river)
