@@ -467,6 +467,7 @@ i.e. point remains in the occur buffer."
 )
 (add-hook 'grep-mode-hook 'kam-no-wrap-lines)
 (add-hook 'ag-mode-hook 'kam-no-wrap-lines)
+(add-hook 'helm-ag-mode-hook 'kam-no-wrap-lines) ;; doesn't have any effect?
 
 ;; ispell --------------------------------------------------------------------
 
@@ -1159,6 +1160,12 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 (when (require 'helm-projectile nil 'noerror)
   (setq projectile-completion-system 'helm)
   (helm-projectile-on) ;; rather useless for me, I don't use default projectile keybindings anyway
+
+  ;; we should not do this, as it's internal.
+  ;; But it seems the only way to have helm-ag results with truncated lines by
+  ;; default?
+  ;; Also makes helm-recentf have truncated lines, fine by me.
+  (setq helm-truncate-lines t)
 
   (define-key projectile-mode-map (kbd "M-f") 'helm-projectile-find-file)
   (define-key projectile-mode-map (kbd "M-d") 'helm-projectile-find-dir)
