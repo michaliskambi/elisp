@@ -1146,6 +1146,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;; from http://tuhdo.github.io/helm-intro.html
 (when (require 'helm-config nil 'noerror)
   (helm-mode 1)
+
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x k") 'helm-show-kill-ring)
   (global-set-key (kbd "M-0") 'helm-mini)
@@ -1163,6 +1164,11 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (define-key projectile-mode-map (kbd "M-d") 'helm-projectile-find-dir)
   (define-key projectile-mode-map (kbd "M-s") 'helm-projectile-switch-project)
   (define-key projectile-mode-map (kbd "M-f") 'helm-projectile-find-file)
+
+  (define-key helm-map (kbd "C-x") 'cua-cut-region)
+  (define-key helm-map (kbd "C-c") 'cua-copy-region)
+  (define-key helm-map (kbd "C-v") 'cua-paste)
+  (define-key helm-map (kbd "C-z") 'undo)
 
   (when (require 'helm-ag nil 'noerror)
     (define-key projectile-mode-map (kbd "M-g") 'helm-projectile-ag))
