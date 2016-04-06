@@ -901,6 +901,9 @@ parses local variables written in buffer."
 (global-set-key (kbd "C-M-c") 'comment-region)
 (global-set-key (kbd "C-M-u") 'uncomment-region)
 
+;; default in to open dir in brief mode, which I find rather useless
+(global-set-key (kbd "C-x C-d") 'dired)
+
 ;; colors --------------------------------------------------------------------
 
 ;; zeby kolorowal skladnie zawsze kiedy moze (global-font-lock-mode is
