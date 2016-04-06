@@ -1153,7 +1153,7 @@ for us."
 (defun kam-top-most-svn-dir (dir)
   "Find the top-most SVN dir from DIR.
 Assumes that DIR is for sure an SVN dir."
-  (if (member dir '("/" "~/"))
+  (if (member dir '("/" nil))
       dir ;; don't go upward
     (let ((parent-dir (file-name-directory (directory-file-name dir))))
       (if (svn-version-controlled-dir-p parent-dir)
@@ -1165,9 +1165,12 @@ Assumes that DIR is for sure an SVN dir."
   (interactive)
   (if (magit-toplevel)
       (magit-status)
-    (if (svn-version-controlled-dir-p default-directory)
-        (svn-status-1 (kam-top-most-svn-dir default-directory))
-      (error "Neither in GIT or SVN repository."))))
+    ;; we expand dir, because svn-version-controlled-dir-p calls "svn info ..."
+    ;; on it, so it needs ~ expanded.
+    (let ((expanded-dir (expand-file-name default-directory)))
+      (if (svn-version-controlled-dir-p expanded-dir)
+          (svn-status-1 (kam-top-most-svn-dir expanded-dir))
+        (error "Neither in GIT or SVN repository.")))))
 
 ;; ------------------------------------------------------------
 
