@@ -1150,6 +1150,10 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x k") 'helm-show-kill-ring)
   (global-set-key (kbd "M-0") 'helm-mini)
+  ;; Note: should ignore stuff listed on completion-ignored-extensions .
+  ;; Although it has also it's own "Helm Boring File Regexp List",
+  ;; but we should not set it (unless completion-ignored-extensions
+  ;; is not enough, like for *~ files)
   (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (global-set-key (kbd "C-h a") 'helm-apropos)
   (global-set-key (kbd "C-x C-r") 'helm-recentf)
@@ -1159,7 +1163,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 (setq helm-projectile-fuzzy-match nil)
 (when (require 'helm-projectile nil 'noerror)
   (setq projectile-completion-system 'helm)
-  (helm-projectile-on) ;; rather useless for me, I don't use default projectile keybindings anyway
+  ;; (helm-projectile-on) ;; rather useless for me, I don't use default projectile keybindings anyway?
 
   ;; we should not do this, as it's internal.
   ;; But it seems the only way to have helm-ag results with truncated lines by
@@ -1167,7 +1171,10 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   ;; Also makes helm-recentf have truncated lines, fine by me.
   (setq helm-truncate-lines t)
 
-  ;; by default, these include results from current dired, which I don't like to see
+  ;; By default, helm-projectile-find-file/dir includes results
+  ;; from current dired, which I don't like to see.
+  ;; So define my own commands, similar to helm-projectile-find-file/dir,
+  ;; that don't have them.
   (helm-projectile-command "kam-find-file" helm-source-projectile-files-list "Find file: ")
   (helm-projectile-command "kam-find-dir" helm-source-projectile-directories-list "Find dir: ")
 
