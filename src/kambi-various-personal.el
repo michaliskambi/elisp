@@ -1094,20 +1094,22 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 
 ;; ido -----------------------------------------------------------------------
 
-;; from https://www.emacswiki.org/emacs/InteractivelyDoThings
-;; also see https://www.masteringemacs.org/article/introduction-to-ido-mode
-(require 'ido)
-(setq ido-enable-flex-matching t)
-;; (setq ido-everywhere t)
-(ido-mode t)
-;; (setq ido-use-filename-at-point 'guess)
-;; (setq ido-ignore-extensions t)
-;; (setq ido-create-new-buffer 'always)
+;; disabled now, because I discovered helm:)
 
-;; following https://github.com/lewang/flx
-(when (require 'flx-ido nil 'noerror)
-  (flx-ido-mode 1)
-  (setq flx-ido-use-faces nil))
+;; ;; from https://www.emacswiki.org/emacs/InteractivelyDoThings
+;; ;; also see https://www.masteringemacs.org/article/introduction-to-ido-mode
+;; (require 'ido)
+;; (setq ido-enable-flex-matching t)
+;; ;; (setq ido-everywhere t)
+;; (ido-mode t)
+;; ;; (setq ido-use-filename-at-point 'guess)
+;; ;; (setq ido-ignore-extensions t)
+;; ;; (setq ido-create-new-buffer 'always)
+
+;; ;; following https://github.com/lewang/flx
+;; (when (require 'flx-ido nil 'noerror)
+;;   (flx-ido-mode 1)
+;;   (setq flx-ido-use-faces nil))
 
 ;; projectile ----------------------------------------------------------------
 
@@ -1129,18 +1131,40 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (define-key projectile-mode-map (kbd "M-d") 'projectile-find-dir)
   (define-key projectile-mode-map (kbd "M-s") 'projectile-switch-project)
   (define-key projectile-mode-map (kbd "M-f") 'projectile-find-file)
+  (define-key projectile-mode-map (kbd "M-g") 'projectile-grep)
 
-  (defun kam-projectile-grep-or-ag ()
-    "Run projectile-ag, if ag.el is available, otherwise projectile-grep."
-    (interactive)
-    (if (require 'ag nil 'noerror)
-        (call-interactively 'projectile-ag)
-      (call-interactively 'projectile-grep)))
-  (define-key projectile-mode-map (kbd "M-g") 'kam-projectile-grep-or-ag)
+  (when (require 'ag nil 'noerror)
+    (define-key projectile-mode-map (kbd "M-g") 'projectile-ag))
 
   ;; unfortunately, ctags for Pascal projects is not much useful
   ;; (only procedures/functions)
   ;; (define-key projectile-mode-map (kbd "<s-f12>") 'projectile-find-tag)
+)
+
+;; helm ----------------------------------------------------------------------
+
+;; from http://tuhdo.github.io/helm-intro.html
+(when (require 'helm-config nil 'noerror)
+  (helm-mode 1)
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (global-set-key (kbd "C-x k") 'helm-show-kill-ring)
+  (global-set-key (kbd "M-0") 'helm-mini)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files)
+  (global-set-key (kbd "C-h a") 'helm-apropos)
+)
+
+;; helm-projectile, http://tuhdo.github.io/helm-projectile.html , https://github.com/bbatsov/helm-projectile
+(setq helm-projectile-fuzzy-match nil)
+(when (require 'helm-projectile nil 'noerror)
+  (setq projectile-completion-system 'helm)
+  (helm-projectile-on) ;; rather useless for me, I don't use default projectile keybindings anyway
+
+  (define-key projectile-mode-map (kbd "M-d") 'helm-projectile-find-dir)
+  (define-key projectile-mode-map (kbd "M-s") 'helm-projectile-switch-project)
+  (define-key projectile-mode-map (kbd "M-f") 'helm-projectile-find-file)
+
+  (when (require 'helm-ag nil 'noerror)
+    (define-key projectile-mode-map (kbd "M-g") 'helm-projectile-ag))
 )
 
 ;; provides (keep at the end) ------------------------------------------------
