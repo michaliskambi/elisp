@@ -1128,8 +1128,21 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
               " Projectile"
             (format " P[%s]" (projectile-project-name)))))
 
-  (define-key projectile-mode-map (kbd "M-f") 'projectile-find-file)
-  (define-key projectile-mode-map (kbd "M-d") 'projectile-find-dir)
+  (defun kam-optional-projectile-find-file ()
+    (interactive)
+    "Open file in projectile project, or just open any file if outside project."
+    (if (projectile-project-p)
+        (call-interactively 'projectile-find-file)
+      (call-interactively 'find-file)))
+  (defun kam-optional-projectile-find-dir ()
+    (interactive)
+    "Open dir in projectile project, or just open any file if outside project."
+    (if (projectile-project-p)
+        (call-interactively 'projectile-find-dir)
+      (call-interactively 'dired)))
+
+  (define-key projectile-mode-map (kbd "M-f") 'kam-optional-projectile-find-file)
+  (define-key projectile-mode-map (kbd "M-d") 'kam-optional-projectile-find-dir)
   (define-key projectile-mode-map (kbd "M-s") 'projectile-switch-project)
   (define-key projectile-mode-map (kbd "M-g") 'projectile-grep)
 
@@ -1178,8 +1191,21 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (helm-projectile-command "kam-find-file" helm-source-projectile-files-list "Find file: ")
   (helm-projectile-command "kam-find-dir" helm-source-projectile-directories-list "Find dir: ")
 
-  (define-key projectile-mode-map (kbd "M-f") 'helm-projectile-kam-find-file)
-  (define-key projectile-mode-map (kbd "M-d") 'helm-projectile-kam-find-dir)
+  (defun kam-optional-helm-projectile-find-file ()
+    (interactive)
+    "Open file in projectile project, or just open any file if outside project."
+    (if (projectile-project-p)
+        (call-interactively 'helm-projectile-kam-find-file)
+      (call-interactively 'helm-find-files)))
+  (defun kam-optional-helm-projectile-find-dir ()
+    (interactive)
+    "Open dir in projectile project, or just open any file if outside project."
+    (if (projectile-project-p)
+        (call-interactively 'helm-projectile-kam-find-dir)
+      (call-interactively 'dired)))
+
+  (define-key projectile-mode-map (kbd "M-f") 'kam-optional-helm-projectile-find-file)
+  (define-key projectile-mode-map (kbd "M-d") 'kam-optional-helm-projectile-find-dir)
   (define-key projectile-mode-map (kbd "M-s") 'helm-projectile-switch-project)
   (setq projectile-switch-project-action 'projectile-dired)
 
