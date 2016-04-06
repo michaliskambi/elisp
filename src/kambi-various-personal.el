@@ -1167,8 +1167,12 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   ;; Also makes helm-recentf have truncated lines, fine by me.
   (setq helm-truncate-lines t)
 
-  (define-key projectile-mode-map (kbd "M-f") 'helm-projectile-find-file)
-  (define-key projectile-mode-map (kbd "M-d") 'helm-projectile-find-dir)
+  ;; by default, these include results from current dired, which I don't like to see
+  (helm-projectile-command "kam-find-file" helm-source-projectile-files-list "Find file: ")
+  (helm-projectile-command "kam-find-dir" helm-source-projectile-directories-list "Find dir: ")
+
+  (define-key projectile-mode-map (kbd "M-f") 'helm-projectile-kam-find-file)
+  (define-key projectile-mode-map (kbd "M-d") 'helm-projectile-kam-find-dir)
   (define-key projectile-mode-map (kbd "M-s") 'helm-projectile-switch-project)
   (setq projectile-switch-project-action 'projectile-dired)
 
@@ -1178,8 +1182,15 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (define-key helm-map (kbd "C-z") 'undo)
   (define-key helm-map (kbd "C-t") 'helm-toggle-truncate-line)
 
-  (when (require 'helm-ag nil 'noerror)
-    (define-key projectile-mode-map (kbd "M-g") 'helm-projectile-ag))
+  ;; Hm, while it is cool to have incremental results, you cannot easily
+  ;; leave the results buffer, and jump using next-error, previous-error.
+  ;; Saving results C-x C-s, or making them editable C-c C-e, look ugly
+  ;; and are not as functional as normal grep (or ag) results).
+  ;;
+  ;; Don't use helm-ag for now.
+  ;;
+  ;; (when (require 'helm-ag nil 'noerror)
+  ;;   (define-key projectile-mode-map (kbd "M-g") 'helm-projectile-ag))
 )
 
 ;; provides (keep at the end) ------------------------------------------------
