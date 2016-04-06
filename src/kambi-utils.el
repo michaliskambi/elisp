@@ -1,24 +1,25 @@
-;;;; kambi-utils: zbior Kambiego uzytecznych funkcji dla EmacsLispa.
+;;; kambi-utils --- various useful EmacsLisp functions.
+
+;;; Commentary:
 ;;
-;; Big TODO: ten plik ma powazny blad w simple-[re-]replace
-;; i wszystkich funkcjach ktore z niego korzystaja. Tam powinny
-;; byc uzywane markery zamiast pozycji. Zazwyczaj nie powoduje
-;; to zadnych wad ale czasem moze sie okazac ze zostanie w rezultacie
-;; zamienione za duzo/za malo. Wiem o tym bledzie juz od ponad 3 miesiecy
-;; (pisze to w styczniu 2004) ale ciagle nie mam czasu go poprawic...
-;;
-;; Ten plik zapewnia absolutnie podstawowe funkcje, tzn. ten modul
+;; Ten plik zapewnia absolutnie podstawowe funkcje, tzn.  ten modul
 ;; EmacsLispa nie zalezy od zadnego innego mojego modulu w EmacsLispie
 ;; (dopisek pozniejszy: poza kambi-xemacs ktory jest jeszcze nizej).
 
 ;; Laduj cl-macs, jest tam zdefiniowanych kilka wartosciowych makr jak dotimes
-;;   czy dolist. Nie sa ladowane automatycznie przez Emacsa 20.7 bo makra
-;;   nie sa potrzebne do uruchamiania skompilowanych plikow .elc (makra sa rozwijane
-;;   przed byte-dompile) (Emacs 21 juz wlacza cl-macs automatycznie, chyba ze w -batch
-;;   model wiec tak czy siak chcemy zaladowac cl-macs.
+;; czy dolist.  Nie sa ladowane automatycznie przez Emacsa 20.7 bo makra
+;; nie sa potrzebne do uruchamiania skompilowanych plikow .elc (makra sa rozwijane
+;; przed byte-dompile) (Emacs 21 juz wlacza cl-macs automatycznie, chyba ze w -batch
+;; model wiec tak czy siak chcemy zaladowac cl-macs.
+;;
 ;; Nie mozna zalaodowac cl-macs przez require (nie robia w nim provide 'cl-macs).
 ;; Przed zaladowaniem cl-macs TRZEBA zaladowac cl (to juz mozna zrobic przez require).
+
+;;; Code:
+
+;; TODO: migrate to use only cl-lib, see http://stackoverflow.com/questions/5019724/in-emacs-what-does-this-error-mean-warning-cl-package-required-at-runtime
 (require 'cl)
+
 (load "cl-macs" nil t)
 
 (when (featurep 'xemacs)
@@ -27,16 +28,17 @@
 ;; string operations ---------------------------------------------------
 
 (defun string-repeat (STR COUNT)
+  "Return STR repeated COUNT times."
   (let ((RESULT ""))
     (dotimes (i COUNT RESULT) (setq RESULT (concat RESULT STR))  )
   )
 )
 
 (defun string-pos (SUBSTR STR &optional CASE-SENS)
-  "Cos jak Pos() Pascalowe. Szuka stringu SUBSTR w stringu STR. Jesli nie
-podasz 3-go parametru albo podasz nil to porownywanie bedzie ignorowalo duze/male
-litery, wpp. nie. Zwraca pierwsza pozycje SUBSTR w STR (zero-based) lub nil
-jesli nie znajdzie."
+  "Search for substring SUBSTR in string STR, case sensitive if CASE-SENS.
+Jesli nie podasz 3-go parametru albo podasz nil to porownywanie bedzie
+ignorowalo duze/male litery, wpp.  nie.  Zwraca pierwsza pozycje SUBSTR
+w STR (zero-based) lub nil jesli nie znajdzie."
   (let ((i 0)
         (endi (- (length STR) (length SUBSTR)) )
         (RESULT nil))
@@ -53,17 +55,18 @@ jesli nie znajdzie."
 )
 
 (defun same-text (STR1 STR2 &optional CASE-SENS)
-  "Compares two strings, using current locale. CASE-SENS = nil (default) means
-\"ignore case\". Return nil if strings equal, nil otherwise.
+  "Compares two strings STR1 and STR2, using current locale.
+CASE-SENS = nil (default) means \"ignore case\".
+Return nil if strings equal, nil otherwise.
 This is just a simple wrapper around compare-strings functions."
   (eq (compare-strings STR1 0 nil STR2 0 nil (not CASE-SENS)) t)
 )
 
 (defun array-pos-text (str str-array &optional case-sens)
-  "Seeks for string STR in STR-ARRAY (list of strings). If CASE-SENS is
-nil it ignores-case. Returns zero-based index of first matching string
+  "Seeks for string STR in STR-ARRAY (list of strings).
+If CASE-SENS is nil it ignores-case.
+Returns zero-based index of first matching string
 in STR-ARRAY or nil is STR is not found."
-
   (block func-block
     (if (not case-sens) (setq str (upcase str)) )
 
@@ -446,6 +449,9 @@ and friends."
 ;; bloku save-excursion.
 ;;
 ;; kam-simple-re-replace operuje na regexp.
+;;
+;; TODO: In simple-[re-]replace we should use markes, not just positions,
+;; In some edge cases, the current approach may replace too much / too little.
 
 (defun kam-simple-replace (from-string to-string from-pos
   &optional end-pos fixedcase)
@@ -1118,17 +1124,18 @@ regardless of current position and regardless of mark position
 )
 
 (defun kam-project-dir (file-name)
-  "Is the file FILE-NAME inside a project. A ``project'' is just a directory
+  "Is the file FILE-NAME inside a project.
+A \"project\" is just a directory
 with .git or .svn subdirectory, which is a simple and working way
 inspired by https://github.com/bbatsov/projectile .
 FILE-NAME may be relative or even empty, will be resolved with respect
-to default-directory.
+to the ``default-directory''.
 
 Note: we don't use the existence of CastleEngineManifest.xml to
 indicate project's root dir, because some projects have several
 subdirs, each with their own CastleEngineManifest.xml,
 and with code using each other. IOW, .git or .svn subdirectory
-is just a wider and more comfortable definition of a ``project'' right now
+is just a wider and more comfortable definition of a \"project\" right now
 for us."
   (let ((path (extract-file-path (expand-file-name file-name))))
     (if (or (file-exists-p (concat path "/.git"))
@@ -1140,8 +1147,27 @@ for us."
   )
 )
 
+(defun kam-top-most-svn-dir (dir)
+  "Find the top-most SVN dir from DIR.
+Assumes that DIR is for sure an SVN dir."
+  (if (member dir '("/" "~/"))
+      dir ;; don't go upward
+    (let ((parent-dir (file-name-directory (directory-file-name dir))))
+      (if (svn-version-controlled-dir-p parent-dir)
+          (kam-top-most-svn-dir parent-dir)
+        dir))))
+
+(defun kam-version-control ()
+  "Call magit-status in GIT, svn-status in SVN."
+  (interactive)
+  (if (magit-toplevel)
+      (magit-status)
+    (if (svn-version-controlled-dir-p default-directory)
+        (svn-status-1 (kam-top-most-svn-dir default-directory))
+      (error "Neither in GIT or SVN repository."))))
+
 ;; ------------------------------------------------------------
 
 (provide 'kambi-utils)
 
-;; eof ------------------------------------------------------------
+;;; kambi-utils.el ends here

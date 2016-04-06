@@ -1,4 +1,6 @@
-;;;; This file is a random mix of many Michalis Emacs adjustments.
+;;;; kambi-utils --- This file is a random mix of many Michalis Emacs adjustments.
+
+;;; Commentary:
 
 (require 'kambi-utils)
 
@@ -846,7 +848,7 @@ parses local variables written in buffer."
 (global-set-key (kbd "<f12> u") 'rename-uniquely)
 (global-set-key (kbd "<f12> g") 'goto-line)
 (global-set-key (kbd "<f12> s") 'shell)
-(global-set-key (kbd "<f12> m") 'magit-status)
+(global-set-key (kbd "<f12> v") 'kam-version-control)
 (global-set-key (kbd "<f12> d") 'kam-open-dir-external)
 
 ;; Also cua-rectangle-mark-key is set to [(control f12)]
@@ -1173,6 +1175,29 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (global-set-key (kbd "C-h a") 'helm-apropos)
   (global-set-key (kbd "C-x C-r") 'helm-recentf)
+
+  ;; following helm-buffer sources, but kills buffers without asking
+
+  (defun kam-helm-buffer-run-kill-persistent ()
+    "Kill buffer without quitting helm."
+    (interactive)
+    (with-helm-alive-p
+      (helm-attrset 'kill-action '(kam-helm-buffers-persistent-kill . never-split))
+      (helm-execute-persistent-action 'kill-action)))
+  (put 'kam-helm-buffer-run-kill-persistent 'helm-only t)
+
+  (defun kam-helm-buffers-persistent-kill (_buffer)
+    (let ((marked (helm-marked-candidates)))
+      (unwind-protect
+           (cl-loop for b in marked
+                 do (progn (helm-buffers-persistent-kill-1 b)
+                           (message nil)))
+        (with-helm-buffer
+          (setq helm-marked-candidates nil
+                helm-visible-mark-overlays nil))
+        (helm-force-update (helm-buffers--quote-truncated-buffer (helm-get-selection))))))
+
+  (define-key helm-buffer-map (kbd "<delete>") 'kam-helm-buffer-run-kill-persistent)
 )
 
 ;; helm-projectile, http://tuhdo.github.io/helm-projectile.html , https://github.com/bbatsov/helm-projectile
@@ -1233,4 +1258,4 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 
 (provide 'kambi-various-personal)
 
-;; eof -----------------------------------------------------------------------
+;;; kambi-various-personal.el ends here
