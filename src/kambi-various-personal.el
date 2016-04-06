@@ -835,8 +835,7 @@ parses local variables written in buffer."
 ;; zapamietaj jako "jak f5 (= reload w niektorych programach)"
 (global-set-key (kbd "<C-f5>") 'refresh-colors-in-buffer)
 
-;; zapamietaj jako "w = wrap / unwrap"
-(global-set-key (kbd "C-x w") 'invert-truncate-lines)
+(global-set-key (kbd "C-t") 'invert-truncate-lines)
 
 ;; f12 is Michalis prefix for various special global commands
 (global-set-key (kbd "<f12> a") 'after-find-file-i)
@@ -1128,9 +1127,9 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
               " Projectile"
             (format " P[%s]" (projectile-project-name)))))
 
+  (define-key projectile-mode-map (kbd "M-f") 'projectile-find-file)
   (define-key projectile-mode-map (kbd "M-d") 'projectile-find-dir)
   (define-key projectile-mode-map (kbd "M-s") 'projectile-switch-project)
-  (define-key projectile-mode-map (kbd "M-f") 'projectile-find-file)
   (define-key projectile-mode-map (kbd "M-g") 'projectile-grep)
 
   (when (require 'ag nil 'noerror)
@@ -1161,14 +1160,16 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (setq projectile-completion-system 'helm)
   (helm-projectile-on) ;; rather useless for me, I don't use default projectile keybindings anyway
 
+  (define-key projectile-mode-map (kbd "M-f") 'helm-projectile-find-file)
   (define-key projectile-mode-map (kbd "M-d") 'helm-projectile-find-dir)
   (define-key projectile-mode-map (kbd "M-s") 'helm-projectile-switch-project)
-  (define-key projectile-mode-map (kbd "M-f") 'helm-projectile-find-file)
+  (setq projectile-switch-project-action 'projectile-dired)
 
   (define-key helm-map (kbd "C-x") 'cua-cut-region)
   (define-key helm-map (kbd "C-c") 'cua-copy-region)
   (define-key helm-map (kbd "C-v") 'cua-paste)
   (define-key helm-map (kbd "C-z") 'undo)
+  (define-key helm-map (kbd "C-t") 'helm-toggle-truncate-line)
 
   (when (require 'helm-ag nil 'noerror)
     (define-key projectile-mode-map (kbd "M-g") 'helm-projectile-ag))
