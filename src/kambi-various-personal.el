@@ -1151,6 +1151,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (global-set-key (kbd "M-0") 'helm-mini)
   (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (global-set-key (kbd "C-h a") 'helm-apropos)
+  (global-set-key (kbd "C-x C-r") 'helm-recentf)
 )
 
 ;; helm-projectile, http://tuhdo.github.io/helm-projectile.html , https://github.com/bbatsov/helm-projectile
