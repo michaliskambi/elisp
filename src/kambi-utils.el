@@ -25,6 +25,9 @@
 (when (featurep 'xemacs)
   (require 'kambi-xemacs))
 
+(require 'magit)
+(require 'magit-git) ;; for kam-version-control
+
 ;; string operations ---------------------------------------------------
 
 (defun string-repeat (STR COUNT)
