@@ -392,7 +392,7 @@ i.e. point remains in the occur buffer."
 ;; since it just blindly remaps the keys, even when they would not cause editing.
 (add-hook 'special-mode-hook
   (lambda ()
-    (local-set-key (kbd "M-0") 'kam-buffer)
+    (local-set-key (kbd "M-0") 'kam-buffer-menu)
     (local-set-key (kbd "M-1") 'delete-other-windows)
     (local-set-key (kbd "M-2") 'split-window-vertically)
     (local-set-key (kbd "M-3") 'split-window-horizontally)
@@ -410,7 +410,7 @@ i.e. point remains in the occur buffer."
     (local-set-key (kbd "M-1") 'delete-other-windows)       ; like C-x 1
     (local-set-key (kbd "M-2") 'split-window-vertically)    ; like C-x 2
     (local-set-key (kbd "M-3") 'split-window-horizontally)  ; like C-x 3
-    (local-set-key (kbd "M-0") 'kam-buffer)
+    (local-set-key (kbd "M-0") 'kam-buffer-menu)
   ) t)
 
 ;; java
@@ -727,13 +727,15 @@ parses local variables written in buffer."
   (redraw-frame (selected-frame))
 )
 
-(defun kam-buffer ()
+(defun kam-buffer-menu ()
   "Call my preferred buffer-menu'-like function."
   (interactive)
-  (if kam-use-ibuffer
-      ;; Kambi really likes to call ibuffer with update=t
-      (ibuffer nil nil nil t)
-    (buffer-menu)))
+  (if (require 'helm-config nil 'noerror)
+      (helm-mini)
+    (if kam-use-ibuffer
+        ;; Kambi really likes to call ibuffer with update=t
+        (ibuffer nil nil nil t)
+      (buffer-menu))))
 
 ;; ---------------------------------------------------------------------------
 ;; git emacs, code initially following http://www.emacswiki.org/emacs/Git
@@ -803,7 +805,7 @@ parses local variables written in buffer."
 (global-set-key (kbd "C-x k") 'browse-kill-ring)
 ;; (global-set-key (kbd "<C-SPC>") 'dabbrev-completion) ; default is uncomfortable C-M-\
 
-(global-set-key (kbd "M-0") 'kam-buffer)
+(global-set-key (kbd "M-0") 'kam-buffer-menu)
 (global-set-key (kbd "M-o") 'other-window)               ; jak C-x o
 (global-set-key (kbd "M-1") 'delete-other-windows)       ; jak C-x 1
 (global-set-key (kbd "M-2") 'split-window-vertically)    ; jak C-x 2
@@ -1167,7 +1169,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x k") 'helm-show-kill-ring)
-  (global-set-key (kbd "M-0") 'helm-mini)
+  ;; (global-set-key (kbd "M-0") 'helm-mini) ;; not needed, kam-buffer-menu already uses helm
   ;; Note: should ignore stuff listed on completion-ignored-extensions .
   ;; Although it has also it's own "Helm Boring File Regexp List",
   ;; but we should not set it (unless completion-ignored-extensions
@@ -1242,6 +1244,8 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (define-key helm-map (kbd "C-v") 'cua-paste)
   (define-key helm-map (kbd "C-z") 'undo)
   (define-key helm-map (kbd "C-t") 'helm-toggle-truncate-line)
+
+  (setq helm-full-frame t)
 
   ;; Hm, while it is cool to have incremental results, you cannot easily
   ;; leave the results buffer, and jump using next-error, previous-error.
