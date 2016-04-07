@@ -25,8 +25,8 @@
 (when (featurep 'xemacs)
   (require 'kambi-xemacs))
 
-(require 'magit)
-(require 'magit-git) ;; for kam-version-control
+(require 'magit) ;; for kam-version-control
+;; (require 'magit-git)
 
 ;; string operations ---------------------------------------------------
 
@@ -1160,11 +1160,19 @@ Assumes that DIR is for sure an SVN dir."
           (kam-top-most-svn-dir parent-dir)
         dir))))
 
+(unless (fboundp 'magit-toplevel)
+  (defun magit-toplevel ()
+    "Is the current ``default-directory'' within a GIT repository.
+This is compatibility hack in case of older magit version."
+    (interactive)
+    (magit-get-top-dir default-directory))
+)
+
 (defun kam-version-control ()
   "Call magit-status in GIT, svn-status in SVN."
   (interactive)
   (if (magit-toplevel)
-      (magit-status)
+      (call-interactively 'magit-status)
     ;; we expand dir, because svn-version-controlled-dir-p calls "svn info ..."
     ;; on it, so it needs ~ expanded.
     (let ((expanded-dir (expand-file-name default-directory)))
