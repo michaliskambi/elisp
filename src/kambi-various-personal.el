@@ -1156,6 +1156,24 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (when (require 'ag nil 'noerror)
     (define-key projectile-mode-map (kbd "M-g") 'projectile-ag))
 
+  ;; customize project name, in case of xxx/trunk/ dir.
+  ;; Based on https://github.com/bbatsov/projectile/pull/928
+  (defun kam-projectile-custom-project-name (project-root)
+     (cond
+      ((string-match "/\\([^/]+\\)/\\(?:branches\\|tags\\)\\(?:.*\\)/\\([^/]+\\)" project-root)
+       (let* ((product-name (match-string 1 project-root))
+              (branch-name (match-string 2 project-root)))
+         (concat product-name "/" branch-name))) ;
+
+      ((string-match "/\\([^/]+\\)/trunk" project-root)
+             (let* ((product-name (match-string 1 project-root)))
+               (concat product-name "/trunk")))
+
+      ;; do the default
+      (t
+       (projectile-default-project-name project-root))))
+  (setq projectile-project-name-function 'kam-projectile-custom-project-name)
+
   ;; unfortunately, ctags for Pascal projects is not much useful
   ;; (only procedures/functions)
   ;; (define-key projectile-mode-map (kbd "<s-f12>") 'projectile-find-tag)
