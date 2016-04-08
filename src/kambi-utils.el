@@ -1111,19 +1111,16 @@ regardless of current position and regardless of mark position
 (defun kam-open-dir-external ()
   "Open current directory in an external program (file manager)."
   (interactive)
-  (condition-case nil
-    (start-process (concat "kam-open-dir-external " default-directory) nil
-      ;; TODO: why do all below fail?
-      ;; xdg-open seems to just immediately exit withot doing anything?
-      ;;    "xdg-open" default-directory
-      ;;    "bash" "-i" "-c" (concat "xdg-open '" default-directory "'")
-      "caja" (expand-file-name default-directory))
-    (error
-      ;; fallback from caja (MATE file manager)
-      ;; to pantheon-files (Elementary file manager)
-      (start-process (concat "kam-open-dir-external " default-directory) nil
-        "pantheon-files" (expand-file-name default-directory)))
-  )
+  ;; (condition-case nil
+    (async-start-process (concat "kam-open-dir-external " default-directory)
+      "xdg-open" nil (expand-file-name default-directory))
+    ;; (error
+    ;;   ;; fallback from xdg-open to pantheon-files (Elementary file manager),
+    ;;   ;; possibly not needed anymore
+    ;;   (async-start-process (concat "kam-open-dir-external " default-directory)
+    ;;     "pantheon-files" nil
+    ;;     (expand-file-name default-directory)))
+  ;; )
 )
 
 (defun kam-project-dir (file-name)
