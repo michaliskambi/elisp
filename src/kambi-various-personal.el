@@ -1259,9 +1259,19 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 
   (define-key helm-map (kbd "C-x") 'cua-cut-region)
   (define-key helm-map (kbd "C-c") 'cua-copy-region)
+  ;; (define-key helm-map (kbd "C-x") 'kill-region)
+  ;; (define-key helm-map (kbd "C-c") 'kill-ring-save)
   (define-key helm-map (kbd "C-v") 'cua-paste)
   (define-key helm-map (kbd "C-z") 'undo)
   (define-key helm-map (kbd "C-t") 'helm-toggle-truncate-line)
+
+  ;;  (defun kam-helm-kill-selection-and-quit ()
+  ;;    "Like helm-kill-selection-and-quit, but by default copy real value
+  ;; (not display value)"
+  ;;    (interactive)
+  ;;    (helm-kill-selection-and-quit 1))
+
+  (define-key helm-map (kbd "C-k") 'helm-kill-selection-and-quit)
 
   (setq helm-full-frame t)
 
