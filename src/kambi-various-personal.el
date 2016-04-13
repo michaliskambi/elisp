@@ -112,6 +112,12 @@ may be screwed up after running some program that changed screen size
     (local-set-key (kbd "M-o") 'other-window)
   )
   t)
+(add-hook 'dired-mode-hook
+  (lambda ()
+    ;; redefine it to Kambi standard shortcut
+    (local-set-key (kbd "M-o") 'other-window)
+  )
+  t)
 
 ;; Emacs server, to have emacsclient working
 (when (not (featurep 'xemacs))
