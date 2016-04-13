@@ -19,4 +19,9 @@ cat ~/elisp/doc/sample_dot_emacs.el >> .emacs
 mkdir -p ~/bin
 cd ~/elisp/script/
 ./install-e
+
+# Install extra Emacs stuff, some from Debian/Ubuntu repos,
+# some from Emacs packages on melpa:
+# - sudo apt-get install magit silversearcher-ag
+# - helm-projectile (with core helm and core projectile pulled by deps)
 ~~~~
