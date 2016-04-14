@@ -117,6 +117,8 @@ may be screwed up after running some program that changed screen size
   (local-set-key (kbd "M-o") 'other-window)
   ;; h to hide / unhide
   (local-set-key (kbd "h") 'dired-omit-mode)
+  ;; consistent with helm find-files
+  (local-set-key (kbd "C-l") 'dired-up-directory)
   (dired-omit-mode) ;; by default enter omit mode
 )
 (add-hook 'dired-mode-hook 'kam-dired-start t)
