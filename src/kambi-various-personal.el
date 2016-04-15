@@ -1161,10 +1161,18 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (define-key projectile-mode-map (kbd "M-f") 'kam-optional-projectile-find-file)
   (define-key projectile-mode-map (kbd "M-d") 'kam-optional-projectile-find-dir)
   (define-key projectile-mode-map (kbd "M-s") 'projectile-switch-project)
-  (define-key projectile-mode-map (kbd "M-g") 'projectile-grep)
+  (define-key projectile-mode-map (kbd "M-g") 'kam-optional-projectile-grep)
 
   (when (require 'ag nil 'noerror)
-    (define-key projectile-mode-map (kbd "M-g") 'projectile-ag))
+
+    (defun kam-optional-projectile-ag ()
+      (interactive)
+      "Search using AG in projectile project, or just in current dir if outside project."
+      (if (projectile-project-p)
+          (call-interactively 'projectile-ag)
+        (call-interactively 'ag)))
+
+    (define-key projectile-mode-map (kbd "M-g") 'kam-optional-projectile-ag))
 
   ;; customize project name, in case of xxx/trunk/ dir.
   ;; Based on https://github.com/bbatsov/projectile/pull/928
