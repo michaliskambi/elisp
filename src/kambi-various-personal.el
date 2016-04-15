@@ -1037,6 +1037,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 (add-to-list 'ac-modes 'kambi-css-mode)
 (add-to-list 'ac-modes 'kambi-csharp-mode)
 (add-to-list 'ac-modes 'html-mode)
+(add-to-list 'ac-modes 'nxml-mode)
 
 ;; By default you have to press 3 escapes (or C-g) to make keyboard-escape-quit
 ;; to make completion menu disappear. Not comfortable enough for me,
