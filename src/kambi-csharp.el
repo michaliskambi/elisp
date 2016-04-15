@@ -1,9 +1,6 @@
 (add-to-list 'load-path (concat kambi-elisp-path "contrib/csharp-mode/"))
 (require 'csharp-mode)
 
-;; silences errors from csharp-mode
-(require 'flymake)
-
 (defun kam-indent-block-4-spaces ()
   "Indents current region by 1 space."
   (interactive)
