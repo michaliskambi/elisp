@@ -1214,7 +1214,15 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   ;; is not enough, like for *~ files)
   (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (global-set-key (kbd "C-h a") 'helm-apropos)
-  (global-set-key (kbd "C-x C-r") 'helm-recentf)
+
+  (defun kam-helm-recentf ()
+    "Customized `helm' for `recentf', to show basename by default."
+    (interactive)
+    (helm :sources 'helm-source-recentf
+          :ff-transformer-show-only-basename t
+          :buffer "*helm recentf*"))
+
+  (global-set-key (kbd "C-x C-r") 'kam-helm-recentf)
 
   ;; following helm-buffer sources, but kills buffers without asking
 
