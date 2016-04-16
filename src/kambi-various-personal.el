@@ -291,7 +291,7 @@ may be screwed up after running some program that changed screen size
 )
 
 (define-derived-mode kambi-no-tab-mode fundamental-mode
-  "Kambi-No-Tabs"
+  "K-No-Tabs"
   "Fundamental mode with tabs auto-converted to spaces."
   (set-buffer-space-or-tabs))
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . kambi-no-tab-mode))
@@ -592,7 +592,7 @@ there).")
 (kam-delete-by-moving-to-trash "~/tmp")
 
 (define-derived-mode kambi-text-eof-mode text-mode
-  "Kambi-Text-EOF"
+  "K-Text-EOF"
   "A trivial extension of text mode to automatically jump to
 the end of the file when opening."
   (kam-end-of-buf))
@@ -1203,6 +1203,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;; from http://tuhdo.github.io/helm-intro.html
 (when (require 'helm-config nil 'noerror)
   (helm-mode 1)
+  (setq helm-completion-mode-string "") ;; do not show " Helm" in modeline
 
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x k") 'helm-show-kill-ring)

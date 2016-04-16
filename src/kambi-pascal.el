@@ -43,7 +43,7 @@
 )
 
 (define-derived-mode kambi-pascal-mode kambi-pascal-mode-ancestor
-  "Kambi-Pascal"
+  "K-Pascal"
   "Kambi mode for editing Pascal files.
 
 It's derived from delphi-mode (or, if it's not available,

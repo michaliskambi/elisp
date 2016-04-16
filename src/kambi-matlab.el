@@ -41,7 +41,7 @@
 
 ;; Grrr. Hell with octave-mode, it tries to be too damn SMART.
 ;; I'm going to use modified shell-script-mode for editing Matlab code.
-;; (define-derived-mode kambi-matlab-mode shell-script-mode "Kambi-Matlab"
+;; (define-derived-mode kambi-matlab-mode shell-script-mode "K-Matlab"
 ;;   "Kambi Matlab mode based on shell-script-mode."
 ;;   (setq comment-start "% "))
 ;; (add-to-list 'auto-mode-alist '("\\.m\\'" . kambi-matlab-mode))

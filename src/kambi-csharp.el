@@ -32,7 +32,7 @@
 ;; (c-set-offset 'substatement-open 0)
 
 (define-derived-mode
-  kambi-csharp-mode csharp-mode "Kambi-C#"
+  kambi-csharp-mode csharp-mode "K-C#"
   "Kambi's version of `csharp-mode' -- removed automatic indentation.")
 
 (define-keys-to-nil kambi-csharp-mode-map

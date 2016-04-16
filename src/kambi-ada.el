@@ -4,7 +4,7 @@
 ;; kambi-ada-mode -------------------------------------------------
 
 (define-derived-mode
-  kambi-ada-mode ada-mode "Kambi-Ada"
+  kambi-ada-mode ada-mode "K-Ada"
   "Kambi's version of `ada-mode' -- removed automatic indentation.")
 
 (define-keys-to-nil kambi-ada-mode-map '("\C-j" "\C-m"))

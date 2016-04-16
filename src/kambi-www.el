@@ -21,7 +21,7 @@
 
   ;; Define my own Kambi-PHP mode to get rid of stupid automatic indentation.
   (define-derived-mode
-    kambi-php-mode php-mode "Kambi-PHP"
+    kambi-php-mode php-mode "K-PHP"
     "Kambi's version of `php-mode' -- removed automatic indentation.")
   ;; This is copied from my hacks for C modes (see kambi-cc-mode.el
   ;; in function remove-indentation-from-cc-mode-map)
@@ -246,7 +246,7 @@ if nil then the default \"%s: Suspicious line %d\" will be used."
 ;; kambi-css-mode -------------------------------------------------
 
 (define-derived-mode
-  kambi-css-mode css-mode "Kambi-CSS"
+  kambi-css-mode css-mode "K-CSS"
   "Kambi's version of `css-mode' -- remove automatic completion of quotes
 and brackets and indentation.")
 (define-keys-to-nil kambi-css-mode-map '("\"" "(" "[" "{" "}"))

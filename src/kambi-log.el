@@ -65,7 +65,7 @@ to indicate suspicious activity."
 )
 
 (define-derived-mode kambi-log-mode text-mode
-  "Kambi-Log"
+  "K-Log"
   "Major mode for viewing various log files, typically found in /var/log
 on Unix systems.
 

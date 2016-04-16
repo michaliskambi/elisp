@@ -65,7 +65,7 @@ Emacs coding systems:
 Krotka metoda jak zmienic indentation jakiegos mode :
 - Zrob derived mode:
   (define-derived-mode
-    kambi-foo-mode foo-mode "Kambi-Foo"
+    kambi-foo-mode foo-mode "K-Foo"
     "Kambi's version of `foo-mode' -- removed automatic indentation.")
 
 - Zerknij na oryginalne keymap, tzn. zazwyczaj poszukaj w foo.el
@@ -83,7 +83,7 @@ Krotka metoda jak zmienic indentation jakiegos mode :
   (require 'foo)
 
   (define-derived-mode
-    kambi-foo-mode foo-mode "Kambi-Foo"
+    kambi-foo-mode foo-mode "K-Foo"
     "Wersja foo-mode by Kambi - wyciete automatyczne indentation.")
 
   (define-keys-to-nil kambi-foo-mode-map '(... lista klawiszy do ktorych

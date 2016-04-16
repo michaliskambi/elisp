@@ -7,7 +7,7 @@
 ;; define-derived-mode : zrob kambi-c-mode i kambi-c++-mode --------------------
 
 (define-derived-mode
-  kambi-c-mode c-mode "Kambi-C"
+  kambi-c-mode c-mode "K-C"
   "Wersja c-mode by Kambi - wyciete indentation (w keymap zaden klawisz
 nie jest bound do jakiejs \"electric\" function).
 
@@ -16,19 +16,19 @@ Ten mode nie probuje byc madrzejszy od Ciebie i nie wkurwia Cie zgadujac
 )
 
 (define-derived-mode
-  kambi-c++-mode c++-mode "Kambi-C++"
+  kambi-c++-mode c++-mode "K-C++"
   "Wersja C++-mode by Kambi - wyciete indentation (w keymap zaden klawisz
 nie jest bound do jakiejs \"electric\" function)."
 )
 
 (define-derived-mode
-  kambi-java-mode java-mode "Kambi-Java"
+  kambi-java-mode java-mode "K-Java"
   "Wersja Java-mode by Kambi - wyciete indentation (w keymap zaden klawisz
 nie jest bound do jakiejs \"electric\" function)."
 )
 
 (define-derived-mode
-  kambi-objc-mode objc-mode "Kambi-ObjC"
+  kambi-objc-mode objc-mode "K-ObjC"
   "Wersja ObjC-mode by Kambi - wyciete indentation (w keymap zaden klawisz
 nie jest bound do jakiejs \"electric\" function).
 Uwaga : kompletnie untested no nigdy nie pisalem nic w 'objective C' !"
