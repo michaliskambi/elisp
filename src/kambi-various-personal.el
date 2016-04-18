@@ -1314,6 +1314,10 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   ;;   (define-key projectile-mode-map (kbd "M-g") 'helm-projectile-ag))
 )
 
+;; ag (outside helm/projectile) ----------------------------------------------
+
+(global-set-key (kbd "C-x C-g") 'ag)
+
 ;; provides (keep at the end) ------------------------------------------------
 
 (provide 'kambi-various-personal)
