@@ -433,7 +433,7 @@ a project with CastleEngineManifest.xml."
   (or
     (file-exists-p (concat (file-name-directory file-name) "CastleEngineManifest.xml"))
     (and
-      (not (equal (file-name-directory file-name) "/"))
+      (not (member (file-name-directory file-name) '("/" "~/")))
       (kam-is-castle-engine-project-p
         (file-name-directory (directory-file-name (file-name-directory file-name))))
     )

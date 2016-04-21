@@ -1104,9 +1104,12 @@ regardless of current position and regardless of mark position
   (interactive)
   (if (kam-is-castle-engine-project-p default-directory)
       (async-shell-command "castle-engine run")
-    (async-shell-command (concat "./"
-      (file-name-sans-extension (file-name-nondirectory file-name))))
-  ))
+    (if (stringp buffer-file-name)
+        (async-shell-command (concat "./"
+          (file-name-sans-extension (file-name-nondirectory buffer-file-name))))
+      (error "Cannot run this project, because we don't know how. Not inside castle-engine project, and not standing on a file."))
+  )
+)
 
 (defun kam-open-dir-external ()
   "Open current directory in an external program (file manager)."
