@@ -1104,10 +1104,15 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 
 ;; add melpa, for projectile and others
 (require 'package)
-;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+
+;; In case of problems "wrong type argument arrayp" on the line below:
+;; they may indicate temporary connectivity problems.
+;; You still have to manually delete ~/.emacs.d/elpa/archives/melpa/
+;; to get rid of the error, next list-packages or such will reinitialize it.
 (package-initialize)
 
 ;; ido -----------------------------------------------------------------------
