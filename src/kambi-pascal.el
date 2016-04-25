@@ -109,15 +109,12 @@ environment variable, if possible."
 
 (defconst pascal-units-recursive-paths
   (list
-    ;; fpc sources paths that contains *only* things not specific
-    ;; to any OS/processor go here.
-    (fpc-source-path "rtl/inc/")
-    (fpc-source-path "rtl/objpas/")
+    (fpc-source-path "rtl/")
     (fpc-source-path "packages/")
   )
   "List of strigs, directories searched recursively for Pascal unit files.
 Must be absolute (since they may be used from various directories).
-Each entry must be terminated by / (or \\ on Windows)."
+Each entry must be terminated by / ."
 )
 
 (defconst pascal-units-dirs-not-descend
@@ -197,36 +194,6 @@ names mentioned here."
       ;; (kam-private-pascal-lib-path "delphi/units/dbase/components/")
       ;; (kam-private-pascal-lib-path "delphi/units/graphics/")
       ;; (kam-private-pascal-lib-path "delphi/units/mdi_mimic/components/")
-      ;; fpc source
-      (fpc-source-path "rtl/i386/")
-      (fpc-source-path "rtl/inc/")
-    )
-    (when kam-is-windows
-      (list
-        ;; fpc source (windows-specific)
-        (fpc-source-path "rtl/win/")
-        (fpc-source-path "rtl/win/wininc/")
-      )
-    )
-    (when kam-is-unix
-      (list
-        ;; fpc source (Unix-specific)
-        (fpc-source-path "rtl/unix/")
-      )
-    )
-    (when kam-is-linux
-      (list
-        ;; fpc source
-        (fpc-source-path "rtl/linux/")
-        (fpc-source-path "fcl/linux/")
-      )
-    )
-    (when kam-is-freebsd
-      (list
-        ;; fpc source
-        (fpc-source-path "rtl/bsd/")
-        (fpc-source-path "rtl/freebsd/")
-      )
     )
   )
   "Directories where Pascal units may be found.

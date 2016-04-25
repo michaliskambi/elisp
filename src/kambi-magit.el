@@ -9,7 +9,7 @@
   ;; redefine back to Kambi standard shortcuts - these are overridden in diff view
   ;; when committing
   (local-set-key (kbd "<C-tab>") 'switch-buf)
-  (local-set-key (kbd "<C-return>") 'find-file-at-point)
+  (local-set-key (kbd "<C-return>") 'kam-find-file-at-point)
 
   ;; use XXX to invoke magit-show-level-XXX
   ;; (by default under M-XXX in Magit, at least on Magit version in Elementary OS;

@@ -449,7 +449,7 @@ i.e. point remains in the occur buffer."
     ;; TeX and LaTeX modes redefine C-return key to some operation
     ;; that I don't use, so here I'm resettig C-return binding
     ;; to my global binding.
-    (local-set-key (kbd "<C-return>") 'find-file-at-point)) t)
+    (local-set-key (kbd "<C-return>") 'kam-find-file-at-point)) t)
 (setq auto-mode-alist (add-to-list-new-items auto-mode-alist
   '(("\\.pretex\\'" . latex-mode)
   )))
@@ -821,7 +821,7 @@ parses local variables written in buffer."
 (global-set-key (kbd "M-2") 'split-window-vertically)    ; jak C-x 2
 (global-set-key (kbd "M-3") 'split-window-horizontally)  ; jak C-x 3
 
-(global-set-key (kbd "<C-return>") 'find-file-at-point)
+(global-set-key (kbd "<C-return>") 'kam-find-file-at-point)
 ;; (global-set-key (kbd  "C-x <C-return>") 'kam-insert-current-file-name)
 (global-set-key (kbd  "C-x <C-return>") 'kam-insert-current-file-name-nondirectory)
 (global-set-key (kbd "C-f") 'nonincremental-re-search-forward)
@@ -1091,7 +1091,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (lambda ()
     ;; org-mode overrides some keys, I prefer to keep my preferences
     (local-set-key (kbd "<C-tab>") 'switch-buf)
-    (local-set-key (kbd "<C-return>") 'find-file-at-point)
+    (local-set-key (kbd "<C-return>") 'kam-find-file-at-point)
     (local-set-key (kbd "RET") 'insert-newline-indented-as-prev)
     (local-set-key (kbd "C-e") 'move-end-of-line)
     (local-set-key (kbd "<end>") 'move-end-of-line)
@@ -1104,7 +1104,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 
 ;; add melpa, for projectile and others
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
@@ -1205,6 +1205,18 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (helm-mode 1)
   (setq helm-completion-mode-string "") ;; do not show " Helm" in modeline
 
+  (defun kam-helm-find-files-no-ffap ()
+    "Like helm-find-files, but never try to guess filename using ffap.
+  This is useful for me, because my ffap is quite slow (it tries hard
+  to search various dirs with Pascal units), so I prefer to request
+  is explicitly. The default C-x C-f should be fast."
+    (interactive)
+    (let ((previous-helm-ff-guess-ffap-filenames helm-ff-guess-ffap-filenames))
+      (setq helm-ff-guess-ffap-filenames nil)
+      (call-interactively 'helm-find-files)
+      (setq helm-ff-guess-ffap-filenames previous-helm-ff-guess-ffap-filenames))
+  )
+
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x k") 'helm-show-kill-ring)
   ;; (global-set-key (kbd "M-0") 'helm-mini) ;; not needed, kam-buffer-menu already uses helm
@@ -1212,7 +1224,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   ;; Although it has also it's own "Helm Boring File Regexp List",
   ;; but we should not set it (unless completion-ignored-extensions
   ;; is not enough, like for *~ files)
-  (global-set-key (kbd "C-x C-f") 'helm-find-files)
+  (global-set-key (kbd "C-x C-f") 'kam-helm-find-files-no-ffap)
   (global-set-key (kbd "C-h a") 'helm-apropos)
 
   (defun kam-helm-recentf ()
@@ -1272,7 +1284,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
     "Open file in projectile project, or just open any file if outside project."
     (if (projectile-project-p)
         (call-interactively 'helm-projectile-kam-find-file)
-      (call-interactively 'helm-find-files)))
+      (call-interactively 'kam-helm-find-files-no-ffap)))
   (defun kam-optional-helm-projectile-find-dir ()
     (interactive)
     "Open dir in projectile project, or just open any file if outside project."
@@ -1313,6 +1325,18 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   ;; (when (require 'helm-ag nil 'noerror)
   ;;   (define-key projectile-mode-map (kbd "M-g") 'helm-projectile-ag))
 )
+
+(defun kam-find-file-at-point ()
+  (interactive)
+  "Find file at point, possibly using helm."
+  (if (require 'helm-projectile nil 'noerror)
+      ;; when helm is available, it's better to use standard helm-find-files
+      ;; than find-file-at-point. find-file-at-point would also be
+      ;; completed using helm, but it would have less options.
+      ;; See https://groups.google.com/forum/#!topic/emacs-helm/Y-RKJGLxNu4
+      ;; https://github.com/emacs-helm/helm/issues/984
+      (call-interactively 'helm-find-files)
+    (call-interactively 'find-file-at-point)))
 
 ;; ag (outside helm/projectile) ----------------------------------------------
 

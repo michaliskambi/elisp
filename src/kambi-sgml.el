@@ -25,7 +25,7 @@ with &lt; and > with &gt; and & to &amp; in the region."
 (add-hook 'nxml-mode-hook
   (lambda ()
     ;; Reset C-return to my preference
-    (local-set-key (kbd "<C-return>") 'find-file-at-point)
+    (local-set-key (kbd "<C-return>") 'kam-find-file-at-point)
     ;; Set TAB to completion
     (local-set-key (kbd "TAB") 'nxml-complete)
   )
