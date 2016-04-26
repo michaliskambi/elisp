@@ -919,6 +919,9 @@ parses local variables written in buffer."
 ;; default in to open dir in brief mode, which I find rather useless
 (global-set-key (kbd "C-x C-d") 'dired)
 
+;; http://stackoverflow.com/questions/648817/how-to-bind-esc-to-keyboard-escape-quit-in-emacs
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
 ;; colors --------------------------------------------------------------------
 
 ;; zeby kolorowal skladnie zawsze kiedy moze (global-font-lock-mode is
