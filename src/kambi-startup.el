@@ -9,6 +9,7 @@
 
 (require 'kambi-utils)
 (require 'kambi-various-personal)
+(require 'kambi-helm-projectile-ag)
 (require 'kambi-cc-mode)
 (require 'kambi-pascal)
 (require 'kambi-vrmls)

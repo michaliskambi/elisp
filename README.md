@@ -26,4 +26,5 @@ cd ~/elisp/script/
 #   M-x package-install
 #     ag
 #     helm-projectile (with core helm and core projectile pulled by deps)
+#     adoc-mode
 ~~~~
