@@ -1126,6 +1126,13 @@ regardless of current position and regardless of mark position
   ;; )
 )
 
+(defun kam-dired-here ()
+  "Run dired without asking, in current buffer's directory."
+  (interactive)
+  (dired default-directory)
+  ;;(revert-buffer nil nil t)
+)
+
 (defun kam-project-dir (file-name)
   "Is the file FILE-NAME inside a project.
 A \"project\" is just a directory
@@ -1179,6 +1186,11 @@ This is compatibility hack in case of older magit version."
       (if (svn-version-controlled-dir-p expanded-dir)
           (svn-status-1 (kam-top-most-svn-dir expanded-dir))
         (error "Neither in GIT or SVN repository.")))))
+
+(defun kam-nondir-file-readable-p (fname)
+  "Return non-nil if the file exists, is readable and is not a directory."
+  (and (file-readable-p fname) (not (eq (car (file-attributes fname)) t)))
+)
 
 ;; ------------------------------------------------------------
 

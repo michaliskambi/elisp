@@ -861,7 +861,8 @@ parses local variables written in buffer."
 (global-set-key (kbd "<f12> g") 'goto-line)
 (global-set-key (kbd "<f12> s") 'shell)
 (global-set-key (kbd "<f12> v") 'kam-version-control)
-(global-set-key (kbd "<f12> d") 'kam-open-dir-external)
+(global-set-key (kbd "<f12> d") 'kam-dired-here)
+(global-set-key (kbd "<f12> e") 'kam-open-dir-external)
 
 ;; Also cua-rectangle-mark-key is set to [(control f12)]
 

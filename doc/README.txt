@@ -26,10 +26,4 @@ Older Emacs and XEmacs versions used to work, but are no longer tested.
 Should work on various operating systems, Unix and Windows too.
 For both normal and --batch operation.
 
-------------------------------------------------------------------------------
-Some hardcoded paths here (may require adjusting on each system that I use Emacs):
-
-kambi-ocaml.el:        ocaml-mli-paths
-kambi-pascal.el:       pascal-units-paths
-
 eof --------------------------------------------------------------------------

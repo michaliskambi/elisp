@@ -1,27 +1,17 @@
 ;;;; Kambi Pascal mode and many utils to operate on Pascal code.
 
-;; 2004-12-26: finally I'm shifting from pascal-mode to delphi-mode.
-;;
-;; Main advantage of delphi-mode for me is support for Delphi
-;; 1-line comments "//", this often screws up syntax coloring in
-;; pascal mode (e.g. "// don't do this" would make pascal-mode
-;; into believing that following text is inside string).
-;; Actually, I think that this was a main reason for me to avoid
-;; such "//"-style comments in my pascal code, when I started using
-;; Emacs long time ago...
-;;
-;; Moreover I just consider delphi-mode better
-;; - it doesn't have SO pissing off indentation:
+;; choose delphi-mode --------------------------------------------------------
+
+;; Mode comments: we're using delphi-mode instead of pascal-mode.
+;; Even though Michalis doesn't use delphi, only open-source FPC/Lazarus,
+;; but "delphi-mode" is just better for any "modern Object Pascal" source.
+;; - delphi-mode supports 1-line comments "//"
+;; - It doesn't try to do *so much* indentation for me.
+;;   Although eventually I turned it off completely anyway,
 ;;   see kambi-pascal-mode-map,
-;;   I only needed to turn off 3 keys there to turn off indentation
-;;   while I needed to turn off 7 keys with pascal-mode :)
-;; - it has a complete list of ObjectPascal keywords and directives,
-;;   while with pascal-mode I needed to add many keywords to make
-;;   my Pascal sources really coloured.
-;;
-;;   Well, actually, it also forced me to give up on colouring some
-;;   specials that are not keywords but I like them to be coloured
-;;   like "string" and "integer".
+;;   but it was still easier to turn off in delphi-mode than pascal-mode.
+;; - More complete list of Object Pascal keywords and directives.
+;;   Although I needed to add some anyway.
 
 (if (featurep 'xemacs)
     (progn
@@ -88,7 +78,7 @@ delphi-mode-hook are also called by this mode."
           (if (file-accessible-directory-p (kam-file-name-in-directory env-value "castle-engine"))
               (kam-file-name-in-directory env-value "castle-engine")
             env-value))
-      (kam-file-name-in-directory kam-home-directory "/sources/castle-engine/trunk/castle_game_engine")
+      (kam-file-name-in-directory kam-home-directory "/sources/castle-engine/castle-engine")
     )
   )
   "Path to Castle Game Engine units. From $CASTLE_ENGINE_PATH
@@ -100,29 +90,6 @@ environment variable, if possible."
   ;; This allows to override this in ~/.emacs before executing kambi-startup.
   (defun castle-engine-path (s)
     (kam-file-name-in-directory castle-engine-path-base s)))
-
-(defun fpc-source-path (s)
-  (concat kam-home-directory "/installed/fpc/current/src/" s))
-
-(defun kam-private-pascal-lib-path (s)
-  (concat kam-home-directory "/sources/kambi/pas/" s))
-
-(defconst pascal-units-recursive-paths
-  (list
-    (fpc-source-path "rtl/")
-    (fpc-source-path "packages/")
-  )
-  "List of strigs, directories searched recursively for Pascal unit files.
-Must be absolute (since they may be used from various directories).
-Each entry must be terminated by / ."
-)
-
-(defconst pascal-units-dirs-not-descend
-  (list ".svn" ".git")
-  "`kam-find-pascal-file' when descending recursively into directories mentioned
-in `pascal-units-recursive-paths', does not descend into directories with
-names mentioned here."
-)
 
 (defconst pascal-units-paths
   (append
@@ -165,35 +132,6 @@ names mentioned here."
       ;; (concat kam-home-directory "/sources/pasdoc/trunk/source/component/")
       ;; (concat kam-home-directory "/sources/pasdoc/trunk/source/console/")
       ;; (concat kam-home-directory "/sources/pasdoc/trunk/source/tools/")
-      ;; Kambi private library
-      ;; (kam-private-pascal-lib-path "dbase/units/")
-      ;; (kam-private-pascal-lib-path "net/units/")
-      ;; (kam-private-pascal-lib-path "units/regexpr/")
-      ;; (kam-private-pascal-lib-path "video/units/")
-      ;; (kam-private-pascal-lib-path "sdl/units/")
-      ;; (kam-private-pascal-lib-path "units/bigint/")
-      ;; (kam-private-pascal-lib-path "units/bigint/unpacked/")
-      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL/Pas/")
-      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_Mixer/Pas/")
-      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_Image/Pas/")
-      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_Net/Pas/")
-      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_ttf/Pas/")
-      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/smpeg/Pas/")
-      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SFont/Pas/")
-      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDL_Sound/Pas/")
-      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDLMonoFonts/Pas/")
-      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDLSpriteEngine/Pas/")
-      ;; (kam-private-pascal-lib-path "units/sdl/jedi-sdl/JEDI-SDLv1.0/SDLCtrls/Pas/")
-      ;; (kam-private-pascal-lib-path "graph/units/")
-      ;; (kam-private-pascal-lib-path "units/synapse/source/lib/")
-      ;; (kam-private-pascal-lib-path "units/macroprocessor/")
-      ;; (kam-private-pascal-lib-path "mpi/units/")
-      ;; (kam-private-pascal-lib-path "delphi/units/components/units/")
-      ;; (kam-private-pascal-lib-path "delphi/units/base/")
-      ;; (kam-private-pascal-lib-path "delphi/units/dbase/")
-      ;; (kam-private-pascal-lib-path "delphi/units/dbase/components/")
-      ;; (kam-private-pascal-lib-path "delphi/units/graphics/")
-      ;; (kam-private-pascal-lib-path "delphi/units/mdi_mimic/components/")
     )
   )
   "Directories where Pascal units may be found.
@@ -201,7 +139,7 @@ Each entry must be terminated by a slash (on Windows, also backslash is allowed)
 )
 
 (defconst pascal-exts-implicit
-  '(".pas" ".pp" ".PAS" ".p")
+  '(".pas" ".pp" ".p")
   "Lista rozszerzen (z poczatkowa kropka, pusty string oznacza brak rozszerzenia)
 ktore oznaczaja pliki Pascalowe i ktore niekiedy moga byc pomijane gdy
 nazwa pliku Pascalowego gdzies sie pojawia (np. deklaraujac moduly przez \"uses\"
@@ -255,11 +193,6 @@ ze ten plik jest w Pascalu." )
 ;; you can even just search for `SysUtils' and it will automatically look
 ;; for a unit, trying to append various common units' extensions.
 
-(defun nondir-file-readable-p (fname)
-  "Return non-nil if the file exists, is readable and is not a directory."
-  (and (file-readable-p fname) (not (eq (car (file-attributes fname)) t)))
-)
-
 (defun kam-find-pascal-file (str)
   "Search for file in various directories where Pascal units are kept.
 Filename to search (sans directory) is extracted from the STR.
@@ -268,14 +201,15 @@ This way it will work Ok if STR already contains a valid (relative or not)
 path to the existing file (in particular STR without a path means
 that path is an empty string --- which indicates to start looking in current dir).
 
-Afterwards searches all paths on `pascal-units-paths', `pascal-units-recursive-paths'
- (that hold various my units, FPC sources and such).
+Afterwards searches known projectile files
+(this way it searches Castle Game Engine, FPC, Lazarus sources and such,
+as I use projectile for them all).
 
 It doesn't try to add any file extension. So make sure STR contains the full
 name of the file (with extension). See `kam-ffap-kambi-pascal-mode'
 for a function that tries to guess an extension when searching for file.
 
-Searches for STR with both original case and lowercase.
+Searches for STR ignoring case.
 FPC suggests (and I always follow this convention,
 as it matches Unix conventions) to use lowercase for Pascal unit names
 on case-sensitive filesystems.
@@ -284,63 +218,65 @@ This is nice to install on `ffap-alist' when you get something that already
 has a Pascal extension."
   (block func-block
 
-    (let (dir-to-search
-          file-name
+    (let (file-name
+          dir-to-search
           (search-name (file-name-nondirectory str))
           (search-name-lower (downcase (file-name-nondirectory str)))
          )
 
-      ;; although we could implement it nicer, by first trying
-      ;; search-name with original case, then with lowercase,
-      ;; it would be less optimal: we want to search first on current path,
-      ;; then on other non-recursive paths, and only when it fails:
-      ;; on recursive paths.
-
       (dolist
         ;; search 1st inside (extract-file-path str),
         ;; then in every item on pascal-units-paths.
+        ;; Searching on pascal-units-paths here is not necessary
+        ;; (CGE is anyway known by projectile), but it's faster than
+        ;; relying on projectile when moving around CGE units.
         ;;
         ;; Note the need for extract-file-path, instead of file-name-directory,
         ;; below: we need empty string in case there's no directory.
         (dir-to-search (cons (extract-file-path str) pascal-units-paths))
 
+        ;; although we could implement it nicer, by first trying
+        ;; whole algorithm with original case, then with lowercase,
+        ;; it would be less optimal: we want to search first on current path,
+        ;; then on other non-recursive paths, and only when it fails:
+        ;; on recursive paths.
+
         (setq file-name (concat dir-to-search search-name))
-        (when (nondir-file-readable-p file-name) (return-from func-block file-name))
+        (when (kam-nondir-file-readable-p file-name) (return-from func-block file-name))
         (setq file-name (concat dir-to-search search-name-lower))
-        (when (nondir-file-readable-p file-name) (return-from func-block file-name))
-      )
-
-      (let ((dirs-to-search-recursively pascal-units-recursive-paths)
-            (project-dir (kam-project-dir str)))
-
-        (when project-dir
-          (setq dirs-to-search-recursively (cons project-dir dirs-to-search-recursively))
-        )
-        ;; search dir of STR 1st
-        (setq dirs-to-search-recursively (cons (extract-file-path str) dirs-to-search-recursively))
-
-        (dolist (dir-to-search dirs-to-search-recursively)
-
-          (setq file-name (kam-search-for-file dir-to-search search-name
-            pascal-units-dirs-not-descend t))
-          (when file-name (return-from func-block file-name))
-          (setq file-name (kam-search-for-file dir-to-search search-name-lower
-            pascal-units-dirs-not-descend t))
-          (when file-name (return-from func-block file-name))
-        )
+        (when (kam-nondir-file-readable-p file-name) (return-from func-block file-name))
       )
     )
 
-    nil ; not found, if you didn't returned using (return-from ...) by now
+    ;; otherwise fallback on projectile knowledge
+
+    (kam-find-pascal-file-using-projectile str)
   )
 )
 
 ;; tests:
-;; (kam-find-pascal-file "ibconnection.pp")
-;; (kam-find-pascal-file "IBConnection.pp")
-;; (kam-find-pascal-file "unix.pp") ; should not work under non-unix
-;; (kam-find-pascal-file "windows.pp") ; should not work under non-windows
-;; (kam-find-pascal-file "KambiIBFPC.pas")
+;; (kam-find-pascal-file "unix.pp")
+;; (kam-find-pascal-file "windows.pp")
+;; (kam-find-pascal-file "CastleImages.pas")
+;; (kam-find-pascal-file "castleimages.pas")
+;; (kam-find-pascal-file "castleconf.inc")
+
+(defun kam-find-pascal-file-using-projectile (str)
+  "Search for Pascal file STR (must not contain any directory part,
+must contain extension) in projects known to projectile.
+This way we utilize projectile knowledge to search units in FPC, CGE sources.
+Returns the full path (string) or nil if not found."
+  (let ((all-known-files (projectile-all-project-files))
+        (search-suffix (concat "/" str))
+       )
+    (block func-block
+      (dolist (known-file all-known-files)
+        (when (s-suffix-p search-suffix known-file t)
+          (return-from func-block known-file))
+      )
+      nil ; not found
+    )
+  ))
 
 (defun kam-ffap-kambi-pascal-mode (str)
   "Search for file in various directories where Pascal units are kept,
@@ -544,10 +480,10 @@ problems, at least for now."
 (setq compilation-search-path
   (append compilation-search-path pascal-units-paths))
 
-;; KambiScript hacks ---------------------------------------------------------
+;; CastleScript --------------------------------------------------------------
 
 ;; load kambi-pascal-mode on KambiScript
-;; (http://castle-engine.sourceforge.net/kambi_script.php)
+;; http://castle-engine.sourceforge.net/castle_script.php
 (add-to-list 'auto-mode-alist '("\\.kscript\\'" . kambi-pascal-mode))
 
 ;; auto-complete -------------------------------------------------------------

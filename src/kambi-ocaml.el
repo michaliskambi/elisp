@@ -19,7 +19,8 @@
     "/usr/lib/ocaml/3.07/"
   )
   "These are paths to be searched by kambi-ffap-ocaml. They should contain
-mli files of OCaml modules that I (Kambi) use.")
+mli files of OCaml modules that I (Michalis) use.
+TODO: should not be hardcoded.")
 
 (defun kambi-ffap-ocaml (str)
   (let ((result-basename str)
@@ -51,7 +52,7 @@ mli files of OCaml modules that I (Kambi) use.")
       (dolist (path (cons "" ocaml-mli-paths))
 
         (setq maybe-result (concat path result-basename))
-        (when (nondir-file-readable-p maybe-result)
+        (when (kam-nondir-file-readable-p maybe-result)
           (return-from func-block maybe-result))
       )
     )
