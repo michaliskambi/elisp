@@ -415,7 +415,7 @@ for Pascal sources. Detects my various projects and their compilation setup."
 (defun kam-clean-cge ()
   "Clear CGE (useful to recompile it cleanly, or after FPC internal error)."
   (interactive)
-  (async-shell-command "cc"))
+  (async-shell-command "clean-cge"))
 
 (defun kam-pascal-compilation-filter-remove-lines (line-regexp)
   "Use within compilation-filter-hook implementations.
