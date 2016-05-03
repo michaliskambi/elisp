@@ -75,7 +75,36 @@
   ;; unfortunately, ctags for Pascal projects is not much useful
   ;; (only procedures/functions)
   ;; (define-key projectile-mode-map (kbd "<s-f12>") 'projectile-find-tag)
+
+  ;; projectile with CGE interaction
+  (projectile-register-project-type 'castle-engine '("CastleEngineManifest.xml") "castle-engine compile --mode=debug && castle-engine run" nil)
 )
+
+;; projectile + compilation --------------------------------------------------
+;;
+;; This allows compilation command to be remembered for a project, not for a file,
+;; which is nice if you like to run compilation from any file belonging to a project,
+;; and except to run the same command as previous.
+
+(defun kam-compile ()
+  "Compile, asking for command, possibly using projectile."
+  (interactive)
+  (if (projectile-project-p)
+      (let ((saved-compilation-read-command compilation-read-command))
+        (setq compilation-read-command t)
+        (call-interactively 'projectile-compile-project)
+        (setq compilation-read-command saved-compilation-read-command))
+    (call-interactively 'compile)))
+
+(defun kam-compile-immediate ()
+  "Compile, withot asking for a command, possibly using projectile."
+  (interactive)
+  (if (projectile-project-p)
+      (let ((saved-compilation-read-command compilation-read-command))
+        (setq compilation-read-command nil)
+        (call-interactively 'projectile-compile-project)
+        (setq compilation-read-command saved-compilation-read-command))
+    (compile compile-command)))
 
 ;; helm ----------------------------------------------------------------------
 

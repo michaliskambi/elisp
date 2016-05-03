@@ -1084,11 +1084,6 @@ regardless of current position and regardless of mark position
       (let ((lines-after (kam-count-lines-buffer)))
         (message "Removed %d lines, remaining %d." (- lines-before lines-after) lines-after)))))
 
-(defun kam-compile-immediate ()
-  "Run compile withot asking for a command."
-  (interactive)
-  (compile compile-command))
-
 (defun kam-clean-here ()
   "Clear this project."
   (interactive)
