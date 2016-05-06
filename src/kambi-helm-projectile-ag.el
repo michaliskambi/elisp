@@ -41,6 +41,7 @@
   (define-key projectile-mode-map (kbd "M-f") 'kam-optional-projectile-find-file)
   (define-key projectile-mode-map (kbd "M-d") 'kam-optional-projectile-find-dir)
   (define-key projectile-mode-map (kbd "M-s") 'projectile-switch-project)
+  (define-key svn-status-mode-map (kbd "M-s") 'projectile-switch-project) ;; also override svn shortcut
   (define-key projectile-mode-map (kbd "M-g") 'kam-optional-projectile-grep)
 
   (when (require 'ag nil 'noerror)
@@ -238,6 +239,7 @@
   (define-key projectile-mode-map (kbd "M-f") 'kam-optional-helm-projectile-find-file)
   (define-key projectile-mode-map (kbd "M-d") 'kam-optional-helm-projectile-find-dir)
   (define-key projectile-mode-map (kbd "M-s") 'helm-projectile-switch-project)
+  (define-key svn-status-mode-map (kbd "M-s") 'helm-projectile-switch-project) ;; also override svn shortcut
   (setq projectile-switch-project-action 'projectile-dired)
 
   ;; Hm, while it is cool to have incremental results, you cannot easily
