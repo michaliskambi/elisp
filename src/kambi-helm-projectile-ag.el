@@ -142,6 +142,7 @@
   ;; is not enough, like for *~ files)
   (global-set-key (kbd "C-x C-f") 'kam-helm-find-files-no-ffap)
   (global-set-key (kbd "C-h a") 'helm-apropos)
+  (global-set-key (kbd "C-x C-/") 'helm-find)
 
   (defun kam-helm-recentf ()
     "Customized `helm' for `recentf', to show basename by default."
