@@ -20,3 +20,8 @@
 
 ;; Initialize Kambi stuff.
 (require 'kambi-startup)
+
+;; set default font (useful to uncomment on Windows).
+;; Following https://www.emacswiki.org/emacs/SetFonts
+;; and https://www.gnu.org/software/emacs/manual/html_node/emacs/Fonts.html
+;;(set-frame-font "Courier New-16")

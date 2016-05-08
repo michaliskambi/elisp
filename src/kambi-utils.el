@@ -25,9 +25,6 @@
 (when (featurep 'xemacs)
   (require 'kambi-xemacs))
 
-(require 'magit) ;; for kam-version-control
-;; (require 'magit-git)
-
 ;; string operations ---------------------------------------------------
 
 (defun string-repeat (STR COUNT)
@@ -1162,17 +1159,29 @@ Assumes that DIR is for sure an SVN dir."
           (kam-top-most-svn-dir parent-dir)
         dir))))
 
-(unless (fboundp 'magit-toplevel)
-  (defun magit-toplevel ()
-    "Is the current ``default-directory'' within a GIT repository.
-This is compatibility hack in case of older magit version."
-    (interactive)
-    (magit-get-top-dir default-directory))
-)
-
 (defun kam-version-control ()
   "Call magit-status in GIT, svn-status in SVN."
   (interactive)
+
+  ;; Load magit, for kam-version-control.
+  ;; Simply ignore the error in case magit not available (version control
+  ;; stuff will not work but the rest of my Emacs config will).
+  ;;
+  ;; Why it doesn't work (it seems like require 'magit-git...
+  ;; is ignored) when this is outside of this function, and executes when Emacs
+  ;; loads? Possibly because package-initialize is done after loading kambi-utils?
+  ;; Not really a problem for now.
+  (require 'magit nil 'noerror)
+  (require 'magit-git nil 'noerror)
+
+  (unless (fboundp 'magit-toplevel)
+    (defun magit-toplevel ()
+      "Is the current ``default-directory'' within a GIT repository.
+  This is compatibility hack in case of older magit version."
+      (interactive)
+      (magit-get-top-dir default-directory))
+  )
+
   (if (magit-toplevel)
       (call-interactively 'magit-status)
     ;; we expand dir, because svn-version-controlled-dir-p calls "svn info ..."
