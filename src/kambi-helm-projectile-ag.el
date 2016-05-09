@@ -85,12 +85,21 @@
 ;;
 ;; This allows compilation command to be remembered for a project, not for a file,
 ;; which is nice if you like to run compilation from any file belonging to a project,
-;; and except to run the same command as previous.
+;; and expect to run the same command as previous.
+
+(defvar-local kam-force-compilation-not-in-project nil
+  "When non-nil (you usually want to only set it buffer-local) then
+force our compilation commands `kam-compile' and `kam-compile-immediate'
+to use non-project compilation.")
 
 (defun kam-compile ()
-  "Compile, asking for command, possibly using projectile."
+  "Compile, asking for command, possibly using projectile.
+
+Uses projectile if we're inside a project (thus using (proposing/editing/saving)
+a project-wide compilation command), unless kam-force-compilation-not-in-project
+is defined."
   (interactive)
-  (if (projectile-project-p)
+  (if (and (projectile-project-p) (not kam-force-compilation-not-in-project))
       (let ((saved-compilation-read-command compilation-read-command))
         (setq compilation-read-command t)
         (call-interactively 'projectile-compile-project)
@@ -98,9 +107,13 @@
     (call-interactively 'compile)))
 
 (defun kam-compile-immediate ()
-  "Compile, withot asking for a command, possibly using projectile."
+  "Compile, withot asking for a command, possibly using projectile.
+
+Uses projectile if we're inside a project (thus using (proposing/editing/saving)
+a project-wide compilation command), unless kam-force-compilation-not-in-project
+is defined."
   (interactive)
-  (if (projectile-project-p)
+  (if (and (projectile-project-p) (not kam-force-compilation-not-in-project))
       (let ((saved-compilation-read-command compilation-read-command))
         (setq compilation-read-command nil)
         (call-interactively 'projectile-compile-project)

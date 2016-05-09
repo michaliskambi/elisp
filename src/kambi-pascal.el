@@ -345,7 +345,10 @@ a project with CastleEngineManifest.xml."
 
 (defun kam-pascal-compile-command (file-name)
   "Return compile-command for file-name calculated the way I like
-for Pascal sources. Detects my various projects and their compilation setup."
+for Pascal sources. Detects my various projects and their compilation setup.
+
+Returns nil if compilation of this command is better controlled project-wide
+by projectile."
   (let
     (
       ;; for buffer-file-name like
@@ -393,7 +396,8 @@ for Pascal sources. Detects my various projects and their compilation setup."
           (if (string-is-suffix "castle-engine/tests/" dir-name)
               (concat "./compile_console.sh && ./test_castle_game_engine -a")
             (if (kam-is-castle-engine-project-p file-name)
-                (concat "castle-engine compile --mode=debug && castle-engine run")
+                ;;(concat "castle-engine compile --mode=debug && castle-engine run")
+                nil ;; return nil to leave compilation command under projectile (per-project) control
               (if (file-exists-p compile-script)
                   (concat "sh " file-base-name "_compile.sh && ./" file-base-name kam-os-exe-extension)
                 (if (string-match-p "castle_game_engine" dir-name)
@@ -468,7 +472,11 @@ problems, at least for now."
 ;; be in hook, not in kambi-pascal-mode.
 (add-hook 'kambi-pascal-mode-hook
   (lambda ()
-    (set-local-compile-command (kam-pascal-compile-command (buffer-file-name)))
+    (let ((com-command (kam-pascal-compile-command (buffer-file-name))))
+      (when com-command
+          (set-local-compile-command com-command)
+          (setq kam-force-compilation-not-in-project t))
+    )
     (add-hook 'compilation-filter-hook 'kam-pascal-compilation-filter t)
   ) t)
 
