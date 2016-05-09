@@ -337,8 +337,29 @@ a project with CastleEngineManifest.xml."
     (file-exists-p (concat (file-name-directory file-name) "CastleEngineManifest.xml"))
     (and
       (not (member (file-name-directory file-name) '("/" "~/")))
-      (kam-is-castle-engine-project-p
-        (file-name-directory (directory-file-name (file-name-directory file-name))))
+      ;; avoid infinite recursion
+      (not (equal file-name           (file-name-directory (directory-file-name (file-name-directory file-name)))))
+      (kam-is-castle-engine-project-p (file-name-directory (directory-file-name (file-name-directory file-name))))
+    )
+  )
+)
+
+(defun kam-is-castle-engine-project-but-not-projectile-p (file-name)
+  "Is the file inside a castle-engine project, that is inside
+a project with CastleEngineManifest.xml, but the CastleEngineManifest.xml directory
+is NOT the top-level directory for projectile."
+  (or
+    (and
+      (file-exists-p (concat (file-name-directory file-name) "CastleEngineManifest.xml"))
+      (not (file-exists-p (concat (file-name-directory file-name) ".git")))
+      (not (file-exists-p (concat (file-name-directory file-name) ".svn")))
+      (not (file-exists-p (concat (file-name-directory file-name) ".projectile")))
+    )
+    (and
+      (not (member (file-name-directory file-name) '("/" "~/")))
+      ;; avoid infinite recursion
+      (not (equal file-name                              (file-name-directory (directory-file-name (file-name-directory file-name)))))
+      (kam-is-castle-engine-project-but-not-projectile-p (file-name-directory (directory-file-name (file-name-directory file-name))))
     )
   )
 )
@@ -395,16 +416,19 @@ by projectile."
             (concat "./compile_console.sh && ./test_castle_game_engine -a")
           (if (string-is-suffix "castle-engine/tests/" dir-name)
               (concat "./compile_console.sh && ./test_castle_game_engine -a")
-            (if (kam-is-castle-engine-project-p file-name)
-                ;;(concat "castle-engine compile --mode=debug && castle-engine run")
-                nil ;; return nil to leave compilation command under projectile (per-project) control
-              (if (file-exists-p compile-script)
-                  (concat "sh " file-base-name "_compile.sh && ./" file-base-name kam-os-exe-extension)
-                (if (string-match-p "castle_game_engine" dir-name)
-                    (concat "castle-engine simple-compile --mode=debug " (file-name-nondirectory file-name) (when is-runnable (concat " && ./" file-base-name)))
-                  (if (string-match-p "castle-engine" dir-name)
+            (if (kam-is-castle-engine-project-but-not-projectile-p file-name)
+                (concat "castle-engine compile --mode=debug && castle-engine run")
+              (if (kam-is-castle-engine-project-p file-name)
+                  ;;(concat "castle-engine compile --mode=debug && castle-engine run")
+                  nil ;; return nil to leave compilation command under projectile (per-project) control
+                (if (file-exists-p compile-script)
+                    (concat "sh " file-base-name "_compile.sh && ./" file-base-name kam-os-exe-extension)
+                  (if (string-match-p "castle_game_engine" dir-name)
                       (concat "castle-engine simple-compile --mode=debug " (file-name-nondirectory file-name) (when is-runnable (concat " && ./" file-base-name)))
-                    (concat "fpc " (file-name-nondirectory file-name) (when is-runnable (concat " && ./" file-base-name)))
+                    (if (string-match-p "castle-engine" dir-name)
+                        (concat "castle-engine simple-compile --mode=debug " (file-name-nondirectory file-name) (when is-runnable (concat " && ./" file-base-name)))
+                      (concat "fpc " (file-name-nondirectory file-name) (when is-runnable (concat " && ./" file-base-name)))
+                    )
                   )
                 )
               )

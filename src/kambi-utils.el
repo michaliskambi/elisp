@@ -1143,7 +1143,9 @@ for us."
     (if (or (file-exists-p (concat path "/.git"))
             (file-exists-p (concat path "/.svn")))
         path
-      (when (not (member path '("/" "~/")))
+      (when (and (not (member path '("/" "~/")))
+                 ;; avoid infinite recursion
+                 (not (equal file-name (file-name-directory (directory-file-name path)))))
         (kam-project-dir (file-name-directory (directory-file-name path))))
     )
   )
