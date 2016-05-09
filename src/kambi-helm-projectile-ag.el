@@ -79,6 +79,14 @@
 
   ;; projectile with CGE interaction
   (projectile-register-project-type 'castle-engine '("CastleEngineManifest.xml") "castle-engine compile --mode=debug && castle-engine run" nil)
+
+  (when kam-is-windows
+    ;; makes projectile scan projects much faster on Windows.
+    ;; For some projects, like FPC, it's a *must*, as the default value on Windows
+    ;; (alien) is much too slow.
+    (setq projectile-indexing-method 'alien)
+    (setq projectile-generic-command "c:/cygwin/bin/find . -type f -print0")
+  )
 )
 
 ;; projectile + compilation --------------------------------------------------
