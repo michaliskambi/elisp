@@ -46,6 +46,13 @@
 
   (when (require 'ag nil 'noerror)
 
+    (when kam-is-windows
+      ;; highlighting on Windows always causes weird bug: the first component
+      ;; (filename)is eaten. Happens even if you run 'ag' from shell in Emacs.
+      ;; See https://github.com/Wilfred/ag.el/issues/101
+      ;; https://github.com/Wilfred/ag.el/issues/97
+      (setq ag-highlight-search nil))
+
     (defun kam-optional-projectile-ag ()
       (interactive)
       "Search using AG in projectile project, or just in current dir if outside project."
