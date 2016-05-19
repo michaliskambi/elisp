@@ -205,7 +205,9 @@ may be screwed up after running some program that changed screen size
       (setq recent-files-non-permanent-submenu nil)
       (recent-files-initialize)
     )
-  (recentf-mode 1))
+  (recentf-mode 1)
+  ;; remove from the "recent files" list the non-existing files
+  (recentf-cleanup))
 
 ;; wylacz pinging w ffap (bo pinging moze zawiesic na kilkanascie sekund Emacsa)
 (setq ffap-machine-p-known 'accept)

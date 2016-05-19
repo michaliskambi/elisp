@@ -94,6 +94,9 @@
     (setq projectile-indexing-method 'alien)
     (setq projectile-generic-command "c:/cygwin/bin/find . -type f -print0")
   )
+
+  ;; remove from the "known projects" list the non-existing projects
+  (projectile-cleanup-known-projects)
 )
 
 ;; projectile + compilation --------------------------------------------------
