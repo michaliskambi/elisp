@@ -144,7 +144,7 @@ is defined."
 (when (require 'helm-config nil 'noerror)
   (helm-mode 1)
   (setq helm-completion-mode-string "") ;; do not show " Helm" in modeline
-  (setq helm-full-frame t)
+  ;; (setq helm-full-frame t)
 
   ;; we should not do this, as it's internal.
   ;; But it seems the only way to have helm-ag results with truncated lines by
