@@ -848,7 +848,12 @@ is useful to wait for user."
 (defun kam-beg-of-buf ()
   "Like `beginning-of-buffer' but don't set mark."
   (interactive)
+  ;; hack to make c-home work fast with minimap set to "free" mode.
+  ;; Resigned, because minimap was generally buggy with mode <> relative,
+  ;; update function sometimes crashed?
+;;  (minimap-mode nil) 
   (goto-char (point-min))
+;;  (minimap-mode t) ;; hack to make c-home work fast with minimap set to "free" mode
 )
 
 (defun kam-end-of-buf ()

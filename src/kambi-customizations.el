@@ -56,6 +56,14 @@
  '(jka-compr-load-suffixes (quote (".gz" ".x3dz")))
  '(js-auto-indent-flag nil)
  '(magit-pull-arguments nil)
+ '(minimap-major-modes
+   (quote
+    (prog-mode delphi-mode Custom-mode kambi-pascal-mode fundamental-mode text-mode comint-mode)))
+ '(minimap-mode t)
+ '(minimap-recenter-type (quote relative))
+ '(minimap-update-delay 0.1)
+ '(minimap-width-fraction 0.1)
+ '(minimap-window-location (quote right))
  '(mmm-submode-decoration-level 0)
  '(org-replace-disputed-keys t)
  '(org-support-shift-select (quote always))
