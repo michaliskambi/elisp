@@ -16,7 +16,7 @@
 
 (defun compile-make-word-at-point ()
   (interactive)
-  (compile-prompt (concat "make " (thing-at-point 'word)))
+  (kam-compile-prompt (concat "make " (thing-at-point 'word)))
 )
 
 (add-hook 'makefile-mode-hook

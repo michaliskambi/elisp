@@ -851,7 +851,7 @@ is useful to wait for user."
   ;; hack to make c-home work fast with minimap set to "free" mode.
   ;; Resigned, because minimap was generally buggy with mode <> relative,
   ;; update function sometimes crashed?
-;;  (minimap-mode nil) 
+;;  (minimap-mode nil)
   (goto-char (point-min))
 ;;  (minimap-mode t) ;; hack to make c-home work fast with minimap set to "free" mode
 )
@@ -885,7 +885,7 @@ maybe I'll invent some use for this)."
   (setq compile-command VALUE)
 )
 
-(defun compile-prompt (command)
+(defun kam-compile-prompt (command)
   "It works like setting `compile-command' and then calling `compile'
 interactively: it always asks the user to confirm the compilation
  (and optionally adjust proposed COMMAND).
@@ -893,13 +893,20 @@ interactively: it always asks the user to confirm the compilation
 So you can use this function as a drop-in replacement for
 `compile' function in cases when you want to call it
 from Elisp code (i.e. not interactively)
-and when you always want to ask user for confirmation."
+and when you *always* want to ask user for confirmation."
+
   ;; Below is based on implementation of `compile' command
-  (setq command
-    (read-from-minibuffer "Compile command: "
-      command nil nil '(compile-history . 1)))
-  (save-some-buffers (not compilation-ask-about-save) nil)
-  (compile-internal command "No more errors")
+  ;; (setq command
+  ;;   (read-from-minibuffer "Compile command: "
+  ;;     command nil nil '(compile-history . 1)))
+  ;; (save-some-buffers (not compilation-ask-about-save) nil)
+  ;; (compile command)
+
+  (setq compile-command command)
+  (let ((saved-compilation-read-command compilation-read-command))
+    (setq compilation-read-command t)
+    (call-interactively 'compile)
+    (setq compilation-read-command saved-compilation-read-command))
 )
 
 (defun kam-string-delete-ctrl-m (text)

@@ -122,7 +122,7 @@ is defined."
         (setq compilation-read-command t)
         (call-interactively 'projectile-compile-project)
         (setq compilation-read-command saved-compilation-read-command))
-    (call-interactively 'compile)))
+    (kam-compile-prompt compile-command)))
 
 (defun kam-compile-immediate ()
   "Compile, withot asking for a command, possibly using projectile.
