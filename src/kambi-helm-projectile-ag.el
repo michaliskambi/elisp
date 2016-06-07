@@ -53,11 +53,26 @@
       ;; https://github.com/Wilfred/ag.el/issues/97
       (setq ag-highlight-search nil))
 
+    (defun kam-projectile-ag (search-term &optional arg default-search-term)
+      (interactive
+       ;; Note: do not use default-search-term of read-from-minibuffer,
+       ;; because it has brain-dead specification.
+       ;; Others rant about it too: http://xahlee.info/comp/lisp_read-from-minibuffer_propels_deep_questions.html
+       (list (read-from-minibuffer
+              (projectile-prepend-project-name (format "Ag %ssearch for (default \"%s\"): " (if current-prefix-arg "regexp " "") (projectile-symbol-or-selection-at-point))))
+             current-prefix-arg
+             (projectile-symbol-or-selection-at-point)))
+      "Like `projectile-ag', but without uncomfortable \"insert thing at point\" behavior.
+It only uses \"thing at point\" if you just press enter."
+      (if (equal search-term "")
+          (projectile-ag default-search-term arg)
+        (projectile-ag search-term arg)))
+
     (defun kam-optional-projectile-ag ()
       (interactive)
       "Search using AG in projectile project, or just in current dir if outside project."
       (if (projectile-project-p)
-          (call-interactively 'projectile-ag)
+          (call-interactively 'kam-projectile-ag)
         (call-interactively 'ag)))
 
     (define-key projectile-mode-map (kbd "M-g") 'kam-optional-projectile-ag))
