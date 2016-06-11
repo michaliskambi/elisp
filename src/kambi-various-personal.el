@@ -540,34 +540,6 @@ i.e. point remains in the occur buffer."
 ;; and "cutting text just to delete it".
 (setq x-select-enable-clipboard t)
 
-;; svn and svk (from svn+svk branch)
-(defconst use-svk nil
-  "non-nil if we want to use psvn-svk branch.
-
-This is good because this allows me to operate on SVK
-repositories from Emacs, in a way similar to psvn.
-
-This is bad because this means that also psvn-svn
-code must come from this branch (you can't load both psvn-svk and
-normal, original psvn branches), so potentially using it on normal
-SVN repositories means using outdated/buggy psvn code.
-And in fact it's really buggy in some cases (possibly because of
-branching, or maybe just because later psvn bugfixes aren't fixed
-there).")
-
-(if use-svk
-    (progn
-      (add-to-list 'load-path
-        (concat kambi-elisp-path "contrib/psvn-svk/trunk/"))
-      (require 'psvn)
-      (require 'psvn-svk)
-    )
-
-  (add-to-list 'load-path
-    (concat kambi-elisp-path "contrib/psvn/"))
-  (require 'psvn)
-)
-
 (when kam-is-linux
   ;; browse-url adjust for Debian
   (setq browse-url-generic-program "sensible-browser")
