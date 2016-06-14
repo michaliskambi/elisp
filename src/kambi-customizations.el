@@ -95,6 +95,17 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(markup-complex-replacement-face ((t (:inherit markup-meta-face :foreground "plum1" :box (:line-width 2 :style released-button)))))
+ '(markup-list-face ((t (:inherit markup-meta-face :foreground "plum1"))))
+ '(markup-meta-face ((t (:stipple nil :foreground "gray30" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1.0 :width normal :foundry "unknown" :family "Monospace"))))
+ '(markup-secondary-text-face ((t (:inherit markup-gen-face :foreground "firebrick"))))
+ '(markup-small-face ((t (:inherit markup-gen-face))))
+ '(markup-table-cell-face ((t (:inherit markup-table-face))))
+ '(markup-table-face ((t (:inherit markup-meta-face :foreground "dodger blue"))))
+ '(markup-title-0-face ((t (:inherit markup-gen-face :height 2.0))))
+ '(markup-title-1-face ((t (:inherit markup-gen-face :height 1.8))))
+ '(markup-title-2-face ((t (:inherit markup-gen-face :height 1.6))))
+ '(markup-verbatim-face ((t (:box (:line-width 1 :color "grey25")))))
  '(mmm-code-submode-face ((t nil)))
  '(nxml-comment-content-face ((t (:foreground "gray"))))
  '(t2t-bold-face ((t (:background unspecified :foreground unspecified :weight bold :width extra-expanded))))
