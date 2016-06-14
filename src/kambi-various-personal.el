@@ -1112,6 +1112,11 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;;   (flx-ido-mode 1)
 ;;   (setq flx-ido-use-faces nil))
 
+;; asciidoc ------------------------------------------------------------------
+
+(when (require 'adoc-mode nil 'noerror)
+  (add-to-list 'auto-mode-alist '("\\.adoc\\'" . adoc-mode)))
+
 ;; provides (keep at the end) ------------------------------------------------
 
 (provide 'kambi-various-personal)
