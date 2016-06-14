@@ -79,14 +79,16 @@ It only uses \"thing at point\" if you just press enter."
 
   ;; customize project name, in case of xxx/trunk/ dir.
   ;; Based on https://github.com/bbatsov/projectile/pull/928
+  ;; I added $ at end, so that subprojects (with .projectile) inside larger xxx/trunk
+  ;; get their own names correctly.
   (defun kam-projectile-custom-project-name (project-root)
      (cond
-      ((string-match "/\\([^/]+\\)/\\(?:branches\\|tags\\)\\(?:.*\\)/\\([^/]+\\)" project-root)
+      ((string-match "/\\([^/]+\\)/\\(?:branches\\|tags\\)\\(?:.*\\)/\\([^/]+\\)/?$" project-root)
        (let* ((product-name (match-string 1 project-root))
               (branch-name (match-string 2 project-root)))
          (concat product-name "/" branch-name))) ;
 
-      ((string-match "/\\([^/]+\\)/trunk" project-root)
+      ((string-match "/\\([^/]+\\)/trunk/?$" project-root)
              (let* ((product-name (match-string 1 project-root)))
                (concat product-name "/trunk")))
 
