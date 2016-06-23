@@ -1165,8 +1165,21 @@ for us."
 
 (defun kam-top-most-svn-dir (dir)
   "Find the top-most SVN dir from DIR.
+
+Also stops at DIR with .projectile file, does not go to higher SVN dir.
+Reasoning:
+
+- .projectile files sometimes delimit subprojects within larger SVN repos.
+- Limiting to the projectile project means that projectile-find-file cache
+  is up-to-date (otherwise you land in higher projectile project,
+  that has never updated cache because it's usually shadowed by subproject
+  when opening particular file).
+- kam-run-here also works here better, as proper CastleEngineManifest.xml
+  is more likely found here.
+
 Assumes that DIR is for sure an SVN dir."
-  (if (member dir '("/" nil))
+  (if (or (member dir '("/" nil))
+          (file-exists-p (kam-file-name-in-directory dir ".projectile")))
       dir ;; don't go upward
     (let ((parent-dir (file-name-directory (directory-file-name dir))))
       (if (svn-version-controlled-dir-p parent-dir)
