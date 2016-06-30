@@ -42,7 +42,7 @@
   (define-key projectile-mode-map (kbd "M-d") 'kam-optional-projectile-find-dir)
   (define-key projectile-mode-map (kbd "M-s") 'projectile-switch-project)
   (define-key svn-status-mode-map (kbd "M-s") 'projectile-switch-project) ;; also override svn shortcut
-  (define-key projectile-mode-map (kbd "M-g") 'kam-optional-projectile-grep)
+  (define-key projectile-mode-map (kbd "M-g") 'projectile-grep)
 
   (when (require 'ag nil 'noerror)
 
