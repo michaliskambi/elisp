@@ -27,5 +27,6 @@
 (require 'kambi-csharp)
 (require 'kambi-shell)
 (require 'kambi-magit)
+(require 'kambi-search)
 
 (provide 'kambi-startup)

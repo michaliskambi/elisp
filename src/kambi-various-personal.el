@@ -785,9 +785,6 @@ parses local variables written in buffer."
 (global-set-key (kbd "<S-f9>") 'kam-clean-here)
 (global-set-key (kbd "<S-f10>") 'kam-clean-cge)
 
-(global-set-key (kbd "<S-f4>") 'previous-error)
-(global-set-key (kbd "<f4>") 'next-error)
-
 (global-set-key (kbd "<C-tab>") 'switch-buf)
 (global-set-key (kbd "C-x k") 'browse-kill-ring)
 ;; (global-set-key (kbd "<C-SPC>") 'dabbrev-completion) ; default is uncomfortable C-M-\
