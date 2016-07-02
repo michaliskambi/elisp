@@ -6,10 +6,6 @@
 
 ;; ---------------------------------------------------------------------------
 
-(defconst mmm-available (fboundp 'mmm-mode)
-  "Non-nil if mmm-mode (and associated variables and functions) are
-available in this Emacs version.")
-
 ;; w tej chwili przydatne mi zeby skonfigurowac php-mode (nie uzywam
 ;; c-mode i c++-mode, mam wlasne wersje tych modes ktore nie robia indentation).
 ;; Ale moze kiedys znajda sie tez jakies inne modes ktore beda tego uzywac.
@@ -956,9 +952,6 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (set-face-colors 'mode-line "black" "Aquamarine")
   (set-face-colors 'secondary-selection "black" "white")
   (set-face-colors 'cursor nil "white")
-
-  (when mmm-available
-    (set-face-background 'mmm-default-submode-face "gray20"))
 )
 
 ;; ------------------------------------------------------------

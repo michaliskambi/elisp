@@ -10,6 +10,8 @@
 ;; (and call them as "www content development") in one place because
 ;; I use them together.
 
+;; php -----------------------------------------------------------------------
+
 ;; Czasem nie mam php-mode (NTEmacs nie ma, sam GNU emacs pod Linuxem tez
 ;; przez chwile nie mial bo php-mode nie kompilowal sie pod GNU emacsem
 ;; (tylko XEmacsem))
@@ -83,73 +85,6 @@
 ;; I never use this (and I can't think about any sensible HTML template
 ;; that would suit my needs) so I turn this off.
 (setq psgml-html-build-new-buffer nil)
-
-;; ------------------------------------------------------------
-;; configure-no-mmm-www and configure-mmm-www
-
-(defun configure-no-mmm-www ()
-  "This does necessary configuration to use php-mode and html-mode
-(or maybe html-helper-mode) without mmm. Useful when you don't have
-mmm-mode available.
-
-This will also work even if you don't have php-mode."
-  (interactive)
-  (unless php-mode-available
-    (add-to-list 'auto-mode-alist '("\\.php\\'" . html-mode)))
-  (add-to-list 'auto-mode-alist '("\\.html?\\'" . html-mode))
-)
-
-(defun configure-mmm-www ()
-  "This configures MMM mode to combine HTML, PHP, CSS ...
-Based closely on [http://www.emacswiki.org/cgi-bin/wiki/HtmlModeDeluxe].
-
-Requires mmm-mode, php-mode, css-mode (others?) available."
-  (interactive)
-
-  (require 'mmm-mode)
-
-  (setq mmm-global-mode 'maybe)
-
-  ;; set up an mmm group for fancy html editing
-  (mmm-add-group
-    'fancy-html
-    '(
-      (html-php-tagged
-              :submode kambi-php-mode
-              :face mmm-code-submode-face
-              :front "<[?]php"
-              :back "[?]>")
-      (html-css-attribute
-              :submode css-mode
-              :face mmm-declaration-submode-face
-              :front "style=\""
-              :back "\"")
-    ))
-
-  (mmm-add-mode-ext-class 'html-mode nil 'fancy-html)
-
-  ;; Don't add html-php, instead I add fancy-html: this uses my
-  ;; kambi-php-mode instead of default php-mode.
-  ;; (mmm-add-mode-ext-class 'html-mode nil 'html-php)
-
-  ;; Don't add html-js. I don't know why, but with mmm-mode 0.4.8-5
-  ;; on Debian testting this causes the buffer to always be marked
-  ;; modified on activation. I don't use JS too much anyway, so I just turned it off.
-  ;; (mmm-add-mode-ext-class 'html-mode nil 'html-js)
-
-  ;; temp commented out, on chantal this causes buffer marked modified?
-  ;;(mmm-add-mode-ext-class 'html-mode nil 'embedded-css)
-
-  ;; Invoke html-mode on all php and html files.
-  (add-to-list 'auto-mode-alist '("\\.php\\'" . html-mode))
-  (add-to-list 'auto-mode-alist '("\\.html?\\'" . html-mode))
-)
-
-;; call one of configure-*-www
-(if (and php-mode-available mmm-available)
-    (configure-mmm-www)
-  (configure-no-mmm-www)
-)
 
 ;; php-suspicious-code-* ----------------------------------------
 
@@ -231,10 +166,10 @@ if nil then the default \"%s: Suspicious line %d\" will be used."
   )
 )
 
-;; ----------------------------------------
-;; Things specific for my camelot.homedns.org/~michalis www page
+;; ---------------------------------------------------------------------------
+;; Things specific for my CGE www page
 
-(defun kam-camelot-href-program-names ()
+(defun kam-cge-href-program-names ()
   (interactive)
   (query-replace-regexp (concat
     " \\(\\(view3dscene\\|glViewImage\\|bezier_curves\\|glplotter\\|"
@@ -261,6 +196,77 @@ and brackets and indentation.")
     ;; nxml overrides this with it's utility, we override it back
     (local-set-key (kbd "C-M-u") 'uncomment-region)
   ) t)
+
+;; ------------------------------------------------------------
+;; configure-no-mmm-www and configure-mmm-www
+
+(defun configure-no-mmm-www ()
+  "This does necessary configuration to use php-mode and html-mode
+ (or maybe html-helper-mode) without mmm. Useful when you don't have
+mmm-mode available.
+
+This will also work even if you don't have php-mode."
+  (interactive)
+  (unless php-mode-available
+    (add-to-list 'auto-mode-alist '("\\.php\\'" . html-mode)))
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . html-mode))
+)
+
+(defun configure-mmm-www ()
+  "This configures MMM mode to combine HTML, PHP, CSS ...
+Based closely on [http://www.emacswiki.org/cgi-bin/wiki/HtmlModeDeluxe].
+
+Requires mmm-mode, php-mode, css-mode (others?) available."
+  (interactive)
+
+  (require 'mmm-mode)
+
+  (setq mmm-global-mode 'maybe)
+
+  ;; set up an mmm group for fancy html editing
+  (mmm-add-group
+    'fancy-html
+    '(
+      (html-php-tagged
+              :submode kambi-php-mode
+              :face mmm-code-submode-face
+              :front "<[?]php"
+              :back "[?]>")
+      (html-css-attribute
+              :submode css-mode
+              :face mmm-declaration-submode-face
+              :front "style=\""
+              :back "\"")
+    ))
+
+  (mmm-add-mode-ext-class 'html-mode nil 'fancy-html)
+
+  ;; Don't add html-php, instead I add fancy-html: this uses my
+  ;; kambi-php-mode instead of default php-mode.
+  ;; (mmm-add-mode-ext-class 'html-mode nil 'html-php)
+
+  ;; Don't add html-js. I don't know why, but with mmm-mode 0.4.8-5
+  ;; on Debian testting this causes the buffer to always be marked
+  ;; modified on activation. I don't use JS too much anyway, so I just turned it off.
+  ;; (mmm-add-mode-ext-class 'html-mode nil 'html-js)
+
+  ;; temp commented out, on chantal this causes buffer marked modified?
+  ;;(mmm-add-mode-ext-class 'html-mode nil 'embedded-css)
+
+  ;; Invoke html-mode on all php and html files.
+  (add-to-list 'auto-mode-alist '("\\.php\\'" . html-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . html-mode))
+)
+
+(defconst mmm-available (require 'mmm-mode nil 'noerror)
+  "Non-nil if mmm-mode (and associated variables and functions) are
+available in this Emacs version.")
+
+;; call one of configure-*-www
+(if (and php-mode-available mmm-available)
+    (configure-mmm-www)
+  (configure-no-mmm-www)
+)
 
 ;; provide ------------------------------------------------------------
 
