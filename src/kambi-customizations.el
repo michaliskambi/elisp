@@ -39,6 +39,7 @@
  '(helm-buffer-max-length 30)
  '(helm-buffers-truncate-lines t)
  '(helm-ff-guess-ffap-filenames t)
+ '(helm-ff-newfile-prompt-p nil)
  '(helm-ff-skip-boring-files t)
  '(helm-full-frame nil)
  '(helm-grep-truncate-lines t)
