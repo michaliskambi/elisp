@@ -774,6 +774,10 @@ parses local variables written in buffer."
 (global-set-key (kbd "<C-kp-end>") 'kam-end-of-buf)
 (global-set-key (kbd "<C-f4>") 'kill-this-buffer)
 (global-set-key (kbd "C-w") 'kill-this-buffer)
+;; The meaning is "up directory".
+;; For simple file buffers, it's sensible to just open dired here.
+;; Some modes, like dired, will override this to go "up dir".
+(global-set-key (kbd "C-l") 'kam-dired-here)
 
 (global-set-key (kbd "<f8>") 'kam-run-here)
 (global-set-key (kbd "<f9>") 'kam-compile-immediate)
