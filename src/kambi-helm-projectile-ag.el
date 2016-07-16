@@ -192,15 +192,14 @@ is defined."
   (global-set-key (kbd "C-h a") 'helm-apropos)
   (global-set-key (kbd "C-x C-/") 'helm-find)
 
-  ;; (defun kam-helm-recentf ()
-  ;;   "Customized `helm' for `recentf', to show basename by default."
-  ;;   (interactive)
-  ;;   (helm :sources 'helm-source-recentf
-  ;;         :ff-transformer-show-only-basename t
-  ;;         :buffer "*helm recentf*"))
-  ;; (global-set-key (kbd "C-x C-r") 'kam-helm-recentf)
-
-  (global-set-key (kbd "C-x C-r") 'helm-recentf)
+  (defun kam-helm-recentf ()
+    "Customized `helm' for `recentf', to show basename by default."
+    (interactive)
+    (helm :sources 'helm-source-recentf
+          :ff-transformer-show-only-basename t
+          :buffer "*helm recentf*"))
+  (global-set-key (kbd "C-x C-r") 'kam-helm-recentf)
+  ;;(global-set-key (kbd "C-x C-r") 'helm-recentf)
 
   ;; following helm-buffer sources, but kills buffers without asking
 
