@@ -895,6 +895,8 @@ parses local variables written in buffer."
 
 ;; http://stackoverflow.com/questions/648817/how-to-bind-esc-to-keyboard-escape-quit-in-emacs
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+;; also this, otherwise "C-x <escape>" is just a prefix to other unused commands
+(global-set-key (kbd "C-x <escape>") 'keyboard-escape-quit)
 
 ;; colors --------------------------------------------------------------------
 
