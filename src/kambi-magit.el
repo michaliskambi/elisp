@@ -11,6 +11,12 @@
   (local-set-key (kbd "<C-tab>") 'switch-buf)
   (local-set-key (kbd "<C-return>") 'kam-find-file-at-point)
 
+  ;; consistent with C-c C-b in diff-mode (e.g. when viewing psvn diffs)
+  (if (functionp 'magit-diff-toggle-refine-hunk)
+      (local-set-key (kbd "C-c C-b") 'magit-diff-toggle-refine-hunk)
+    ;; older function name, for older magit in older Emacs versions
+    (local-set-key (kbd "C-c C-b") 'magit-toggle-diff-refine-hunk))
+
   ;; use XXX to invoke magit-show-level-XXX
   ;; (by default under M-XXX in Magit, at least on Magit version in Elementary OS;
   ;; in Debian testing, with Magit 2.1.0, these functions have different names
