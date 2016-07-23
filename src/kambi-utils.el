@@ -1223,6 +1223,48 @@ Assumes that DIR is for sure an SVN dir."
   (and (file-readable-p fname) (not (eq (car (file-attributes fname)) t)))
 )
 
+(defun kam-refresh-colors-in-buffer ()
+  (interactive)
+  (font-lock-fontify-buffer)
+  (when mmm-available
+    (save-excursion
+      ;; mmm-parse-buffer is harmless if current buffer does not use mmm-mode,
+      ;; so I just do it for every buffer.
+      ;; Also note that mmm-parse-buffer always moves the cursor to
+      ;; the beginning of buffer (I don't know why), that's why I'm doing
+      ;; it all inside save-excursion.
+      (mmm-parse-buffer))))
+
+(defun kam-recenter-if-needed ()
+  "Recenter, but only if needd."
+  ;; TODO
+  ;; (recenter)
+)
+
+(defconst kam-sensible-scroll-margin 3)
+
+(defun kam-nonincremental-repeat-search-forward ()
+  "Repeat last nonincremental search, foward, and recenter intelligently."
+  (interactive)
+  ;; In newer Emacs version, there's no
+  ;; function nonincremental-repeat-re-search-forward.
+  ;; Instead, nonincremental-repeat-search-forward repeats last search
+  ;; -- either literal or for regexp.
+  (if (>= emacs-major-version 22)
+      (call-interactively 'nonincremental-repeat-search-forward)
+    (call-interactively 'nonincremental-repeat-re-search-forward))
+  (kam-recenter-if-needed)
+)
+
+(defun kam-nonincremental-repeat-search-backward ()
+  "Repeat last nonincremental search, foward, and recenter intelligently."
+  (interactive)
+  (if (>= emacs-major-version 22)
+      (call-interactively 'nonincremental-repeat-search-backward)
+    (call-interactively 'nonincremental-repeat-re-search-backward))
+  (kam-recenter-if-needed)
+)
+
 ;; ------------------------------------------------------------
 
 (provide 'kambi-utils)

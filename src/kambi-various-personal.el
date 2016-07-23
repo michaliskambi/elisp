@@ -799,30 +799,13 @@ parses local variables written in buffer."
 ;; (global-set-key (kbd  "C-x <C-return>") 'kam-insert-current-file-name)
 (global-set-key (kbd  "C-x <C-return>") 'kam-insert-current-file-name-nondirectory)
 (global-set-key (kbd "C-f") 'nonincremental-re-search-forward)
-(if (>= emacs-major-version 22)
-    ;; In newer Emacs version, there's no
-    ;; function nonincremental-repeat-re-search-forward.
-    ;; Instead, nonincremental-repeat-search-forward repeats last search
-    ;; -- either literal or for regexp.
-    (global-set-key (kbd "<f3>") 'nonincremental-repeat-search-forward)
-  (global-set-key (kbd "<f3>") 'nonincremental-repeat-re-search-forward)
-)
+(global-set-key (kbd "<f3>") 'kam-nonincremental-repeat-search-forward)
+(global-set-key (kbd "<S-f3>") 'kam-nonincremental-repeat-search-backward)
 ;; (global-set-key "" 'isearch-forward) ; I don't want this binding anymore
 (global-set-key (kbd "C-z") 'undo)
 
-(defun refresh-colors-in-buffer ()
-  (interactive)
-  (font-lock-fontify-buffer)
-  (when mmm-available
-    (save-excursion
-      ;; mmm-parse-buffer is harmless if current buffer does not use mmm-mode,
-      ;; so I just do it for every buffer.
-      ;; Also note that mmm-parse-buffer always moves the cursor to
-      ;; the beginning of buffer (I don't know why), that's why I'm doing
-      ;; it all inside save-excursion.
-      (mmm-parse-buffer))))
 ;; zapamietaj jako "jak f5 (= reload w niektorych programach)"
-(global-set-key (kbd "<C-f5>") 'refresh-colors-in-buffer)
+(global-set-key (kbd "<C-f5>") 'kam-refresh-colors-in-buffer)
 
 (global-set-key (kbd "C-t") 'invert-truncate-lines)
 
