@@ -1099,6 +1099,13 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 (when (require 'adoc-mode nil 'noerror)
   (add-to-list 'auto-mode-alist '("\\.adoc\\'" . adoc-mode)))
 
+;; bell ----------------------------------------------------------------------
+
+;; See https://www.emacswiki.org/emacs/AlarmBell ,
+;; I find both sound and visual bell annoying
+;;(setq visible-bell nil)
+(setq ring-bell-function 'ignore)
+
 ;; provides (keep at the end) ------------------------------------------------
 
 (provide 'kambi-various-personal)

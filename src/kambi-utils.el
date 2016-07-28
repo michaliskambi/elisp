@@ -1068,12 +1068,27 @@ From http://andrewcoxtech.blogspot.com/2009/11/inserting-bom-into-file.html"
   (ucs-insert (string-to-number "FEFF" 16))
 )
 
+(defun kam-non-empty-stringp (s)
+  "Return non-nil if S is a non-empty (not \"\") string."
+  (and (stringp buffer-file-name) (not (equal s ""))))
+
 (defun kam-open-sudo ()
   "Open current buffer through sudo."
   (interactive)
-  (let ((file-name buffer-file-name))
-    (kill-buffer)
-    (find-file (concat "/sudo::" file-name)))
+  (if (kam-non-empty-stringp buffer-file-name)
+      (let ((file-name buffer-file-name))
+        ;; adding sudo to another sudo prefix doesn't work
+        (when (string-is-prefix "/sudo:" file-name)
+          (error "Already viewing the file through \"sudo\"."))
+        (kill-buffer)
+        (find-file (concat "/sudo::" file-name)))
+    (let ((dir-name default-directory))
+      ;; adding sudo to another sudo prefix doesn't work
+      (when (string-is-prefix "/sudo:" dir-name)
+        (error "Already viewing the file through \"sudo\"."))
+      (kill-buffer)
+      (dired (concat "/sudo::" dir-name)))
+  )
 )
 
 (defun kam-count-lines-buffer ()
