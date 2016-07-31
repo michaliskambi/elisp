@@ -76,7 +76,7 @@
     (".ppu" ".blend" ".blend1" ".blend2" ".pdf" ".png" ".xcf" ".jpg" ".jpeg" "castletexturefont_*.pas" ".ttf" ".otf" ".wav" ".dll" ".atlas" ".spine" ".json" ".dds" ".ai" "~")))
  '(projectile-ignored-projects
    (quote
-    ("/mnt/linux-32/home/michalis/sources/cat-astrophe-games/dragon_squash/" "/mnt/linux-32/home/michalis/sources/cat-astrophe-games/escape_universe/" "/home/michalis/sources/cat-astrophe-games/escape_universe/" "/home/michalis/sources/cat-astrophe-games/dragon_squash/")))
+    ("/mnt/linux-32/home/michalis/sources/cat-astrophe-games/dragon_squash/" "/mnt/linux-32/home/michalis/sources/cat-astrophe-games/escape_universe/" "/home/michalis/sources/cat-astrophe-games/escape_universe/" "/home/michalis/sources/cat-astrophe-games/dragon_squash/" "/mnt/elementary-os/home/michalis/sources/cat-astrophe-games/escape_universe/" "/mnt/elementary-os/home/michalis/sources/cat-astrophe-games/dragon_squash/")))
  '(ps-header-lines 1)
  '(ps-left-header (quote (ps-get-buffer-name)))
  '(ps-right-header (quote ("/pagenumberstring load")))
