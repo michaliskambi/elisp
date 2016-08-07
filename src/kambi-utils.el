@@ -1224,7 +1224,8 @@ Assumes that DIR is for sure an SVN dir."
       (magit-get-top-dir default-directory))
   )
 
-  (if (magit-toplevel)
+  (if (and (require 'magit nil 'noerror)
+           (magit-toplevel))
       (call-interactively 'magit-status)
     ;; we expand dir, because svn-version-controlled-dir-p calls "svn info ..."
     ;; on it, so it needs ~ expanded.
