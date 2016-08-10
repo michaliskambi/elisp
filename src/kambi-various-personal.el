@@ -858,14 +858,17 @@ parses local variables written in buffer."
 (global-set-key (kbd "C-M-r") 'query-replace-regexp)
 
 (global-set-key (kbd "M-e") 'ins-eval-expression)
+;; does not work reliably in newer Emacs to capture Control + dash?
 (global-set-key (kbd "C--") 'kam-insert-dashes)
+;; also does not work reliably in newer Emacs to capture Control + dash?
+;;(global-set-key [(control ?-)] 'kam-insert-dashes)
+(global-set-key (kbd "<f12> -") 'kam-insert-dashes)
 
 (global-set-key (kbd "M-i") 'kam-indent-block-space)
 (global-set-key (kbd "M-u") 'kam-unindent-block-space)
 
 (when (fboundp 'recentf-open-files)
-  (global-set-key (kbd "C-x C-r") 'recentf-open-files)
-)
+  (global-set-key (kbd "C-x C-r") 'recentf-open-files))
 
 (global-set-key (kbd "RET") 'insert-newline-indented-as-prev)
 ;;(global-set-key (kbd "RET") 'newline)
