@@ -222,25 +222,36 @@ is defined."
                 helm-visible-mark-overlays nil))
         (helm-force-update (helm-buffers--quote-truncated-buffer (helm-get-selection))))))
 
-  (define-key helm-buffer-map (kbd "<delete>") 'kam-helm-buffer-run-kill-persistent)
-
-  (define-key helm-map (kbd "C-x") 'cua-cut-region)
-  (define-key helm-map (kbd "C-c") 'cua-copy-region)
-  ;; (define-key helm-map (kbd "C-x") 'kill-region)
-  ;; (define-key helm-map (kbd "C-c") 'kill-ring-save)
-  (define-key helm-map (kbd "C-v") 'cua-paste)
-  (define-key helm-map (kbd "C-z") 'undo)
-  (define-key helm-map (kbd "C-t") 'helm-toggle-truncate-line)
-
   ;;  (defun kam-helm-kill-selection-and-quit ()
   ;;    "Like helm-kill-selection-and-quit, but by default copy real value
   ;; (not display value)"
   ;;    (interactive)
   ;;    (helm-kill-selection-and-quit 1))
 
+  (define-key helm-buffer-map (kbd "<delete>") 'kam-helm-buffer-run-kill-persistent)
+
+  (define-key helm-map (kbd "C-t") 'helm-toggle-truncate-line)
+
+  ;; key shortcuts more consistent with normal line editing
+  (define-key helm-map (kbd "C-v") 'cua-paste)
+  (define-key helm-map (kbd "C-z") 'undo)
+  (define-key helm-map (kbd "<home>") 'beginning-of-line)
+  (define-key helm-map (kbd "<end>") 'end-of-line)
   (define-key helm-map (kbd "C-k") 'helm-kill-selection-and-quit)
-  (define-key helm-map (kbd "<home>") 'helm-beginning-of-buffer)
-  (define-key helm-map (kbd "<end>") 'helm-end-of-buffer)
+  (define-key helm-map (kbd "<C-home>") 'helm-beginning-of-buffer)
+  (define-key helm-map (kbd "<C-end>") 'helm-end-of-buffer)
+
+  ;; these do not really work, as there's no easy way to select region within helm
+  ;; (define-key helm-map (kbd "C-x") 'cua-cut-region)
+  ;; (define-key helm-map (kbd "C-c") 'cua-copy-region)
+  ;; (define-key helm-map (kbd "C-x") 'kill-region)
+  ;; (define-key helm-map (kbd "C-c") 'kill-ring-save)
+  ;; (define-key helm-map (kbd "<C-return>") 'helm-kill-selection-and-quit)
+
+  ;; swap the TAB and C-j meanings, this makes TAB again act as completion
+  ;; TODO: assigning these doesn't work for some reason?
+  ;; (define-key helm-map (kbd "C-j") 'helm-execute-persistent-action)
+  ;; (define-key helm-map (kbd "TAB") 'helm-select-action)
 )
 
 (defun kam-find-file-at-point ()
