@@ -205,13 +205,13 @@ a file, or an URL, but you don't want to open *that*, it's undesired to autosele
 that."
     (interactive)
     (let ((previous-helm-ff-guess-ffap-filenames helm-ff-guess-ffap-filenames)
-          (previous-helm-ff-guess-ffap-filenames helm-ff-guess-ffap-urls))
+          (previous-helm-ff-guess-ffap-urls      helm-ff-guess-ffap-urls))
       (setq helm-ff-guess-ffap-filenames nil)
       (setq helm-ff-guess-ffap-urls      nil)
       (unwind-protect ;; see https://curiousprogrammer.wordpress.com/2009/06/08/error-handling-in-emacs-lisp/
           (call-interactively 'helm-find-files)
         (setq helm-ff-guess-ffap-filenames previous-helm-ff-guess-ffap-filenames)
-        (setq helm-ff-guess-ffap-urls      previous helm-ff-guess-ffap-urls)
+        (setq helm-ff-guess-ffap-urls      previous-helm-ff-guess-ffap-urls)
       )
     )
   )
