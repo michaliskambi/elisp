@@ -63,7 +63,32 @@
              current-prefix-arg
              (projectile-symbol-or-selection-at-point)))
       "Like `projectile-ag', but without uncomfortable \"insert thing at point\" behavior.
-It only uses \"thing at point\" if you just press enter."
+It only uses \"thing at point\" if you just press enter.
+
+Longer explanation:
+
+projectile-ag by default suggests (projectile-symbol-or-selection-at-point) value.
+
+While this is often useful (often you want to search for this),
+it's uncomfortable when you need to search for something else,
+because then you have to remember to presss C-a C-k
+before you start typing your phrase in the minibuffer.
+
+Other GUIs often preselect the default input box contents, to allow you
+to start typing to automatically delete the default contents.
+
+In Emacs, the solution to this is that many commands have a default value,
+like \"Search [WordUnderPoint]: \" and if you input nothing (just press enter)
+-- then the default \"WordUnderPoint\" is used.
+
+(This is also not a perfect solution, as you cannot modify the default value,
+e.g. if you want to search for \"WordUnderPointBlah\", then you have to type
+it whole. But it's better than the current I think, because I seldom want to
+extend the thing under point, and if I want -- I can eventually copy it before
+entering projectile-ag, and paste then. But at least the case when
+\"my cursor was over something irrelevant, I want to type what to search\"
+is fast.
+"
       (if (equal search-term "")
           (projectile-ag default-search-term arg)
         (projectile-ag search-term arg)))
@@ -171,14 +196,24 @@ is defined."
 
   (defun kam-helm-find-files-no-ffap ()
     "Like helm-find-files, but never try to guess filename using ffap.
-  This is useful for me, because my ffap is quite slow (it tries hard
-  to search various dirs with Pascal units), so I prefer to request
-  is explicitly. The default C-x C-f should be fast."
+This is useful for me, because my ffap is quite slow (it tries hard
+to search various dirs with Pascal units), so I prefer to request
+is explicitly. The default C-x C-f should be fast.
+
+Also, it's sometimes undesired. When your cursor is over something resembling
+a file, or an URL, but you don't want to open *that*, it's undesired to autoselect
+that."
     (interactive)
-    (let ((previous-helm-ff-guess-ffap-filenames helm-ff-guess-ffap-filenames))
+    (let ((previous-helm-ff-guess-ffap-filenames helm-ff-guess-ffap-filenames)
+          (previous-helm-ff-guess-ffap-filenames helm-ff-guess-ffap-urls))
       (setq helm-ff-guess-ffap-filenames nil)
-      (call-interactively 'helm-find-files)
-      (setq helm-ff-guess-ffap-filenames previous-helm-ff-guess-ffap-filenames))
+      (setq helm-ff-guess-ffap-urls      nil)
+      (unwind-protect ;; see https://curiousprogrammer.wordpress.com/2009/06/08/error-handling-in-emacs-lisp/
+          (call-interactively 'helm-find-files)
+        (setq helm-ff-guess-ffap-filenames previous-helm-ff-guess-ffap-filenames)
+        (setq helm-ff-guess-ffap-urls      previous helm-ff-guess-ffap-urls)
+      )
+    )
   )
 
   (global-set-key (kbd "M-x") 'helm-M-x)
@@ -258,12 +293,15 @@ is defined."
   (interactive)
   "Find file at point, possibly using helm."
   (if (require 'helm-config nil 'noerror)
-      ;; when helm is available, it's better to use standard helm-find-files
-      ;; than find-file-at-point. find-file-at-point would also be
-      ;; completed using helm, but it would have less options.
-      ;; See https://groups.google.com/forum/#!topic/emacs-helm/Y-RKJGLxNu4
-      ;; https://github.com/emacs-helm/helm/issues/984
-      (call-interactively 'helm-find-files)
+      (progn
+        (setq helm-ff-guess-ffap-filenames t)
+        (setq helm-ff-guess-ffap-urls      t)
+        ;; when helm is available, it's better to use standard helm-find-files
+        ;; than find-file-at-point. find-file-at-point would also be
+        ;; completed using helm, but it would have less options.
+        ;; See https://groups.google.com/forum/#!topic/emacs-helm/Y-RKJGLxNu4
+        ;; https://github.com/emacs-helm/helm/issues/984
+        (call-interactively 'helm-find-files))
     (call-interactively 'find-file-at-point)))
 
 ;; helm-projectile -----------------------------------------------------------
