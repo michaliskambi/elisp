@@ -237,7 +237,7 @@ differs from the default."
      break exit
      
      ;; Michalis additions
-     strict specialize generic)
+     strict specialize generic deprecated)
 
    ;; We want directives to look like keywords.
    delphi-directives)
