@@ -16,6 +16,7 @@
  '(ag-arguments
    (quote
     ("--line-number" "--ignore-case" "--nogroup" "--column" "--stats" "--")))
+ '(ag-group-matches nil)
  '(ag-highlight-search t)
  '(ag-ignore-list (quote ("*~")))
  '(bibtex-comment-start "%%")
