@@ -207,8 +207,10 @@ mmm-mode available.
 
 This will also work even if you don't have php-mode."
   (interactive)
-  (unless php-mode-available
-    (add-to-list 'auto-mode-alist '("\\.php\\'" . html-mode)))
+  (if php-mode-available
+      (add-to-list 'auto-mode-alist '("\\.php\\'" . kambi-php-mode))
+    (add-to-list 'auto-mode-alist '("\\.php\\'" . html-mode))
+  )
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . html-mode))
 )
 
