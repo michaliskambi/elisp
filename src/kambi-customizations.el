@@ -57,6 +57,9 @@
  '(ispell-highlight-face (quote highlight))
  '(jka-compr-load-suffixes (quote (".gz" ".x3dz")))
  '(js-auto-indent-flag nil)
+ '(ls-lisp-dirs-first t)
+ '(ls-lisp-ignore-case t)
+ '(ls-lisp-verbosity nil)
  '(magit-pull-arguments nil)
  '(minimap-major-modes
    (quote
