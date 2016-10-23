@@ -88,7 +88,7 @@
  '(recentf-auto-cleanup (quote never))
  '(recentf-exclude nil)
  '(recentf-max-saved-items 100)
- '(safe-local-variable-values (quote ((encoding . cp852))))
+ '(safe-local-variable-values (quote ((encoding . utf-8) (encoding . cp852))))
  '(scroll-conservatively 0)
  '(scroll-margin 3)
  '(tab-always-indent nil)
