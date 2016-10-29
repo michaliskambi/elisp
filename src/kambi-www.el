@@ -63,6 +63,12 @@
     (add-to-list 'auto-mode-alist '("\\.inc\\'" . kambi-php-mode)))
 
   (add-hook 'php-mode-hook 'php-suspicious-code-check-add-write-contents-hooks t)
+
+  (defun kam-customize-php-mode ()
+    (local-set-key (kbd "C-c C-f") 'sgml-close-tag)
+    (setq indent-line-function 'kam-noindent)
+  )
+  (add-hook 'php-mode-hook 'kam-customize-php-mode t)
 )
 
 ;; html mode configuration (not dependent on availability of mmm-mode)
@@ -76,6 +82,7 @@
 (defun kam-customize-html-mode-hook ()
   (local-set-key (kbd "C-z") 'undo)
   (local-set-key (kbd "C-c C-f") 'sgml-close-tag)
+  (setq indent-line-function 'kam-noindent)
 )
 (add-hook 'html-mode-hook 'kam-customize-html-mode-hook t)
 

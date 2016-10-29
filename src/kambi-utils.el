@@ -1281,6 +1281,8 @@ Assumes that DIR is for sure an SVN dir."
   (kam-recenter-if-needed)
 )
 
+(defun kam-noindent () 'noindent)
+
 ;; ------------------------------------------------------------
 
 (provide 'kambi-utils)
