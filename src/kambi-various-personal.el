@@ -245,7 +245,10 @@ may be screwed up after running some program that changed screen size
       ".cmo" ".cmi" ".cmx" ; ocamlc/opt
       ".blend1"            ; blender
       ".bak"               ; various editors (e.g. Lazarus by default)
-      ".lpi" ".compiled" ".lps" ; Lazarus
+      ; Do not add lpi here, as then helm find files ignores it too,
+      ; and it's difficult to open such files, and sometimes I need to...
+      ;; ".lpi"
+      ".compiled" ".lps" ; Lazarus
      )
 ))
 
