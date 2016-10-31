@@ -65,6 +65,8 @@
   (add-hook 'php-mode-hook 'php-suspicious-code-check-add-write-contents-hooks t)
 
   (defun kam-customize-php-mode ()
+    ;; load sgml-mode to have sgml-close-tag available
+    (require 'sgml-mode nil 'noerror)
     (local-set-key (kbd "C-c C-f") 'sgml-close-tag)
     (setq indent-line-function 'kam-noindent)
   )
