@@ -985,36 +985,35 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 
 ;; auto-complete -------------------------------------------------------------
 
-(add-to-list 'load-path
-  (concat kambi-elisp-path "contrib/auto-complete/"))
+(when (require 'auto-complete-config nil 'noerror)
 
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/elisp/contrib/auto-complete//ac-dict")
-(ac-config-default)
+  (add-to-list 'ac-dictionary-directories "~/elisp/contrib/auto-complete//ac-dict")
+  (ac-config-default)
 
-(global-auto-complete-mode t)
-(add-to-list 'ac-modes 'kambi-pascal-mode)
-(add-to-list 'ac-modes 'kambi-c-mode)
-(add-to-list 'ac-modes 'kambi-c++-mode)
-(add-to-list 'ac-modes 'kambi-java-mode)
-(add-to-list 'ac-modes 'kambi-objc-mode)
-(add-to-list 'ac-modes 'js-mode)
-(add-to-list 'ac-modes 'kambi-php-mode)
-(add-to-list 'ac-modes 'kambi-css-mode)
-(add-to-list 'ac-modes 'kambi-csharp-mode)
-(add-to-list 'ac-modes 'html-mode)
-(add-to-list 'ac-modes 'nxml-mode)
+  (global-auto-complete-mode t)
+  (add-to-list 'ac-modes 'kambi-pascal-mode)
+  (add-to-list 'ac-modes 'kambi-c-mode)
+  (add-to-list 'ac-modes 'kambi-c++-mode)
+  (add-to-list 'ac-modes 'kambi-java-mode)
+  (add-to-list 'ac-modes 'kambi-objc-mode)
+  (add-to-list 'ac-modes 'js-mode)
+  (add-to-list 'ac-modes 'kambi-php-mode)
+  (add-to-list 'ac-modes 'kambi-css-mode)
+  (add-to-list 'ac-modes 'kambi-csharp-mode)
+  (add-to-list 'ac-modes 'html-mode)
+  (add-to-list 'ac-modes 'nxml-mode)
 
-;; By default you have to press 3 escapes (or C-g) to make keyboard-escape-quit
-;; to make completion menu disappear. Not comfortable enough for me,
-;; so I redefine one escape stroke (and I do no have to set it to
-;; keyboard-escape-quit, ac-stop works as well).
-(define-key ac-completing-map (kbd "<escape>") 'ac-stop)
+  ;; By default you have to press 3 escapes (or C-g) to make keyboard-escape-quit
+  ;; to make completion menu disappear. Not comfortable enough for me,
+  ;; so I redefine one escape stroke (and I do no have to set it to
+  ;; keyboard-escape-quit, ac-stop works as well).
+  (define-key ac-completing-map (kbd "<escape>") 'ac-stop)
 
-;; For "Disapear automatically when you complete a candidate." feature.
-;; Hmm, doesn't seem to work. Even tried with (setq ac-dwim-enable t).
-;; Later: hmm, works, but only when kam-ac-source-pascal is not used.
-(setq ac-dwim t)
+  ;; For "Disapear automatically when you complete a candidate." feature.
+  ;; Hmm, doesn't seem to work. Even tried with (setq ac-dwim-enable t).
+  ;; Later: hmm, works, but only when kam-ac-source-pascal is not used.
+  (setq ac-dwim t)
+)
 
 ;; gud -----------------------------------------------------------------------
 
