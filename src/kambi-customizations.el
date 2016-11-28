@@ -72,6 +72,7 @@
  '(mmm-submode-decoration-level 1)
  '(org-replace-disputed-keys t)
  '(org-support-shift-select (quote always))
+ '(package-selected-packages (quote (auto-complete ag magit helm-projectile)))
  '(projectile-globally-ignored-directories
    (quote
     (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work")))
