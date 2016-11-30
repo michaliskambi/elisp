@@ -537,8 +537,12 @@ problems, at least for now."
 
 (add-hook 'kambi-pascal-mode-hook
   (lambda ()
-    (make-local-variable 'ac-sources)
-    (add-to-list 'ac-sources 'kam-ac-source-pascal)))
+    (when (require 'auto-complete-config nil 'noerror)
+      (make-local-variable 'ac-sources)
+      (add-to-list 'ac-sources 'kam-ac-source-pascal)
+    )
+  )
+)
 
 ;; ---------------------------------------------------------------------------
 ;; just some Pascal helpers, to be invoked explicitly
