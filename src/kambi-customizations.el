@@ -60,6 +60,7 @@
  '(ls-lisp-dirs-first t)
  '(ls-lisp-ignore-case t)
  '(ls-lisp-verbosity nil)
+ '(magit-diff-section-arguments (quote ("--no-ext-diff" "-M" "-C")))
  '(magit-pull-arguments nil)
  '(minimap-major-modes
    (quote
