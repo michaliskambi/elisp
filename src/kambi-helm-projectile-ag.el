@@ -147,10 +147,11 @@ is fast.
 ;; which is nice if you like to run compilation from any file belonging to a project,
 ;; and expect to run the same command as previous.
 
-(defvar-local kam-force-compilation-not-in-project nil
+(defvar kam-force-compilation-not-in-project nil
   "When non-nil (you usually want to only set it buffer-local) then
 force our compilation commands `kam-compile' and `kam-compile-immediate'
 to use non-project compilation.")
+(make-variable-buffer-local 'kam-force-compilation-not-in-project)
 
 (defun kam-compile ()
   "Compile, asking for command, possibly using projectile.
