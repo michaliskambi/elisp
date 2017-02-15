@@ -1,5 +1,9 @@
 (add-to-list 'load-path (concat kambi-elisp-path "contrib/csharp-mode/"))
-(require 'csharp-mode)
+
+;; require csharp-mode, but don't fail in case of trouble.
+;; csharp-mode uses cl-lib, and loading it fails on old SourceForge Emacs 
+;; version with missing gv-define-simple-setter
+(require 'csharp-mode nil 'noerror)
 
 (defun kam-indent-block-4-spaces ()
   "Indents current region by 1 space."
