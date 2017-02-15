@@ -6,20 +6,21 @@
 
 ;; package -------------------------------------------------------------------
 
-;; Add melpa.
-;; Do this early, as it may be used by auto-complete and others,
-;; lower in this file.
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(when (require 'package nil 'noerror)
+  ;; Add melpa.
+  ;; Do this early, as it may be used by auto-complete and others,
+  ;; lower in this file.
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+  (when (< emacs-major-version 24)
+    ;; For important compatibility libraries like cl-lib
+    (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 
-;; In case of problems "wrong type argument arrayp" on the line below:
-;; they may indicate temporary connectivity problems.
-;; You still have to manually delete ~/.emacs.d/elpa/archives/melpa/
-;; to get rid of the error, next list-packages or such will reinitialize it.
-(package-initialize)
+  ;; In case of problems "wrong type argument arrayp" on the line below:
+  ;; they may indicate temporary connectivity problems.
+  ;; You still have to manually delete ~/.emacs.d/elpa/archives/melpa/
+  ;; to get rid of the error, next list-packages or such will reinitialize it.
+  (package-initialize)
+)
 
 ;; ---------------------------------------------------------------------------
 
