@@ -10,7 +10,7 @@
 ))
 
 ;; This allows to open Pascal unit files using ffap from makefile-fpc-mode,
-;; e.g. you're standing on 'unitname' and ffap opens 'unitname.pas'.
+;; e.g. you're visiting 'unitname' and ffap opens 'unitname.pas'.
 (add-to-list 'ffap-alist '(makefile-fpc-mode . ffap-kambi-pascal-mode))
 
 

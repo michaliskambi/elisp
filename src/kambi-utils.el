@@ -1126,7 +1126,7 @@ regardless of current position and regardless of mark position
     (if (stringp buffer-file-name)
         (async-shell-command (concat "./"
           (file-name-sans-extension (file-name-nondirectory buffer-file-name))))
-      (error "Cannot run this project, because we don't know how. Not inside castle-engine project, and not standing on a file."))
+      (error "Cannot run this project, because we don't know how. Not inside castle-engine project, and not visiting a file."))
   )
 )
 
