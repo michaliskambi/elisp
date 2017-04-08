@@ -44,3 +44,8 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/efaq-w32/Dired-ls.html
 ;; (setq ls-lisp-use-insert-directory-program t)      ;; use external ls
 ;; (setq insert-directory-program "/opt/local/bin/gls") ;; ls program name
+
+;; use ag (silver_searcher) from HomeBrew
+;; (setq ag-executable "/usr/local/bin/ag")
+;; (setq helm-grep-ag-command
+;;   "/usr/local/bin/ag --line-numbers -S --hidden --color --nogroup %s %s %s")
