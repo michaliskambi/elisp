@@ -210,9 +210,12 @@ This way it will work Ok if STR already contains a valid (relative or not)
 path to the existing file (in particular STR without a path means
 that path is an empty string --- which indicates to start looking in current dir).
 
-Afterwards searches known projectile files
-(this way it searches Castle Game Engine, FPC, Lazarus sources and such,
-as I use projectile for them all).
+(Not anymore:
+
+  Afterwards searches known projectile files
+  (this way it searches Castle Game Engine, FPC, Lazarus sources and such,
+  as I use projectile for them all).
+)
 
 It doesn't try to add any file extension. So make sure STR contains the full
 name of the file (with extension). See `kam-ffap-kambi-pascal-mode'
@@ -259,7 +262,7 @@ has a Pascal extension."
 
     ;; otherwise fallback on projectile knowledge
 
-    (kam-find-pascal-file-using-projectile str)
+    ;; (kam-find-pascal-file-using-projectile str)
   )
 )
 
@@ -270,22 +273,29 @@ has a Pascal extension."
 ;; (kam-find-pascal-file "castleimages.pas")
 ;; (kam-find-pascal-file "castleconf.inc")
 
-(defun kam-find-pascal-file-using-projectile (str)
-  "Search for Pascal file STR (must not contain any directory part,
-must contain extension) in projects known to projectile.
-This way we utilize projectile knowledge to search units in FPC, CGE sources.
-Returns the full path (string) or nil if not found."
-  (let ((all-known-files (projectile-all-project-files))
-        (search-suffix (concat "/" str))
-       )
-    (block func-block
-      (dolist (known-file all-known-files)
-        (when (s-suffix-p search-suffix known-file t)
-          (return-from func-block known-file))
-      )
-      nil ; not found
-    )
-  ))
+;; Unused, because (projectile-all-project-files) does not work reliably,
+;; in non-project or (later versions) in any project
+;; (error "You're not in a project", although it should work regardless
+;; of the current project).
+;;
+;; This in effect was causing errors from kam-ffap-kambi-pascal-mode
+;;
+;; (defun kam-find-pascal-file-using-projectile (str)
+;;   "Search for Pascal file STR (must not contain any directory part,
+;; must contain extension) in projects known to projectile.
+;; This way we utilize projectile knowledge to search units in FPC, CGE sources.
+;; Returns the full path (string) or nil if not found."
+;;   (let ((all-known-files (projectile-all-project-files))
+;;         (search-suffix (concat "/" str))
+;;        )
+;;     (block func-block
+;;       (dolist (known-file all-known-files)
+;;         (when (s-suffix-p search-suffix known-file t)
+;;           (return-from func-block known-file))
+;;       )
+;;       nil ; not found
+;;     )
+;;   ))
 
 (defun kam-ffap-kambi-pascal-mode (str)
   "Search for file in various directories where Pascal units are kept,
@@ -331,7 +341,7 @@ this way you can use ffap when standing over \"uses\" clauses of your units."
 )
 
 ;; tests
-;; (kam-ffap-kambi-pascal-mode "KambiIBFPC")
+;; (kam-ffap-kambi-pascal-mode "CastleImages")
 
 (dolist (ext pascal-exts-regexps)
   (add-to-list 'ffap-alist `(,ext . kam-find-pascal-file)))
