@@ -25,7 +25,8 @@ cd ~/elisp/script/
 # - M-x list-packages or
 #   M-x package-install
 #     ag
-#     helm-projectile (with core helm and core projectile pulled by deps)
+#     projectile
+#     counsel
 #     auto-complete
 #     adoc-mode
 ~~~~
