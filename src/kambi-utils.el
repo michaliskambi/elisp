@@ -1283,6 +1283,21 @@ Assumes that DIR is for sure an SVN dir."
 
 (defun kam-noindent () 'noindent)
 
+(defun kam-find-file-at-point ()
+  (interactive)
+  "Find file at point, possibly using helm."
+  (if (require 'helm-config nil 'noerror)
+      (progn
+        (setq helm-ff-guess-ffap-filenames t)
+        (setq helm-ff-guess-ffap-urls      t)
+        ;; when helm is available, it's better to use standard helm-find-files
+        ;; than find-file-at-point. find-file-at-point would also be
+        ;; completed using helm, but it would have less options.
+        ;; See https://groups.google.com/forum/#!topic/emacs-helm/Y-RKJGLxNu4
+        ;; https://github.com/emacs-helm/helm/issues/984
+        (call-interactively 'helm-find-files))
+    (call-interactively 'find-file-at-point)))
+
 ;; ------------------------------------------------------------
 
 (provide 'kambi-utils)

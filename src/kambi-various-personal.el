@@ -775,12 +775,15 @@ parses local variables written in buffer."
 (defun kam-buffer-menu ()
   "Call my preferred buffer-menu'-like function."
   (interactive)
-  (if (require 'helm-config nil 'noerror)
-      (helm-mini)
-    (if kam-use-ibuffer
-        ;; Kambi really likes to call ibuffer with update=t
-        (ibuffer nil nil nil t)
-      (buffer-menu))))
+  (if (require 'counsel nil 'noerror)
+      (ivy-switch-buffer)
+    (if (require 'helm-config nil 'noerror)
+        (helm-mini)
+      (if kam-use-ibuffer
+          ;; Kambi really likes to call ibuffer with update=t
+          (ibuffer nil nil nil t)
+        (buffer-menu))))
+)
 
 ;; ---------------------------------------------------------------------------
 ;; git emacs, code initially following http://www.emacswiki.org/emacs/Git
