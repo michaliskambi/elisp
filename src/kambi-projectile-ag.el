@@ -1,19 +1,20 @@
 ;;;; Configuration for helm (related to also projectile and ag).
+;;
+;; See https://github.com/bbatsov/projectile
+;; Installable through MELPA.
 
 (require 'kambi-utils)
 
 ;; projectile ----------------------------------------------------------------
 
 (when (require 'projectile nil 'noerror)
-  ;; see https://github.com/bbatsov/projectile
-  ;; installable through melpa added above
   (projectile-global-mode)
   (setq projectile-enable-caching t)
   (setq projectile-switch-project-action 'projectile-dired)
   (setq projectile-find-dir-includes-top-level t)
 
   ;; setting projectile-mode-line through customize doesn't work reliably
-  ;; (on Debian river)
+  ;; (on Debian river), so do it here.
   (setq projectile-mode-line
     '(:eval (if (file-remote-p default-directory)
               " Projectile"
