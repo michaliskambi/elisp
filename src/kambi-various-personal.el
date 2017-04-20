@@ -126,19 +126,55 @@ may be screwed up after running some program that changed screen size
     (local-set-key (kbd "M-o") 'other-window)
   )
   t)
+
+;; dired ---------------------------------------------------------------------
+
+;; make omit mode active by default (for newer Emacs)
+;; See https://www.emacswiki.org/emacs/DiredOmitMode
+(when (or (> emacs-major-version 24)
+          (and (= emacs-major-version 24) (>= emacs-minor-version 4)))
+  (require 'dired-x)
+  (setq-default dired-omit-files-p t) ; Buffer-local variable
+)
+
+(defun kam-dired-toggle-omit-mode ()
+  "Toggle direct omit mode."
+  (interactive)
+  (if (or (> emacs-major-version 24)
+           (and (= emacs-major-version 24) (>= emacs-minor-version 4)))
+      ;; in newer Emacs, toggle dired-omit-files-p
+      (progn
+        (setq dired-omit-files-p (not dired-omit-files-p))
+        (revert-buffer)
+      )
+    ;; in older Emacs, call dired-omit-mode
+    (dired-omit-mode)
+  )
+)
+
 (defun kam-dired-start ()
   ;; redefine it to Kambi standard shortcut
   (local-set-key (kbd "M-o") 'other-window)
 
   ;; consistent with helm find-files
   (local-set-key (kbd "C-l") 'dired-up-directory)
-  (when (fboundp 'dired-omit-mode)
-    ;; h to hide / unhide
-    (local-set-key (kbd "h") 'dired-omit-mode)
-    (dired-omit-mode) ;; by default enter omit mode
+  ;; consistent with ido and ivy
+  (local-set-key (kbd "<backspace>") 'dired-up-directory)
+
+  ;; h to hide / unhide
+  (local-set-key (kbd "h") 'kam-dired-toggle-omit-mode)
+
+  ;; make omit mode active by default (for older Emacs)
+  (unless (or (> emacs-major-version 24)
+              (and (= emacs-major-version 24) (>= emacs-minor-version 4)))
+    (when (fboundp 'dired-omit-mode)
+      (dired-omit-mode)
+    )
   )
 )
 (add-hook 'dired-mode-hook 'kam-dired-start t)
+
+;; server --------------------------------------------------------------------
 
 ;; Emacs server, to have emacsclient working
 (when (not (featurep 'xemacs))
@@ -178,22 +214,27 @@ may be screwed up after running some program that changed screen size
     (setq gnuserv-frame (selected-frame)))
 )
 
-;; compilation buffer adjustments
+;; compilation ---------------------------------------------------------------
+
 (setq compilation-scroll-output t)
 (add-hook 'compilation-mode-hook
   (lambda () (setq truncate-lines nil)) t)
 
-;; Prolog
+;; Prolog --------------------------------------------------------------------
+
 ;; On .pl extension run prolog mode, not perl (later commented out, back to Perl:).
 ;; (add-to-list 'auto-mode-alist '("\\.pl\\'" . prolog-mode))
 ;; Color Prolog source.
 (add-hook 'prolog-mode-hook 'font-lock-mode)
 
-;; Perl
+;; Perl ----------------------------------------------------------------------
+
 (add-hook 'perl-mode-hook
   (lambda ()
     (set-local-compile-command (concat "perl " (buffer-file-name)))
   ) t)
+
+;; ---------------------------------------------------------------------------
 
 ;; load shell-script-mode for VRML/classic X3D and PO.
 ;; Works good enough: syntax of strings (double quotes, backslash)
