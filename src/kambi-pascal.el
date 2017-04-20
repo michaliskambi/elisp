@@ -29,7 +29,16 @@
 ;; definicja kambi-pascal-mode ----------------------------------------
 
 (defun kambi-pascal-mode-ancestor ()
-  (if use-delphi-mode (delphi-mode) (pascal-mode))
+  (if use-delphi-mode
+      (progn
+        (if (or (> emacs-major-version 24)
+                (and (= emacs-major-version 24) (>= emacs-minor-version 4)))
+            (opascal-mode)
+          (delphi-mode)
+        )
+      )
+    (pascal-mode)
+  )
 )
 
 (define-derived-mode kambi-pascal-mode kambi-pascal-mode-ancestor
