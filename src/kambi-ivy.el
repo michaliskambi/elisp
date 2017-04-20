@@ -19,6 +19,7 @@
   (setq projectile-completion-system 'ivy)
   (setq magit-completing-read-function 'ivy-completing-read)
   (global-set-key (kbd "C-x C-r") 'counsel-recentf)
+  (global-set-key (kbd "C-x k") 'counsel-yank-pop)
 )
 
 (provide 'kambi-ivy)

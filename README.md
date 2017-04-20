@@ -27,6 +27,7 @@ cd ~/elisp/script/
 #     ag
 #     projectile
 #     counsel
+#     ivy-hydra
 #     auto-complete
 #     adoc-mode
 ~~~~
