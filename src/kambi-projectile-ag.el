@@ -168,18 +168,30 @@ is defined."
     (kam-compile-prompt compile-command)))
 
 (defun kam-compile-immediate ()
-  "Compile, withot asking for a command, possibly using projectile.
+  "Compile, without asking for a command, possibly using projectile.
 
 Uses projectile if we're inside a project (thus using (proposing/editing/saving)
 a project-wide compilation command), unless kam-force-compilation-not-in-project
 is defined."
   (interactive)
-  (if (and (projectile-project-p) (not kam-force-compilation-not-in-project))
+
+  ;; do not use this when compile-command is nil
+  (unless (stringp compile-command)
+    (error "compile-command not defined"))
+
+  (if (and (projectile-project-p)
+           (not kam-force-compilation-not-in-project))
+
       (let ((saved-compilation-read-command compilation-read-command))
+        (message (concat "Compiling using projectile with " compile-command))
         (setq compilation-read-command nil)
         (call-interactively 'projectile-compile-project)
-        (setq compilation-read-command saved-compilation-read-command))
-    (compile compile-command)))
+        (setq compilation-read-command saved-compilation-read-command)
+      )
+
+    (compile compile-command)
+  )
+)
 
 ;; ag (outside projectile) ---------------------------------------------------
 
