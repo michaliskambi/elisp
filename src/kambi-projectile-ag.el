@@ -121,9 +121,13 @@ is fast.
   ;; (only procedures/functions)
   ;; (define-key projectile-mode-map (kbd "<s-f12>") 'projectile-find-tag)
 
-  ;; projectile with CGE interaction
-  ;; TODO: why this fails with new helm/projectile/ag?
-  ;; (projectile-register-project-type 'castle-engine '("CastleEngineManifest.xml") "castle-engine compile --mode=debug && castle-engine run" nil)
+  ;; projectile with CGE interaction.
+  ;; Can be tested executing (projectile-project-type) .
+  (projectile-register-project-type 'castle-engine '("CastleEngineManifest.xml")
+    :compile "castle-engine compile --mode=debug && castle-engine run"
+    :test "castle-engine run"
+    :run "castle-engine run"
+  )
 
   (when kam-is-windows
     ;; makes projectile scan projects much faster on Windows.
