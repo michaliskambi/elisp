@@ -19,7 +19,12 @@
   (setq projectile-completion-system 'ivy)
   (setq magit-completing-read-function 'ivy-completing-read)
   (global-set-key (kbd "C-x C-r") 'counsel-recentf)
-  (global-set-key (kbd "C-x k") 'counsel-yank-pop)
+
+  ;; counsel-yank-pop is not very comfortable IMHO,
+  ;; and cannot be used to paste to minibuffer.
+  ;; Better use standard browse-kill-ring, it's actually OK for me.
+  ;; (global-set-key (kbd "C-x k") 'counsel-yank-pop)
+  ;; (global-set-key (kbd "C-x k") 'browse-kill-ring)
 )
 
 (provide 'kambi-ivy)
