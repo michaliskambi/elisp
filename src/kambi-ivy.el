@@ -28,15 +28,29 @@
 
   ;; Similar to http://oremacs.com/ example, but use file-name-nondirectory
   (defun kam-kill-new-nondirectory (x)
-    (kill-new (file-name-nondirectory
-     (if (stringp x)
-         x
-       (car x)))))
+    (let ((string-to-copy
+            (file-name-nondirectory
+              ;; Use kam-strip-final-slash, because in C-x C-f, ivy passes
+              ;; a directory name like "/foo/bar/" to this function.
+              ;; Using file-name-nondirectory directly would strip it to "".
+              (kam-strip-final-slash
+                (if (stringp x) x (car x))
+              )
+            )
+         ))
+      (kill-new string-to-copy)
+      (message (concat "Copied to clipboard: " string-to-copy))
+    )
+  )
+
   (defun kam-kill-new (x)
-    (kill-new
-     (if (stringp x)
-         x
-       (car x))))
+    (let ((string-to-copy
+            (if (stringp x) x (car x))
+         ))
+      (kill-new string-to-copy)
+      (message (concat "Copied to clipboard: " string-to-copy))
+    )
+  )
 
   (ivy-set-actions
    t

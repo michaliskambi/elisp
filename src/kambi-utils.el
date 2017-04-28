@@ -1304,6 +1304,20 @@ Assumes that DIR is for sure an SVN dir."
   ;; )
 )
 
+(defun kam-strip-final-slash (x)
+  "If X ends with slash, strip it. Otherwise, returns X unmodified."
+  (if (string-is-suffix "/" x)
+      (substring x 0 -1)
+    x
+  )
+)
+
+;; tests:
+;; (kam-strip-final-slash "foo/bar")
+;; (kam-strip-final-slash "foo/bar/")
+;; (kam-strip-final-slash "")
+;; (kam-strip-final-slash "/")
+
 ;; ------------------------------------------------------------
 
 (provide 'kambi-utils)

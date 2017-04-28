@@ -162,6 +162,8 @@ that."
   ;;   (define-key projectile-mode-map (kbd "M-g") 'helm-projectile-ag))
 )
 
+;; (add-hook 'helm-ag-mode-hook 'kam-no-wrap-lines) ;; doesn't have any effect?
+
 ;; ---------------------------------------------------------------------------
 
 (provide 'kambi-helm)

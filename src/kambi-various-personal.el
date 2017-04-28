@@ -542,7 +542,6 @@ i.e. point remains in the occur buffer."
 )
 (add-hook 'grep-mode-hook 'kam-no-wrap-lines)
 (add-hook 'ag-mode-hook 'kam-no-wrap-lines)
-(add-hook 'helm-ag-mode-hook 'kam-no-wrap-lines) ;; doesn't have any effect?
 
 ;; ispell --------------------------------------------------------------------
 
