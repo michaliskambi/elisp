@@ -25,6 +25,16 @@
   ;; Better use standard browse-kill-ring, it's actually OK for me.
   ;; (global-set-key (kbd "C-x k") 'counsel-yank-pop)
   ;; (global-set-key (kbd "C-x k") 'browse-kill-ring)
+
+  ;; Similar to http://oremacs.com/ example, but use file-name-nondirectory
+  (defun kam-kill-new-nondirectory (x)
+    (kill-new (file-name-nondirectory
+     (if (stringp x)
+         x
+       (car x)))))
+  (ivy-set-actions
+   t
+   '(("k" kam-kill-new-nondirectory "copy basename")))
 )
 
 (provide 'kambi-ivy)
