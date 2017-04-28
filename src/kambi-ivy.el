@@ -32,9 +32,36 @@
      (if (stringp x)
          x
        (car x)))))
+  (defun kam-kill-new (x)
+    (kill-new
+     (if (stringp x)
+         x
+       (car x))))
+
   (ivy-set-actions
    t
-   '(("k" kam-kill-new-nondirectory "copy basename")))
+   '(("w" kam-kill-new              "copy whole")
+     ("k" kam-kill-new-nondirectory "copy basename")))
+
+  ;; Not stable:
+  ;; - do not exit ivy
+  ;; - C-w for some reason does the same thing as C-k, so (ivy-state-current ivy-last)
+  ;;   is not a complete filename
+  ;;
+  ;; (defun kam-ivy-wrap-kill-new-nondirectory ()
+  ;;   (interactive)
+  ;;   (kam-kill-new-nondirectory (ivy-state-current ivy-last))
+  ;;   (ivy-state-unwind ivy-last)
+  ;; )
+  ;; (defun kam-ivy-wrap-kill-new ()
+  ;;   (interactive)
+  ;;   (kam-kill-new (ivy-state-current ivy-last))
+  ;;   (ivy-state-unwind ivy-last)
+  ;; )
+
+  ;; ;; also enable consistent C-k and C-w shortcuts for above commands
+  ;; (define-key ivy-minibuffer-map (kbd "C-k") 'kam-ivy-wrap-kill-new-nondirectory)
+  ;; (define-key ivy-minibuffer-map (kbd "C-w") 'kam-ivy-wrap-kill-new)
 )
 
 (provide 'kambi-ivy)
