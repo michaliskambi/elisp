@@ -1061,6 +1061,8 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (add-to-list 'ac-modes 'kambi-csharp-mode)
   (add-to-list 'ac-modes 'html-mode)
   (add-to-list 'ac-modes 'nxml-mode)
+  ;; complete when writing commit log, very useful
+  ;; (add-to-list 'ac-modes 'git-commit-mode) ;; TODO: doesn't work
 
   ;; By default you have to press 3 escapes (or C-g) to make keyboard-escape-quit
   ;; to make completion menu disappear. Not comfortable enough for me,
