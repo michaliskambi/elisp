@@ -243,6 +243,10 @@ may be screwed up after running some program that changed screen size
 (add-to-list 'auto-mode-alist '("\\.x3dv\\'" . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\\.po[tx]?\\'\\|\\.po\\." . shell-script-mode))
 
+;; objective C
+(add-to-list 'auto-mode-alist '("\\.m$" . objc-mode))
+(add-to-list 'auto-mode-alist '("\\.mm$" . objc-mode))
+
 ;; automatycznie dekompresuj / kompresuj edytowane pliki
 (auto-compression-mode 1)
 

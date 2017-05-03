@@ -11,6 +11,7 @@
 (require 'kambi-various-personal)
 (require 'kambi-svn)
 (require 'kambi-projectile-ag)
+;; helm unused for now, in favor of ivy
 ;; (require 'kambi-helm)
 (require 'kambi-ivy)
 (require 'kambi-cc-mode)
@@ -19,7 +20,8 @@
 (require 'kambi-www)
 (require 'kambi-ocaml)
 (require 'kambi-sql)
-(require 'kambi-matlab)
+;; unused for now, assigns to .m files, which for I want as objective C
+;; (require 'kambi-matlab)
 (require 'kambi-makefile)
 (require 'kambi-lisp-editing)
 (require 'kambi-misc-convertions)

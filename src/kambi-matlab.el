@@ -29,10 +29,10 @@
 ;; Old things: ----------------------------------------
 ;;
 ;; Adjust octave-mode (no octave-electric-space, octave-electric-semi
-;; because even when octave-auto-indent = nil, octave-electric-space 
+;; because even when octave-auto-indent = nil, octave-electric-space
 ;; reindents line and I don't want it)
 ;; (add-hook 'octave-mode-hook
-;;   (lambda () 
+;;   (lambda ()
 ;;     (local-set-key (kbd ";") 'self-insert-command)
 ;;     (local-set-key (kbd "SPC") 'self-insert-command)
 ;;   t))
