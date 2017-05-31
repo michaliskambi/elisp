@@ -236,6 +236,8 @@ may be screwed up after running some program that changed screen size
 
 ;; ---------------------------------------------------------------------------
 
+(add-to-list 'auto-mode-alist '("\\.mrconfig\\'" . conf-mode))
+
 ;; load shell-script-mode for VRML/classic X3D and PO.
 ;; Works good enough: syntax of strings (double quotes, backslash)
 ;; and comments (hash) is the same, so you get helpful syntax coloring.
