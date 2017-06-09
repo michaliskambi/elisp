@@ -369,7 +369,8 @@ may be screwed up after running some program that changed screen size
 
 (add-hook 'kambi-pascal-mode-hook 'set-buffer-space-or-tabs t)
 (add-hook 'kambi-php-mode 'set-buffer-space-or-tabs t)
-(add-hook 'cc-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'kambi-c-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'kambi-c++-mode-hook 'set-buffer-space-or-tabs t)
 (add-hook 'java-mode-hook 'set-buffer-space-or-tabs t)
 (add-hook 'tuareg-mode-hook 'set-buffer-space-or-tabs t)
 (add-hook 'emacs-lisp-mode-hook 'set-buffer-space-or-tabs t)

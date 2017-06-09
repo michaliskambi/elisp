@@ -8,30 +8,25 @@
 
 (define-derived-mode
   kambi-c-mode c-mode "K-C"
-  "Wersja c-mode by Kambi - wyciete indentation (w keymap zaden klawisz
-nie jest bound do jakiejs \"electric\" function).
-
-Ten mode nie probuje byc madrzejszy od Ciebie i nie wkurwia Cie zgadujac
- (zawsze ZLE) jakie chcesz gdziestam zrobic wciecie - wszystko to robisz sam."
+  "Editing C. Without automatic indentation."
+  ;; This mode does not try to automatically indent the code for you
+  ;; (which, frankly, is almost always a wrong indentation).
+  ;; Instead you're supposed to do it yourself."
 )
 
 (define-derived-mode
   kambi-c++-mode c++-mode "K-C++"
-  "Wersja C++-mode by Kambi - wyciete indentation (w keymap zaden klawisz
-nie jest bound do jakiejs \"electric\" function)."
+  "Editing C++. Without automatic indentation."
 )
 
 (define-derived-mode
   kambi-java-mode java-mode "K-Java"
-  "Wersja Java-mode by Kambi - wyciete indentation (w keymap zaden klawisz
-nie jest bound do jakiejs \"electric\" function)."
+  "Editing Java. Without automatic indentation."
 )
 
 (define-derived-mode
   kambi-objc-mode objc-mode "K-ObjC"
-  "Wersja ObjC-mode by Kambi - wyciete indentation (w keymap zaden klawisz
-nie jest bound do jakiejs \"electric\" function).
-Uwaga : kompletnie untested no nigdy nie pisalem nic w 'objective C' !"
+  "Editing Objective C. Without automatic indentation."
 )
 
 ;; popraw kambi-c/c++/java/objc-mode-map --------------------------------
@@ -125,6 +120,25 @@ Uwaga : kompletnie untested no nigdy nie pisalem nic w 'objective C' !"
 ;; (setq ffap-c-path (add-to-list-new-items ffap-c-path (list
 ;;   "/home/michalis/c/kambilib/"
 ;; ) t) )
+
+;; related headers --------------------------------------------------------
+
+;; See https://superuser.com/questions/255510/how-to-toggle-between-cpp-and-hpp-that-are-not-in-the-same-directory
+;; (setq cc-other-file-alist
+;;       '(("\\.c"   (".h"))
+;;        ("\\.cpp"   (".h"))
+;;        ("\\.h"   (".c"".cpp"))))
+
+;; (setq ff-search-directories
+;;       '("."
+;;         "/home/michalis/sources/microscopeit/aeolus/brain_ws/src/wm/include/"
+;;         "/home/michalis/sources/microscopeit/aeolus/brain_ws/src/wm/include/fuds/"
+;;         "/home/michalis/sources/microscopeit/aeolus/brain_ws/src/wm/include/features/"
+;;         "/home/michalis/sources/microscopeit/aeolus/brain_ws/src/wm/include/calibration/"
+;;       ))
+
+;;; Bind the toggle function to a global key
+;; (global-set-key "\M-t" 'ff-find-other-file)
 
 ;; ------------------------------------------------------------
 
