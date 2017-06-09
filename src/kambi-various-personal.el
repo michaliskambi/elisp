@@ -891,6 +891,7 @@ parses local variables written in buffer."
 (global-set-key (kbd "<f12> v") 'kam-version-control)
 (global-set-key (kbd "<f12> d") 'kam-dired-here)
 (global-set-key (kbd "<f12> e") 'kam-open-dir-external)
+(global-set-key (kbd "<f12> o") 'sort-lines)
 
 ;; Also cua-rectangle-mark-key is set to [(control f12)]
 
@@ -1163,6 +1164,16 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;; I find both sound and visual bell annoying
 ;;(setq visible-bell nil)
 (setq ring-bell-function 'ignore)
+
+;; colorize compilation ------------------------------------------------------
+
+;; See https://stackoverflow.com/questions/13397737/ansi-coloring-in-compilation-mode
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (toggle-read-only)
+  (ansi-color-apply-on-region compilation-filter-start (point))
+  (toggle-read-only))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 ;; provides (keep at the end) ------------------------------------------------
 
