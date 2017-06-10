@@ -158,6 +158,9 @@ may be screwed up after running some program that changed screen size
 
   ;; consistent with helm find-files
   (local-set-key (kbd "C-l") 'dired-up-directory)
+  ;; consistent with caja
+  (local-set-key (kbd "M-<up>") 'dired-up-directory)
+  (local-set-key (kbd "M-<down>") 'dired-find-file)
   ;; consistent with ido and ivy
   (local-set-key (kbd "<backspace>") 'dired-up-directory)
 
@@ -849,6 +852,7 @@ parses local variables written in buffer."
 ;; For simple file buffers, it's sensible to just open dired here.
 ;; Some modes, like dired, will override this to go "up dir".
 (global-set-key (kbd "C-l") 'kam-dired-here)
+(global-set-key (kbd "M-<up>") 'kam-dired-here)
 
 (global-set-key (kbd "<f8>") 'kam-run-here)
 (global-set-key (kbd "<f9>") 'kam-compile-immediate)

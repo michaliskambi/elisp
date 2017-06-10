@@ -76,6 +76,13 @@
   ;; ;; also enable consistent C-k and C-w shortcuts for above commands
   ;; (define-key ivy-minibuffer-map (kbd "C-k") 'kam-ivy-wrap-kill-new-nondirectory)
   ;; (define-key ivy-minibuffer-map (kbd "C-w") 'kam-ivy-wrap-kill-new)
+
+  ;; consistent with helm (same as backspace in ivy by default)
+  (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-backward-delete-char)
+  ;; consistent with caja (same as backspace in ivy by default)
+  (define-key ivy-minibuffer-map (kbd "M-<up>") 'ivy-backward-delete-char)
+  ;; ;; consistent with caja? (same as right in ivy by default)
+  ;; (define-key ivy-minibuffer-map (kbd "M-<down>") 'right-char)
 )
 
 (provide 'kambi-ivy)
