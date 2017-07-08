@@ -55,6 +55,7 @@
  '(inhibit-startup-screen t)
  '(initial-buffer-choice nil)
  '(ispell-highlight-face (quote highlight))
+ '(ivy-do-completion-in-region nil)
  '(jka-compr-load-suffixes (quote (".gz" ".x3dz")))
  '(js-auto-indent-flag nil)
  '(ls-lisp-dirs-first t)
@@ -71,6 +72,7 @@
  '(minimap-width-fraction 0.1)
  '(minimap-window-location (quote right))
  '(mmm-submode-decoration-level 1)
+ '(opascal-tab-always-indents nil)
  '(org-replace-disputed-keys t)
  '(org-support-shift-select (quote always))
  '(package-selected-packages
