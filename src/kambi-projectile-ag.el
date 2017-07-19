@@ -177,7 +177,10 @@ is defined."
 
   ;; do not use this when compile-command is nil
   (unless (stringp compile-command)
-    (error "compile-command not defined"))
+    ;;(error "compile-command not defined")
+    ;; Test: It seems that projectile-compile-project only defines compile-command at 1st run?
+    (call-interactively 'projectile-compile-project)
+  )
 
   (if (and (projectile-project-p)
            (not kam-force-compilation-not-in-project))

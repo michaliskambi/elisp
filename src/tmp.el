@@ -866,3 +866,123 @@ such things."
     (kam-beg-of-buf) (query-replace  "updatespeed"  "UpdateSecondsPassed" )
   ))
 (global-set-key (kbd "<f5>") 'kam-aaa)
+
+(defun kam-cge-vector-api-upgrade ()
+  (interactive)
+  (save-excursion
+    (kam-beg-of-buf) (query-replace  "ZeroVector2Single"       "TVector2.Zero")
+    (kam-beg-of-buf) (query-replace  "ZeroVector3Single"       "TVector3.Zero")
+    (kam-beg-of-buf) (query-replace  "ZeroVector4Single"       "TVector4.Zero")
+
+    (kam-beg-of-buf) (query-replace  "ZeroVector2Double"       "TVector2Double.Zero")
+    (kam-beg-of-buf) (query-replace  "ZeroVector3Double"       "TVector3Double.Zero")
+    (kam-beg-of-buf) (query-replace  "ZeroVector4Double"       "TVector4Double.Zero")
+
+    (kam-beg-of-buf) (query-replace  "ZeroMatrix2Single"       "TMatrix2.Zero")
+    (kam-beg-of-buf) (query-replace  "ZeroMatrix3Single"       "TMatrix3.Zero")
+    (kam-beg-of-buf) (query-replace  "ZeroMatrix4Single"       "TMatrix4.Zero")
+
+    (kam-beg-of-buf) (query-replace  "ZeroMatrix2Double"       "TMatrix2Double.Zero")
+    (kam-beg-of-buf) (query-replace  "ZeroMatrix3Double"       "TMatrix3Double.Zero")
+    (kam-beg-of-buf) (query-replace  "ZeroMatrix4Double"       "TMatrix4Double.Zero")
+
+    (kam-beg-of-buf) (query-replace  "IdentityMatrix2Single"       "TMatrix2.Identity")
+    (kam-beg-of-buf) (query-replace  "IdentityMatrix3Single"       "TMatrix3.Identity")
+    (kam-beg-of-buf) (query-replace  "IdentityMatrix4Single"       "TMatrix4.Identity")
+
+    (kam-beg-of-buf) (query-replace  "IdentityMatrix2Double"       "TMatrix2Double.Identity")
+    (kam-beg-of-buf) (query-replace  "IdentityMatrix3Double"       "TMatrix3Double.Identity")
+    (kam-beg-of-buf) (query-replace  "IdentityMatrix4Double"       "TMatrix4Double.Identity")
+
+    (kam-beg-of-buf) (query-replace  "Vector2Single"       "Vector2")
+    (kam-beg-of-buf) (query-replace  "Vector3Single"       "Vector3")
+    (kam-beg-of-buf) (query-replace  "Vector4Single"       "Vector4")
+
+    (kam-beg-of-buf) (query-replace  "Matrix2Single"       "Matrix2")
+    (kam-beg-of-buf) (query-replace  "Matrix3Single"       "Matrix3")
+    (kam-beg-of-buf) (query-replace  "Matrix4Single"       "Matrix4")
+
+    (kam-beg-of-buf) (query-replace  "Triangle2Single"       "Triangle2")
+    (kam-beg-of-buf) (query-replace  "Triangle3Single"       "Triangle3")
+    (kam-beg-of-buf) (query-replace  "Triangle4Single"       "Triangle4")
+
+    (kam-beg-of-buf) (query-replace  "UnitVector2Single" "TVector3.One")
+    (kam-beg-of-buf) (query-replace  "UnitVector2" "TVector3.One")
+
+    (kam-beg-of-buf) (query-replace  "UnitVector3Single" "TVector3.One")
+    (kam-beg-of-buf) (query-replace  "UnitVector3" "TVector3.One")
+
+    (kam-beg-of-buf) (query-replace  "UnitVector4Single" "TVector3.One")
+    (kam-beg-of-buf) (query-replace  "UnitVector4" "TVector3.One")
+
+    (kam-beg-of-buf) (query-replace  "VectorProduct" "TVector3.CrossProduct")
+    (kam-beg-of-buf) (query-replace  "VectorDotProduct" "TVector3.DotProduct")
+    (kam-beg-of-buf) (query-replace  "VectorsPerfectlyEqual" "TVector3.PerfectlyEquals")
+    (kam-beg-of-buf) (query-replace  "MatricesPerfectlyEqual" "TMatrix4.PerfectlyEquals")
+    (kam-beg-of-buf) (query-replace  "FloatsEqual" "SameValue")
+    (kam-beg-of-buf) (query-replace  "VectorsEqual" "TVector3.Equals")
+    (kam-beg-of-buf) (query-replace  "TriangleDir(" "TriangleDirection(")
+
+    ;; 0-argument vector/matrix methods
+    (kam-beg-of-buf) (query-replace-regexp "VectorLenSqr(\\([^-+*,()]+\\))" "\\1.LengthSqr")
+    (kam-beg-of-buf) (query-replace-regexp "VectorLenSqr(\\([^()]+\\))" "(\\1).LengthSqr")
+
+    (kam-beg-of-buf) (query-replace-regexp "VectorLen(\\([^-+*,()]+\\))" "\\1.Length")
+    (kam-beg-of-buf) (query-replace-regexp "VectorLen(\\([^()]+\\))" "(\\1).Length")
+
+    (kam-beg-of-buf) (query-replace-regexp "Normalized(\\([^-+*,()]+\\))" "\\1.Normalize")
+    (kam-beg-of-buf) (query-replace-regexp "Normalized(\\([^()]+\\))" "(\\1).Normalize")
+
+    (kam-beg-of-buf) (query-replace-regexp "VectorToNiceStr(\\([^-+*,()]+\\))" "\\1.ToString")
+    (kam-beg-of-buf) (query-replace-regexp "VectorToNiceStr(\\([^()]+\\))" "(\\1).ToString")
+
+    (kam-beg-of-buf) (query-replace-regexp "VectorToRawStr(\\([^-+*,()]+\\))" "\\1.ToRawString")
+    (kam-beg-of-buf) (query-replace-regexp "VectorToRawStr(\\([^()]+\\))" "(\\1).ToRawString")
+
+    (kam-beg-of-buf) (query-replace-regexp "VectorAverage(\\([^-+*,()]+\\))" "\\1.Average")
+    (kam-beg-of-buf) (query-replace-regexp "VectorAverage(\\([^()]+\\))" "(\\1).Average")
+
+    (kam-beg-of-buf) (query-replace-regexp "PerfectlyZeroVector(\\([^-+*,()]+\\))" "\\1.IsPerfectlyZero")
+    (kam-beg-of-buf) (query-replace-regexp "PerfectlyZeroVector(\\([^()]+\\))" "(\\1).IsPerfectlyZero")
+
+    ;; after PerfectlyZeroVector
+    (kam-beg-of-buf) (query-replace-regexp "ZeroVector(\\([^-+*,()]+\\))" "\\1.IsZero")
+    (kam-beg-of-buf) (query-replace-regexp "ZeroVector(\\([^()]+\\))" "(\\1).IsZero")
+
+    (kam-beg-of-buf) (query-replace-regexp "TriangleNormPlane(\\([^-+*,()]+\\))" "\\1.NormalizedPlane")
+    (kam-beg-of-buf) (query-replace-regexp "TriangleNormPlane(\\([^()]+\\))" "(\\1).NormalizedPlane")
+
+    ;; 1-argument vector/matrix methods
+    (kam-beg-of-buf) (query-replace-regexp "VectorAdjustToLength(\\([^-+*,()]+\\), *\\([^-+*,()]+\\))" "\\1.AdjustToLength(\\2)")
+    (kam-beg-of-buf) (query-replace-regexp "MatrixMultPoint(\\([^-+*,()]+\\), *\\([^-+*,()]+\\))" "\\1.MultPoint(\\2)")
+    (kam-beg-of-buf) (query-replace-regexp "MatrixMultDirection(\\([^-+*,()]+\\), *\\([^-+*,()]+\\))" "\\1.MultDirection(\\2)")
+    (kam-beg-of-buf) (query-replace-regexp "TryMatrixInverse(\\([^-+*,()]+\\), *\\([^-+*,()]+\\))" "\\1.TryInverse(\\2)")
+    (kam-beg-of-buf) (query-replace-regexp "MatrixToNiceStr(\\([^-+*,()]+\\), *\\([^-+*,()]+\\))" "\\1.ToString(\\2)")
+    (kam-beg-of-buf) (query-replace-regexp "MatrixToRawStr(\\([^-+*,()]+\\), *\\([^-+*,()]+\\))" "\\1.ToRawString(\\2)")
+    (kam-beg-of-buf) (query-replace-regexp "MatrixRow(\\([^-+*,()]+\\), *\\([^-+*,()]+\\))" "\\1.Row(\\2)")
+    (kam-beg-of-buf) (query-replace-regexp "TriangleTransform(\\([^-+*,()]+\\), *\\([^-+*,()]+\\))" "\\1.Transform(\\2)")
+  ))
+(global-set-key (kbd "<f5>") 'kam-cge-vector-api-upgrade)
+
+(global-set-key (kbd "<f5>") 'delete-matching-lines)
+------------------------------------------------------------------------------
+(declare-function 'diff-hunk-next "diff-mode")
+
+(defun my-diff-refine-all ()
+  "Refine all diffs."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (condition-case nil
+        (diff-beginning-of-hunk t)
+      (error (diff-hunk-next)))
+    (condition-case nil
+        (while (not (eobp))
+          (diff-refine-hunk)
+          (diff-hunk-next))
+      (user-error) ;; catches "No next hunk." from `diff-hunk-next' if there is garbage at the end of the file.
+      )))
+
+(defun my-diff-hunks-highlight-all ()
+  "Highlight all hunks in diff-mode."
+  (add-hook 'font-lock-mode-hook #'my-diff-refine-all t t))
