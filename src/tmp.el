@@ -870,6 +870,12 @@ such things."
 (defun kam-cge-vector-api-upgrade ()
   (interactive)
   (save-excursion
+    ;; this needs to be early, otherwise the type replacement below with handle "Vector3Single" replacement
+    (kam-beg-of-buf) (query-replace-regexp "Vector3SingleCut(\\([^-+*,()]+\\))" "\\1.XYZ")
+    (kam-beg-of-buf) (query-replace-regexp "Vector3SingleCut(\\([^()]+\\))" "(\\1).XYZ")
+
+    ;; types and constructor names
+
     (kam-beg-of-buf) (query-replace  "ZeroVector2Single"       "TVector2.Zero")
     (kam-beg-of-buf) (query-replace  "ZeroVector3Single"       "TVector3.Zero")
     (kam-beg-of-buf) (query-replace  "ZeroVector4Single"       "TVector4.Zero")
@@ -915,6 +921,8 @@ such things."
     (kam-beg-of-buf) (query-replace  "UnitVector4Single" "TVector3.One")
     (kam-beg-of-buf) (query-replace  "UnitVector4" "TVector3.One")
 
+    (kam-beg-of-buf) (query-replace  "EmptyBox3D" "TBox3D.Empty")
+
     (kam-beg-of-buf) (query-replace  "VectorProduct" "TVector3.CrossProduct")
     (kam-beg-of-buf) (query-replace  "VectorDotProduct" "TVector3.DotProduct")
     (kam-beg-of-buf) (query-replace  "VectorsPerfectlyEqual" "TVector3.PerfectlyEquals")
@@ -922,6 +930,10 @@ such things."
     (kam-beg-of-buf) (query-replace  "FloatsEqual" "SameValue")
     (kam-beg-of-buf) (query-replace  "VectorsEqual" "TVector3.Equals")
     (kam-beg-of-buf) (query-replace  "TriangleDir(" "TriangleDirection(")
+
+    ;; this is actually a change in CGE 6.2
+    (kam-beg-of-buf) (query-replace  "PointInside" "Contains")
+    (kam-beg-of-buf) (query-replace  "GLFadeRectangle(" "GLFadeRectangleDark(")
 
     ;; 0-argument vector/matrix methods
     (kam-beg-of-buf) (query-replace-regexp "VectorLenSqr(\\([^-+*,()]+\\))" "\\1.LengthSqr")
@@ -952,7 +964,10 @@ such things."
     (kam-beg-of-buf) (query-replace-regexp "TriangleNormPlane(\\([^-+*,()]+\\))" "\\1.NormalizedPlane")
     (kam-beg-of-buf) (query-replace-regexp "TriangleNormPlane(\\([^()]+\\))" "(\\1).NormalizedPlane")
 
-    ;; 1-argument vector/matrix methods
+    (kam-beg-of-buf) (query-replace-regexp "FloatToNiceStr(\\([^-+*,()]+\\))" "Format('%f', [\\1])")
+    (kam-beg-of-buf) (query-replace-regexp "FloatToNiceStr(\\([^()]+\\))" "Format('%f', [(\\1)])")
+
+    ;; 2-argument vector/matrix methods
     (kam-beg-of-buf) (query-replace-regexp "VectorAdjustToLength(\\([^-+*,()]+\\), *\\([^-+*,()]+\\))" "\\1.AdjustToLength(\\2)")
     (kam-beg-of-buf) (query-replace-regexp "MatrixMultPoint(\\([^-+*,()]+\\), *\\([^-+*,()]+\\))" "\\1.MultPoint(\\2)")
     (kam-beg-of-buf) (query-replace-regexp "MatrixMultDirection(\\([^-+*,()]+\\), *\\([^-+*,()]+\\))" "\\1.MultDirection(\\2)")
