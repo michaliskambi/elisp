@@ -25,6 +25,7 @@
  '(c-tab-always-indent nil)
  '(comint-password-prompt-regexp
    "Kambi put here regexp impossible to match to disable comint-watch-for-password-prompt")
+ '(counsel-find-file-ignore-regexp "\\(?:\\`[#.]\\)\\|\\(?:[#~]\\'\\)")
  '(css-electric-keys nil)
  '(cua-rectangle-mark-key [C-f12])
  '(dabbrev-case-replace nil)
