@@ -976,6 +976,9 @@ such things."
     (kam-beg-of-buf) (query-replace-regexp "MatrixToRawStr(\\([^-+*,()]+\\), *\\([^-+*,()]+\\))" "\\1.ToRawString(\\2)")
     (kam-beg-of-buf) (query-replace-regexp "MatrixRow(\\([^-+*,()]+\\), *\\([^-+*,()]+\\))" "\\1.Row(\\2)")
     (kam-beg-of-buf) (query-replace-regexp "TriangleTransform(\\([^-+*,()]+\\), *\\([^-+*,()]+\\))" "\\1.Transform(\\2)")
+
+    ;; misc changes
+    (kam-beg-of-buf) (query-replace-regexp "Box.Data\\[\\(.\\), \\(.\\)\\]" "Box.Data[\\1].Data[\\2]")
   ))
 (global-set-key (kbd "<f5>") 'kam-cge-vector-api-upgrade)
 
