@@ -131,12 +131,12 @@ environment variable, if possible."
       (castle-engine-path "src/fonts/opengl/")
       (castle-engine-path "src/fonts/windows/")
       (castle-engine-path "src/castlescript/")
-      (castle-engine-path "src/castlescript/opengl/")
       (castle-engine-path "src/ui/")
       (castle-engine-path "src/ui/opengl/")
       (castle-engine-path "src/game/")
-      (castle-engine-path "src/net/")
+      (castle-engine-path "src/files/")
       (castle-engine-path "src/services/")
+      (castle-engine-path "src/services/opengl/")
       ;; pasdoc
       ;; (concat kam-home-directory "/sources/pasdoc/trunk/source/component/")
       ;; (concat kam-home-directory "/sources/pasdoc/trunk/source/console/")
@@ -521,6 +521,11 @@ problems, at least for now."
           (setq kam-force-compilation-not-in-project t))
     )
     (add-hook 'compilation-filter-hook 'kam-pascal-compilation-filter t)
+
+    ;; Workaround opascal mode problem, see
+    ;; https://emacs.stackexchange.com/questions/20567/syntax-highlighting-strings-incorrectly-for-strings-in-opascal-mode
+    ;; Don't escape backslashes in pascal
+    (modify-syntax-entry ?\\ ".")
   ) t)
 
 ;; FPC kiedy drukuje komunikat error/warning/itp. podaje nazwe pliku
