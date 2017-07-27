@@ -137,6 +137,15 @@ may be screwed up after running some program that changed screen size
   (setq-default dired-omit-files-p t) ; Buffer-local variable
 )
 
+(defvar kam-current-dired-details nil
+  "Global variable controlling whether we prefer new Dired buffer to show details")
+(defun kam-toggle-dired-details ()
+  (interactive)
+  (setq kam-current-dired-details (not kam-current-dired-details))
+  (dired-hide-details-mode (if kam-current-dired-details 0 t))
+  (message (concat "Dired show details: " (if kam-current-dired-details "YES" "NO")))
+)
+
 (defun kam-dired-toggle-omit-mode ()
   "Toggle direct omit mode."
   (interactive)
@@ -170,7 +179,18 @@ may be screwed up after running some program that changed screen size
   ;; D to toddle "du" mode.
   ;; TODO: if I could sort by this size, it would be best...
   ;; But I can't, "s" only toggles name/date sorting.
+  ;; dired-quick-sort allows to sort by size.. but not by "du" output.
   (local-set-key (kbd "D") 'dired-du-mode)
+
+  (local-set-key (kbd "C-1") 'kam-toggle-dired-details)
+  (local-set-key (kbd "C-2") 'kam-toggle-dired-details)
+
+  ;; c = collapse, not done by default as it costs a bit of time sometimes,
+  ;; and also is not possible when something not readable (e.g. cannot enter /
+  ;; because /lost+found not readable)
+  (local-set-key (kbd "c") 'dired-collapse-mode)
+
+  (local-set-key (kbd "i") 'dired-subtree-insert)
 
   ;; make omit mode active by default (for older Emacs)
   (unless (or (> emacs-major-version 24)
@@ -180,11 +200,21 @@ may be screwed up after running some program that changed screen size
     )
   )
 
-  (when (fboundp 'dired-collapse-mode)
-    (dired-collapse-mode)
+  (when (fboundp 'dired-hide-details-mode)
+    (dired-hide-details-mode (if kam-current-dired-details 0 t))
   )
 )
 (add-hook 'dired-mode-hook 'kam-dired-start t)
+
+(defun kam-dired-refresh ()
+  ;; Refresh dired-hide-details-mode status to refresh
+  ;; current kam-current-dired-details variable.
+  (dired-hide-details-mode (if kam-current-dired-details 0 t))
+)
+;; We depend that dired-after-readin-hook actually happens every time
+;; you go back to dired buffer, which is true in my configuration,
+;; with "always auto revert".
+(add-hook 'dired-after-readin-hook 'kam-dired-refresh)
 
 ;; server --------------------------------------------------------------------
 

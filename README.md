@@ -30,4 +30,7 @@ cd ~/elisp/script/
 #     ivy-hydra
 #     auto-complete
 #     adoc-mode
+#     dired-collapse ?
+#     dired-du ?
+#     dired-subtree ?
 ~~~~
