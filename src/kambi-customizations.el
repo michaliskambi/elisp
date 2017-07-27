@@ -58,6 +58,7 @@
  '(initial-buffer-choice nil)
  '(ispell-highlight-face (quote highlight))
  '(ivy-do-completion-in-region nil)
+ '(ivy-magic-tilde nil)
  '(jka-compr-load-suffixes (quote (".gz" ".x3dz")))
  '(js-auto-indent-flag nil)
  '(ls-lisp-dirs-first t)
