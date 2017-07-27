@@ -167,12 +167,21 @@ may be screwed up after running some program that changed screen size
   ;; h to hide / unhide
   (local-set-key (kbd "h") 'kam-dired-toggle-omit-mode)
 
+  ;; D to toddle "du" mode.
+  ;; TODO: if I could sort by this size, it would be best...
+  ;; But I can't, "s" only toggles name/date sorting.
+  (local-set-key (kbd "D") 'dired-du-mode)
+
   ;; make omit mode active by default (for older Emacs)
   (unless (or (> emacs-major-version 24)
               (and (= emacs-major-version 24) (>= emacs-minor-version 4)))
     (when (fboundp 'dired-omit-mode)
       (dired-omit-mode)
     )
+  )
+
+  (when (fboundp 'dired-collapse-mode)
+    (dired-collapse-mode)
   )
 )
 (add-hook 'dired-mode-hook 'kam-dired-start t)

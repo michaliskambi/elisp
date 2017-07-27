@@ -31,7 +31,9 @@
  '(dabbrev-case-replace nil)
  '(delphi-tab-always-indents nil)
  '(dired-backup-overwrite t)
- '(dired-listing-switches "-al --group-directories-first")
+ '(dired-du-size-format t)
+ '(dired-du-update-headers nil)
+ '(dired-listing-switches "-alh")
  '(dired-omit-files "^\\.?#\\|^\\.\\.$\\|^\\.$\\|^\\.[^.]")
  '(dired-omit-verbose nil)
  '(electric-indent-mode nil)
@@ -116,6 +118,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(dired-directory ((t (:inherit font-lock-function-name-face :foreground "medium spring green"))))
+ '(dired-flagged ((t (:inherit error :strike-through t))))
+ '(dired-header ((t (:inherit font-lock-type-face :foreground "green yellow"))))
+ '(dired-ignored ((t (:inherit shadow :foreground "dim gray"))))
+ '(dired-marked ((t (:inherit warning :foreground "yellow"))))
+ '(dired-symlink ((t (:inherit font-lock-keyword-face :foreground "cyan"))))
  '(markup-complex-replacement-face ((t (:inherit markup-meta-face :foreground "plum1" :box (:line-width 2 :style released-button)))))
  '(markup-list-face ((t (:inherit markup-meta-face :foreground "plum1"))))
  '(markup-meta-face ((t (:stipple nil :foreground "gray30" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1.0 :width normal :foundry "unknown" :family "Monospace"))))
