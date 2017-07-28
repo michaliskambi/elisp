@@ -9,6 +9,7 @@
 
 (require 'kambi-utils)
 (require 'kambi-various-personal)
+(require 'kambi-dired)
 (require 'kambi-svn)
 (require 'kambi-projectile-ag)
 ;; helm unused for now, in favor of ivy
