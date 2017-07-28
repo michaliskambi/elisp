@@ -1100,6 +1100,35 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
+;; crux ----------------------------------------------------------------------
+
+;; (unless (package-installed-p 'crux)
+;;   (package-refresh-contents)
+;;   (package-install 'crux))
+
+(when (require 'crux nil 'noerror)
+  (global-set-key (kbd "C-k") 'crux-smart-kill-line)
+  (global-set-key (kbd "C-c D") 'crux-delete-file-and-buffer)
+  (global-set-key (kbd "C-c r") 'crux-rename-file-and-buffer)
+
+  ;; for unknown reason, crux-reopen-as-root is not interactive
+  ;; (defun kam-crux-reopen-as-root ()
+  ;;   "Like crux-reopen-as-root, but interactive."
+  ;;   (interactive)
+  ;;   (crux-reopen-as-root)
+  ;; )
+  ;; (global-set-key (kbd "<f12> C-r") 'kam-crux-reopen-as-root)
+
+  ;; instead of kam-crux-reopen-as-root, try this for now.
+  (crux-reopen-as-root-mode)
+)
+
+;; smartscan -----------------------------------------------------------------
+
+(when (require 'smartscan nil 'noerror)
+  (global-smartscan-mode 1)
+)
+
 ;; provides (keep at the end) ------------------------------------------------
 
 (provide 'kambi-various-personal)

@@ -1075,19 +1075,24 @@ From http://andrewcoxtech.blogspot.com/2009/11/inserting-bom-into-file.html"
 (defun kam-open-sudo ()
   "Open current buffer through sudo."
   (interactive)
-  (if (kam-non-empty-stringp buffer-file-name)
-      (let ((file-name buffer-file-name))
+  (if (fboundp 'crux-reopen-as-root)
+      ;; crux-reopen-as-root-mode is a better replacement, from https://github.com/bbatsov/crux
+      ;; or no, it doesn't reopen the file *now*
+      (crux-reopen-as-root)
+    (if (kam-non-empty-stringp buffer-file-name)
+        (let ((file-name buffer-file-name))
+          ;; adding sudo to another sudo prefix doesn't work
+          (when (string-is-prefix "/sudo:" file-name)
+            (error "Already viewing the file through \"sudo\"."))
+          (kill-buffer)
+          (find-file (concat "/sudo::" file-name)))
+      (let ((dir-name default-directory))
         ;; adding sudo to another sudo prefix doesn't work
-        (when (string-is-prefix "/sudo:" file-name)
+        (when (string-is-prefix "/sudo:" dir-name)
           (error "Already viewing the file through \"sudo\"."))
         (kill-buffer)
-        (find-file (concat "/sudo::" file-name)))
-    (let ((dir-name default-directory))
-      ;; adding sudo to another sudo prefix doesn't work
-      (when (string-is-prefix "/sudo:" dir-name)
-        (error "Already viewing the file through \"sudo\"."))
-      (kill-buffer)
-      (dired (concat "/sudo::" dir-name)))
+        (dired (concat "/sudo::" dir-name)))
+    )
   )
 )
 

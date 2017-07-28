@@ -23,14 +23,28 @@ cd ~/elisp/script/
 # Install extra Emacs stuff:
 # - sudo apt-get install magit silversearcher-ag
 # - M-x list-packages or
-#   M-x package-install
-#     ag
-#     projectile
-#     counsel
-#     ivy-hydra
-#     auto-complete
-#     adoc-mode
-#     dired-collapse ?
-#     dired-du ?
-#     dired-subtree ?
+#   M-x package-install or
+#   evaluate this snippet to install my preferred packages:
+
+(defun kam-install-if-needed (package-list)
+  (package-refresh-contents)
+  (dolist (package package-list)
+    ;; inspired by https://github.com/bbatsov/crux
+    (unless (package-installed-p package)
+      (package-install package)))
+)
+(kam-install-if-needed (list
+  'ag
+  'projectile
+  'counsel
+  'ivy-hydra
+  'auto-complete
+  'adoc-mode
+  'dired-collapse
+  'dired-du
+  'dired-subtree
+  'paradox
+  'crux
+  'smartscan
+))
 ~~~~

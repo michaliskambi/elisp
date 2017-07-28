@@ -86,6 +86,7 @@
  '(package-selected-packages
    (quote
     (unbound undohist counsel-projectile counsel ivy-hydra auto-complete ag magit)))
+ '(paradox-automatically-star t)
  '(projectile-globally-ignored-directories
    (quote
     (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work")))
