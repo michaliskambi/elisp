@@ -20,6 +20,40 @@
   ;; You still have to manually delete ~/.emacs.d/elpa/archives/melpa/
   ;; to get rid of the error, next list-packages or such will reinitialize it.
   (package-initialize)
+
+  (defun kam-install-if-needed (package-list)
+    "Install the listed packages, if not installed yet.
+PACKAGE-LIST is expected to be a list of symbols (packages)."
+    (let ((refresh-already-done nil))
+      (dolist (package package-list)
+        ;; inspired by https://github.com/bbatsov/crux
+        (unless (package-installed-p package)
+          (unless refresh-already-done
+            (package-refresh-contents)
+            (setq refresh-already-done t)
+          )
+          (package-install package)
+        )
+      )
+      (unless refresh-already-done
+        (message "No need to install anything, everything was already installed"))
+    )
+  )
+  (kam-install-if-needed (list
+    'ag
+    'projectile
+    'counsel
+    'ivy-hydra
+    'auto-complete
+    'adoc-mode
+    'dired-collapse
+    'dired-du
+    'dired-subtree
+    'paradox
+    'crux
+    'smartscan
+    'magit
+  ))
 )
 
 ;; ---------------------------------------------------------------------------

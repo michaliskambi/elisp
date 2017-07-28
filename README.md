@@ -20,31 +20,10 @@ mkdir -p ~/bin
 cd ~/elisp/script/
 ./install-e
 
-# Install extra Emacs stuff:
-# - sudo apt-get install magit silversearcher-ag
-# - M-x list-packages or
-#   M-x package-install or
-#   evaluate this snippet to install my preferred packages:
+# Note: the first Emacs run with this .emacs will install some packages,
+# see kam-install-if-needed invocation in kambi-various-personal.el .
+# Configure/upgrade then by paradox-list-packages.
 
-(defun kam-install-if-needed (package-list)
-  (package-refresh-contents)
-  (dolist (package package-list)
-    ;; inspired by https://github.com/bbatsov/crux
-    (unless (package-installed-p package)
-      (package-install package)))
-)
-(kam-install-if-needed (list
-  'ag
-  'projectile
-  'counsel
-  'ivy-hydra
-  'auto-complete
-  'adoc-mode
-  'dired-collapse
-  'dired-du
-  'dired-subtree
-  'paradox
-  'crux
-  'smartscan
-))
+# Install tools used by Emacs packages:
+sudo apt-get install silversearcher-ag
 ~~~~
