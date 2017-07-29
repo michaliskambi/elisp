@@ -1,11 +1,19 @@
 ;;;; Configuration for dired and related dired-xxx packages.
 
-;; make omit mode active by default (for newer Emacs)
+;; Make it possible to change omit mode
 ;; See https://www.emacswiki.org/emacs/DiredOmitMode
 (when (or (> emacs-major-version 24)
           (and (= emacs-major-version 24) (>= emacs-minor-version 4)))
   (require 'dired-x)
-  (setq-default dired-omit-files-p t) ; Buffer-local variable
+)
+
+(defvar kam-current-dired-omit t
+  "Global variable controlling whether we hide some files in Dired")
+(defun kam-dired-toggle-omit-mode ()
+  "Toggle direct omit mode."
+  (interactive)
+  (setq kam-current-dired-omit (not kam-current-dired-omit))
+  (dired-omit-mode (if kam-current-dired-omit t 0))
 )
 
 (defvar kam-current-dired-details nil
@@ -15,21 +23,6 @@
   (setq kam-current-dired-details (not kam-current-dired-details))
   (dired-hide-details-mode (if kam-current-dired-details 0 t))
   (message (concat "Dired show details: " (if kam-current-dired-details "YES" "NO")))
-)
-
-(defun kam-dired-toggle-omit-mode ()
-  "Toggle direct omit mode."
-  (interactive)
-  (if (or (> emacs-major-version 24)
-           (and (= emacs-major-version 24) (>= emacs-minor-version 4)))
-      ;; in newer Emacs, toggle dired-omit-files-p
-      (progn
-        (setq dired-omit-files-p (not dired-omit-files-p))
-        (revert-buffer)
-      )
-    ;; in older Emacs, call dired-omit-mode
-    (dired-omit-mode)
-  )
 )
 
 (defun kam-dired-start ()
@@ -63,24 +56,23 @@
 
   (local-set-key (kbd "i") 'dired-subtree-insert)
 
-  ;; make omit mode active by default (for older Emacs)
-  (unless (or (> emacs-major-version 24)
-              (and (= emacs-major-version 24) (>= emacs-minor-version 4)))
-    (when (fboundp 'dired-omit-mode)
-      (dired-omit-mode)
-    )
+  (when (fboundp 'dired-omit-mode)
+    ;; every change of dired-omit-mode makes (kam-dired-refresh)
+    ;; call, because it activates dired-after-readin-hook,
+    ;; so don't place this in (kam-dired-refresh)
+    (dired-omit-mode (if kam-current-dired-omit t 0))
   )
 
-  (when (fboundp 'dired-hide-details-mode)
-    (dired-hide-details-mode (if kam-current-dired-details 0 t))
-  )
+  (kam-dired-refresh)
 )
 (add-hook 'dired-mode-hook 'kam-dired-start t)
 
 (defun kam-dired-refresh ()
   ;; Refresh dired-hide-details-mode status to refresh
   ;; current kam-current-dired-details variable.
-  (dired-hide-details-mode (if kam-current-dired-details 0 t))
+  (when (fboundp 'dired-hide-details-mode)
+    (dired-hide-details-mode (if kam-current-dired-details 0 t))
+  )
 )
 ;; We depend that dired-after-readin-hook actually happens every time
 ;; you go back to dired buffer, which is true in my configuration,
