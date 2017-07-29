@@ -5,9 +5,6 @@
     ;; shell can be easily killed
     ;; trick from http://stackoverflow.com/questions/2706527/make-emacs-stop-asking-active-processes-exist-kill-them-and-exit-anyway
     (set-process-query-on-exit-flag (get-buffer-process (current-buffer)) nil)
-
-    (local-set-key (kbd "M-p") 'comint-previous-input-string)
-    (local-set-key (kbd "M-n") 'comint-next-input-string)
   ) t)
 
 (add-hook 'eshell-mode-hook
