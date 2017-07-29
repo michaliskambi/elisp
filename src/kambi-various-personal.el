@@ -1161,6 +1161,11 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 
 (when (require 'smartscan nil 'noerror)
   (global-smartscan-mode 1)
+  ;; define with Ctrl, not with Alt, as M-p and M-n have already comfortable
+  ;; meaning for me in shell mode
+  (global-set-key (kbd "C-p") 'smartscan-symbol-go-backward)
+  (global-set-key (kbd "C-n") 'smartscan-symbol-go-forward)
+  (global-set-key (kbd "C-'") 'smartscan-symbol-replace)
 )
 
 ;; provides (keep at the end) ------------------------------------------------
