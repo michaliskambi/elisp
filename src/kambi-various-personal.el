@@ -896,17 +896,12 @@ parses local variables written in buffer."
 (global-set-key (kbd "C-M-r") 'query-replace-regexp)
 
 (global-set-key (kbd "M-e") 'ins-eval-expression)
-;; does not work reliably in newer Emacs to capture Control + dash?
 (global-set-key (kbd "C--") 'kam-insert-dashes)
-;; also does not work reliably in newer Emacs to capture Control + dash?
-;;(global-set-key [(control ?-)] 'kam-insert-dashes)
-(global-set-key (kbd "<f12> -") 'kam-insert-dashes)
 
 (global-set-key (kbd "M-i") 'kam-indent-block-space)
 (global-set-key (kbd "M-u") 'kam-unindent-block-space)
 
-(when (fboundp 'recentf-open-files)
-  (global-set-key (kbd "C-x C-r") 'recentf-open-files))
+(global-set-key (kbd "C-x C-r") 'recentf-open-files)
 
 (global-set-key (kbd "RET") 'insert-newline-indented-as-prev)
 ;;(global-set-key (kbd "RET") 'newline)
@@ -1144,6 +1139,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (global-set-key (kbd "C-k") 'crux-smart-kill-line)
   (global-set-key (kbd "C-c D") 'crux-delete-file-and-buffer)
   (global-set-key (kbd "C-c r") 'crux-rename-file-and-buffer)
+  (global-set-key (kbd "C-x C-r") 'crux-recentf-find-file)
 
   ;; for unknown reason, crux-reopen-as-root is not interactive
   ;; (defun kam-crux-reopen-as-root ()

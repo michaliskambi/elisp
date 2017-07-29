@@ -18,7 +18,10 @@
   (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
   (setq projectile-completion-system 'ivy)
   (setq magit-completing-read-function 'ivy-completing-read)
-  (global-set-key (kbd "C-x C-r") 'counsel-recentf)
+
+  ;; don't use counsel-recentf, better leave crux-recentf-find-file,
+  ;; it is better (shortens ~)
+  ;; (global-set-key (kbd "C-x C-r") 'counsel-recentf)
 
   ;; counsel-yank-pop is not very comfortable IMHO,
   ;; and cannot be used to paste to minibuffer.
