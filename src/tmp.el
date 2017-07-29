@@ -1004,3 +1004,17 @@ such things."
 (defun my-diff-hunks-highlight-all ()
   "Highlight all hunks in diff-mode."
   (add-hook 'font-lock-mode-hook #'my-diff-refine-all t t))
+------------------------------------------------------------------------------
+(defun kam-cge-delphi-upgrade ()
+  (interactive)
+  (save-excursion
+    (kam-beg-of-buf) (query-replace "(specialize " "({$ifdef FPC_OBJFPC}specialize{$endif} ")
+    (kam-beg-of-buf) (query-replace "= specialize " "= {$ifdef FPC_OBJFPC}specialize{$endif} ")
+    (kam-beg-of-buf) (query-replace-regexp "\\([-. (]\\)L\\[" "\\1List^[")
+  ))
+(global-set-key (kbd "<f5>") 'kam-cge-delphi-upgrade)
+(defun kam-cge-delphi-upgrade-dangerous ()
+  (interactive)
+  (query-replace "@" "{$ifdef FPC_OBJFPC}@{$endif} ")
+)
+(global-set-key (kbd "<f6>") 'kam-cge-delphi-upgrade-dangerous)

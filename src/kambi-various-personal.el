@@ -1156,7 +1156,17 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;; smartscan -----------------------------------------------------------------
 
 (when (require 'smartscan nil 'noerror)
-  (global-smartscan-mode 1)
+  ;; (global-smartscan-mode 1)
+
+  ;; Do not use global-smartscan-mode, which rebinds M-p etc. even in shell,
+  ;; and I cannot seem to override it with my own (it's probably a matter of
+  ;; hook order).
+  ;;
+  ;; Instead define my own shortcuts, with Ctrl, not with Alt,
+  ;; as M-p and M-n have already comfortable meaning for me in shell mode.
+  (global-set-key (kbd "C-p") 'smartscan-symbol-go-backward)
+  (global-set-key (kbd "C-n") 'smartscan-symbol-go-forward)
+  (global-set-key (kbd "C-'") 'smartscan-symbol-replace)
 )
 
 ;; provides (keep at the end) ------------------------------------------------
