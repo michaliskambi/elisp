@@ -1150,13 +1150,6 @@ regardless of current position and regardless of mark position
   ;; )
 )
 
-(defun kam-dired-here ()
-  "Run dired without asking, in current buffer's directory."
-  (interactive)
-  (dired default-directory)
-  ;;(revert-buffer nil nil t)
-)
-
 (defun kam-project-dir (file-name)
   "Is the file FILE-NAME inside a project.
 A \"project\" is just a directory

@@ -30,12 +30,12 @@
   (local-set-key (kbd "M-o") 'other-window)
 
   ;; consistent with helm find-files
-  (local-set-key (kbd "C-l") 'dired-up-directory)
+  (local-set-key (kbd "C-l") 'dired-jump)
   ;; consistent with caja
-  (local-set-key (kbd "M-<up>") 'dired-up-directory)
+  (local-set-key (kbd "M-<up>") 'dired-jump)
   (local-set-key (kbd "M-<down>") 'dired-find-file)
   ;; consistent with ido and ivy
-  (local-set-key (kbd "<backspace>") 'dired-up-directory)
+  (local-set-key (kbd "<backspace>") 'dired-jump)
 
   ;; h to hide / unhide
   (local-set-key (kbd "h") 'kam-dired-toggle-omit-mode)

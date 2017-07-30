@@ -814,8 +814,8 @@ parses local variables written in buffer."
 ;; The meaning is "up directory".
 ;; For simple file buffers, it's sensible to just open dired here.
 ;; Some modes, like dired, will override this to go "up dir".
-(global-set-key (kbd "C-l") 'kam-dired-here)
-(global-set-key (kbd "M-<up>") 'kam-dired-here)
+(global-set-key (kbd "C-l") 'dired-jump)
+(global-set-key (kbd "M-<up>") 'dired-jump)
 
 (global-set-key (kbd "<f8>") 'kam-run-here)
 (global-set-key (kbd "<f9>") 'kam-compile-immediate)
@@ -855,7 +855,7 @@ parses local variables written in buffer."
 (global-set-key (kbd "<f12> g") 'goto-line)
 (global-set-key (kbd "<f12> s") 'shell)
 (global-set-key (kbd "<f12> v") 'kam-version-control)
-(global-set-key (kbd "<f12> d") 'kam-dired-here)
+(global-set-key (kbd "<f12> d") 'dired-jump)
 (global-set-key (kbd "<f12> e") 'kam-open-dir-external)
 (global-set-key (kbd "<f12> o") 'sort-lines)
 
