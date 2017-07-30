@@ -85,7 +85,7 @@
  '(org-support-shift-select (quote always))
  '(package-selected-packages
    (quote
-    (unbound undohist counsel-projectile counsel ivy-hydra auto-complete ag magit)))
+    (json-reformat adoc-mode crux dired-subtree esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan undohist counsel-projectile counsel ivy-hydra auto-complete ag magit)))
  '(paradox-automatically-star t)
  '(projectile-globally-ignored-directories
    (quote

@@ -21,6 +21,8 @@
   ;; to get rid of the error, next list-packages or such will reinitialize it.
   (package-initialize)
 
+  ;; TODO: change below to just use
+  ;; package-install-selected-packages, once I have emacs 25 everywhere.
   (defun kam-install-if-needed (package-list)
     "Install the listed packages, if not installed yet.
 PACKAGE-LIST is expected to be a list of symbols (packages)."
@@ -53,6 +55,7 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
     'crux
     'smartscan
     'magit
+    'undohist
   ))
 )
 
@@ -808,7 +811,6 @@ parses local variables written in buffer."
 (global-set-key (kbd "<C-end>") 'kam-end-of-buf)
 (global-set-key (kbd "<C-kp-home>") 'kam-beg-of-buf)
 (global-set-key (kbd "<C-kp-end>") 'kam-end-of-buf)
-(global-set-key (kbd "<C-f4>") 'kill-this-buffer)
 (global-set-key (kbd "C-w") 'kill-this-buffer)
 ;; The meaning is "up directory".
 ;; For simple file buffers, it's sensible to just open dired here.
@@ -833,13 +835,12 @@ parses local variables written in buffer."
 (global-set-key (kbd "M-3") 'split-window-horizontally)  ; jak C-x 3
 
 (global-set-key (kbd "<C-return>") 'kam-find-file-at-point)
-;; (global-set-key (kbd  "C-x <C-return>") 'kam-insert-current-file-name)
 (global-set-key (kbd  "C-x <C-return>") 'kam-insert-current-file-name-nondirectory)
 (global-set-key (kbd "C-f") 'nonincremental-re-search-forward)
 (global-set-key (kbd "<f3>") 'kam-nonincremental-repeat-search-forward)
 (global-set-key (kbd "<S-f3>") 'kam-nonincremental-repeat-search-backward)
-;; (global-set-key "" 'isearch-forward) ; I don't want this binding anymore
 (global-set-key (kbd "C-z") 'undo)
+(global-set-key (kbd "C-/") 'comment-line) ;; similar to "//", to remember
 
 ;; zapamietaj jako "jak f5 (= reload w niektorych programach)"
 (global-set-key (kbd "<C-f5>") 'kam-refresh-colors-in-buffer)
@@ -895,7 +896,7 @@ parses local variables written in buffer."
 (global-set-key (kbd "M-r") 'query-replace)
 (global-set-key (kbd "C-M-r") 'query-replace-regexp)
 
-(global-set-key (kbd "M-e") 'ins-eval-expression)
+;; (global-set-key (kbd "M-e") 'ins-eval-expression) ;; unused
 (global-set-key (kbd "C--") 'kam-insert-dashes)
 
 (global-set-key (kbd "M-i") 'kam-indent-block-space)
@@ -1167,6 +1168,12 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (global-set-key (kbd "C-p") 'smartscan-symbol-go-backward)
   (global-set-key (kbd "C-n") 'smartscan-symbol-go-forward)
   (global-set-key (kbd "C-'") 'smartscan-symbol-replace)
+)
+
+;; undohist ------------------------------------------------------------------
+
+(when (require 'undohist nil 'noerror)
+  (undohist-initialize)
 )
 
 ;; provides (keep at the end) ------------------------------------------------
