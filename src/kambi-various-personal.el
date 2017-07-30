@@ -55,7 +55,6 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
     'crux
     'smartscan
     'magit
-    'undohist
   ))
 )
 

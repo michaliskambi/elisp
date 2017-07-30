@@ -80,12 +80,15 @@
   ;; (define-key ivy-minibuffer-map (kbd "C-k") 'kam-ivy-wrap-kill-new-nondirectory)
   ;; (define-key ivy-minibuffer-map (kbd "C-w") 'kam-ivy-wrap-kill-new)
 
+  (define-key ivy-minibuffer-map (kbd "<left>") 'ivy-backward-delete-char)
+  (define-key ivy-minibuffer-map (kbd "<right>") 'ivy-alt-done)
+
   ;; consistent with helm (same as backspace in ivy by default)
   (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-backward-delete-char)
   ;; consistent with caja (same as backspace in ivy by default)
   (define-key ivy-minibuffer-map (kbd "M-<up>") 'ivy-backward-delete-char)
   ;; ;; consistent with caja? (same as right in ivy by default)
-  ;; (define-key ivy-minibuffer-map (kbd "M-<down>") 'right-char)
+  ;; (define-key ivy-minibuffer-map (kbd "M-<down>") 'ivy-alt-done)
 )
 
 (provide 'kambi-ivy)
