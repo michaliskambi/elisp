@@ -25,6 +25,17 @@
   (message (concat "Dired show details: " (if kam-current-dired-details "YES" "NO")))
 )
 
+(defun kam-dired-du-mode ()
+  (interactive)
+  (when (dired-du-mode 'toggle)
+    ;; when entering dired-du-mode (it returns t then),
+    ;; also show details (since dired-du-mode is useless when they are hidden)
+    (unless kam-current-dired-details
+      (kam-toggle-dired-details)
+    )
+  )
+)
+
 (defun kam-dired-start ()
   ;; redefine it to Kambi standard shortcut
   (local-set-key (kbd "M-o") 'other-window)
@@ -44,7 +55,7 @@
   ;; TODO: if I could sort by this size, it would be best...
   ;; But I can't, "s" only toggles name/date sorting.
   ;; dired-quick-sort allows to sort by size.. but not by "du" output.
-  (local-set-key (kbd "D") 'dired-du-mode)
+  (local-set-key (kbd "D") 'kam-dired-du-mode)
 
   (local-set-key (kbd "C-1") 'kam-toggle-dired-details)
   (local-set-key (kbd "C-2") 'kam-toggle-dired-details)
