@@ -40,6 +40,7 @@
  '(dired-listing-switches "-alh --group-directories-first")
  '(dired-omit-files "^\\.?#\\|^\\.\\.$\\|^\\.$\\|^\\.[^.]")
  '(dired-omit-verbose nil)
+ '(dired-recursive-copies (quote always))
  '(dired-recursive-deletes (quote always))
  '(electric-indent-mode nil)
  '(focus-follows-mouse nil)
