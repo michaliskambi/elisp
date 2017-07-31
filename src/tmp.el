@@ -1011,9 +1011,11 @@ such things."
     (kam-beg-of-buf) (query-replace "(specialize " "({$ifdef CASTLE_OBJFPC}specialize{$endif} ")
     (kam-beg-of-buf) (query-replace "= specialize " "= {$ifdef CASTLE_OBJFPC}specialize{$endif} ")
     (kam-beg-of-buf) (query-replace-regexp "\\([-. (]\\)L\\[" "\\1List^[")
-    (kam-beg-of-buf) (query-replace-regexp " \\([^ ]+\\) \\+=" " \\1 := \\1 +")
-    (kam-beg-of-buf) (query-replace-regexp " \\([^ ]+\\) -="   " \\1 := \\1 -")
-    (kam-beg-of-buf) (query-replace-regexp " \\([^ ]+\\) \\*=" " \\1 := \\1 *")
+    (kam-beg-of-buf) (query-replace-regexp " \\([^ =]+\\(\\[[^]=]+\\][^ =]*\\)*\\) \\([-+*/]\\)= \\([^-+*/;]+\\);" " \\1 := \\1 \\3 \\4;")
+    ;; if the expression on right-hand side has some +/*/etc then
+    ;; for safety it needs parenthesis (for accuracy, in case of +=,
+    ;; and for correctness in case of others)
+    (kam-beg-of-buf) (query-replace-regexp " \\([^ =]+\\(\\[[^]=]+\\][^ =]*\\)*\\) \\([-+*/]\\)= \\([^;]+\\);"     " \\1 := \\1 \\3 (\\4);")
   ))
 (global-set-key (kbd "<f5>") 'kam-cge-delphi-upgrade)
 (defun kam-cge-delphi-upgrade-dangerous ()
