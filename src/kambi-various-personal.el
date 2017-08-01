@@ -974,7 +974,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   ;; Uzywane w tuareg mode aby pokolorowac komentarze zaczynajace sie
   ;; od (**, czyli dla ocamldoc
   (set-face-colors 'font-lock-doc-face "medium aquamarine" "black")
-  (set-face-colors 'highlight nil "gray15")
+  (set-face-colors 'highlight nil "gray10")
   (set-face-colors 'mode-line "black" "Aquamarine")
   (set-face-colors 'secondary-selection "black" "white")
   (set-face-colors 'cursor nil "white")
