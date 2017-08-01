@@ -1015,7 +1015,8 @@ such things."
     ;; if the expression on right-hand side has some +/*/etc then
     ;; for safety it needs parenthesis (for accuracy, in case of +=,
     ;; and for correctness in case of others)
-    (kam-beg-of-buf) (query-replace-regexp " \\([^ =]+\\(\\[[^]=]+\\][^ =]*\\)*\\) \\([-+*/]\\)= \\([^;]+\\);"     " \\1 := \\1 \\3 (\\4);")
+    (kam-beg-of-buf) (query-replace-regexp " \\([^ =]+\\(\\[[^]=]+\\][^ =]*\\)*\\) \\([-+*/]\\)= \\([^;]+?\\)\\(;\\| else\\)"     " \\1 := \\1 \\3 (\\4)\\5")
+    (kam-beg-of-buf) (query-replace-regexp "\\(T\\|P\\)Array_\\([a-zA-Z0-9_]+\\)" "\\1\\2Array")
   ))
 (global-set-key (kbd "<f5>") 'kam-cge-delphi-upgrade)
 (defun kam-cge-delphi-upgrade-dangerous ()
