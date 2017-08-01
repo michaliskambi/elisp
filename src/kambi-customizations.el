@@ -89,7 +89,7 @@
  '(org-support-shift-select (quote always))
  '(package-selected-packages
    (quote
-    (iedit wgrep-ag git-gutter+ diff-hl anzu json-reformat adoc-mode crux dired-subtree esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete ag magit)))
+    (iedit wgrep-ag git-gutter+ anzu json-reformat adoc-mode crux dired-subtree esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete ag magit)))
  '(paradox-automatically-star t)
  '(projectile-globally-ignored-directories
    (quote
@@ -132,6 +132,7 @@
  '(dired-ignored ((t (:inherit shadow :foreground "dim gray"))))
  '(dired-marked ((t (:inherit warning :foreground "yellow"))))
  '(dired-symlink ((t (:inherit font-lock-keyword-face :foreground "cyan"))))
+ '(iedit-occurrence ((t (:background "gold" :foreground "black"))))
  '(markup-complex-replacement-face ((t (:inherit markup-meta-face :foreground "plum1" :box (:line-width 2 :style released-button)))))
  '(markup-list-face ((t (:inherit markup-meta-face :foreground "plum1"))))
  '(markup-meta-face ((t (:stipple nil :foreground "gray30" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1.0 :width normal :foundry "unknown" :family "Monospace"))))
