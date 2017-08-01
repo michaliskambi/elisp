@@ -55,6 +55,8 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
     'crux
     'smartscan
     'magit
+    'wgrep-ag
+    'iedit
   ))
 )
 
@@ -1219,12 +1221,15 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;; see https://github.com/mhayashi1120/Emacs-wgrep/
 ;; http://irreal.org/blog/?p=3638
 
-(require 'wgrep-ag)
-(setq wgrep-enable-key "r")
+(when (require 'wgrep-ag+ nil 'noerror)
+  (setq wgrep-enable-key "r")
+)
 
 ;; iedit ---------------------------------------------------------------------
 
-(global-set-key (kbd "C-;") 'iedit-mode)
+(when (require 'iedit nil 'noerror)
+  (global-set-key (kbd "C-;") 'iedit-mode)
+)
 
 ;; provides (keep at the end) ------------------------------------------------
 
