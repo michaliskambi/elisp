@@ -1150,6 +1150,16 @@ regardless of current position and regardless of mark position
   ;; )
 )
 
+(defun kam-open-console-here ()
+  "Open console in the current directory."
+  (interactive)
+  (async-start-process (concat "kam-open-console-here " default-directory)
+    ;; config on Debian with
+    ;; sudo update-alternatives --config x-terminal-emulator
+    "x-terminal-emulator" nil
+    (concat "--working-directory=" (expand-file-name default-directory)))
+)
+
 (defun kam-project-dir (file-name)
   "Is the file FILE-NAME inside a project.
 A \"project\" is just a directory

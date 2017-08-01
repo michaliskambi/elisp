@@ -849,6 +849,7 @@ parses local variables written in buffer."
 ;; f12 is Michalis prefix for various special global commands
 (global-set-key (kbd "<f12> a") 'after-find-file-i)
 (global-set-key (kbd "<f12> c") 'set-buffer-file-coding-system)
+(global-set-key (kbd "<f12> C") 'kam-open-console-here)
 (global-set-key (kbd "<f12> t") 'delete-trailing-whitespace)
 (global-set-key (kbd "<f12> r") 'revert-buffer)
 (global-set-key (kbd "<f12> u") 'rename-uniquely)
