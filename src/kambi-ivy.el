@@ -94,6 +94,15 @@
   (define-key ivy-minibuffer-map (kbd "M-<up>") 'ivy-backward-delete-char)
   ;; ;; consistent with caja? (same as right in ivy by default)
   ;; (define-key ivy-minibuffer-map (kbd "M-<down>") 'ivy-alt-done)
+
+  ;; Make <return> in counsel-ag behave just like in regular ag
+  ;; Hm, but it doesn't immediately jump to 1st result,
+  ;; or make it available for next-/previous-error, so I have to click on 1st
+  ;; result... for now, I don't use counsel-ag.
+  ;;
+  ;; See also similar question on
+  ;; https://www.reddit.com/r/emacs/comments/6dbh7e/have_counselag_and_counselprojectileag_open_in_a/
+  (define-key counsel-ag-map (kbd "<return>") 'ivy-occur)
 )
 
 (provide 'kambi-ivy)

@@ -89,7 +89,7 @@
  '(org-support-shift-select (quote always))
  '(package-selected-packages
    (quote
-    (git-gutter+ anzu json-reformat adoc-mode crux dired-subtree esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete ag magit)))
+    (iedit wgrep-ag git-gutter+ diff-hl anzu json-reformat adoc-mode crux dired-subtree esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete ag magit)))
  '(paradox-automatically-star t)
  '(projectile-globally-ignored-directories
    (quote

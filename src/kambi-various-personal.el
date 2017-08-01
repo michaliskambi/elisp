@@ -1167,7 +1167,8 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   ;; as M-p and M-n have already comfortable meaning for me in shell mode.
   (global-set-key (kbd "C-p") 'smartscan-symbol-go-backward)
   (global-set-key (kbd "C-n") 'smartscan-symbol-go-forward)
-  (global-set-key (kbd "C-'") 'smartscan-symbol-replace)
+  ;; iedit is better at this
+  ;; (global-set-key (kbd "C-'") 'smartscan-symbol-replace)
 )
 
 ;; undohist ------------------------------------------------------------------
@@ -1197,7 +1198,8 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (global-anzu-mode +1)
   (global-set-key [remap query-replace] 'anzu-query-replace)
   (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp)
-  (global-set-key (kbd "C-'") 'anzu-replace-at-cursor-thing)
+  ;; iedit is better at this
+  ;; (global-set-key (kbd "C-'") 'anzu-replace-at-cursor-thing)
 )
 
 ;; git-gutter ----------------------------------------------------------------
@@ -1211,6 +1213,18 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;; hl-line-mode --------------------------------------------------------------
 
 (global-hl-line-mode)
+
+;; wgrep ---------------------------------------------------------------------
+
+;; see https://github.com/mhayashi1120/Emacs-wgrep/
+;; http://irreal.org/blog/?p=3638
+
+(require 'wgrep-ag)
+(setq wgrep-enable-key "r")
+
+;; iedit ---------------------------------------------------------------------
+
+(global-set-key (kbd "C-;") 'iedit-mode)
 
 ;; provides (keep at the end) ------------------------------------------------
 
