@@ -974,7 +974,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   ;; Uzywane w tuareg mode aby pokolorowac komentarze zaczynajace sie
   ;; od (**, czyli dla ocamldoc
   (set-face-colors 'font-lock-doc-face "medium aquamarine" "black")
-  (set-face-colors 'highlight "black" "Gold")
+  (set-face-colors 'highlight nil "gray15")
   (set-face-colors 'mode-line "black" "Aquamarine")
   (set-face-colors 'secondary-selection "black" "white")
   (set-face-colors 'cursor nil "white")
@@ -1190,6 +1190,27 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
            "\n$" ""    ; remove trailing linebreak
            (shell-command-to-string "fortune")))))
 )
+
+;; anzu ----------------------------------------------------------------------
+
+(when (require 'anzu nil 'noerror)
+  (global-anzu-mode +1)
+  (global-set-key [remap query-replace] 'anzu-query-replace)
+  (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp)
+  (global-set-key (kbd "C-'") 'anzu-replace-at-cursor-thing)
+)
+
+;; git-gutter ----------------------------------------------------------------
+
+(when (require 'git-gutter+ nil 'noerror)
+  ;; having it always on is too distracting
+  ;; (global-git-gutter+-mode)
+  (global-set-key (kbd "C-c g") 'global-git-gutter+-mode)
+)
+
+;; hl-line-mode --------------------------------------------------------------
+
+(global-hl-line-mode)
 
 ;; provides (keep at the end) ------------------------------------------------
 
