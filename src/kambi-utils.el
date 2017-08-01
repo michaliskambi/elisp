@@ -1150,10 +1150,10 @@ regardless of current position and regardless of mark position
   ;; )
 )
 
-(defun kam-open-console-here ()
-  "Open console in the current directory."
+(defun kam-open-terminal-here ()
+  "Open terminal in the current directory."
   (interactive)
-  (async-start-process (concat "kam-open-console-here " default-directory)
+  (async-start-process (concat "kam-open-terminal-here " default-directory)
     ;; config on Debian with
     ;; sudo update-alternatives --config x-terminal-emulator
     "x-terminal-emulator" nil
