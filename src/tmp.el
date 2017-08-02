@@ -1017,10 +1017,53 @@ such things."
     ;; and for correctness in case of others)
     (kam-beg-of-buf) (query-replace-regexp " \\([^ =]+\\(\\[[^]=]+\\][^ =]*\\)*\\) \\([-+*/]\\)= \\([^;]+?\\)\\(;\\| else\\)"     " \\1 := \\1 \\3 (\\4)\\5")
     (kam-beg-of-buf) (query-replace-regexp "\\(T\\|P\\)Array_\\([a-zA-Z0-9_]+\\)" "\\1\\2Array")
+
+    (kam-beg-of-buf) (query-replace "%00000001" "$01 { binary 00000001 }")
+    (kam-beg-of-buf) (query-replace "%11111110" "$FE { binary 11111110 }")
+    (kam-beg-of-buf) (query-replace "%00000011" "$03 { binary 00000011 }")
+    (kam-beg-of-buf) (query-replace "%11111100" "$FC { binary 11111100 }")
+    (kam-beg-of-buf) (query-replace "%00000111" "$07 { binary 00000111 }")
+    (kam-beg-of-buf) (query-replace "%11111000" "$F8 { binary 11111000 }")
+    (kam-beg-of-buf) (query-replace "%00001111" "$0F { binary 00001111 }")
+    (kam-beg-of-buf) (query-replace "%11110000" "$F0 { binary 11110000 }")
+    (kam-beg-of-buf) (query-replace "%00011111" "$1F { binary 00011111 }")
+    (kam-beg-of-buf) (query-replace "%11100000" "$E0 { binary 11100000 }")
+    (kam-beg-of-buf) (query-replace "%00111111" "$3F { binary 00111111 }")
+    (kam-beg-of-buf) (query-replace "%11000000" "$C0 { binary 11000000 }")
+    (kam-beg-of-buf) (query-replace "%01111111" "$7F { binary 01111111 }")
+    (kam-beg-of-buf) (query-replace "%10000000" "$80 { binary 10000000 }")
+    (kam-beg-of-buf) (query-replace "%11111111" "$FF { binary 11111111 }")
+    (kam-beg-of-buf) (query-replace "%00000000" "$00 { binary 00000000 }")
+
+    (kam-beg-of-buf) (query-replace-regexp " DepthRange" " RenderContext.DepthRange")
+    (kam-beg-of-buf) (query-replace-regexp " ProjectionMatrix" " RenderContext.ProjectionMatrix")
   ))
 (global-set-key (kbd "<f5>") 'kam-cge-delphi-upgrade)
 (defun kam-cge-delphi-upgrade-dangerous ()
   (interactive)
-  (query-replace "@" "{$ifdef CASTLE_OBJFPC}@{$endif} ")
+  ;; replacements to negate sign for += and 0-, only for 1-argument right hand side
+  (save-excursion
+    (query-replace-regexp " \\+= -" " -= ")
+  )
+  (save-excursion
+    (query-replace-regexp " -= -" " += ")
+  )
+  ;; replacements for += and -= to Inc and Dec, only for integers
+  (save-excursion
+    (query-replace-regexp " \\([^ =]+\\(\\[[^]=]+\\][^ =]*\\)*\\) \\+= \\([^-+*/;]+\\);" " Inc(\\1, \\3);")
+  )
+  (save-excursion
+    (query-replace-regexp " \\([^ =]+\\(\\[[^]=]+\\][^ =]*\\)*\\) -= \\([^-+*/;]+\\);" " Dec(\\1, \\3);")
+  )
+  (save-excursion
+    (query-replace-regexp " \\([^ =]+\\(\\[[^]=]+\\][^ =]*\\)*\\) \\+= \\([^;]+?\\)\\(;\\| else\\)"     " Inc(\\1, \\3)\\4")
+  )
+  (save-excursion
+    (query-replace-regexp " \\([^ =]+\\(\\[[^]=]+\\][^ =]*\\)*\\) -= \\([^;]+?\\)\\(;\\| else\\)"     " Dec(\\1, \\3)\\4")
+  )
+  ;; replacement of @, only when used to callbacks
+  (save-excursion
+    (query-replace "@" "{$ifdef CASTLE_OBJFPC}@{$endif} ")
+  )
 )
 (global-set-key (kbd "<f6>") 'kam-cge-delphi-upgrade-dangerous)
