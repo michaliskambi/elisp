@@ -1221,8 +1221,10 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;; see https://github.com/mhayashi1120/Emacs-wgrep/
 ;; http://irreal.org/blog/?p=3638
 
-(when (require 'wgrep-ag+ nil 'noerror)
-  (setq wgrep-enable-key "r")
+(if (require 'wgrep-ag+ nil 'noerror)
+    (setq wgrep-enable-key "r")
+  (if (require 'wgrep nil 'noerror)
+      (setq wgrep-enable-key "r"))
 )
 
 ;; iedit ---------------------------------------------------------------------

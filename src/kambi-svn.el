@@ -16,5 +16,6 @@ See `svn-status-marked-files' for what counts as selected."
 ;; "k" removes file under point, including non-versioned files.
 ;; Consistent wit magit.
 (define-key svn-status-mode-map (kbd "k") 'kam-svn-status-force-kill)
+(define-key svn-status-mode-map (kbd "d") 'svn-status-rm)
 
 (provide 'kambi-svn)

@@ -347,6 +347,9 @@ this way you can use ffap when standing over \"uses\" clauses of your units."
   (add-to-list 'ffap-alist `(,ext . kam-find-pascal-file)))
 (add-to-list 'ffap-alist '(kambi-pascal-mode . kam-ffap-kambi-pascal-mode))
 
+(add-to-list 'ffap-string-at-point-mode-alist
+  '(kambi-pascal-mode "--:\\\\$+<>@-Z_[:alpha:]~*?" "<@" "@>;.,!:"))
+
 ;; compiling-related things ----------------------------------------
 
 (defun kam-is-castle-engine-project-p (file-name)

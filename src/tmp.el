@@ -1037,6 +1037,10 @@ such things."
 
     (kam-beg-of-buf) (query-replace-regexp " DepthRange" " RenderContext.DepthRange")
     (kam-beg-of-buf) (query-replace-regexp " ProjectionMatrix" " RenderContext.ProjectionMatrix")
+
+    (kam-beg-of-buf) (query-replace-regexp "{$ifdef windows} *{$apptype gui} *{$endif}" "{$ifdef MSWINDOWS} {$apptype GUI} {$endif}")
+    (kam-beg-of-buf) (query-replace-regexp "{$ifdef windows} *{$apptype console} *{$endif}" "{$ifdef MSWINDOWS} {$apptype CONSOLE} {$endif}")
+    (kam-beg-of-buf) (query-replace-regexp "{$ifdef windows}" "{$ifdef MSWINDOWS}")
   ))
 (global-set-key (kbd "<f5>") 'kam-cge-delphi-upgrade)
 (defun kam-cge-delphi-upgrade-dangerous ()
