@@ -1010,6 +1010,7 @@ such things."
   (save-excursion
     (kam-beg-of-buf) (query-replace "(specialize " "({$ifdef CASTLE_OBJFPC}specialize{$endif} ")
     (kam-beg-of-buf) (query-replace "= specialize " "= {$ifdef CASTLE_OBJFPC}specialize{$endif} ")
+    (kam-beg-of-buf) (query-replace-regexp "^  generic " "  {$ifdef CASTLE_OBJFPC}generic{$endif}\n  ")
     (kam-beg-of-buf) (query-replace-regexp "\\([-. (]\\)L\\[" "\\1List^[")
     (kam-beg-of-buf) (query-replace-regexp " \\([^ =]+\\(\\[[^]=]+\\][^ =]*\\)*\\) \\([-+*/]\\)= \\([^-+*/;]+\\);" " \\1 := \\1 \\3 \\4;")
     ;; if the expression on right-hand side has some +/*/etc then
