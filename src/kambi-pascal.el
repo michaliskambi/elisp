@@ -745,6 +745,8 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
     (kam-beg-of-buf) (query-replace-regexp "{$ifdef windows} *{$apptype gui} *{$endif}" "{$ifdef MSWINDOWS} {$apptype GUI} {$endif}")
     (kam-beg-of-buf) (query-replace-regexp "{$ifdef windows} *{$apptype console} *{$endif}" "{$ifdef MSWINDOWS} {$apptype CONSOLE} {$endif}")
     (kam-beg-of-buf) (query-replace-regexp "{$ifdef windows}" "{$ifdef MSWINDOWS}")
+    (kam-beg-of-buf) (query-replace "{$ifndef BUGGY_ZERO_CONSTANT}" "{$ifdef ENABLE_SELF_RECORD_CONSTANTS}")
+    (kam-beg-of-buf) (query-replace "{$ifdef BUGGY_ZERO_CONSTANT}" "{$ifndef ENABLE_SELF_RECORD_CONSTANTS}")
   ))
 (global-set-key (kbd "<f5>") 'kam-cge-delphi-upgrade)
 
