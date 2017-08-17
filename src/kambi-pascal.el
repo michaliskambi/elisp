@@ -747,6 +747,11 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
     (kam-beg-of-buf) (query-replace-regexp "{$ifdef windows}" "{$ifdef MSWINDOWS}")
     (kam-beg-of-buf) (query-replace "{$ifndef BUGGY_ZERO_CONSTANT}" "{$ifdef ENABLE_SELF_RECORD_CONSTANTS}")
     (kam-beg-of-buf) (query-replace "{$ifdef BUGGY_ZERO_CONSTANT}" "{$ifndef ENABLE_SELF_RECORD_CONSTANTS}")
+
+    (kam-beg-of-buf) (query-replace "rgbpixels" "Pixels")
+    (kam-beg-of-buf) (query-replace "grayscalealphapixels" "Pixels")
+    (kam-beg-of-buf) (query-replace "grayscalepixels" "Pixels")
+    (kam-beg-of-buf) (query-replace "alphapixels" "Pixels")
   ))
 (global-set-key (kbd "<f5>") 'kam-cge-delphi-upgrade)
 
