@@ -752,6 +752,7 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
     (kam-beg-of-buf) (query-replace "grayscalealphapixels" "Pixels")
     (kam-beg-of-buf) (query-replace "grayscalepixels" "Pixels")
     (kam-beg-of-buf) (query-replace "alphapixels" "Pixels")
+    (kam-beg-of-buf) (query-replace ".fdchildren.add(" ".AddChildren(")
   ))
 (global-set-key (kbd "<f5>") 'kam-cge-delphi-upgrade)
 
