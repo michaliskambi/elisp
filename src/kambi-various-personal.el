@@ -1139,7 +1139,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;;   (package-install 'crux))
 
 (when (require 'crux nil 'noerror)
-  (global-set-key (kbd "C-k") 'crux-smart-kill-line)
+  ;; (global-set-key (kbd "C-k") 'crux-smart-kill-line)
   (global-set-key (kbd "C-c D") 'crux-delete-file-and-buffer)
   (global-set-key (kbd "C-c r") 'crux-rename-file-and-buffer)
   (global-set-key (kbd "C-x C-r") 'crux-recentf-find-file)
