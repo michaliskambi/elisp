@@ -34,6 +34,7 @@
  '(dired-auto-revert-buffer t)
  '(dired-backup-overwrite t)
  '(dired-clean-up-buffers-too nil)
+ '(dired-dnd-protocol-alist nil)
  '(dired-du-size-format t)
  '(dired-du-update-headers nil)
  '(dired-hide-details-hide-information-lines t)
