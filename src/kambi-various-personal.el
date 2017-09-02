@@ -1233,6 +1233,12 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (global-set-key (kbd "C-;") 'iedit-mode)
 )
 
+;; ag ------------------------------------------------------------------------
+
+;; use my wrapper on ag, if available
+(when (kam-search-for-program "ag-michalis")
+  (setq ag-executable "ag-michalis"))
+
 ;; provides (keep at the end) ------------------------------------------------
 
 (provide 'kambi-various-personal)
