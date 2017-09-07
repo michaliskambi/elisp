@@ -1184,18 +1184,18 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 
 ;; scratch -------------------------------------------------------------------
 
-;; put fortune in scratch buffer
-(when (kam-search-for-program "fortune")
-  ;; From https://www.reddit.com/r/emacs/comments/4agorq/got_bored_of_the_initial_scratch_message_so/
-  (setq initial-scratch-message
-        (format
-         ";; %s\n\n"
-         (replace-regexp-in-string
-          "\n" "\n;; " ; comment each line
-          (replace-regexp-in-string
-           "\n$" ""    ; remove trailing linebreak
-           (shell-command-to-string "fortune")))))
-)
+;; put fortune in scratch buffer (disabled -- too distracting)
+;; (when (kam-search-for-program "fortune")
+;;   ;; From https://www.reddit.com/r/emacs/comments/4agorq/got_bored_of_the_initial_scratch_message_so/
+;;   (setq initial-scratch-message
+;;         (format
+;;          ";; %s\n\n"
+;;          (replace-regexp-in-string
+;;           "\n" "\n;; " ; comment each line
+;;           (replace-regexp-in-string
+;;            "\n$" ""    ; remove trailing linebreak
+;;            (shell-command-to-string "fortune")))))
+;; )
 
 ;; anzu ----------------------------------------------------------------------
 
