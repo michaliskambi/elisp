@@ -408,6 +408,9 @@ may be screwed up after running some program that changed screen size
    )
 ))
 
+;; js-mode
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . js-mode))
+
 ;; mouse wheel
 (if (featurep 'xemacs)
     (progn
