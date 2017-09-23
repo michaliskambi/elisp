@@ -29,7 +29,7 @@
 ;; (useful on Linux)
 ;;(set-default-font "DejaVu Sans Mono-12")
 ;; (useful on MacOSX)
-;;(set-default-font "Menio-24")
+;;(set-default-font "Menlo-24")
 
 ;; Use tools from MacPorts, may be useful on Mac OS X if using MacPorts
 ;; (setq magit-git-executable "/opt/local/bin/git")
