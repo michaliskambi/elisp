@@ -19,6 +19,9 @@
   (setenv "PATH" (mapconcat 'identity (butlast exec-path 1) path-separator))
   (message (concat "Path customized to: " (getenv "PATH")))
 
+  (setenv "CASTLE_ENGINE_PATH"
+    (concat kam-home-directory "/sources/castle-engine/castle-engine"))
+
   ;; Use tools from MacPorts ---------------------------------------------------
 
   (when (file-exists-p "/opt/local/bin/git")
