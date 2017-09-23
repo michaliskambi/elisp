@@ -33,5 +33,6 @@
 (require 'kambi-shell)
 (require 'kambi-magit)
 (require 'kambi-search)
+(require 'kambi-macosx)
 
 (provide 'kambi-startup)
