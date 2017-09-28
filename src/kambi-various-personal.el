@@ -43,6 +43,8 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
   )
   (kam-install-if-needed (list
     'ag
+    'ripgrep
+    'projectile-ripgrep
     'projectile
     'counsel
     'ivy-hydra

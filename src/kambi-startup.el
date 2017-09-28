@@ -11,9 +11,10 @@
 (require 'kambi-various-personal)
 (require 'kambi-dired)
 (require 'kambi-svn)
-(require 'kambi-projectile-ag)
-;; helm unused for now, in favor of ivy
-;; (require 'kambi-helm)
+(require 'kambi-projectile)
+(require 'kambi-ag)
+;; (require 'kambi-ripgrep) ;; unused for now, crashes on Linux x86_64
+;; (require 'kambi-helm) ;; helm unused for now, in favor of ivy
 (require 'kambi-ivy)
 (require 'kambi-cc-mode)
 (require 'kambi-pascal)
@@ -21,8 +22,7 @@
 (require 'kambi-www)
 (require 'kambi-ocaml)
 (require 'kambi-sql)
-;; unused for now, assigns to .m files, which for I want as objective C
-;; (require 'kambi-matlab)
+;; (require 'kambi-matlab) ;; unused for now, because assigns to .m files, which for now I want as objective C
 (require 'kambi-makefile)
 (require 'kambi-lisp-editing)
 (require 'kambi-misc-convertions)
