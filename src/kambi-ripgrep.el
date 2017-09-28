@@ -49,8 +49,8 @@
              (projectile-symbol-or-selection-at-point)))
       "Like `projectile-ripgrep', but uses \"thing at point\" if you just press enter."
       (if (equal search-term "")
-          (projectile-ripgrep default-search-term arg)
-        (projectile-ripgrep search-term arg)))
+          (projectile-ripgrep default-search-term)
+        (projectile-ripgrep search-term)))
 
     (defun kam-optional-projectile-ripgrep ()
       (interactive)
