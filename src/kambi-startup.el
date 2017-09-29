@@ -12,8 +12,8 @@
 (require 'kambi-dired)
 (require 'kambi-svn)
 (require 'kambi-projectile)
-(require 'kambi-ag)
-;; (require 'kambi-ripgrep) ;; unused for now, crashes on Linux x86_64
+;; (require 'kambi-ag) ;; unused for now, in favor of ripgrep
+(require 'kambi-ripgrep)
 ;; (require 'kambi-helm) ;; helm unused for now, in favor of ivy
 (require 'kambi-ivy)
 (require 'kambi-cc-mode)

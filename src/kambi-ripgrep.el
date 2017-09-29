@@ -4,6 +4,12 @@
 ;; https://github.com/BurntSushi/ripgrep
 ;; http://oremacs.com/2017/08/04/ripgrep/
 ;;
+;; If ripgrep fails with "illegal instruction":
+;;   https://github.com/BurntSushi/ripgrep/issues/283
+;;   https://github.com/BurntSushi/ripgrep/issues/135
+;; apt-get install cargo
+;; cargo install ripgrep
+
 
 ;; include kambi-projectile 1st
 (require 'kambi-projectile)
@@ -19,10 +25,15 @@
 (when (require 'ripgrep nil 'noerror)
   (unless (file-exists-p ripgrep-executable)
     (when (string-equal system-type "gnu/linux")
-      (if kam-cpu-i386
-          (setq ripgrep-executable (concat kambi-elisp-path "contrib/ripgrep-bin/linux-i686/rg"))
-        (when kam-cpu-x86_64
-          (setq ripgrep-executable (concat kambi-elisp-path "contrib/ripgrep-bin/linux-x86_64/rg"))
+      ;; try the one installed by cargo
+      (setq ripgrep-executable (concat kam-home-directory "/.cargo/bin/rg"))
+      ;; if not found, use the one in contrib/
+      (unless (file-exists-p ripgrep-executable)
+        (if kam-cpu-i386
+            (setq ripgrep-executable (concat kambi-elisp-path "contrib/ripgrep-bin/linux-i686/rg"))
+          (when kam-cpu-x86_64
+            (setq ripgrep-executable (concat kambi-elisp-path "contrib/ripgrep-bin/linux-x86_64/rg"))
+          )
         )
       )
     )
