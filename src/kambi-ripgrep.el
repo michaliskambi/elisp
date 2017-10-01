@@ -18,15 +18,22 @@
 
 ;; from https://emacs.stackexchange.com/questions/11052/how-to-determine-operating-system-bits-32-vs-64-bit-in-elisp
 (defconst kam-cpu-i386
-  (not (null (string-match "^i386-.*" system-configuration))))
+  (or
+    (not (null (string-match "^i386-.*" system-configuration)))
+    (not (null (string-match "^i686-.*" system-configuration)))
+  )
+)
 (defconst kam-cpu-x86_64
   (not (null (string-match "^x86_64-.*" system-configuration))))
 
 (when (require 'ripgrep nil 'noerror)
   (unless (file-exists-p ripgrep-executable)
     (when (string-equal system-type "gnu/linux")
+
       ;; try the one installed by cargo
-      (setq ripgrep-executable (concat kam-home-directory "/.cargo/bin/rg"))
+      (when (file-exists-p (concat kam-home-directory "/.cargo/bin/rg"))
+        (setq ripgrep-executable (concat kam-home-directory "/.cargo/bin/rg")))
+
       ;; if not found, use the one in contrib/
       (unless (file-exists-p ripgrep-executable)
         (if kam-cpu-i386
