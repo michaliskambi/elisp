@@ -1153,15 +1153,17 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (global-set-key (kbd "C-x C-r") 'crux-recentf-find-file)
 
   ;; for unknown reason, crux-reopen-as-root is not interactive
-  ;; (defun kam-crux-reopen-as-root ()
-  ;;   "Like crux-reopen-as-root, but interactive."
-  ;;   (interactive)
-  ;;   (crux-reopen-as-root)
-  ;; )
-  ;; (global-set-key (kbd "<f12> C-r") 'kam-crux-reopen-as-root)
+  (defun kam-crux-reopen-as-root ()
+    "Like crux-reopen-as-root, but interactive."
+    (interactive)
+    (crux-reopen-as-root)
+  )
+  (global-set-key (kbd "<f12> C-r") 'kam-crux-reopen-as-root)
 
-  ;; instead of kam-crux-reopen-as-root, try this for now.
-  (crux-reopen-as-root-mode)
+  ;; This makes all non-writeable files to be opened using sudo,
+  ;; which is troublesome if you don't want to provide sudo password yet,
+  ;; and want to only open read-only.
+  ;; (crux-reopen-as-root-mode)
 )
 
 ;; smartscan -----------------------------------------------------------------
