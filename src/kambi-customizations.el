@@ -84,6 +84,7 @@
  '(minimap-width-fraction 0.1)
  '(minimap-window-location (quote right))
  '(mmm-submode-decoration-level 1)
+ '(ns-right-alternate-modifier (quote none))
  '(opascal-tab-always-indents nil)
  '(org-replace-disputed-keys t)
  '(org-support-shift-select (quote always))
