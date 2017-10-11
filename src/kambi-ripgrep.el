@@ -49,7 +49,21 @@
 
 ;; outside projectile ---------------------------------------------------
 
-(global-set-key (kbd "C-g") 'ripgrep-regexp)
+(defun kam-ripgrep-regexp (search-term &optional arg default-search-term)
+  (interactive
+   ;; Note: do not use default-search-term of read-from-minibuffer,
+   ;; because it has brain-dead specification.
+   ;; Others rant about it too: http://xahlee.info/comp/lisp_read-from-minibuffer_propels_deep_questions.html
+   (list (read-from-minibuffer
+          (format "Ripgrep dir %ssearch (default \"%s\"): " (if current-prefix-arg "regexp " "") (projectile-symbol-or-selection-at-point)))
+         current-prefix-arg
+         (projectile-symbol-or-selection-at-point)))
+  "Like `ripgrep-regexp', but uses \"thing at point\" if you just press enter."
+  (if (equal search-term "")
+      (ripgrep-regexp default-search-term default-directory)
+    (ripgrep-regexp search-term default-directory)))
+
+(global-set-key (kbd "C-g") 'kam-ripgrep-regexp)
 
 ;; inside projectile ----------------------------------------------------
 
@@ -62,7 +76,7 @@
        ;; because it has brain-dead specification.
        ;; Others rant about it too: http://xahlee.info/comp/lisp_read-from-minibuffer_propels_deep_questions.html
        (list (read-from-minibuffer
-              (projectile-prepend-project-name (format "Ripgrep %ssearch for (default \"%s\"): " (if current-prefix-arg "regexp " "") (projectile-symbol-or-selection-at-point))))
+              (projectile-prepend-project-name (format "Ripgrep project %ssearch (default \"%s\"): " (if current-prefix-arg "regexp " "") (projectile-symbol-or-selection-at-point))))
              current-prefix-arg
              (projectile-symbol-or-selection-at-point)))
       "Like `projectile-ripgrep', but uses \"thing at point\" if you just press enter."
