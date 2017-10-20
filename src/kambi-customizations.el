@@ -108,7 +108,9 @@
  '(recentf-auto-cleanup (quote never))
  '(recentf-exclude nil)
  '(recentf-max-saved-items 100)
- '(ripgrep-arguments (quote ("--ignore-case" "--max-columns" "120")))
+ '(ripgrep-arguments
+   (quote
+    ("--ignore-case" "--max-columns" "200" "--fixed-strings" "--glob=!*~")))
  '(safe-local-variable-values
    (quote
     ((kam-force-compilation-not-in-project . t)
