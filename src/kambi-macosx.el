@@ -57,6 +57,11 @@
       "/usr/local/bin/ag --line-numbers -S --hidden --color --nogroup %s %s %s")
   )
 
+  (when (file-exists-p "/usr/local/bin/gls")
+    ;; Better dired on Mac OS X, using "homebrew install coreutils"
+    (setq ls-lisp-use-insert-directory-program t)      ;; use external ls
+    (setq insert-directory-program "/usr/local/bin/gls") ;; ls program name
+  )
 )
 
 ;; ------------------------------------------------------------
