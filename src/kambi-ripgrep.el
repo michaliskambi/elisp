@@ -44,6 +44,10 @@
         )
       )
     )
+    (when (string-equal system-type "windows-nt")
+      ;; use the one in contrib/
+      (setq ripgrep-executable (concat kambi-elisp-path "contrib/ripgrep-bin/win64/rg.exe"))
+    )
   )
 )
 
