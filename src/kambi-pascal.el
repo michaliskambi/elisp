@@ -753,6 +753,9 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
     (kam-beg-of-buf) (query-replace "grayscalepixels" "Pixels")
     (kam-beg-of-buf) (query-replace "alphapixels" "Pixels")
     (kam-beg-of-buf) (query-replace ".fdchildren.add(" ".AddChildren(")
+    (kam-beg-of-buf) (query-replace "t3dcustomtransform" "TCastleTransform")
+    (kam-beg-of-buf) (query-replace "t3dtransform" "TCastleTransform")
+    (kam-beg-of-buf) (query-replace "t3dorient" "TCastleTransform")
   ))
 (global-set-key (kbd "<f5>") 'kam-cge-delphi-upgrade)
 
