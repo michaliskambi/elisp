@@ -22,7 +22,13 @@
   ;; add completion-ignored-extensions to counsel-find-file-ignore-regexp,
   ;; inspired by https://github.com/abo-abo/swiper/issues/1092
   (setq counsel-find-file-ignore-regexp
-    (concat counsel-find-file-ignore-regexp "\\|" (regexp-opt completion-ignored-extensions)))
+    (concat
+      counsel-find-file-ignore-regexp
+      "\\|"
+      (regexp-opt completion-ignored-extensions)
+      "$"
+    )
+  )
 
   ;; don't use counsel-recentf, better leave crux-recentf-find-file,
   ;; it is better (shortens ~)
