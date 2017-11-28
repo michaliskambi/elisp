@@ -91,6 +91,9 @@ is the \"thing at point\"."
 ;; occur is very useful, place under comfortable key
 (global-set-key (kbd "C-o") 'kam-occur)
 (define-key dired-mode-map (kbd "C-o") 'kam-occur)
+;; one of the comint or shell redefines C-o, change it back to kam-occur
+(define-key comint-mode-map (kbd "C-o") 'kam-occur)
+(define-key shell-mode-map (kbd "C-o") 'kam-occur)
 
 ;; provides (keep at the end) ------------------------------------------------
 
