@@ -704,6 +704,7 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
 
     ;; misc changes
     (kam-beg-of-buf) (query-replace-regexp "Box.Data\\[\\(.\\), \\(.\\)\\]" "Box.Data[\\1].Data[\\2]")
+    (kam-beg-of-buf) (query-replace-regexp "updatesecondspassed" "SecondsPassed")
   ))
 ;; (global-set-key (kbd "<f5>") 'kam-cge-vector-api-upgrade)
 
