@@ -432,8 +432,8 @@ by projectile."
 
     (if (string-is-suffix "pasdoc/trunk/source/" dir-parent)
         (concat "cd ../.. && make")
-      (if (string-is-suffix "tools/build-tool/" dir-name)
-          (concat "sh castle-engine_compile.sh && /bin/mv castle-engine" kam-os-exe-extension " ~/bin/")
+      (if (string-is-suffix "tools/build-tool/code/" dir-name)
+          (concat "cd .. && sh castle-engine_compile.sh && /bin/mv castle-engine" kam-os-exe-extension " ~/bin/")
         (if (string-is-suffix "castle_game_engine/tests/" dir-name)
             (concat "./compile_console.sh && ./test_castle_game_engine -a")
           (if (string-is-suffix "castle-engine/tests/" dir-name)
