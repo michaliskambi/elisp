@@ -92,6 +92,8 @@
    (quote
     (projectile-ripgrep ripgrep iedit wgrep-ag git-gutter+ json-reformat adoc-mode crux dired-subtree esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete ag magit)))
  '(paradox-automatically-star t)
+ '(projectile-generic-command
+   "if which /home/michalis/common/scripts/projectile_ls > /dev/null; then /home/michalis/common/scripts/projectile_ls; else find . -type f -print0; fi")
  '(projectile-globally-ignored-directories
    (quote
     (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work")))
@@ -102,6 +104,8 @@
  '(projectile-ignored-projects
    (quote
     ("/mnt/linux-32/home/michalis/sources/cat-astrophe-games/dragon_squash/" "/mnt/linux-32/home/michalis/sources/cat-astrophe-games/escape_universe/" "/home/michalis/sources/cat-astrophe-games/escape_universe/" "/home/michalis/sources/cat-astrophe-games/dragon_squash/" "/mnt/elementary-os/home/michalis/sources/cat-astrophe-games/escape_universe/" "/mnt/elementary-os/home/michalis/sources/cat-astrophe-games/dragon_squash/")))
+ '(projectile-svn-command
+   "if which /home/michalis/common/scripts/projectile_ls > /dev/null; then /home/michalis/common/scripts/projectile_ls; else find . -type f -print0; fi # use generic method, since svn list requires autenticating")
  '(ps-header-lines 1)
  '(ps-left-header (quote (ps-get-buffer-name)))
  '(ps-right-header (quote ("/pagenumberstring load")))
