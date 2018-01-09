@@ -706,7 +706,6 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
     (kam-beg-of-buf) (query-replace-regexp "Box.Data\\[\\(.\\), \\(.\\)\\]" "Box.Data[\\1].Data[\\2]")
     (kam-beg-of-buf) (query-replace-regexp "updatesecondspassed" "SecondsPassed")
   ))
-;; (global-set-key (kbd "<f5>") 'kam-cge-vector-api-upgrade)
 
 (defun kam-cge-delphi-upgrade ()
   (interactive)
@@ -759,7 +758,13 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
     (kam-beg-of-buf) (query-replace "t3dtransform" "TCastleTransform")
     (kam-beg-of-buf) (query-replace "t3dorient" "TCastleTransform")
   ))
-(global-set-key (kbd "<f5>") 'kam-cge-delphi-upgrade)
+
+(defun kam-various-pascal-upgrades ()
+  (interactive)
+  (kam-cge-vector-api-upgrade)
+  (kam-cge-delphi-upgrade)
+)
+(global-set-key (kbd "<f5>") 'kam-various-pascal-upgrades)
 
 (defun kam-cge-delphi-upgrade-dangerous ()
   (interactive)
