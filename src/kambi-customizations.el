@@ -123,6 +123,7 @@
  '(scroll-conservatively 0)
  '(scroll-margin 3)
  '(tab-always-indent nil)
+ '(tool-bar-mode nil)
  '(truncate-lines t)
  '(vc-handled-backends (quote (RCS SCCS)))
  '(visible-bell t)
