@@ -27,7 +27,7 @@ cd ~/elisp/script/
 
 There are no _required_ dependencies on external programs, everything should work regardless of the state of the system. But you may find it useful to install some software:
 
-- [ripgrep](https://github.com/BurntSushi/ripgrep), my favourite grep-like tool. The Linux binaries for ripgrep are now hosted in this repository, to make it instantly available on new systems, so I only need to clone this repository to have the setup I like.
+- [ripgrep](https://github.com/BurntSushi/ripgrep), my favourite grep-like tool. Some common (Linux and Windows) binaries for ripgrep are now hosted in this repository, to make it instantly available on new systems, so I only need to clone this repository to have the setup I like.
 
     Previously I used [ag (silver searcher)](https://github.com/ggreer/the_silver_searcher), installable by `sudo apt-get install silversearcher-ag` on Linux.
 
