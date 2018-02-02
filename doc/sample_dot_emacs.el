@@ -18,6 +18,9 @@
 (setq custom-file (concat kambi-elisp-path "src/kambi-customizations.el"))
 (load custom-file)
 
+;; set Cygwin path on Windows
+;;(cygwin-mount-cygwin-bin-directory "d:/cygwin64/bin")
+
 ;; Initialize Kambi stuff.
 (require 'kambi-startup)
 
@@ -30,3 +33,7 @@
 ;;(set-default-font "DejaVu Sans Mono-12")
 ;; (useful on MacOSX)
 ;;(set-default-font "Menlo-24")
+
+;; maximize on startup?
+;; https://emacs.stackexchange.com/questions/2999/how-to-maximize-my-emacs-frame-on-start-up
+;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
