@@ -862,7 +862,10 @@ parses local variables written in buffer."
 (global-set-key (kbd "<f12> r") 'revert-buffer)
 (global-set-key (kbd "<f12> u") 'rename-uniquely)
 (global-set-key (kbd "<f12> g") 'goto-line)
-(global-set-key (kbd "<f12> s") 'shell)
+;; shell that can be easily killed
+(global-set-key (kbd "<f12> s") 'kam-shell-killable)
+;; shell that cannot be easily killed
+(global-set-key (kbd "<f12> <f12> s") 'shell)
 (global-set-key (kbd "<f12> v") 'kam-version-control)
 (global-set-key (kbd "<f12> d") 'dired-jump)
 (global-set-key (kbd "<f12> e") 'kam-open-dir-external)

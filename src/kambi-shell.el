@@ -2,9 +2,6 @@
   (lambda ()
     ;; "M-x shell" will create new shell every time
     (rename-uniquely)
-    ;; shell can be easily killed
-    ;; trick from http://stackoverflow.com/questions/2706527/make-emacs-stop-asking-active-processes-exist-kill-them-and-exit-anyway
-    (set-process-query-on-exit-flag (get-buffer-process (current-buffer)) nil)
   ) t)
 
 (add-hook 'eshell-mode-hook
@@ -17,6 +14,14 @@
     (local-set-key (kbd "<up>") 'previous-line)
   )
   t)
+
+(defun kam-shell-killable ()
+  (interactive)
+  (call-interactively 'shell)
+  ;; shell can be easily killed
+  ;; trick from http://stackoverflow.com/questions/2706527/make-emacs-stop-asking-active-processes-exist-kill-them-and-exit-anyway
+  (set-process-query-on-exit-flag (get-buffer-process (current-buffer)) nil)
+)
 
 ;; Customize shell mode, so that my alias "mkdir_and_cd" is recognized and
 ;; understood to change current dir.
