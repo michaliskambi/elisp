@@ -19,7 +19,7 @@
 (load custom-file)
 
 ;; set Cygwin path on Windows
-;;(cygwin-mount-cygwin-bin-directory "d:/cygwin64/bin")
+;;(setq cygwin-mount-cygwin-bin-directory "d:/cygwin64/bin")
 
 ;; Initialize Kambi stuff.
 (require 'kambi-startup)
