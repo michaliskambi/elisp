@@ -81,7 +81,11 @@
   ;; Later emacs23 docs suggest it's not needed, default is Ok.
   ;; (setq w32-quote-process-args ?\")
 
-  (setq explicit-shell-file-name "bash.exe")
+  ;; set explicit-shell-file-name to bash.
+  ;; You can configure it's location by configuring cygwin-mount-cygwin-bin-directory
+  (if (file-exists-p (concat cygwin-mount-cygwin-bin-directory "/bash.exe"))
+      (setq explicit-shell-file-name (concat cygwin-mount-cygwin-bin-directory "/bash.exe"))
+    (setq explicit-shell-file-name "bash.exe"))
 
   ;; Kambi notes: I fought with getting Cygwin bash to work under NTEmacs
   ;; M-x shell for a while. After some time I realised that I was fooled

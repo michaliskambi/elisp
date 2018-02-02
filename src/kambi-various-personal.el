@@ -10,7 +10,13 @@
   ;; Add melpa.
   ;; Do this early, as it may be used by auto-complete and others,
   ;; lower in this file.
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+  ;; Note: On Windows, use http instead of https, standard Emacs cannot handle https:
+  ;; https://stackoverflow.com/questions/35345045/emacs-install-a-package-with-melpa-on-windows
+  ;; https://emacs.stackexchange.com/questions/22468/how-do-i-get-melpa-working-on-my-windows-8-laptop
+  (if kam-is-windows
+      (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/")))
+
   (when (< emacs-major-version 24)
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
