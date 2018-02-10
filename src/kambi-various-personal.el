@@ -1250,7 +1250,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;; iedit ---------------------------------------------------------------------
 
 (when (require 'iedit nil 'noerror)
-  (global-set-key (kbd "C-;") 'iedit-mode)
+  (global-set-key (kbd "<f2> <f2>") 'iedit-mode)
 )
 
 ;; ag ------------------------------------------------------------------------
