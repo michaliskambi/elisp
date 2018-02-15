@@ -831,6 +831,7 @@ parses local variables written in buffer."
 (global-set-key (kbd "C-l") 'dired-jump)
 (global-set-key (kbd "M-<up>") 'dired-jump)
 
+(global-set-key (kbd "C-<f2>") 'kill-compilation)
 (global-set-key (kbd "<f8>") 'kam-run-here)
 (global-set-key (kbd "<f9>") 'kam-compile-immediate)
 (global-set-key (kbd "<C-f9>") 'kam-compile)
