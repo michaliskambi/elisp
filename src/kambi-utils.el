@@ -1239,7 +1239,11 @@ Assumes that DIR is for sure an SVN dir."
     ;; on it, so it needs ~ expanded.
     (let ((expanded-dir (expand-file-name default-directory)))
       (if (svn-version-controlled-dir-p expanded-dir)
-          (svn-status-1 (kam-top-most-svn-dir expanded-dir))
+          ;; While it seemed useful to do kam-top-most-svn-dir,
+          ;; svn-status is slow, and it's usually more useful to just run
+          ;; in current subdir.
+          ;; (svn-status-1 (kam-top-most-svn-dir expanded-dir))
+          (svn-status-1 expanded-dir)
         (error "Neither in GIT or SVN repository.")))))
 
 (defun kam-nondir-file-readable-p (fname)
