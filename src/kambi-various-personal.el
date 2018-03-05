@@ -1243,10 +1243,9 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;; http://irreal.org/blog/?p=3638
 
 (if (require 'wgrep-ag+ nil 'noerror)
-    (setq wgrep-enable-key "r")
-  (if (require 'wgrep nil 'noerror)
-      (setq wgrep-enable-key "r"))
-)
+    (setq wgrep-enable-key "r"))
+(if (require 'wgrep nil 'noerror)
+    (setq wgrep-enable-key "r"))
 
 ;; iedit ---------------------------------------------------------------------
 
