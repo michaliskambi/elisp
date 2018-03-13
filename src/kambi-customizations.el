@@ -114,7 +114,7 @@
  '(recentf-max-saved-items 100)
  '(ripgrep-arguments
    (quote
-    ("--ignore-case" "--max-columns" "200" "--fixed-strings" "--glob=!*~")))
+    ("--ignore-case" "--max-columns" "200" "--fixed-strings" "--glob=!*~" "--glob=!#*#")))
  '(safe-local-variable-values
    (quote
     ((kam-force-compilation-not-in-project . t)

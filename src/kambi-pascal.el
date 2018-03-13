@@ -763,6 +763,10 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
   (interactive)
   (kam-cge-vector-api-upgrade)
   (kam-cge-delphi-upgrade)
+  (kam-beg-of-buf) (query-replace "palooping" "true")
+  (kam-beg-of-buf) (query-replace "panotlooping" "false")
+  (kam-beg-of-buf) (query-replace "paforcelooping" "true")
+  (kam-beg-of-buf) (query-replace "paforcenotlooping" "false")
 )
 (global-set-key (kbd "<f5>") 'kam-various-pascal-upgrades)
 
@@ -793,7 +797,14 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
     (query-replace "@" "{$ifdef CASTLE_OBJFPC}@{$endif} ")
   )
 )
-(global-set-key (kbd "<f6>") 'kam-cge-delphi-upgrade-dangerous)
+
+(defun kam-various-pascal-upgrades-dangerous ()
+  (interactive)
+  (kam-cge-delphi-upgrade-dangerous)
+  (kam-beg-of-buf) (query-replace "t2dscene" "TCastle2DScene")
+)
+
+(global-set-key (kbd "<f6>") 'kam-various-pascal-upgrades-dangerous)
 
 ;; ------------------------------------------------------------
 
