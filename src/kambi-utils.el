@@ -1209,8 +1209,12 @@ Assumes that DIR is for sure an SVN dir."
           (kam-top-most-svn-dir parent-dir)
         dir))))
 
-(defun kam-version-control ()
-  "Call magit-status in GIT, svn-status in SVN."
+(defun kam-version-control (&optional force-current-dir)
+  "Call magit-status in GIT, svn-status in SVN.
+
+When FORCE-CURRENT-DIR, then we call SVN in the current directory,
+instead of top-level. This sometimes makes sense (svn-status is not fast
+for large repos)."
   (interactive)
 
   ;; Load magit, for kam-version-control.
@@ -1239,11 +1243,10 @@ Assumes that DIR is for sure an SVN dir."
     ;; on it, so it needs ~ expanded.
     (let ((expanded-dir (expand-file-name default-directory)))
       (if (svn-version-controlled-dir-p expanded-dir)
-          ;; While it seemed useful to do kam-top-most-svn-dir,
-          ;; svn-status is slow, and it's usually more useful to just run
-          ;; in current subdir.
-          ;; (svn-status-1 (kam-top-most-svn-dir expanded-dir))
-          (svn-status-1 expanded-dir)
+          (if force-current-dir
+              (svn-status-1 expanded-dir)
+            (svn-status-1 (kam-top-most-svn-dir expanded-dir))
+          )
         (error "Neither in GIT or SVN repository.")))))
 
 (defun kam-nondir-file-readable-p (fname)

@@ -1,8 +1,17 @@
+(add-hook 'sh-mode-hook
+  (lambda ()
+    ;; make heredoc automatically completed, seems disabled in new Emacs versions
+    ;; https://emacs.stackexchange.com/questions/5336/why-does-typing-instead-produce-eof-n-when-in-shell-script-mode
+    (sh-electric-here-document-mode t)
+  )
+  t)
+
 (add-hook 'shell-mode-hook
   (lambda ()
     ;; "M-x shell" will create new shell every time
     (rename-uniquely)
-  ) t)
+  )
+  t)
 
 (add-hook 'eshell-mode-hook
   (lambda ()
