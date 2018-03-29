@@ -90,8 +90,9 @@
  '(org-support-shift-select (quote always))
  '(package-selected-packages
    (quote
-    (projectile-ripgrep ripgrep iedit wgrep-ag git-gutter+ json-reformat adoc-mode crux dired-subtree esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete ag magit)))
+    (ivy-rich ivy-pass projectile-ripgrep ripgrep iedit wgrep-ag git-gutter+ json-reformat adoc-mode crux dired-subtree esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete ag magit)))
  '(paradox-automatically-star t)
+ '(password-store-password-length 33)
  '(projectile-generic-command
    "if which /home/michalis/common/scripts/projectile_ls > /dev/null; then /home/michalis/common/scripts/projectile_ls; else find . -type f -print0; fi")
  '(projectile-globally-ignored-directories

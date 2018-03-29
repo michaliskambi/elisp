@@ -54,6 +54,8 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
     'projectile
     'counsel
     'ivy-hydra
+    'ivy-rich
+    'ivy-pass
     'auto-complete
     'adoc-mode
     'dired-collapse
@@ -835,8 +837,9 @@ parses local variables written in buffer."
 (global-set-key (kbd "<f8>") 'kam-run-here)
 (global-set-key (kbd "<f9>") 'kam-compile-immediate)
 (global-set-key (kbd "<C-f9>") 'kam-compile)
-(global-set-key (kbd "<S-f9>") 'kam-clean-here)
-(global-set-key (kbd "<S-f10>") 'kam-clean-cge)
+(global-set-key (kbd "<S-f9>") 'recompile)
+;; (global-set-key (kbd "<S-f9>") 'kam-clean-here)
+;; (global-set-key (kbd "<S-f10>") 'kam-clean-cge)
 
 (global-set-key (kbd "<C-tab>") 'switch-buf)
 (global-set-key (kbd "C-x k") 'browse-kill-ring)
@@ -877,6 +880,7 @@ parses local variables written in buffer."
 (global-set-key (kbd "<f12> d") 'dired-jump)
 (global-set-key (kbd "<f12> e") 'kam-open-dir-external)
 (global-set-key (kbd "<f12> o") 'sort-lines)
+(global-set-key (kbd "<f12> p") 'ivy-pass)
 
 ;; Also cua-rectangle-mark-key is set to [(control f12)]
 

@@ -113,6 +113,11 @@
   (define-key counsel-ag-map (kbd "<return>") 'ivy-occur)
 )
 
+;; https://github.com/yevgnen/ivy-rich
+(when (require 'ivy-rich nil 'noerror)
+  (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
+)
+
 (provide 'kambi-ivy)
 
 ;;; kambi-ivy.el ends here
