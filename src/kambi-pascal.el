@@ -767,6 +767,8 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
   (kam-beg-of-buf) (query-replace "panotlooping" "false")
   (kam-beg-of-buf) (query-replace "paforcelooping" "true")
   (kam-beg-of-buf) (query-replace "paforcenotlooping" "false")
+  (kam-beg-of-buf) (query-replace "castlegoogleplaygames" "CastleGameService")
+  (kam-beg-of-buf) (query-replace "tgoogleplaygames" "TGameService")
 )
 (global-set-key (kbd "<f5>") 'kam-various-pascal-upgrades)
 
