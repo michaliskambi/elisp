@@ -21,6 +21,10 @@
   (setq projectile-completion-system 'ivy)
   (setq magit-completing-read-function 'ivy-completing-read)
 
+  ;; TODO ignore order?
+  ;; but not for projectile find project, as then CGE finding is hard
+  ;; (setq ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
+
   ;; add completion-ignored-extensions to counsel-find-file-ignore-regexp,
   ;; inspired by https://github.com/abo-abo/swiper/issues/1092
   (setq counsel-find-file-ignore-regexp
