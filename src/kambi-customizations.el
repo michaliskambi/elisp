@@ -123,6 +123,8 @@
      (encoding . cp852))))
  '(scroll-conservatively 0)
  '(scroll-margin 3)
+ '(svn-status-hide-unmodified t)
+ '(svn-status-sort-status-buffer nil)
  '(tab-always-indent nil)
  '(tool-bar-mode nil)
  '(truncate-lines t)
