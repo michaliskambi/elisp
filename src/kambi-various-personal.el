@@ -253,7 +253,7 @@ may be screwed up after running some program that changed screen size
 ;; automatycznie dekompresuj / kompresuj edytowane pliki
 (auto-compression-mode 1)
 
-;; Wlacz zapamietywanie ostatnio otwartych plikow do recentf-list
+;; save recent files
 ;;
 ;; (xemacs nie ma recentf-mode, ma za to element menu "Recent files"
 ;; inicjowany przez recent-files-initialize. Wole podejscie GNU Emacsa
@@ -1165,7 +1165,10 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   ;; (global-set-key (kbd "C-k") 'crux-smart-kill-line)
   (global-set-key (kbd "C-c D") 'crux-delete-file-and-buffer)
   (global-set-key (kbd "C-c r") 'crux-rename-file-and-buffer)
-  (global-set-key (kbd "C-x C-r") 'crux-recentf-find-file)
+
+  ;; crux-recentf-find-file is a little better than counsel-recentf,
+  ;; (shortens ~) but also a little worse (not correct sorting).
+  ;; (global-set-key (kbd "C-x C-r") 'crux-recentf-find-file)
 
   ;; for unknown reason, crux-reopen-as-root is not interactive
   (defun kam-crux-reopen-as-root ()

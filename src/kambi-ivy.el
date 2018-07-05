@@ -36,9 +36,9 @@
     )
   )
 
-  ;; don't use counsel-recentf, better leave crux-recentf-find-file,
-  ;; it is better (shortens ~)
-  ;; (global-set-key (kbd "C-x C-r") 'counsel-recentf)
+  ;; crux-recentf-find-file is a little better than counsel-recentf,
+  ;; (shortens ~) but also a little worse (not correct sorting)
+  (global-set-key (kbd "C-x C-r") 'counsel-recentf)
 
   ;; counsel-yank-pop is not very comfortable IMHO,
   ;; and cannot be used to paste to minibuffer.
