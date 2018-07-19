@@ -1,2 +1,10 @@
+#!/bin/bash
+set -eu
+
 ln -s `pwd`/e ~/bin/
 ln -s `pwd`/e-wait ~/bin/
+
+# See https://askubuntu.com/questions/112186/how-do-you-create-a-custom-application-launcher-in-gnome-shell .
+# Done to run emacs using bash, loading my environment variables in ~/.kambirc .
+mkdir -p ~/.local/share/applications/
+ln -s `pwd`/my-emacs.desktop ~/.local/share/applications/
