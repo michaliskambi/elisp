@@ -17,6 +17,9 @@
     ;; older function name, for older magit in older Emacs versions
     (local-set-key (kbd "C-c C-b") 'magit-toggle-diff-refine-hunk))
 
+  ;; TODO: why doesn't work?
+  ;; (local-set-key (kbd "C-c C-c") 'cua-copy-region)
+
   ;; use XXX to invoke magit-show-level-XXX
   ;; (by default under M-XXX in Magit, at least on Magit version in Elementary OS;
   ;; in Debian testing, with Magit 2.1.0, these functions have different names
