@@ -4128,7 +4128,11 @@ user can enter a new file name, or an existing directory: this is used as the ar
           ;; Silently rename the visited file of any buffer visiting this file.
           (when (get-file-buffer original-name)
             (with-current-buffer (get-file-buffer original-name)
-              (set-visited-file-name dest nil t))))))
+              ;; Michalis fix for new Emacs.
+              ;; TODO: submit patch to psvn.el upstream.
+              (set-visited-file-name
+                (concat dest (file-name-nondirectory original-name))
+                nil t))))))
     (svn-status-update)))
 
 (defun svn-status-run-mv-cp (command original destination &optional force)
