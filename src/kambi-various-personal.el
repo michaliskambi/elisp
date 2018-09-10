@@ -774,35 +774,6 @@ parses local variables written in buffer."
         (buffer-menu))))
 )
 
-;; ---------------------------------------------------------------------------
-;; git emacs, code initially following http://www.emacswiki.org/emacs/Git
-
-;; look for git files. For older Debian packages, this was in git-core.
-(when (file-readable-p "/usr/share/doc/git-core/contrib/emacs")
-  (defconst kam-git-path "/usr/share/doc/git-core/contrib/emacs"))
-(when (file-readable-p "/usr/share/doc/git/contrib/emacs")
-  (defconst kam-git-path "/usr/share/doc/git/contrib/emacs"))
-
-(when (boundp 'kam-git-path)
-  (setq load-path (cons (expand-file-name kam-git-path) load-path))
-  (require 'git)
-  (autoload 'git-blame-mode "git-blame"
-    "Minor mode for incremental blame for Git." t)
-
-  ;; for git-status to have "C-c C-d" in log-edit view diff
-  (defun kam-git-log-edit-diff ()
-    "From git commit window, open diff for currently changed files.
-  This trivially calls `git-log-edit-diff', making it interactive command."
-    (interactive)
-    (git-log-edit-diff))
-
-  (add-hook 'log-edit-mode-hook
-    (lambda ()
-      (when (string-equal (buffer-name) "*git-commit*")
-        (local-set-key (kbd "C-c C-d") 'kam-git-log-edit-diff)))
-    t)
-)
-
 ;; key bindings ------------------------------------------------------------
 ;;
 ;; Jak widac preferuje podawanie klawiszy przy pomocy funkcji (kbd "...").
