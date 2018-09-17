@@ -773,6 +773,7 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
   (kam-beg-of-buf) (query-replace "calculatedheight" "EffectiveHeight")
   (kam-beg-of-buf) (query-replace "calculatedrect" "EffectiveRect")
   (kam-beg-of-buf) (query-replace "screenrect" "RenderRect")
+  (kam-beg-of-buf) (query-replace "tcastleuserinterfacerect" "TCastleUserInterface")
 )
 (global-set-key (kbd "<f5>") 'kam-various-pascal-upgrades)
 
