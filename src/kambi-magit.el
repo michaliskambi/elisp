@@ -17,8 +17,9 @@
     ;; older function name, for older magit in older Emacs versions
     (local-set-key (kbd "C-c C-b") 'magit-toggle-diff-refine-hunk))
 
-  ;; TODO: why doesn't work?
-  ;; (local-set-key (kbd "C-c C-c") 'cua-copy-region)
+  ;; How to find the keymap? Execute (current-active-maps),
+  ;; and compare with contents of "describe-variable" for various "magit*map" variables.
+  (define-key magit-hunk-section-map (kbd "C-c C-c") 'cua-copy-region)
 
   ;; use XXX to invoke magit-show-level-XXX
   ;; (by default under M-XXX in Magit, at least on Magit version in Elementary OS;
