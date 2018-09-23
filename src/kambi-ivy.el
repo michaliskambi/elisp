@@ -119,7 +119,12 @@
 
 ;; https://github.com/yevgnen/ivy-rich
 (when (require 'ivy-rich nil 'noerror)
-  (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
+  (if (fboundp 'ivy-rich-switch-buffer-transformer)
+      (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
+    ;; in new ivy versions, ivy-rich-switch-buffer-transformer is not available,
+    ;; but ivy-rich-mode easily sets up everything.
+    (ivy-rich-mode 1)
+  )
 )
 
 (provide 'kambi-ivy)
