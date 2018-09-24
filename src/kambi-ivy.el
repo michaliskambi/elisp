@@ -117,13 +117,22 @@
   (define-key counsel-ag-map (kbd "<return>") 'ivy-occur)
 )
 
+;; ivy-rich ------------------------------------------------------------------
+
 ;; https://github.com/yevgnen/ivy-rich
+
 (when (require 'ivy-rich nil 'noerror)
   (if (fboundp 'ivy-rich-switch-buffer-transformer)
       (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
+
     ;; in new ivy versions, ivy-rich-switch-buffer-transformer is not available,
     ;; but ivy-rich-mode easily sets up everything.
+    ;; https://github.com/Yevgnen/ivy-rich/issues/39
+    ;; https://github.com/Yevgnen/ivy-rich/blob/master/README.org
+
     (ivy-rich-mode 1)
+    ;; hm, Alt+0 is quite slow sometimes?
+    ;;(ivy-rich-mode 0)
   )
 )
 
