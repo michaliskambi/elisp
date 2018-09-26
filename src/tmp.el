@@ -948,3 +948,20 @@ such things."
   (kam-beg-of-buf) (kam-simple-replace-buffer "TSFTextureUpdate.Create(Self, '" "TSFTextureUpdate.Create(Self, true, '")
   ))
 (global-set-key (kbd "<f5>") 'kam-aaa)
+------------------------------------------------------------------------------
+;; from https://emacs.stackexchange.com/questions/303/describe-face-character-not-under-unreachable-by-the-cursor/35449#35449
+;; show face under mouse cursor:
+
+  ;; based on: https://emacs.stackexchange.com/a/19585/13444
+  (defun brds/describe-char-at-mouse-click (click-event)
+    "`describe-char' at CLICK-EVENT's position.
+CLICK-EVENT should be a mouse-click event."
+    (interactive "e")
+    (run-hooks 'mouse-leave-buffer-hook)
+    (let ((pos (cadr (event-start click-event))))
+      (describe-char pos)))
+
+  ;; <d>escribe
+  (global-set-key (kbd "C-c d <down-mouse-1>")
+                  #'brds/describe-char-at-mouse-click)
+------------------------------------------------------------------------------
