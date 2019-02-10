@@ -732,6 +732,7 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
     (kam-beg-of-buf) (query-replace "t3dcustomtransform" "TCastleTransform")
     (kam-beg-of-buf) (query-replace "t3dtransform" "TCastleTransform")
     (kam-beg-of-buf) (query-replace "t3dorient" "TCastleTransform")
+    (kam-beg-of-buf) (query-replace-regexp "ApplicationData('\\([^']+\\)')" "'castle-data:/\\1'")
   ))
 
 (defun kam-cge-delphi-upgrade ()
