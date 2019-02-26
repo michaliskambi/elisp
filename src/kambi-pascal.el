@@ -733,6 +733,11 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
     (kam-beg-of-buf) (query-replace "t3dtransform" "TCastleTransform")
     (kam-beg-of-buf) (query-replace "t3dorient" "TCastleTransform")
     (kam-beg-of-buf) (query-replace-regexp "ApplicationData('\\([^']+\\)')" "'castle-data:/\\1'")
+    (kam-beg-of-buf) (query-replace "http://castle-engine.sourceforge.net" "https://castle-engine.io")
+    (kam-beg-of-buf) (query-replace "https://castle-engine.sourceforge.io" "https://castle-engine.io")
+    (kam-beg-of-buf) (query-replace "tglimageondemand" "TDrawableImage")
+    (kam-beg-of-buf) (query-replace "tglimagecore" "TDrawableImage")
+    (kam-beg-of-buf) (query-replace "tglimage" "TDrawableImage")
   ))
 
 (defun kam-cge-delphi-upgrade ()
