@@ -77,6 +77,15 @@
    '(("w" kam-kill-new              "copy whole")
      ("k" kam-kill-new-nondirectory "copy basename")))
 
+  ;; This is required with newest Ivy/Counsel (2019-03-02) on Windows,
+  ;; merely doing (ivy-set-actions t ...) above doesn't make these commands available.
+  ;; Besides being useful, setting "k" also fortunately overrides default assignment
+  ;; of "k" to "delete file", which I found more dangerous than useful :)
+  (ivy-add-actions
+   'counsel-find-file
+   '(("w" kam-kill-new              "copy whole")
+     ("k" kam-kill-new-nondirectory "copy basename")))
+
   ;; Not stable:
   ;; - do not exit ivy
   ;; - C-w for some reason does the same thing as C-k, so (ivy-state-current ivy-last)
