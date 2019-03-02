@@ -1135,19 +1135,25 @@ regardless of current position and regardless of mark position
   )
 )
 
+(defun counsel-locate-action-extern (x)
+  "Pass X to `xdg-open' or equivalent command via the shell."
+  (interactive "FFile: ")
+  (if (and (eq system-type 'windows-nt)
+           (fboundp 'w32-shell-execute))
+      (w32-shell-execute "open" x)
+    (call-process-shell-command (format "%s %s"
+                                        (cl-case system-type
+                                          (darwin "open")
+                                          (cygwin "cygstart")
+                                          (t "xdg-open"))
+                                        (shell-quote-argument x))
+                                nil 0)))
+
+
 (defun kam-open-dir-external ()
   "Open current directory in an external program (file manager)."
   (interactive)
-  ;; (condition-case nil
-    (async-start-process (concat "kam-open-dir-external " default-directory)
-      "xdg-open" nil (expand-file-name default-directory))
-    ;; (error
-    ;;   ;; fallback from xdg-open to pantheon-files (Elementary file manager),
-    ;;   ;; possibly not needed anymore
-    ;;   (async-start-process (concat "kam-open-dir-external " default-directory)
-    ;;     "pantheon-files" nil
-    ;;     (expand-file-name default-directory)))
-  ;; )
+  (counsel-locate-action-extern (expand-file-name default-directory))
 )
 
 (defun kam-open-terminal-here ()
