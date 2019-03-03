@@ -128,6 +128,13 @@
   (require 'ls-lisp)
   (setq ls-lisp-use-insert-directory-program nil))
 
+;; This can be uncommented to use Cygwin's "ls" on Windows, makes dired output better
+;; (sorted, with dirs first).
+;; Unfortunately it's also slower.
+;; (when (eq system-type 'windows-nt)
+;;   (require 'ls-lisp)
+;;   (setq ls-lisp-use-insert-directory-program t))
+
 ;; ---------------------------------------------------------------------------
 
 (provide 'kambi-dired)
