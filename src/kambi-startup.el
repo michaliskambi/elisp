@@ -29,9 +29,7 @@
 (require 'kambi-ada)
 (require 'kambi-sgml)
 (require 'kambi-log)
-;; Avoids compilation erros on Emacs 26, see
-;; https://github.com/josteink/csharp-mode/issues/127
-;;(require 'kambi-csharp)
+(require 'kambi-csharp)
 (require 'kambi-shell)
 (require 'kambi-magit)
 (require 'kambi-search)
