@@ -67,6 +67,7 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
     'wgrep-ag
     'iedit
     'php-mode
+    'csharp-mode
   ))
 )
 
