@@ -63,9 +63,22 @@
          current-prefix-arg
          (projectile-symbol-or-selection-at-point)))
   "Like `ripgrep-regexp', but uses \"thing at point\" if you just press enter."
-  (if (equal search-term "")
-      (ripgrep-regexp default-search-term default-directory)
-    (ripgrep-regexp search-term default-directory)))
+
+  ;; Fix searching for somethign with spaces/parenthesis on Windows:
+  ;; We need (w32-shell-dos-semantics) to return non-nil,
+  ;; to make (shell-quote-argument "bla bla bla (") behave correctly,
+  ;; as this is used by ripgrep-regexp.
+  ;; Our customization of shell-file-name (from kambi-shell.el) confuses it.
+
+  ;; Unfortunately, this causes ripgrep to hang now...
+  ;;(let ((shell-file-name nil))
+
+    (if (equal search-term "")
+        (ripgrep-regexp default-search-term default-directory)
+      (ripgrep-regexp search-term default-directory))
+
+  ;;)
+)
 
 (global-set-key (kbd "C-g") 'kam-ripgrep-regexp)
 
