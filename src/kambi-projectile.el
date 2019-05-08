@@ -11,13 +11,7 @@
 ;; ""mapcar: Symbol’s function definition is void: string-trim"".
 ;; Proper solution unknown, see https://github.com/bbatsov/projectile/issues/1382 .
 (when kam-is-windows
-  (require 'subr-x)
-  (defun string-trim (string &optional trim-left trim-right)
-    "Trim STRING of leading and trailing strings matching TRIM-LEFT and TRIM-RIGHT.
-  TRIM-LEFT and TRIM-RIGHT default to \"[ \\t\\n\\r]+\"."
-    (string-trim-left (string-trim-right string trim-right) trim-left))
-)
-
+  (require 'subr-x))
 
 (when (require 'projectile nil 'noerror)
   (projectile-global-mode)
