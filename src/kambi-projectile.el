@@ -10,8 +10,8 @@
 ;; Workaround Projectile on Windows failures, sometimes opening files fails with
 ;; ""mapcar: Symbol’s function definition is void: string-trim"".
 ;; Proper solution unknown, see https://github.com/bbatsov/projectile/issues/1382 .
-(when kam-is-windows
-  (require 'subr-x))
+;; Reproducible on both Windows and Linux.
+(require 'subr-x)
 
 (when (require 'projectile nil 'noerror)
   (projectile-global-mode)
