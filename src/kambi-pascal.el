@@ -739,6 +739,11 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
     (kam-beg-of-buf) (query-replace "tglimageondemand" "TDrawableImage")
     (kam-beg-of-buf) (query-replace "tglimagecore" "TDrawableImage")
     (kam-beg-of-buf) (query-replace "tglimage" "TDrawableImage")
+
+    (kam-beg-of-buf) (query-replace "assigndefaultcamera" "AssignDefaultNavigation")
+    (kam-beg-of-buf) (query-replace "tcamera" "TCastleNavigation")
+    (kam-beg-of-buf) (query-replace "twalkcamera" "TCastleWalkNavigation")
+    (kam-beg-of-buf) (query-replace "texaminecamera" "TCastleExamineNavigation")
   ))
 
 (defun kam-cge-delphi-upgrade ()
