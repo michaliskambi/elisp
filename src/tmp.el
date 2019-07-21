@@ -983,3 +983,12 @@ CLICK-EVENT should be a mouse-click event."
 
       (message "Words: %d. Chars: %d." wordCount charCount)
       )))
+
+(defun kam-www-fix ()
+  (interactive)
+  ;; replacements to negate sign for += and 0-, only for 1-argument right hand side
+  (save-excursion
+    (query-replace-regexp "<a href=\"http://michalis.ii.uni.wroc.pl/cge-www-preview/apidoc/html/\\([^\"]+\\)\">\\([^<]+\\)</a>" "<?php api_link('\\2', '\\1'); ?>")
+  )
+)
+(global-set-key (kbd "<f5>") 'kam-www-fix)
