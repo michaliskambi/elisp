@@ -82,7 +82,7 @@
     ;; For some projects, like FPC, it's a *must*, as the default value on Windows
     ;; (alien) is much too slow.
     (setq projectile-indexing-method 'alien)
-    (setq projectile-generic-command "c:/cygwin/bin/find . -type f -print0")
+    (setq projectile-generic-command (concat find-program " . -type f -print0"))
   )
 
   ;; remove from the "known projects" list the non-existing projects

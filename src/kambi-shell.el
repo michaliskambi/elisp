@@ -1,3 +1,5 @@
+(require 'subr-x) ;; for string-trim
+
 (add-hook 'sh-mode-hook
   (lambda ()
     ;; make heredoc automatically completed, seems disabled in new Emacs versions
@@ -43,6 +45,25 @@
 (when kam-is-windows
   (require 'cygwin-mount)
   (cygwin-mount-activate)
+
+  ;; setting correct find-program (to use Cygwin find),
+  ;; this is used e.g. by counsel-file-jump.
+  (setq kambi-cygpath-executable (kam-search-for-program "cygpath"))
+  (when kambi-cygpath-executable
+
+    ;; Unfortunately these routines are useless for what we need:
+    ;;   (cygwin-mount-executable-find "find")
+    ;;   (cygwin-mount-get-full-progname "find")
+    ;;   (cygwin-mount-convert-file-name "/bin/find")
+    ;; and cygwin-mount-cygwin-bin-directory is nil
+    ;;   (when Cygwin is on $PATH, which is always for me).
+    ;; So we just call cygpath.
+
+    (setq kambi-cygwin-find-potential
+      (string-trim (shell-command-to-string "cygpath --mixed /bin/find")))
+    (when (file-exists-p kambi-cygwin-find-potential)
+      (setq find-program kambi-cygwin-find-potential))
+  )
 
   ;; cygwin's bash ----------------------------------------
   ;; Note: useful interactive function to call is w32-check-shell-configuration.
@@ -150,7 +171,16 @@
 
   ;; ----------------------------------------
 
-  (setq shell-file-name explicit-shell-file-name)
+  ;; Not setting shell-file-name to bash, this is the only way I found
+  ;; to fix using "compile" with spaces in command
+  ;; (happens e.g. when using ripgrep with space inside the search term).
+  ;;
+  ;; Note that temporarily resetting this to nil doesn't seem to help (ripgrep then hangs?).
+  ;; Note that using w32-quote-process-args doesn't seem to make any difference.
+  ;; Note that when Emacs is run from Cygwin terminal, it will still fail,
+  ;; but running from Start menu is OK (even though my Cygwin is always on $PATH?).
+  ;;
+  ;; (setq shell-file-name explicit-shell-file-name)
 )
 
 (provide 'kambi-shell)
