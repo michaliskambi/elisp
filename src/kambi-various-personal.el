@@ -1215,7 +1215,9 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 
 ;; hl-line-mode --------------------------------------------------------------
 
-(global-hl-line-mode)
+;; on terminals, hl-mode often looks unreadable (background and foreground colors look the same)
+(when (display-graphic-p)
+  (global-hl-line-mode))
 
 ;; wgrep ---------------------------------------------------------------------
 
