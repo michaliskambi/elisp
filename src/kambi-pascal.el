@@ -740,10 +740,15 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
     (kam-beg-of-buf) (query-replace "tglimagecore" "TDrawableImage")
     (kam-beg-of-buf) (query-replace "tglimage" "TDrawableImage")
 
-    (kam-beg-of-buf) (query-replace "assigndefaultcamera" "AssignDefaultNavigation")
-    (kam-beg-of-buf) (query-replace "tcamera" "TCastleNavigation")
+    ;; (kam-beg-of-buf) (query-replace "assigndefaultcamera" "AssignDefaultNavigation") ;; too risky
+    (kam-beg-of-buf) (query-replace "TCamera" "TCastleNavigation") ;; too risky with tcamera lowercase
     (kam-beg-of-buf) (query-replace "twalkcamera" "TCastleWalkNavigation")
     (kam-beg-of-buf) (query-replace "texaminecamera" "TCastleExamineNavigation")
+
+    (kam-beg-of-buf) (query-replace "currentprojectionwidth" "Camera.Orthographic.EffectiveWidth")
+    (kam-beg-of-buf) (query-replace "currentprojectionheight" "Camera.Orthographic.EffectiveHeight")
+    (kam-beg-of-buf) (query-replace "camerafromviewpoint" "UpdateCamera")
+    (kam-beg-of-buf) (query-replace "camerafromnavigationinfo" "UpdateNavigation")
   ))
 
 (defun kam-cge-delphi-upgrade ()
