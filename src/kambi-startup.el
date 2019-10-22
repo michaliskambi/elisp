@@ -18,6 +18,7 @@
 (require 'kambi-ivy)
 (require 'kambi-cc-mode)
 (require 'kambi-pascal)
+(require 'kambi-castle-engine)
 (require 'kambi-vrmls)
 (require 'kambi-www)
 (require 'kambi-ocaml)
