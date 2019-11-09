@@ -575,6 +575,8 @@ problems, at least for now."
     (kam-beg-of-buf) (query-replace "currentprojectionheight" "Camera.Orthographic.EffectiveHeight")
     (kam-beg-of-buf) (query-replace "camerafromviewpoint" "UpdateCamera")
     (kam-beg-of-buf) (query-replace "camerafromnavigationinfo" "UpdateNavigation")
+    (kam-beg-of-buf) (query-replace "load3d_filefilters" "LoadScene_FileFilters")
+    (kam-beg-of-buf) (query-replace "load3d" "LoadNode")
   ))
 
 (defun kam-cge-delphi-upgrade ()
