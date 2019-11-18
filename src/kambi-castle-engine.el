@@ -577,6 +577,8 @@ problems, at least for now."
     (kam-beg-of-buf) (query-replace "camerafromnavigationinfo" "UpdateNavigation")
     (kam-beg-of-buf) (query-replace "load3d_filefilters" "LoadScene_FileFilters")
     (kam-beg-of-buf) (query-replace "load3d" "LoadNode")
+    (kam-beg-of-buf) (query-replace "autodetectcamera" "AutoCamera")
+    (kam-beg-of-buf) (query-replace "autodetectnavigation" "AutoNavigation")
   ))
 
 (defun kam-cge-delphi-upgrade ()
