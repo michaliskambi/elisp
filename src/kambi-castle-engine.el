@@ -566,6 +566,7 @@ problems, at least for now."
     (kam-beg-of-buf) (query-replace "tglimagecore" "TDrawableImage")
     (kam-beg-of-buf) (query-replace "tglimage" "TDrawableImage")
 
+    (kam-beg-of-buf) (query-replace "tcamerainput" "TNavigationInput")
     ;; (kam-beg-of-buf) (query-replace "assigndefaultcamera" "AssignDefaultNavigation") ;; too risky
     (kam-beg-of-buf) (query-replace "TCamera" "TCastleNavigation") ;; too risky with tcamera lowercase
     (kam-beg-of-buf) (query-replace "twalkcamera" "TCastleWalkNavigation")
@@ -579,6 +580,10 @@ problems, at least for now."
     (kam-beg-of-buf) (query-replace "load3d" "LoadNode")
     (kam-beg-of-buf) (query-replace "autodetectcamera" "AutoCamera")
     (kam-beg-of-buf) (query-replace "autodetectnavigation" "AutoNavigation")
+    (kam-beg-of-buf) (query-replace "ciNormal" "niNormal")
+    (kam-beg-of-buf) (query-replace "ciMouseDragging" "niMouseDragging")
+    (kam-beg-of-buf) (query-replace "ciGesture" "niGesture")
+    (kam-beg-of-buf) (query-replace "ci3dMouse" "ni3dMouse")
   ))
 
 (defun kam-cge-delphi-upgrade ()
