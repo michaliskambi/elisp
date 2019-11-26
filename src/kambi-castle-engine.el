@@ -271,6 +271,19 @@ is NOT the top-level directory for projectile."
   )
 )
 
+(defun kam-install-exe (exe-name)
+  "Command-line to move exe file to my ~/bin/ subdirectory."
+(concat
+  "mv "
+  exe-name
+  kam-os-exe-extension
+  " "
+  kam-home-directory
+  "/bin/"
+  exe-name
+  kam-os-exe-extension)
+)
+
 (defun kam-pascal-compile-command (file-name)
   "Return compile-command for file-name calculated the way I like
 for Pascal sources. Detects my various projects and their compilation setup.
@@ -318,7 +331,7 @@ by projectile."
     (if (string-is-suffix "pasdoc/trunk/source/" dir-parent)
         (concat "cd ../.. && make")
       (if (string-is-suffix "tools/build-tool/code/" dir-name)
-          (concat "cd .. && sh castle-engine_compile.sh && /bin/mv castle-engine" kam-os-exe-extension " ~/bin/")
+          (concat "cd .. && sh castle-engine_compile.sh && " (kam-install-exe "castle-engine"))
         (if (string-is-suffix "castle_game_engine/tests/" dir-name)
             (concat "./compile_console.sh && ./test_castle_game_engine -a")
           (if (string-is-suffix "castle-engine/tests/" dir-name)
