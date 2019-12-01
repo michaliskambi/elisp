@@ -22,11 +22,12 @@
   ;; Add melpa.
   ;; Do this early, as it may be used by auto-complete and others,
   ;; lower in this file.
-  (add-to-list 'package-archives '("melpa" . (concat kam-package-protocol "://melpa.org/packages/")))
+  ;; See https://www.gnu.org/software/emacs/manual/html_node/elisp/Backquote.html#Backquote about backqoute.
+  (add-to-list 'package-archives `("melpa" . ,(concat kam-package-protocol "://melpa.org/packages/")))
 
   (when (< emacs-major-version 24)
     ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives '("gnu" . (concat kam-package-protocol "://elpa.gnu.org/packages/"))))
+    (add-to-list 'package-archives `("gnu" . ,(concat kam-package-protocol "://elpa.gnu.org/packages/"))))
 
   ;; In case of problems "wrong type argument arrayp" on the line below:
   ;; they may indicate temporary connectivity problems.
