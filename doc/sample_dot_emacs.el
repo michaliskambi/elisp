@@ -21,6 +21,9 @@
 ;; set Cygwin path on Windows
 ;;(setq cygwin-mount-cygwin-bin-directory "d:/cygwin64/bin")
 
+;; use if your platform/Emacs version have problems with MELPA/ELPA through https
+;;(setq kam-package-force-http t)
+
 ;; Initialize Kambi stuff.
 (require 'kambi-startup)
 

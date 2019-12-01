@@ -6,20 +6,27 @@
 
 ;; package -------------------------------------------------------------------
 
+;; set kam-package-force-http to nil, if not defined.
+(unless (boundp 'kam-package-force-http)
+  (setq kam-package-force-http nil))
+
+(defconst kam-package-protocol
+  ;; Note: On Windows, use http instead of https, standard Emacs cannot handle https:
+  ;; https://stackoverflow.com/questions/35345045/emacs-install-a-package-with-melpa-on-windows
+  ;; https://emacs.stackexchange.com/questions/22468/how-do-i-get-melpa-working-on-my-windows-8-laptop
+  ;; Same is necessary on Raspberry Pi... Just honor kam-package-force-http.
+  (if (or kam-is-windows kam-package-force-http) "http" "https")
+)
+
 (when (require 'package nil 'noerror)
   ;; Add melpa.
   ;; Do this early, as it may be used by auto-complete and others,
   ;; lower in this file.
-  ;; Note: On Windows, use http instead of https, standard Emacs cannot handle https:
-  ;; https://stackoverflow.com/questions/35345045/emacs-install-a-package-with-melpa-on-windows
-  ;; https://emacs.stackexchange.com/questions/22468/how-do-i-get-melpa-working-on-my-windows-8-laptop
-  (if kam-is-windows
-      (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/")))
+  (add-to-list 'package-archives '("melpa" . (concat kam-package-protocol "://melpa.org/packages/")))
 
   (when (< emacs-major-version 24)
     ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+    (add-to-list 'package-archives '("gnu" . (concat kam-package-protocol "://elpa.gnu.org/packages/"))))
 
   ;; In case of problems "wrong type argument arrayp" on the line below:
   ;; they may indicate temporary connectivity problems.
