@@ -29,6 +29,12 @@
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives `("gnu" . ,(concat kam-package-protocol "://elpa.gnu.org/packages/"))))
 
+  ;; if kam-package-force-http, remove ELPA through https, and add through http
+  (when (string= kam-package-protocol "http")
+    (delete '("gnu" . "https://elpa.gnu.org/packages/") package-archives)
+    (add-to-list 'package-archives `("gnu" . ,(concat kam-package-protocol "://elpa.gnu.org/packages/")))
+  )
+
   ;; In case of problems "wrong type argument arrayp" on the line below:
   ;; they may indicate temporary connectivity problems.
   ;; You still have to manually delete ~/.emacs.d/elpa/archives/melpa/
