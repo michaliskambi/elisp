@@ -62,7 +62,7 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
     )
   )
   (kam-install-if-needed (list
-    'ag
+;;    'ag ;; no longer used, ripgrep is even better
     'ripgrep
     'projectile-ripgrep
     'projectile
@@ -73,12 +73,12 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
     'adoc-mode
     'dired-collapse
     'dired-du
-    'dired-subtree
+;;    'dired-subtree ;; not used after all
     'paradox
     'crux
     'smartscan
     'magit
-    'wgrep-ag
+;;    'wgrep-ag
     'iedit
     'php-mode
     'csharp-mode

@@ -90,7 +90,7 @@
  '(org-support-shift-select (quote always))
  '(package-selected-packages
    (quote
-    (csharp-mode php-mode groovy-mode ivy-pass projectile-ripgrep ripgrep iedit wgrep-ag git-gutter+ json-reformat adoc-mode crux dired-subtree esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete ag magit)))
+    (csharp-mode php-mode groovy-mode ivy-pass projectile-ripgrep ripgrep iedit git-gutter+ json-reformat adoc-mode crux esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete magit)))
  '(paradox-automatically-star t)
  '(password-store-password-length 33)
  '(projectile-generic-command
