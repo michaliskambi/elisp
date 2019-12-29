@@ -599,6 +599,9 @@ problems, at least for now."
     (kam-beg-of-buf) (query-replace "ciGesture" "niGesture")
     (kam-beg-of-buf) (query-replace "ci3dMouse" "ni3dMouse")
     (kam-beg-of-buf) (query-replace "tscenemanagerworld" "TCastleRootTransform")
+    (kam-beg-of-buf) (query-replace "t3dlinearmoving" "TCastleLinearMoving")
+    (kam-beg-of-buf) (query-replace "t3dmoving" "TCastleMoving")
+    (kam-beg-of-buf) (query-replace "castle3d" "CastleTransform, CastleTransformExtra")
   ))
 
 (defun kam-cge-delphi-upgrade ()
