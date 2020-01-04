@@ -602,6 +602,9 @@ problems, at least for now."
     (kam-beg-of-buf) (query-replace "t3dlinearmoving" "TCastleLinearMoving")
     (kam-beg-of-buf) (query-replace "t3dmoving" "TCastleMoving")
     (kam-beg-of-buf) (query-replace "castle3d" "CastleTransform, CastleTransformExtra")
+    (kam-beg-of-buf) (query-replace "scenemanager" "Viewport")
+    (kam-beg-of-buf) (query-replace "castlewindow.create" "CastleWindowBase.Create")
+    (kam-beg-of-buf) (query-replace "castlecontrol.create" "CastleControlBase.Create")
   ))
 
 (defun kam-cge-delphi-upgrade ()
