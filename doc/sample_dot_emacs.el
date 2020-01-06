@@ -21,8 +21,10 @@
 ;; set Cygwin path on Windows
 ;;(setq cygwin-mount-cygwin-bin-directory "d:/cygwin64/bin")
 
-;; use if your platform/Emacs version have problems with MELPA/ELPA through https
-;;(setq kam-package-force-http t)
+;; Use if your platform/Emacs version have problems with MELPA/ELPA through https.
+;; It seems https for GNU elpa is problematic now on all platforms, with all Emacs versions...
+;; (Linux, Windows, macOS...) so it's uncommented by default.
+(setq kam-package-force-http t)
 
 ;; Initialize Kambi stuff.
 (require 'kambi-startup)
