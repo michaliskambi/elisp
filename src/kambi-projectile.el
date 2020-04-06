@@ -14,6 +14,14 @@
 (require 'subr-x)
 
 (when (require 'projectile nil 'noerror)
+
+  (defun kam-projectile-mode-line-function ()
+    "Customized by Michalis: Report project name and type in the modeline."
+    (if (file-remote-p default-directory)
+        " Projectile"
+      (format " P[%s]" (projectile-project-name)))
+  )
+
   (projectile-global-mode)
   (setq projectile-enable-caching t)
   (setq projectile-switch-project-action 'projectile-dired)
@@ -21,10 +29,13 @@
 
   ;; setting projectile-mode-line through customize doesn't work reliably
   ;; (on Debian river), so do it here.
-  (setq projectile-mode-line
-    '(:eval (if (file-remote-p default-directory)
-              " Projectile"
-            (format " P[%s]" (projectile-project-name)))))
+  (if (boundp' projectile-mode-line-function)
+    (setq projectile-mode-line-function 'kam-projectile-mode-line-function) ;; newer projectile has projectile-mode-line-function
+    (setq projectile-mode-line
+      '(:eval (if (file-remote-p default-directory)
+                " Projectile"
+              (format " P[%s]" (projectile-project-name)))))
+  )
 
   (defun kam-optional-projectile-find-file ()
     (interactive)
