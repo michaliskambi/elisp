@@ -71,8 +71,8 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
     'ivy-pass
     'auto-complete
     'adoc-mode
-    'dired-collapse
-    'dired-du
+;;    'dired-collapse
+;;    'dired-du
 ;;    'dired-subtree ;; not used after all
     'paradox
     'crux
@@ -82,6 +82,7 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
     'iedit
     'php-mode
     'csharp-mode
+    'groovy-mode
   ))
 )
 
