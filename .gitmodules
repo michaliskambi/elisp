@@ -1,0 +1,6 @@
+[submodule "lsp/lsp-pascal"]
+	path = lsp/lsp-pascal
+	url = https://github.com/arjanadriaanse/lsp-pascal/
+[submodule "lsp/pascal-language-server"]
+	path = lsp/pascal-language-server
+	url = https://github.com/arjanadriaanse/pascal-language-server

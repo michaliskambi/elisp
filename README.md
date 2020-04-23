@@ -8,7 +8,7 @@ My typical setup instructions (assuming you put this in ~/elisp, otherwise edit 
 
 ~~~~
 cd $HOME
-git clone https://github.com/michaliskambi/elisp
+git clone --recurse-submodules https://github.com/michaliskambi/elisp
 
 # If you create ~/tmp, deleting from Emacs will move files there.
 mkdir -p ~/tmp
