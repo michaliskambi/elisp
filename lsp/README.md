@@ -6,16 +6,17 @@ https://github.com/arjanadriaanse/lsp-pascal/blob/master/lsp-pascal.el
 # Install
 
 lsp-ivy
-lsp-ui lsp-
-mode
+lsp-ui
+lsp-mode
 
 # Customize
 
 ```
  '(lsp-pascal-command
    "/home/michalis/elisp/lsp/pascal-language-server/lib/x86_64-linux/pasls")
- ;; TODO: or should this lead to /home/michalis/installed/fpclazarus/current/fpc?
+ ;; Should this lead to /home/michalis/installed/fpclazarus/current/fpc or fpcsrc?
  ;; Description suggests it's for source, name suggests it's passed to FPC so it should contain just compiled units.
+ ;; Later: Message on FPC mailing lists confirms it's for source.
  '(lsp-pascal-fpcdir "/home/michalis/installed/fpclazarus/current/fpcsrc/")
  '(lsp-pascal-lazarusdir "/home/michalis/installed/fpclazarus/current/lazarus")
  '(lsp-pascal-pp
