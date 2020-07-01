@@ -694,9 +694,9 @@ problems, at least for now."
 (defun kam-www-fix ()
   (interactive)
   (save-excursion
-    (query-replace-regexp "<a href=\"http://michalis.ii.uni.wroc.pl/cge-www-preview/apidoc/html/\\([^\"]+\\)\">\\([^<]+\\)</a>" "<?php api_link('\\2', '\\1'); ?>")
-    (query-replace-regexp "<a href=\"https://castle-engine.io/apidoc/html/\\([^\"]+\\)\">\\([^<]+\\)</a>" "<?php api_link('\\2', '\\1'); ?>")
-    (query-replace-regexp "<a href=\"https://castle-engine.io/apidoc-unstable/html/\\([^\"]+\\)\">\\([^<]+\\)</a>" "<?php api_link('\\2', '\\1'); ?>")
+    (kam-beg-of-buf) (query-replace-regexp "<a href=\"http://michalis.ii.uni.wroc.pl/cge-www-preview/apidoc/html/\\([^\"]+\\)\">\\([^<]+\\)</a>" "<?php api_link('\\2', '\\1'); ?>")
+    (kam-beg-of-buf) (query-replace-regexp "<a href=\"https://castle-engine.io/apidoc/html/\\([^\"]+\\)\">\\([^<]+\\)</a>" "<?php api_link('\\2', '\\1'); ?>")
+    (kam-beg-of-buf) (query-replace-regexp "<a href=\"https://castle-engine.io/apidoc-unstable/html/\\([^\"]+\\)\">\\([^<]+\\)</a>" "<?php api_link('\\2', '\\1'); ?>")
   )
 )
 (global-set-key (kbd "<f6>") 'kam-www-fix)
