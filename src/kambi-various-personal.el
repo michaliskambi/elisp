@@ -68,7 +68,7 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
     'projectile
     'counsel
     'ivy-hydra
-    'ivy-pass
+;;    'ivy-pass ;; not used now
     'auto-complete
     'adoc-mode
 ;;    'dired-collapse
