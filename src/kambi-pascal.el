@@ -2,7 +2,7 @@
 
 ;; Require things we depend upon ---------------------------------------------
 
-(require 'delphi)
+(require 'opascal)
 (require 'kambi-utils)
 (require 'ffap)
 (require 'compile)
@@ -20,11 +20,7 @@
 ;;   Although I needed to add some anyway.
 
 (defun kambi-pascal-mode-ancestor ()
-  (if (or (> emacs-major-version 24)
-          (and (= emacs-major-version 24) (>= emacs-minor-version 4)))
-      (opascal-mode)
-    (delphi-mode)
-  )
+  (opascal-mode)
 )
 
 (define-derived-mode kambi-pascal-mode kambi-pascal-mode-ancestor
@@ -96,7 +92,7 @@ ze ten plik jest w Pascalu." )
 (defconst kam-ac-pascal-keywords
   (sort
     ;; keywords and directives, as strings.
-    (mapcar 'symbol-name delphi-keywords)
+    (mapcar 'symbol-name opascal-keywords)
     #'(lambda (a b) (> (length a) (length b)))))
 
 (defvar kam-ac-source-pascal
