@@ -603,15 +603,7 @@ the end of the file when opening."
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-;; emacs-goodies ----------------------------------------------------------------
-
-(defconst emacs-goodies-path
-  (if (file-exists-p "/usr/share/emacs/site-lisp/emacs-goodies-el")
-      "/usr/share/emacs/site-lisp/emacs-goodies-el"
-    (concat kambi-elisp-path "contrib/emacs-goodies-el")
-  ))
-
-(add-to-list 'load-path emacs-goodies-path)
+;; various packages ----------------------------------------------------------
 
 ;; cursor - kreska (chyba ze jestesmy w Overwrite) (wylaczone-nie podoba mi sie)
 ;; (require 'bar-cursor)

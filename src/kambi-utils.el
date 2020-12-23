@@ -1162,6 +1162,19 @@ for us."
   )
 )
 
+(defun kam-svn-directory-p (dir)
+  "Does DIR, or some parent, contain .svn subdir."
+  (or
+    (file-exists-p (kam-file-name-in-directory dir ".svn"))
+    (and
+      (not (equal dir "/"))
+      (let ((parent-dir (file-name-directory (directory-file-name dir))))
+        (kam-svn-directory-p parent-dir)
+      )
+    )
+  )
+)
+
 (defun kam-top-most-svn-dir (dir)
   "Find the top-most SVN dir from DIR.
 
@@ -1181,7 +1194,7 @@ Assumes that DIR is for sure an SVN dir."
           (file-exists-p (kam-file-name-in-directory dir ".projectile")))
       dir ;; don't go upward
     (let ((parent-dir (file-name-directory (directory-file-name dir))))
-      (if (svn-version-controlled-dir-p parent-dir)
+      (if (kam-svn-directory-p parent-dir)
           (kam-top-most-svn-dir parent-dir)
         dir))))
 
@@ -1215,13 +1228,15 @@ for large repos)."
   (if (and (require 'magit nil 'noerror)
            (magit-toplevel))
       (call-interactively 'magit-status)
+    ;; Old comment:
     ;; we expand dir, because svn-version-controlled-dir-p calls "svn info ..."
     ;; on it, so it needs ~ expanded.
+    ;; Still necessary for kam-svn-directory-p? Untested.
     (let ((expanded-dir (expand-file-name default-directory)))
-      (if (svn-version-controlled-dir-p expanded-dir)
+      (if (kam-svn-directory-p expanded-dir)
           (if force-current-dir
-              (svn-status-1 expanded-dir)
-            (svn-status-1 (kam-top-most-svn-dir expanded-dir))
+              (svn-status expanded-dir)
+            (svn-status (kam-top-most-svn-dir expanded-dir))
           )
         (error "Neither in GIT or SVN repository.")))))
 

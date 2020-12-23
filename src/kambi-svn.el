@@ -1,6 +1,9 @@
-(add-to-list 'load-path (concat kambi-elisp-path "contrib/psvn/"))
+;; Note: migrated psvn -> dsvn,
+;; because dsvn is in Emacs ELPA / MELPA,
+;; and it doesn't include 'cl, so it may be more maintained.
+;; See also https://github.com/oliyh/masvn
 
-(require 'psvn)
+(require 'dsvn)
 
 (defun kam-svn-status-force-kill ()
   "Run `svn rm --force' on all selected files.

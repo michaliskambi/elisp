@@ -5,8 +5,6 @@
 ;; I try to keep my ~/.emacs minimal, to be able to easily
 ;; transfer my configuration to other system.
 
-(add-to-list 'load-path (concat kambi-elisp-path "contrib/"))
-
 (require 'kambi-utils)
 (require 'kambi-various-personal)
 (require 'kambi-dired)
