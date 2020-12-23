@@ -33,14 +33,14 @@
 ;; as `load-path' is intended to be used with `load' to load *.elc or *.el
 ;; files, while I want to ffap-elisp-source to only seek source files."
 ;;   (unless (file-name-absolute-p name)
-;;     (block func-block
+;;     (cl-block func-block
 ;;       (let ((name-no-dir (file-name-nondirectory name))
 ;;             result)
 ;;         (dolist (item ffap-elisp-source-directories)
 ;;           (setq result (kam-search-for-file item name-no-dir))
-;;           (when result (return-from func-block result))
+;;           (when result (cl-return-from func-block result))
 ;;         ))
-;;       nil ;; if noone calls "(return-from func-block" then return nil
+;;       nil ;; if noone calls "(cl-return-from func-block" then return nil
 ;;     )))
 
 ;; ;; tests:

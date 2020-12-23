@@ -48,12 +48,12 @@ TODO: should not be hardcoded.")
     ;; iteruj szukajac pliku result-basename na sciezkach w ocaml-mli-paths.
     ;; (oraz na aktualnej sciezce, tzn. na "")
     ;; Zwroc pelna nazwe pliku jesli znalazles, nil wpp.
-    (block func-block
+    (cl-block func-block
       (dolist (path (cons "" ocaml-mli-paths))
 
         (setq maybe-result (concat path result-basename))
         (when (kam-nondir-file-readable-p maybe-result)
-          (return-from func-block maybe-result))
+          (cl-return-from func-block maybe-result))
       )
     )
   )

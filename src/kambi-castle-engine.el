@@ -105,7 +105,7 @@ on case-sensitive filesystems.
 
 This is nice to install on `ffap-alist' when you get something that already
 has a Pascal extension."
-  (block func-block
+  (cl-block func-block
 
     (let (file-name
           dir-to-search
@@ -131,9 +131,9 @@ has a Pascal extension."
         ;; on recursive paths.
 
         (setq file-name (concat dir-to-search search-name))
-        (when (kam-nondir-file-readable-p file-name) (return-from func-block file-name))
+        (when (kam-nondir-file-readable-p file-name) (cl-return-from func-block file-name))
         (setq file-name (concat dir-to-search search-name-lower))
-        (when (kam-nondir-file-readable-p file-name) (return-from func-block file-name))
+        (when (kam-nondir-file-readable-p file-name) (cl-return-from func-block file-name))
       )
     )
 
@@ -165,10 +165,10 @@ has a Pascal extension."
 ;;   (let ((all-known-files (projectile-all-project-files))
 ;;         (search-suffix (concat "/" str))
 ;;        )
-;;     (block func-block
+;;     (cl-block func-block
 ;;       (dolist (known-file all-known-files)
 ;;         (when (s-suffix-p search-suffix known-file t)
-;;           (return-from func-block known-file))
+;;           (cl-return-from func-block known-file))
 ;;       )
 ;;       nil ; not found
 ;;     )
@@ -207,10 +207,10 @@ this way you can use ffap when standing over \"uses\" clauses of your units."
 
     ;; (message "str-ext %s buffer-ext %s First extension to look for %s" str-ext buffer-ext (car exts-list))
 
-    (block func-block
+    (cl-block func-block
       (dolist (ext exts-list)
         (setq result (kam-find-pascal-file (concat str ext)))
-        (when result (return-from func-block result))
+        (when result (cl-return-from func-block result))
       )
       nil ; not found
     )

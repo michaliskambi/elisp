@@ -1,30 +1,5 @@
 ;;; kambi-utils --- various useful EmacsLisp functions.
 
-;;; Commentary:
-;;
-;; Ten plik zapewnia absolutnie podstawowe funkcje, tzn.  ten modul
-;; EmacsLispa nie zalezy od zadnego innego mojego modulu w EmacsLispie
-;; (dopisek pozniejszy: poza kambi-xemacs ktory jest jeszcze nizej).
-
-;; Laduj cl-macs, jest tam zdefiniowanych kilka wartosciowych makr jak dotimes
-;; czy dolist.  Nie sa ladowane automatycznie przez Emacsa 20.7 bo makra
-;; nie sa potrzebne do uruchamiania skompilowanych plikow .elc (makra sa rozwijane
-;; przed byte-dompile) (Emacs 21 juz wlacza cl-macs automatycznie, chyba ze w -batch
-;; model wiec tak czy siak chcemy zaladowac cl-macs.
-;;
-;; Nie mozna zalaodowac cl-macs przez require (nie robia w nim provide 'cl-macs).
-;; Przed zaladowaniem cl-macs TRZEBA zaladowac cl (to juz mozna zrobic przez require).
-
-;;; Code:
-
-;; TODO: migrate to use only cl-lib, see http://stackoverflow.com/questions/5019724/in-emacs-what-does-this-error-mean-warning-cl-package-required-at-runtime
-(require 'cl)
-
-(load "cl-macs" nil t)
-
-(when (featurep 'xemacs)
-  (require 'kambi-xemacs))
-
 ;; string operations ---------------------------------------------------
 
 (defun string-repeat (STR COUNT)
@@ -67,14 +42,14 @@ This is just a simple wrapper around compare-strings functions."
 If CASE-SENS is nil it ignores-case.
 Returns zero-based index of first matching string
 in STR-ARRAY or nil is STR is not found."
-  (block func-block
+  (cl-block func-block
     (if (not case-sens) (setq str (upcase str)) )
 
     (let (i str-from-array)
       (dotimes (i (safe-length str-array))
         (setq str-from-array (nth i str-array))
         (if (not case-sens) (setq str-from-array (upcase str-from-array)))
-        (if (equal str str-from-array) (return-from func-block i))
+        (if (equal str str-from-array) (cl-return-from func-block i))
       )
       nil ; ruturn nil if no string matched
     )
@@ -276,25 +251,25 @@ This function is clean."
   ;; should be treated like empty directories, not like an error.
 
   ;; TODO: I can't use here nil-named block and simple (return ...)
-  ;; instead of (return-from func-block ...). Why ?
+  ;; instead of (cl-return-from func-block ...). Why ?
 
   (if (and nil-on-error (not (file-directory-p dir)))
       nil
 
-    (block func-block
+    (cl-block func-block
       (let ((dirlist (directory-files dir nil nil t)))
         (dolist (item dirlist)
           (unless (special-directory-name-p item)
             (let ((file-name-full (kam-file-name-in-directory dir item)))
               (if (equal file-name item)
-                  (return-from func-block file-name-full)
+                  (cl-return-from func-block file-name-full)
                 (progn
                   (when (and (file-directory-p file-name-full)
                              (not (file-symlink-p file-name-full))
                              (not (member item dirs-names-to-omit))
                         )
                     (let ((recursive-result (kam-search-for-file file-name-full file-name)))
-                      (when recursive-result (return-from func-block recursive-result))
+                      (when recursive-result (cl-return-from func-block recursive-result))
                     ))))))))
       nil ;; if nothing called "(return ...)" then return nil
     ))
@@ -327,12 +302,12 @@ to FILE-NAME-REGEXP, it's unspecified which one will be returned by
 this function. If more than one directory in DIR-LIST will contain
 files matching to FILE-NAME-REGEXP, this function will return
 result in the 1st directory from DIR-LIST."
-  (block func-block
+  (cl-block func-block
     (dolist (dir dir-list)
       (when (file-exists-p dir)
         (let ((dir-files (directory-files dir nil file-name-regexp t)))
           (when dir-files
-            (return-from func-block
+            (cl-return-from func-block
               (kam-file-name-in-directory dir (car dir-files))))))))
 )
 
@@ -914,13 +889,6 @@ and when you *always* want to ask user for confirmation."
 (defun kam-string-delete-ctrl-m (text)
   "Returns TEXT with all occurences of Ctrl-M (displayed as ^M) deleted."
   (string-re-replace-all text (string 13) "" t t))
-
-(defun kam-cvs-occur-problems ()
-  "Extract lines from `cvs update' output that indicate some possible
-problems: lines that indicate that merge or conflict occured."
-  (interactive)
-  (occur "^[CM] ")
-)
 
 (defun kam-current-file-name ()
   "Returns file-name visited in current buffer.

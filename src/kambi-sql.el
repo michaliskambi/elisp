@@ -1,6 +1,5 @@
 ;;;; Some Kambi sql-mode adjustments.
 
-;; TODO: how to do it under xemacs ?
 (when (fboundp 'font-lock-add-keywords)
   (font-lock-add-keywords 'sql-mode
     '("\\<varchar\\>"

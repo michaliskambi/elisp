@@ -55,43 +55,39 @@
 ;; Ponizszy kod wycialem i przerobilem z inicjalizacji
 ;; font-lock-defaults w font-lock.el
 
-(unless (featurep 'xemacs) ;; no font-lock in XEmacs?
-
-  (let
-    (
-      (c-mode-defaults
-       '((c-font-lock-keywords c-font-lock-keywords-1
-          c-font-lock-keywords-2 c-font-lock-keywords-3)
-         nil nil ((?_ . "w")) beginning-of-defun
-         (font-lock-mark-block-function . mark-defun)))
-      (c++-mode-defaults
-       '((c++-font-lock-keywords c++-font-lock-keywords-1
-          c++-font-lock-keywords-2 c++-font-lock-keywords-3)
-         nil nil ((?_ . "w")) beginning-of-defun
-      (font-lock-mark-block-function . mark-defun)))
-        (objc-mode-defaults
-        '((objc-font-lock-keywords objc-font-lock-keywords-1
-           objc-font-lock-keywords-2 objc-font-lock-keywords-3)
-         nil nil ((?_ . "w") (?$ . "w")) nil
-         (font-lock-mark-block-function . mark-defun)))
-      (java-mode-defaults
-       '((java-font-lock-keywords java-font-lock-keywords-1
-          java-font-lock-keywords-2 java-font-lock-keywords-3)
-         nil nil ((?_ . "w") (?$ . "w")) nil
-         (font-lock-mark-block-function . mark-defun)))
-    )
-
-    (setq font-lock-defaults (append
-      (list
-        (cons 'kambi-c-mode    c-mode-defaults)
-        (cons 'kambi-c++-mode  c++-mode-defaults)
-        (cons 'kambi-objc-mode objc-mode-defaults)
-        (cons 'kambi-java-mode java-mode-defaults)
-      )
-      font-lock-defaults)
-    )
+(let
+  (
+    (c-mode-defaults
+     '((c-font-lock-keywords c-font-lock-keywords-1
+        c-font-lock-keywords-2 c-font-lock-keywords-3)
+       nil nil ((?_ . "w")) beginning-of-defun
+       (font-lock-mark-block-function . mark-defun)))
+    (c++-mode-defaults
+     '((c++-font-lock-keywords c++-font-lock-keywords-1
+        c++-font-lock-keywords-2 c++-font-lock-keywords-3)
+       nil nil ((?_ . "w")) beginning-of-defun
+    (font-lock-mark-block-function . mark-defun)))
+      (objc-mode-defaults
+      '((objc-font-lock-keywords objc-font-lock-keywords-1
+         objc-font-lock-keywords-2 objc-font-lock-keywords-3)
+       nil nil ((?_ . "w") (?$ . "w")) nil
+       (font-lock-mark-block-function . mark-defun)))
+    (java-mode-defaults
+     '((java-font-lock-keywords java-font-lock-keywords-1
+        java-font-lock-keywords-2 java-font-lock-keywords-3)
+       nil nil ((?_ . "w") (?$ . "w")) nil
+       (font-lock-mark-block-function . mark-defun)))
   )
 
+  (setq font-lock-defaults (append
+    (list
+      (cons 'kambi-c-mode    c-mode-defaults)
+      (cons 'kambi-c++-mode  c++-mode-defaults)
+      (cons 'kambi-objc-mode objc-mode-defaults)
+      (cons 'kambi-java-mode java-mode-defaults)
+    )
+    font-lock-defaults)
+  )
 )
 
 ;; zdefiniuj rozszerzenia dla kambi-c/c++/java-mode --------------------------

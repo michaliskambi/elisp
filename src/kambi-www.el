@@ -12,9 +12,6 @@
 
 ;; php -----------------------------------------------------------------------
 
-;; Czasem nie mam php-mode (NTEmacs nie ma, sam GNU emacs pod Linuxem tez
-;; przez chwile nie mial bo php-mode nie kompilowal sie pod GNU emacsem
-;; (tylko XEmacsem))
 (defconst php-mode-available (fboundp 'php-mode))
 
 ;; php mode configuration (not dependent on availability of mmm-mode)

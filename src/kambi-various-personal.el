@@ -133,8 +133,8 @@ may be screwed up after running some program that changed screen size
 ;; zeby ekran przesuwal sie o 1 linie, nie o pol ekranu
 (setq scroll-step 1)
 
-;; pokazuj numer linii i kolumny na modeline (pod Emacsem line-number-mode jest
-;; on by default ale pod XEmacsem nie, dlatego line-number-mode jest tu potrzebne)
+;; pokazuj numer linii i kolumny na modeline
+;; (although line-number-mode is "on" by default, so "(line-number-mode 1)" should not be needed)
 (column-number-mode 1)
 (line-number-mode 1)
 
@@ -146,7 +146,6 @@ may be screwed up after running some program that changed screen size
 (setq frame-title-format
   (concat "%b - "
     (if (and (= (user-uid) 0) (not kam-is-windows)) "ROOT " "")
-    (if (featurep 'xemacs) "x" "")
     "emacs"
   )
 )
@@ -196,42 +195,40 @@ may be screwed up after running some program that changed screen size
 ;; server --------------------------------------------------------------------
 
 ;; Emacs server, to have emacsclient working
-(when (not (featurep 'xemacs))
-  (if kam-is-windows
-      (when (kam-search-for-program "gnuserv")
-	;; Uwaga: gnuserv musi byc gdzies na sciezce.
-	;; Zeby sie polaczyc, potrzebujesz tez gnuclient[w].
-	;;
-	;; Uwaga: gnuclient z Cygwina (instaluje sie razem z jakims pakietem
-	;; xemacsa pod Cygwina) NIE umie sie polaczyc do NTEmacsa z gnuserv
-	;; z contrib/gnuserv-win32/unpacked/Release/. Innymi slowy,
-	;; nigdy nie uzywaj gnuclient z Cygwina, a najlepiej w ogole upewnij
-	;; ze Cygwin nie zainstalowal zadnego gnuclient, zeby uniknac ew. pomylek.
-	;;
-	;; gnuclient[w] dziala tak samo jak emacsclient (tylko byl najwyrazniej pisany
-	;; z idea bardziej ogolnego narzedzia, nie tylko do Emacsa).
-	;; Parametr --no-wait emacsclienta odpowiada parametrowi -q gnuclient[w]a.
-        ;;
-        ;; gnuclient[w] automatycznie uruchamia Emacsa jesli Emacs nie jest
-        ;; aktualnie uruchomiony (patrz gnuserv-win32/unpacked/README.NT,
-        ;; punkt 8. Innymi slowy jest tam kawalek kodu specyficzny dla Emacsa,
-        ;; pewna sciezka do registry Emacsa jest hardcoded).
-        ;; Wiec nigdy nie ma potrzeby robienia czegos jak
-        ;; "emacsclient -a emacs" z gnuclient[w]em.
-        ;;
-        ;; Roznica miedzy gnuclient a gnuclientw : patrz
-        ;; gnuserv-win32/unpacked/README.NT pkt 5).
+(if kam-is-windows
+    (when (kam-search-for-program "gnuserv")
+      ;; Uwaga: gnuserv musi byc gdzies na sciezce.
+      ;; Zeby sie polaczyc, potrzebujesz tez gnuclient[w].
+      ;;
+      ;; Uwaga: gnuclient z Cygwina (instaluje sie razem z jakims pakietem
+      ;; xemacsa pod Cygwina) NIE umie sie polaczyc do NTEmacsa z gnuserv
+      ;; z contrib/gnuserv-win32/unpacked/Release/. Innymi slowy,
+      ;; nigdy nie uzywaj gnuclient z Cygwina, a najlepiej w ogole upewnij
+      ;; ze Cygwin nie zainstalowal zadnego gnuclient, zeby uniknac ew. pomylek.
+      ;;
+      ;; gnuclient[w] dziala tak samo jak emacsclient (tylko byl najwyrazniej pisany
+      ;; z idea bardziej ogolnego narzedzia, nie tylko do Emacsa).
+      ;; Parametr --no-wait emacsclienta odpowiada parametrowi -q gnuclient[w]a.
+      ;;
+      ;; gnuclient[w] automatycznie uruchamia Emacsa jesli Emacs nie jest
+      ;; aktualnie uruchomiony (patrz gnuserv-win32/unpacked/README.NT,
+      ;; punkt 8. Innymi slowy jest tam kawalek kodu specyficzny dla Emacsa,
+      ;; pewna sciezka do registry Emacsa jest hardcoded).
+      ;; Wiec nigdy nie ma potrzeby robienia czegos jak
+      ;; "emacsclient -a emacs" z gnuclient[w]em.
+      ;;
+      ;; Roznica miedzy gnuclient a gnuclientw : patrz
+      ;; gnuserv-win32/unpacked/README.NT pkt 5).
 
-        (add-to-list 'load-path
-          (concat kambi-elisp-path "contrib/gnuserv-win32/unpacked/"))
-        (require 'gnuserv))
-    (require 'server))
+      (add-to-list 'load-path
+        (concat kambi-elisp-path "contrib/gnuserv-win32/unpacked/"))
+      (require 'gnuserv))
+  (require 'server))
 
-  (server-start)
+(server-start)
 
-  (when kam-is-windows
-    (setq gnuserv-frame (selected-frame)))
-)
+(when kam-is-windows
+  (setq gnuserv-frame (selected-frame)))
 
 ;; compilation ---------------------------------------------------------------
 
@@ -272,25 +269,9 @@ may be screwed up after running some program that changed screen size
 (auto-compression-mode 1)
 
 ;; save recent files
-;;
-;; (xemacs nie ma recentf-mode, ma za to element menu "Recent files"
-;; inicjowany przez recent-files-initialize. Wole podejscie GNU Emacsa
-;; - wole bufor niz menu bo nie lubie przechodzic na myszke;
-;; zaleta XEmacsa jest ze maja tam tzw. "permament entries" czyli
-;; cos jak bookmarks.
-;;
-;; Notka: pliki do ktorych zapisuja nie koliduja ze soba, GNUEmacs
-;; zapisuje do ~/.recentf, XEmacs do recent-files-save-file
-;; ktory domyslnie jest ~/.recent-files.el)
-(if (featurep 'xemacs)
-    (progn
-      (setq recent-files-number-of-entries 20)
-      (setq recent-files-non-permanent-submenu nil)
-      (recent-files-initialize)
-    )
-  (recentf-mode 1)
-  ;; remove from the "recent files" list the non-existing files
-  (recentf-cleanup))
+(recentf-mode 1)
+;; remove from the "recent files" list the non-existing files
+(recentf-cleanup)
 
 ;; wylacz pinging w ffap (bo pinging moze zawiesic na kilkanascie sekund Emacsa)
 (setq ffap-machine-p-known 'accept)
@@ -343,7 +324,7 @@ may be screwed up after running some program that changed screen size
 ;; info files installed with Emacs (it's obvious that we have to add
 ;; cygwin and other info files manually)
 (require 'info)
-(unless (featurep 'xemacs) (info-initialize))
+(info-initialize)
 ;; (setq Info-directory-list (add-to-list-new-items Info-directory-list
 ;;   '("/example/path/" )))
 
@@ -443,21 +424,13 @@ may be screwed up after running some program that changed screen size
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . js-mode))
 
 ;; mouse wheel
-(if (featurep 'xemacs)
-    (progn
-      (global-set-key (kbd "<mouse-4>") (lambda () (interactive) (scroll-down 2)))
-      (global-set-key (kbd "<mouse-5>") (lambda () (interactive) (scroll-up 2)))
-    )
-  ;; mouse-wheel-mode may not be defined under NT Emacs?
-  ;; mouse-wheel-mode is not defined under kno.ii Debian Emacs?
-  (when (functionp 'mouse-wheel-mode)
-    (mouse-wheel-mode t)
-    ;; mouse-wheel-follow-mouse non-nil oznacza ze mouse-wheel przewijaja ta
-    ;; frame nad ktora jest aktualnie pointer myszy (zamiast przewijac zawsze
-    ;; frame w ktorej jest kursor)
-    ;; TODO: check is it needed under Win
-    (setq mouse-wheel-follow-mouse t)
-  )
+(when (functionp 'mouse-wheel-mode)
+  (mouse-wheel-mode t)
+  ;; mouse-wheel-follow-mouse non-nil oznacza ze mouse-wheel przewijaja ta
+  ;; frame nad ktora jest aktualnie pointer myszy (zamiast przewijac zawsze
+  ;; frame w ktorej jest kursor)
+  ;; TODO: check is it needed under Win
+  (setq mouse-wheel-follow-mouse t)
 )
 
 ;; xrdb mode
@@ -470,13 +443,6 @@ may be screwed up after running some program that changed screen size
 (add-hook 'xrdb-mode-hook
   (lambda () (local-set-key (kbd "C-c C-l") 'xrdb-load-buffer) )
   t)
-
-;; turn off various useless for me GUI elements in xemacs
-(when (featurep 'xemacs)
-  (set-specifier default-toolbar-visible-p nil)
-  (setq gutter-buffers-tab-enabled nil)
-  (set-specifier horizontal-scrollbar-visible-p nil)
-)
 
 ;; occur mode
 (defun occur-mode-show-occurrence ()
@@ -517,18 +483,6 @@ i.e. point remains in the occur buffer."
     (local-set-key (kbd "M-3") 'split-window-horizontally)  ; like C-x 3
     (local-set-key (kbd "M-0") 'kam-buffer-menu)
   ) t)
-
-;; java
-(when (featurep 'xemacs)
-  (add-hook 'jde-mode-hook
-    (lambda ()
-      (set-face-colors 'jde-java-font-lock-link-face "limegreen" "black")
-      (set-face-colors 'jde-java-font-lock-modifier-face "plum" "black")
-      (set-face-colors 'jde-java-font-lock-number-face "white" "black")
-      (set-face-colors 'jde-java-font-lock-operator-face "white" "black")
-      (set-face-colors 'jde-java-font-lock-package-face "plum" "black")
-    )
-  t))
 
 ;; fill-column
 (setq default-fill-column 70)
@@ -604,10 +558,7 @@ i.e. point remains in the occur buffer."
   ;; while e.g. some shell buffer was active.
   (setq use-dialog-box nil))
 
-;; Under XEmacs it's like auto-image-file-mode is always on.
-(when (fboundp 'auto-image-file-mode)
-  (auto-image-file-mode 1)
-)
+(auto-image-file-mode 1)
 
 ;; chess
 (setq chess-images-separate-frame nil)
@@ -933,10 +884,7 @@ parses local variables written in buffer."
 
 ;; colors --------------------------------------------------------------------
 
-;; zeby kolorowal skladnie zawsze kiedy moze (global-font-lock-mode is
-;; not available under xemacs - TODO:  I don't know would it be useful
-;; for xemacs, i.e. maybe xemacs always acts like global-font-lock-mode
-;; is positive ? )
+;; zeby kolorowal skladnie zawsze kiedy moze
 ;;
 ;; Note: sthg like this:
 ;;   (add-hook 'php-mode-user-hook 'turn-on-font-lock)
@@ -994,40 +942,6 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
   (set-face-colors 'mode-line "black" "Aquamarine")
   (set-face-colors 'secondary-selection "black" "white")
   (set-face-colors 'cursor nil "white")
-)
-
-;; ------------------------------------------------------------
-;; pcvs adjustments. Must be done after setting my colors above,
-;; otherwise cvs-mode will not be colored.
-
-;; on xemacs, pcvs is not available on Debian testing 2005-12-24
-(unless (featurep 'xemacs)
-  (require 'pcvs) ; require needed to get defun-cvs-mode
-
-  (defun-cvs-mode (cvs-mode-diff-ignore-all-space . SIMPLE) (flags)
-    "Just like `cvs-mode-diff', but with --ignore-all-space option
-  that ignores all space differences when diffing."
-    (interactive (list (cvs-flags-query 'cvs-diff-flags "cvs diff flags")))
-    (cvs-mode-diff-1 (cons "--ignore-all-space" flags)))
-
-  (defun-cvs-mode (cvs-mode-diff-head-ignore-all-space . SIMPLE) (flags)
-    "Just like `cvs-mode-diff-head', but with --ignore-all-space option
-  that ignores all space differences when diffing."
-    (interactive (list (cvs-flags-query 'cvs-diff-flags "cvs diff flags")))
-    (cvs-mode-diff-1 (cons "-rHEAD" (cons "--ignore-all-space" flags))))
-
-  (add-hook 'cvs-mode-hook
-    (lambda ()
-      ;; Just like "=" key and `cvs-mode-diff', but with --ignore-all-space flag
-      (local-set-key (kbd "C-=") 'cvs-mode-diff-ignore-all-space))
-    t)
-
-  (when (featurep 'xemacs)
-    (add-hook 'pcl-cvs-load-hook
-      (lambda ()
-        (set-face-colors 'cvs-filename-face "lightblue" "black")
-        (set-face-colors 'cvs-header-face "white" "black"))
-    t))
 )
 
 ;; auto-complete -------------------------------------------------------------
