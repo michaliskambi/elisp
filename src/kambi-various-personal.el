@@ -399,7 +399,7 @@ may be screwed up after running some program that changed screen size
 (add-hook 'sql-mode-hook 'set-buffer-space-or-tabs t)
 (add-hook 'latex-mode-hook 'set-buffer-space-or-tabs t)
 (add-hook 'text-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'ada-mode-hook 'set-buffer-space-or-tabs t)
+;; (add-hook 'ada-mode-hook 'set-buffer-space-or-tabs t)
 (add-hook 'sml-mode-hook 'set-buffer-space-or-tabs t)
 ;; (add-hook 'nxml-mode-hook 'set-buffer-space-or-tabs t)
 (add-hook 'scheme-mode-hook 'set-buffer-space-or-tabs t)
@@ -1258,6 +1258,10 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;; use my wrapper on ag, if available
 (when (kam-search-for-program "ag-michalis")
   (setq ag-executable "ag-michalis"))
+
+;; compat --------------------------------------------------------------------
+
+(defalias 'set-default-font 'set-frame-font)
 
 ;; provides (keep at the end) ------------------------------------------------
 

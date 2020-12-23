@@ -27,7 +27,7 @@
 (require 'kambi-makefile)
 (require 'kambi-lisp-editing)
 (require 'kambi-misc-convertions)
-(require 'kambi-ada)
+;; (require 'kambi-ada) ;; unused for now
 (require 'kambi-sgml)
 (require 'kambi-log)
 (require 'kambi-csharp)

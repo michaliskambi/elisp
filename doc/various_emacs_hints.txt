@@ -4,7 +4,7 @@ Random stuff and notes about using Emacs.
 Some key shortcuts (that I (used to) forget sometimes):
 
 C-x C-x = exchange-point-and-mark
-C-x Esc Esc = repeat-complex-command
+C-x M-: = repeat-complex-command
   (czyli Redo gdzie widzisz to co zrobiles w Lispie)
 C-x C-e = evaluate Lisp expression in the current buffer
 M-:     = evaluate Lisp expression you give in minibuffer
