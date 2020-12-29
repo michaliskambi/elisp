@@ -86,6 +86,7 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
     'lua-mode
     'wgrep ;; makes also ripgrep results editable, press "r" to edit, C-x C-s to save
     'browse-kill-ring
+    'dsvn
   ))
 )
 
