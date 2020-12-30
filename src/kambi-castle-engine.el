@@ -69,6 +69,7 @@ environment variable, if possible."
       (castle-engine-path "src/files/")
       (castle-engine-path "src/services/")
       (castle-engine-path "src/services/opengl/")
+      (castle-engine-path "src/deprecated_units/")
       ;; pasdoc
       ;; (concat kam-home-directory "/sources/pasdoc/trunk/source/component/")
       ;; (concat kam-home-directory "/sources/pasdoc/trunk/source/console/")
