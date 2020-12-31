@@ -606,40 +606,12 @@ the end of the file when opening."
 
 ;; various packages ----------------------------------------------------------
 
-;; cursor - kreska (chyba ze jestesmy w Overwrite) (wylaczone-nie podoba mi sie)
-;; (require 'bar-cursor)
-;; (bar-cursor-mode 1)
+(when (require 'browse-kill-ring nil 'noerror)
+  (global-set-key (kbd "C-x k") 'browse-kill-ring))
 
-(require 'browse-kill-ring)
-
-;; "One line for Emacs.
-;; Great step forward for Michalis."
-;; I used non-cua mode in Emacs for years... let me think... 5 years,
-;; according to some dates. I think that I'll start to switch to cua
-;; shortcuts under Emacs now. Since 2007-08-11.
-;;
-;; I usually used C-space to start, C-insert to copy,
-;; S-del to delete, S-insert to paste. AFAIR, I think that I got comfortable
-;; with them because they worked in old TP / BP from old DOS + Borland
-;; tools, and then they still worked in Delphi.
-;;
-;; But they do not work everywhere (e.g. Linux console sometimes doesn't catch
-;; them as appropriate, or through ssh, AFAIR).
-;; Most importantly, on laptops these
-;; shortcuts are almost unusable (laptops
-;; have delete and insert keys in weird places... on my MacBookPro,
-;; delete is Fn+BackSpace and Insert is left apple+F12, which makes
-;; them really hard to press...).
-;;
-;; So on laptops, and on console systems I learned to use traditional Emacs
-;; shortcuts: C-w and C-y. The trouble with this family is that Alt-w (copy,
-;; which is often used) is uncomfortable to press.
-;;
-;; All human beings use cua mode under their GUIs. And I do too,
-;; my mind somehow learned to painlessly switch to other shortcuts
-;; under Emacs. (Although I always had C-z bound to undo, never
-;; learned to use intuitively C-_).
-;; After 5 years, I'll try to make it easier for my mind and use cua mode.
+;; I never got used to non-cua-mode shortcuts for operating clipboard.
+;; Mostly because they are inconsistent with all other software.
+;; Activate cua-mode wherever possible.
 (when (fboundp 'cua-mode) ;; cua-mode is only in emacs >= 22
   (cua-mode 1)
   (add-hook 'comint-mode-hook
@@ -778,7 +750,6 @@ parses local variables written in buffer."
 ;; (global-set-key (kbd "<S-f10>") 'kam-clean-cge)
 
 (global-set-key (kbd "<C-tab>") 'switch-buf)
-(global-set-key (kbd "C-x k") 'browse-kill-ring)
 ;; (global-set-key (kbd "<C-SPC>") 'dabbrev-completion) ; default is uncomfortable C-M-\
 
 (global-set-key (kbd "M-0") 'kam-buffer-menu)
