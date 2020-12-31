@@ -53,7 +53,9 @@
   (define-key projectile-mode-map (kbd "M-f") 'kam-optional-projectile-find-file)
   (define-key projectile-mode-map (kbd "M-d") 'kam-optional-projectile-find-dir)
   (define-key projectile-mode-map (kbd "M-s") 'projectile-switch-project)
-  (define-key svn-status-mode-map (kbd "M-s") 'projectile-switch-project) ;; also override svn shortcut
+  (when (require 'dsvn nil 'noerror)
+    (define-key svn-status-mode-map (kbd "M-s") 'projectile-switch-project) ;; also override svn shortcut
+  )
   (define-key projectile-mode-map (kbd "M-g") 'projectile-grep)
 
   ;; customize project name, in case of xxx/trunk/ dir.
