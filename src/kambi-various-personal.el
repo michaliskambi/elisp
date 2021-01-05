@@ -392,6 +392,7 @@ may be screwed up after running some program that changed screen size
 (add-hook 'c-mode-common-hook 'set-buffer-space-or-tabs t)
 (add-hook 'groovy-mode-hook 'set-buffer-space-or-tabs t)
 (add-hook 'lua-mode-hook 'set-buffer-space-or-tabs t)
+(add-hook 'csharp-mode-hook 'set-buffer-space-or-tabs t)
 
 ;; Usually I don't want tabs, but sometimes I have to work on php projects
 ;; where tabs must be used.
