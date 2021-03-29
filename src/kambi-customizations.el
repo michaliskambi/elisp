@@ -70,6 +70,7 @@
  '(ivy-magic-tilde nil)
  '(jka-compr-load-suffixes (quote (".gz" ".x3dz")))
  '(js-auto-indent-flag nil)
+ '(log-edit-hook (quote (log-edit-show-files)))
  '(ls-lisp-dirs-first t)
  '(ls-lisp-ignore-case t)
  '(ls-lisp-verbosity nil)
