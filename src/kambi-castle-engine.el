@@ -606,6 +606,10 @@ problems, at least for now."
     (kam-beg-of-buf) (query-replace "scenemanager" "Viewport")
     (kam-beg-of-buf) (query-replace "castlewindow.create" "CastleWindowBase.Create")
     (kam-beg-of-buf) (query-replace "castlecontrol.create" "CastleControlBase.Create")
+    (kam-beg-of-buf) (query-replace "{ CASTLE-INITIALIZATION-USES-BEGIN }" "{$region 'Castle Initialization Uses'}")
+    (kam-beg-of-buf) (query-replace "{ CASTLE-INITIALIZATION-USES-END }"   "{$endregion 'Castle Initialization Uses'}")
+    (kam-beg-of-buf) (query-replace "{ CASTLE-STATE-CREATE-BEGIN }"        "{$region 'Castle State Creation'}")
+    (kam-beg-of-buf) (query-replace "{ CASTLE-STATE-CREATE-END }"          "{$endregion 'Castle State Creation'}")
   ))
 
 (defun kam-cge-delphi-upgrade ()
