@@ -610,6 +610,7 @@ problems, at least for now."
     (kam-beg-of-buf) (query-replace "{ CASTLE-INITIALIZATION-USES-END }"   "{$endregion 'Castle Initialization Uses'}")
     (kam-beg-of-buf) (query-replace "{ CASTLE-STATE-CREATE-BEGIN }"        "{$region 'Castle State Creation'}")
     (kam-beg-of-buf) (query-replace "{ CASTLE-STATE-CREATE-END }"          "{$endregion 'Castle State Creation'}")
+    (kam-beg-of-buf) (query-replace "UiOwner.FindRequiredComponent" "DesignedComponent")
   ))
 
 (defun kam-cge-delphi-upgrade ()
