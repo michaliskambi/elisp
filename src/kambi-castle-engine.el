@@ -611,6 +611,10 @@ problems, at least for now."
     (kam-beg-of-buf) (query-replace "{ CASTLE-STATE-CREATE-BEGIN }"        "{$region 'Castle State Creation'}")
     (kam-beg-of-buf) (query-replace "{ CASTLE-STATE-CREATE-END }"          "{$endregion 'Castle State Creation'}")
     (kam-beg-of-buf) (query-replace "UiOwner.FindRequiredComponent" "DesignedComponent")
+;;    (kam-beg-of-buf) (query-replace "TCastleFont" "TCastleAbstractFont")
+    (kam-beg-of-buf) (query-replace "ttexturefont" "TCastleFont")
+    (kam-beg-of-buf) (query-replace "tsimpletexturefont" "TCastleBitmapFont")
+    (kam-beg-of-buf) (query-replace "tfontfamily" "TCastleFontFamily")
   ))
 
 (defun kam-cge-delphi-upgrade ()
