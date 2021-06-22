@@ -361,6 +361,19 @@ by projectile."
   ) ;; let
 ) ;; defun
 
+(defun kam-cge-xml-compile-command (file-name)
+  "Return compile-command for file-name calculated the way I like
+for XML sources, like CastleEngineManifest.xml.
+Detects my various projects and their compilation setup.
+
+Returns nil if compilation of this command is better controlled project-wide
+by projectile."
+  (if (kam-is-castle-engine-project-but-not-projectile-p file-name)
+      (concat "castle-engine compile --mode=debug && castle-engine run")
+      nil ;; return nil to leave compilation command under projectile (per-project) control
+  )
+)
+
 (defun kam-clean-cge ()
   "Clear CGE (useful to recompile it cleanly, or after FPC internal error)."
   (interactive)
@@ -428,6 +441,16 @@ problems, at least for now."
     ;; https://emacs.stackexchange.com/questions/20567/syntax-highlighting-strings-incorrectly-for-strings-in-opascal-mode
     ;; Don't escape backslashes in pascal
     (modify-syntax-entry ?\\ ".")
+  ) t)
+
+(add-hook 'nxml-mode-hook
+  (lambda ()
+    (let ((com-command (kam-cge-xml-compile-command (buffer-file-name))))
+      (when com-command
+          (set-local-compile-command com-command)
+          (setq kam-force-compilation-not-in-project t))
+    )
+    (add-hook 'compilation-filter-hook 'kam-pascal-compilation-filter t)
   ) t)
 
 ;; Useful replacements -------------------------------------------------------
