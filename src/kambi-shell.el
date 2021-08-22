@@ -183,4 +183,8 @@
   ;; (setq shell-file-name explicit-shell-file-name)
 )
 
+;; use bash even when $SHELL points to zsh, makes ripgrep commands work OK
+(when kam-is-unix
+  (setq shell-file-name "/bin/bash"))
+
 (provide 'kambi-shell)
