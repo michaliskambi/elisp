@@ -145,6 +145,7 @@
  '(dired-ignored ((t (:inherit shadow :foreground "dim gray"))))
  '(dired-marked ((t (:inherit warning :foreground "yellow"))))
  '(dired-symlink ((t (:inherit font-lock-keyword-face :foreground "cyan"))))
+ '(ffap ((t (:inherit highlight :background "royal blue"))))
  '(font-lock-keyword-face ((t (:foreground "cyan"))))
  '(iedit-occurrence ((t (:background "gold" :foreground "black"))))
  '(ivy-current-match ((t (:background "green" :foreground "black"))))
