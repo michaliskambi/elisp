@@ -13,13 +13,16 @@
 
   ;; consistent with C-c C-b in diff-mode (e.g. when viewing psvn diffs)
   (if (functionp 'magit-diff-toggle-refine-hunk)
-      (local-set-key (kbd "C-c C-b") 'magit-diff-toggle-refine-hunk)
+      (local-set-key (kbd "e") 'magit-diff-toggle-refine-hunk)
     ;; older function name, for older magit in older Emacs versions
-    (local-set-key (kbd "C-c C-b") 'magit-toggle-diff-refine-hunk))
+    (local-set-key (kbd "e") 'magit-toggle-diff-refine-hunk))
 
   ;; How to find the keymap? Execute (current-active-maps),
   ;; and compare with contents of "describe-variable" for various "magit*map" variables.
-  (define-key magit-hunk-section-map (kbd "C-c C-c") 'cua-copy-region)
+  ;; (define-key magit-hunk-section-map (kbd "C-c C-c") 'cua-copy-region)
+  (define-key magit-hunk-section-map (kbd "C-c") 'cua-copy-region)
+  (define-key magit-hunk-section-map (kbd "C-x") 'cua-cut-region)
+  (define-key magit-hunk-section-map (kbd "C-v") 'cua-paste) ;; actually this is already OK
 
   ;; use XXX to invoke magit-show-level-XXX
   ;; (by default under M-XXX in Magit, at least on Magit version in Elementary OS;
@@ -31,8 +34,8 @@
   (when (functionp 'magit-show-level-4-all) (local-set-key (kbd "4") 'magit-show-level-4-all))
   ;; this is the usual way to view diffs in magit
   (if (functionp 'magit-show-level-4-all)
-      (local-set-key (kbd "=") 'magit-show-level-4-all)
-    (local-set-key (kbd "=") 'magit-section-show-level-4-all))
+      (local-set-key (kbd "`") 'magit-show-level-4-all)
+    (local-set-key (kbd "`") 'magit-section-show-level-4-all))
 )
 (add-hook 'magit-mode-hook 'kam-magit-mode-hook t)
 
