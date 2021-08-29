@@ -21,7 +21,8 @@
   ;; and compare with contents of "describe-variable" for various "magit*map" variables.
   ;; (define-key magit-hunk-section-map (kbd "C-c C-c") 'cua-copy-region)
   (define-key magit-hunk-section-map (kbd "C-c") 'cua-copy-region)
-  (define-key magit-hunk-section-map (kbd "C-x") 'cua-cut-region)
+  ;; Do not override C-x, as it would override ability for C-x C-f, C-x C-r etc.
+  ;; (define-key magit-hunk-section-map (kbd "C-x") 'cua-cut-region)
   (define-key magit-hunk-section-map (kbd "C-v") 'cua-paste) ;; actually this is already OK
 
   ;; use XXX to invoke magit-show-level-XXX
