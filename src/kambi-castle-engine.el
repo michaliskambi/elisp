@@ -382,50 +382,50 @@ by projectile."
   (interactive)
   (async-shell-command "clean-cge"))
 
-(defun kam-pascal-compilation-filter-remove-lines (line-regexp)
-  "Use within compilation-filter-hook implementations.
-From https://github.com/haskell/haskell-mode/blob/master/haskell-compile.el ."
-  ;; because delete-matching-lines changes point, it seems
-  ;; without this, only 1st kam-pascal-compilation-filter-remove-lines
-  ;; call works. save-excursion around goto-char is *not* enough.
-  (save-excursion
-    (delete-matching-lines line-regexp
-      (if (boundp 'compilation-filter-start) ;; available since Emacs 24.2
-          (save-excursion (goto-char compilation-filter-start)
-                          (line-beginning-position))
-        (point-min))
-      (point)))
-)
+;; (defun kam-pascal-compilation-filter-remove-lines (line-regexp)
+;;   "Use within compilation-filter-hook implementations.
+;; From https://github.com/haskell/haskell-mode/blob/master/haskell-compile.el ."
+;;   ;; because delete-matching-lines changes point, it seems
+;;   ;; without this, only 1st kam-pascal-compilation-filter-remove-lines
+;;   ;; call works. save-excursion around goto-char is *not* enough.
+;;   (save-excursion
+;;     (delete-matching-lines line-regexp
+;;       (if (boundp 'compilation-filter-start) ;; available since Emacs 24.2
+;;           (save-excursion (goto-char compilation-filter-start)
+;;                           (line-beginning-position))
+;;         (point-min))
+;;       (point)))
+;; )
 
-(defun kam-pascal-compilation-filter ()
-  "Filter FPC output.
+;; (defun kam-pascal-compilation-filter ()
+;;   "Filter FPC output.
 
-Note: It's unhandy to do it in compile-command using grep --invert-match,
-because
+;; Note: It's unhandy to do it in compile-command using grep --invert-match,
+;; because
 
-1.It breaks exit status of command, thus breaking sequence like
-  ./foo_compile.sh fpc-filter && ./aaa
-  Unless you use pipefail or other solutions
-  http://unix.stackexchange.com/questions/14270/get-exit-status-of-process-thats-piped-to-another
+;; 1.It breaks exit status of command, thus breaking sequence like
+;;   ./foo_compile.sh fpc-filter && ./aaa
+;;   Unless you use pipefail or other solutions
+;;   http://unix.stackexchange.com/questions/14270/get-exit-status-of-process-thats-piped-to-another
 
-2.But this all makes your compile-command awfully long, which is bas
-  because it's often useful to adjust it when running from a particular
-  buffer. So it's not a good idea to make it ultra-complicated.
+;; 2.But this all makes your compile-command awfully long, which is bas
+;;   because it's often useful to adjust it when running from a particular
+;;   buffer. So it's not a good idea to make it ultra-complicated.
 
-I also don't want to move this into some private compilation script.
-My castle-engine tool should handle all stuff and eliminate the need
-for a special compilation script... But I don't workaround there FPC output
-problems, at least for now."
-  (kam-pascal-compilation-filter-remove-lines "^$")
-  (kam-pascal-compilation-filter-remove-lines "contains output sections")
-  (kam-pascal-compilation-filter-remove-lines "not found, this will probably cause a linking failure")
-  ;; 1 less extra line from output, to make it shorter
-  ;; (but still see FPC version by fpc -l).
-  ;; FPC is the basis of my game engine, which is the coolest thing I ever did,
-  ;; and I love you Florian Klaempfl --- but I don't need to see this line
-  ;; on every compilation.
-  (kam-pascal-compilation-filter-remove-lines "Copyright (c) .* by Florian Klaempfl and others")
-)
+;; I also don't want to move this into some private compilation script.
+;; My castle-engine tool should handle all stuff and eliminate the need
+;; for a special compilation script... But I don't workaround there FPC output
+;; problems, at least for now."
+;;   (kam-pascal-compilation-filter-remove-lines "^$")
+;;   (kam-pascal-compilation-filter-remove-lines "contains output sections")
+;;   (kam-pascal-compilation-filter-remove-lines "not found, this will probably cause a linking failure")
+;;   ;; 1 less extra line from output, to make it shorter
+;;   ;; (but still see FPC version by fpc -l).
+;;   ;; FPC is the basis of my game engine, which is the coolest thing I ever did,
+;;   ;; and I love you Florian Klaempfl --- but I don't need to see this line
+;;   ;; on every compilation.
+;;   (kam-pascal-compilation-filter-remove-lines "Copyright (c) .* by Florian Klaempfl and others")
+;; )
 
 ;; I could add this to kambi-pascal-mode function, instead of defining
 ;; my hook. But I simply prefer to use hooks as far as I can.
@@ -438,7 +438,7 @@ problems, at least for now."
           (set-local-compile-command com-command)
           (setq kam-force-compilation-not-in-project t))
     )
-    (add-hook 'compilation-filter-hook 'kam-pascal-compilation-filter t)
+;;    (add-hook 'compilation-filter-hook 'kam-pascal-compilation-filter t)
 
     ;; Workaround opascal mode problem, see
     ;; https://emacs.stackexchange.com/questions/20567/syntax-highlighting-strings-incorrectly-for-strings-in-opascal-mode
@@ -453,7 +453,7 @@ problems, at least for now."
           (set-local-compile-command com-command)
           (setq kam-force-compilation-not-in-project t))
     )
-    (add-hook 'compilation-filter-hook 'kam-pascal-compilation-filter t)
+;;    (add-hook 'compilation-filter-hook 'kam-pascal-compilation-filter t)
   ) t)
 
 ;; Useful replacements -------------------------------------------------------
