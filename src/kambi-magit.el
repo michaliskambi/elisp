@@ -11,7 +11,7 @@
   (local-set-key (kbd "<C-tab>") 'switch-buf)
   (local-set-key (kbd "<C-return>") 'kam-find-file-at-point)
 
-  ;; consistent with C-c C-b in diff-mode (e.g. when viewing psvn diffs)
+  ;; consistent with "e" in diff-mode (e.g. when viewing psvn/dsvn diffs)
   (if (functionp 'magit-diff-toggle-refine-hunk)
       (local-set-key (kbd "e") 'magit-diff-toggle-refine-hunk)
     ;; older function name, for older magit in older Emacs versions

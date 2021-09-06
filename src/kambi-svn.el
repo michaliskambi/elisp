@@ -22,4 +22,13 @@
   (define-key svn-status-mode-map (kbd "k") 'svn-remove-file)
 )
 
+(when (require 'diff-mode nil 'noerror)
+  ;; Customizations to diff-mode.
+  ;; In theory independent from dsvn customizations, but in practice I use diff-mode
+  ;; only with diff-mode.
+  ;; Make these keys consistent with my magit keybindings.
+  (define-key diff-mode-map (kbd "e") 'diff-refine-hunk)
+  (define-key diff-mode-map (kbd "C-c") 'cua-copy-region)
+)
+
 (provide 'kambi-svn)
