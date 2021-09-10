@@ -29,6 +29,12 @@
   ;; Make these keys consistent with my magit keybindings.
   (define-key diff-mode-map (kbd "e") 'diff-refine-hunk)
   (define-key diff-mode-map (kbd "C-c") 'cua-copy-region)
+;;  (define-key diff-mode-map (kbd "c") ')
+
+  (defun kam-svn-show-diff ()
+    (svn-diff ".")
+  )
+  (setq log-edit-diff-function 'kam-svn-show-diff)
 )
 
 (provide 'kambi-svn)
