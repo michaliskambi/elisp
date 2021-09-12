@@ -740,6 +740,10 @@ parses local variables written in buffer."
 (global-set-key (kbd "M-<up>") 'kam-beg-of-buf)
 (global-set-key (kbd "M-<down>") 'kam-end-of-buf)
 
+;; useful often afterM-<up>/<down>
+(global-set-key (kbd "M-<left>") 'cua-scroll-down)
+(global-set-key (kbd "M-<right>") 'cua-scroll-up)
+
 (global-set-key (kbd "C-w") 'kill-this-buffer)
 ;; The meaning is "up directory".
 ;; For simple file buffers, it's sensible to just open dired here.
