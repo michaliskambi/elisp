@@ -22,9 +22,9 @@
 ;;(setq cygwin-mount-cygwin-bin-directory "d:/cygwin64/bin")
 
 ;; Use if your platform/Emacs version have problems with MELPA/ELPA through https.
-;; It seems https for GNU elpa is problematic now on all platforms, with all Emacs versions...
-;; (Linux, Windows, macOS...) so it's uncommented by default.
-(setq kam-package-force-http t)
+;;(setq kam-package-force-http t)
+;; This solves melpa connectivity in Emacs < 26.3
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 ;; Initialize Kambi stuff.
 (require 'kambi-startup)
