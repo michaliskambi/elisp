@@ -83,10 +83,12 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
     'php-mode
     'csharp-mode
     'groovy-mode
+    'json-mode
     'lua-mode
     'wgrep ;; makes also ripgrep results editable, press "r" to edit, C-x C-s to save
     'browse-kill-ring
     'dsvn
+    'ethan-wspace
   ))
 )
 
@@ -319,87 +321,182 @@ may be screwed up after running some program that changed screen size
      )
 ))
 
+;; info ----------------------------------------------------------------------
+
 ;; info viewing under Emacs
 ;; We (require 'info) to get info-initialize defined as function and
 ;; Info-directory-list defined as variable (and initialized to nil).
 ;; Then we want to initialize Info-directory-list so that it gets at least
 ;; info files installed with Emacs (it's obvious that we have to add
 ;; cygwin and other info files manually)
-(require 'info)
-(info-initialize)
+
+;; Commented out, in 2021 it seems info docs are no longer really useful.
+;; (require 'info)
+;; (info-initialize)
+
 ;; (setq Info-directory-list (add-to-list-new-items Info-directory-list
 ;;   '("/example/path/" )))
 
-;; Ustaw dla niektorych modes zeby nie uzywal znakow Tab.
-;; Mimo ze dla wielu modes to ustawiam to nie chce ustawic tego defaultowo przez
-;;   (setq-default indent-tabs-mode t)
-;; bo nigdy nie wiadomo jakich modes przyjdzie mi uzywac. (tzn. jesli ustawie
-;; defaultowo indent-tabs-mode na t i zapomne  dodac do jakiegos mode
-;; "ustaw mu indent-tabs-mode na nil" to moze byc katastrofa;; a jesli
-;; robie tak jak teraz to co najwyzej w jakims mode bedzie zapisywal z tabami,
-;; co katastrofa nie jest).
-(defun set-buffer-space-or-tabs ()
-  (if (and (buffer-file-name)
-        (or
-          ;; LH JS and PHP and .shader files
-          (and (string-is-prefix "/srv/webroot/huntdev-" (buffer-file-name))
-               (string-is-suffix ".js" (buffer-file-name)))
-          (and (string-is-prefix "/srv/webroot/huntdev-" (buffer-file-name))
-               (string-is-suffix ".php" (buffer-file-name)))
-          (string-is-suffix ".shader" (buffer-file-name))
-          (string-is-suffix ".cginc" (buffer-file-name))
-        )
-      )
-      (progn
-        (message "USE TABS (detected as LH file with tabs)")
-        (setq indent-tabs-mode t)
-      )
-    (progn
-      ;; (message "DO NOT USE TABS")
-      (setq indent-tabs-mode nil)
-    )
-  )
+;; Whitespaces preferences ---------------------------------------------------
+
+;; My preferences:
+;;
+;; - No tabs:
+;;   https://www.emacswiki.org/emacs/TabsAreEvil
+;;
+;;   While tabs *do* make sense (achieve "configurable indent"),
+;;   but using them consistently and correctly to get "configurable indent"
+;;   seems hard for people (maybe including me, maybe not).
+;;   In the end, files with tabs too often assume a particular tab width,
+;;   which makes them broken for people with other tab width.
+;;
+;;   So it's better to use spaces. And have good look of your code everywhere.
+;;   Loss of "indent size is configurable" is no big deal.
+;;
+;;   I think there are exceptions: languages where authors typically
+;;   learned to use Tabs OK: Python, Makefiles.
+;;
+;; - No trailing whitespace:
+;;
+;;   Because it is not useful, and causes unnecessary diffs.
+;;   For my own stuff, the approach "never save trailing whitespace"
+;;   is simplest.
+;;   Some editing functions leave trailing whitespace,
+;;   and it's just easiest to unconditionally remove it.
+;;
+;;   Note: for >10 years I had Emacs keybinding to do delete-trailing-whitespace,
+;;   and I realize today (2021-09) that I subconsciously learned to use it regularly
+;;   (just like saving files from time to time).
+;;   Let's break the useless habit, and make it automatic.
+;;
+;;   Applying this is not easy with non-mine code,
+;;   because if I just remove trailing whitespace,
+;;   then I'm causing a huge diff of non-mine code.
+;;
+;; See
+;; https://www.emacswiki.org/emacs/ShowWhiteSpace
+;; https://www.emacswiki.org/emacs/DeletingWhitespace
+;; https://github.com/glasserc/ethan-wspace
+;; https://gitlab.com/bkhl/trimspace-mode/-/blob/main/trimspace-mode.el
+;; https://www.jwz.org/doc/tabs-vs-spaces.html
+
+;; ;; We do this selectively for specific modes,
+;; ;; not just for everything e.g. using
+;; ;;
+;; ;;    (setq-default indent-tabs-mode t)
+;; ;;
+;; ;; This seems safer (less possibiilty I'll convert tabs->spaces
+;; ;; on something I didn't even think about; and I use Emacs for a lot of file types).
+;; ;; In the worst case, some file will remain with tabs, which is not a big problem.
+;;
+;; ;; Set text-mode (instead of default fundamental-mode) on some files
+;; ;; that should have my preferred whitespace treatment.
+;; (add-to-list 'auto-mode-alist '("\\.yml\\'" . text-mode))
+;; (add-to-list 'auto-mode-alist '("\\.lock\\'" . text-mode))
+;; (add-to-list 'auto-mode-alist '("\\.json\\'" . text-mode))
+;;
+;; (defun kam-set-spaces-or-tabs ()
+;;   "Make the current buffer use spaces, not tabs."
+;;   (if (and (buffer-file-name)
+;;         nil
+;;         ;; (or
+;;         ;;   ;; Examples how you can define exceptions. Unused now.
+;;         ;;   (and (string-is-prefix "/srv/webroot/huntdev-" (buffer-file-name))
+;;         ;;        (string-is-suffix ".js" (buffer-file-name)))
+;;         ;;   (string-is-suffix ".shader" (buffer-file-name))
+;;         ;;   (string-is-suffix ".cginc" (buffer-file-name))
+;;         ;; )
+;;       )
+;;       (progn
+;;         (message "USE TABS")
+;;         (setq indent-tabs-mode t)
+;;       )
+;;     ;; (message "DO NOT USE TABS")
+;;     (setq indent-tabs-mode nil)
+;;   )
+;; )
+;;
+;; (add-hook 'text-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'kambi-pascal-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'kambi-php-mode 'kam-set-spaces-or-tabs t)
+;; (add-hook 'kambi-c-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'kambi-c++-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'java-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'tuareg-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'emacs-lisp-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'sh-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'html-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'octave-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'sql-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'latex-mode-hook 'kam-set-spaces-or-tabs t)
+;; ;; (add-hook 'ada-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'sml-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'nxml-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'scheme-mode-hook 'kam-set-spaces-or-tabs t)
+;; ;; (add-hook 'python-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'js-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'css-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'c-mode-common-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'groovy-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'lua-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'csharp-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'c-mode-hook 'kam-set-spaces-or-tabs t)
+;; (add-hook 'php-mode-user-hook 'kam-set-spaces-or-tabs t)
+;;
+;; (defun kam-trailing-whitespace-unwanted ()
+;;   "Show trailing whitespace, and autoremove it."
+;;   (setq show-trailing-whitespace t)
+;;   ;; TODO: auto delete-trailing-whitespace on save
+;; )
+;;
+;; (add-hook 'text-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'kambi-pascal-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'kambi-php-mode 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'kambi-c-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'kambi-c++-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'java-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'tuareg-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'emacs-lisp-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'sh-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'html-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'octave-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'sql-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'latex-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'ada-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'sml-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'nxml-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'scheme-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'python-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'js-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'css-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'c-mode-common-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'groovy-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'lua-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'csharp-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'c-mode-hook 'kam-trailing-whitespace-unwanted t)
+;; (add-hook 'php-mode-user-hook 'kam-trailing-whitespace-unwanted t)
+
+;; Instead of my customizations for whitespace, I'm testing now ethan-wspace.
+;;
+;; It does seem the author accounted a lot of things
+;; and the solution does seem clear.
+;; In particular (s)he cares about details
+;;
+;; - Not doing delete-trailing-whitespace unconditionally, to not cause problems
+;;   when editing other code.
+;;   Only clean, if the buffer was clean already.
+;;
+;; - Not highlight whitespaces in buffers that are not files (as it doesn't matter).
+;;
+;; - Not highlight whitespaces in buffers where I'll clean them (as they don't matter).
+;;
+;; And I can just activate it always!
+
+(when (require 'ethan-wspace nil 'noerror)
+  (global-ethan-wspace-mode 1)
 )
 
-(define-derived-mode kambi-no-tab-mode fundamental-mode
-  "K-No-Tabs"
-  "Fundamental mode with tabs auto-converted to spaces."
-  (set-buffer-space-or-tabs))
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . kambi-no-tab-mode))
-(add-to-list 'auto-mode-alist '("\\.lock\\'" . kambi-no-tab-mode))
-(add-to-list 'auto-mode-alist '("\\.json\\'" . kambi-no-tab-mode))
-
-(add-hook 'kambi-pascal-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'kambi-php-mode 'set-buffer-space-or-tabs t)
-(add-hook 'kambi-c-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'kambi-c++-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'java-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'tuareg-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'emacs-lisp-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'sh-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'html-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'octave-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'sql-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'latex-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'text-mode-hook 'set-buffer-space-or-tabs t)
-;; (add-hook 'ada-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'sml-mode-hook 'set-buffer-space-or-tabs t)
-;; (add-hook 'nxml-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'scheme-mode-hook 'set-buffer-space-or-tabs t)
-;; (add-hook 'python-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'js-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'css-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'c-mode-common-hook 'set-buffer-space-or-tabs t)
-(add-hook 'groovy-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'lua-mode-hook 'set-buffer-space-or-tabs t)
-(add-hook 'csharp-mode-hook 'set-buffer-space-or-tabs t)
-
-;; Usually I don't want tabs, but sometimes I have to work on php projects
-;; where tabs must be used.
-(defconst kam-tabs-in-php nil)
-(unless kam-tabs-in-php
-  (add-hook 'c-mode-hook 'set-buffer-space-or-tabs t)
-  (add-hook 'php-mode-user-hook 'set-buffer-space-or-tabs t))
+;; misc ----------------------------------------------------------------------
 
 ;; disable todoo mode
 (setq auto-mode-alist
@@ -782,8 +879,8 @@ parses local variables written in buffer."
 
 (global-set-key (kbd "M-a") 'after-find-file-i)
 (global-set-key (kbd "M-c") 'set-buffer-file-coding-system)
-;;(global-set-key (michalis-prefix-2-kbd "t") 'kam-open-terminal-here)
-(global-set-key (kbd "M-t") 'delete-trailing-whitespace)
+;; (global-set-key (michalis-prefix-2-kbd "t") 'kam-open-terminal-here)
+;; (global-set-key (kbd "M-t") 'delete-trailing-whitespace)
 (global-set-key (kbd "M-<f5>") 'revert-buffer)
  ;; (global-set-key (michalis-prefix-kbd "u") 'rename-uniquely)
 
