@@ -43,8 +43,9 @@
   ;; consistent with helm find-files
   (local-set-key (kbd "C-l") 'dired-jump)
   ;; consistent with caja
-  (local-set-key (kbd "M-<up>") 'dired-jump)
-  (local-set-key (kbd "M-<down>") 'dired-find-file)
+  ;; Later: not used, consistency less important, we need these for file begin/end
+  ;;(local-set-key (kbd "M-<up>") 'dired-jump)
+  ;;(local-set-key (kbd "M-<down>") 'dired-find-file)
   ;; consistent with ido and ivy
   (local-set-key (kbd "<backspace>") 'dired-jump)
 

@@ -731,16 +731,20 @@ parses local variables written in buffer."
 
 (global-set-key (kbd "<home>") 'beginning-of-line)
 (global-set-key (kbd "<end>") 'end-of-line)
+
 (global-set-key (kbd "<C-home>") 'kam-beg-of-buf)
 (global-set-key (kbd "<C-end>") 'kam-end-of-buf)
 (global-set-key (kbd "<C-kp-home>") 'kam-beg-of-buf)
 (global-set-key (kbd "<C-kp-end>") 'kam-end-of-buf)
+;; easier to press than C-home/end on laptop keyboards that put home/end them under function
+(global-set-key (kbd "M-<up>") 'kam-beg-of-buf)
+(global-set-key (kbd "M-<down>") 'kam-end-of-buf)
+
 (global-set-key (kbd "C-w") 'kill-this-buffer)
 ;; The meaning is "up directory".
 ;; For simple file buffers, it's sensible to just open dired here.
 ;; Some modes, like dired, will override this to go "up dir".
 (global-set-key (kbd "C-l") 'dired-jump)
-(global-set-key (kbd "M-<up>") 'dired-jump)
 
 (global-set-key (kbd "C-<f2>") 'kill-compilation)
 (global-set-key (kbd "<f8>") 'kam-run-here)
@@ -772,23 +776,25 @@ parses local variables written in buffer."
 
 (global-set-key (kbd "C-t") 'invert-truncate-lines)
 
-;; f12 is Michalis prefix for various special global commands
-(global-set-key (kbd "<f12> a") 'after-find-file-i)
-(global-set-key (kbd "<f12> c") 'set-buffer-file-coding-system)
-(global-set-key (kbd "<f12> <f12> t") 'kam-open-terminal-here)
-(global-set-key (kbd "<f12> t") 'delete-trailing-whitespace)
-(global-set-key (kbd "<f12> r") 'revert-buffer)
-(global-set-key (kbd "<f12> u") 'rename-uniquely)
-(global-set-key (kbd "<f12> g") 'goto-line)
+(global-set-key (kbd "M-a") 'after-find-file-i)
+(global-set-key (kbd "M-c") 'set-buffer-file-coding-system)
+;;(global-set-key (michalis-prefix-2-kbd "t") 'kam-open-terminal-here)
+(global-set-key (kbd "M-t") 'delete-trailing-whitespace)
+(global-set-key (kbd "M-<f5>") 'revert-buffer)
+ ;; (global-set-key (michalis-prefix-kbd "u") 'rename-uniquely)
+
+(global-set-key (kbd "M-l") 'goto-line)
+
 ;; shell that can be easily killed
-(global-set-key (kbd "<f12> s") 'kam-shell-killable)
+(global-set-key (kbd "M-h") 'kam-shell-killable)
 ;; shell that cannot be easily killed
-(global-set-key (kbd "<f12> <f12> s") 'shell)
-(global-set-key (kbd "<f12> v") 'kam-version-control)
-(global-set-key (kbd "<f12> d") 'dired-jump)
-(global-set-key (kbd "<f12> e") 'kam-open-dir-external)
-(global-set-key (kbd "<f12> o") 'sort-lines)
-(global-set-key (kbd "<f12> p") 'ivy-pass)
+;; (global-set-key (michalis-prefix-2-kbd "s") 'shell)
+
+(define-key cua--cua-keys-keymap (kbd "M-v") nil)
+(global-set-key (kbd "M-v") 'kam-version-control)
+;; (global-set-key (kbd "M-d") 'dired-jump) ;; just like C-l in practice
+(global-set-key (kbd "M-e") 'kam-open-dir-external)
+;; (global-set-key (kbd "<f12> o") 'sort-lines)
 
 ;; Also cua-rectangle-mark-key is set to [(control f12)]
 
