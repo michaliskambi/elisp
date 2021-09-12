@@ -21,11 +21,11 @@ with &lt; and > with &gt; and & to &amp; in the region."
   (cons (concat "\\." (regexp-opt '("xml" "xsd" "sch" "rng" "xslt" "svg" "rss") t) "\\'")
   'nxml-mode))
 
-
 (add-hook 'nxml-mode-hook
   (lambda ()
-    ;; Reset C-return to my preference
-    (local-set-key (kbd "<C-return>") 'kam-find-file-at-point)
+    ;; leave my global preferences unchanged for some keys in nxml
+    (define-key nxml-mode-map (kbd "<C-return>") nil)
+    (define-key nxml-mode-map (kbd "M-h") nil)
     ;; Set TAB to completion
     (local-set-key (kbd "TAB") 'nxml-complete)
   )
