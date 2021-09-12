@@ -59,7 +59,7 @@ Emacs coding systems:
 
 - before opening file with Polish ogonki in win encoding:
     M-x prefer-coding-system windows-1250
-  F12+c with my bindings to convert it to e.g. utf-8 then.
+  M-c with my bindings to convert it to e.g. utf-8 then.
 
 --------------------------------------------------------------------------------
 Krotka metoda jak zmienic indentation jakiegos mode :
