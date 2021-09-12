@@ -21,7 +21,7 @@
 
 (add-hook 'makefile-mode-hook
   (lambda ()
-    (local-set-key (kbd "<C-f10>") 'compile-make-word-at-point)
+    ;; (local-set-key (kbd "<C-f10>") 'compile-make-word-at-point) ;; unused, long time ago forgotten
   ) t)
 
 (provide 'kambi-makefile)

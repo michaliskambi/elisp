@@ -1047,7 +1047,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
     (interactive)
     (crux-reopen-as-root)
   )
-  (global-set-key (kbd "<f12> C-r") 'kam-crux-reopen-as-root)
+  ;;(global-set-key (kbd "<f12> C-r") 'kam-crux-reopen-as-root) ;; unused, long time ago forgotten
 
   ;; This makes all non-writeable files to be opened using sudo,
   ;; which is troublesome if you don't want to provide sudo password yet,

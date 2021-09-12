@@ -12,7 +12,7 @@
   (lambda ()
     ;; "M-x shell" will create new shell every time
     (rename-uniquely)
-    (local-set-key (kbd "<f12> k") 'comint-kill-subjob)
+    ;;(local-set-key (michalis-prefix-kbd "k") 'comint-kill-subjob) ;; unused, long time ago forgotten
   )
   t)
 
