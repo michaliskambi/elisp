@@ -91,7 +91,7 @@
  '(org-support-shift-select (quote always))
  '(package-selected-packages
    (quote
-    (dsvn browse-kill-ring wgrep lua-mode csharp-mode php-mode groovy-mode projectile-ripgrep ripgrep iedit git-gutter+ json-reformat adoc-mode crux esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete magit)))
+    (ethan-wspace json-mode dsvn browse-kill-ring wgrep lua-mode csharp-mode php-mode groovy-mode projectile-ripgrep ripgrep iedit git-gutter+ json-reformat adoc-mode crux esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete magit)))
  '(paradox-automatically-star t)
  '(password-store-password-length 33)
  '(projectile-generic-command
@@ -145,6 +145,7 @@
  '(dired-ignored ((t (:inherit shadow :foreground "dim gray"))))
  '(dired-marked ((t (:inherit warning :foreground "yellow"))))
  '(dired-symlink ((t (:inherit font-lock-keyword-face :foreground "cyan"))))
+ '(ethan-wspace-face ((t (:background "dim gray"))))
  '(ffap ((t (:inherit highlight :background "royal blue"))))
  '(font-lock-keyword-face ((t (:foreground "cyan"))))
  '(iedit-occurrence ((t (:background "gold" :foreground "black"))))
