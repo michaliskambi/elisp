@@ -493,6 +493,10 @@ may be screwed up after running some program that changed screen size
 ;; And I can just activate it always!
 
 (when (require 'ethan-wspace nil 'noerror)
+  ;; ethan-wspace takes care of it
+  ;; This is now done by customize -- otherwise sthg sets it to t.
+  ;; (setq mode-require-final-newlines nil)
+
   (global-ethan-wspace-mode 1)
 )
 
