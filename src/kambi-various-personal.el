@@ -884,7 +884,14 @@ parses local variables written in buffer."
 (global-set-key (kbd "M-a") 'after-find-file-i)
 (global-set-key (kbd "M-c") 'set-buffer-file-coding-system)
 ;; (global-set-key (michalis-prefix-2-kbd "t") 'kam-open-terminal-here)
-;; (global-set-key (kbd "M-t") 'delete-trailing-whitespace)
+
+;; Deletes trailing whitespace and more.
+;; While it's not useful to cleanup file on disk
+;; (because ethan-wspace will take care of it automatically at save),
+;; but it is useful to use this during editing, to remove trailing whitespace,
+;; and make "end" behave OK.
+(global-set-key (kbd "M-t") 'ethan-wspace-clean-all)
+
 (global-set-key (kbd "M-<f5>") 'revert-buffer)
  ;; (global-set-key (michalis-prefix-kbd "u") 'rename-uniquely)
 
