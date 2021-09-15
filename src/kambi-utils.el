@@ -553,13 +553,15 @@ the cursor position char o takim numerze."
 )
 
 (defun insert-newline-indented-as-prev ()
-  "Wstaw w bufor tam gdzie stoimy NewLine (czyli to co powinnismy zrobic
-gdy uzytkownik wpisze enter) i dodatkowo zacznij nowa linie wcieta
-tak samo jak linia na ktorej stalismy (tzn. zbadaj poczatkowe whitespace'y
-z aktualnej linii, pisz NewLine i pisz te whitespace'y w nowej linii).
+  "Make a new line, and indent it just like the previous line was.
+The intention is to insert the same whitespace (spaces, tabs) on new line
+as there were on previous. This is my favourite, simple and reliable
+(no automatic guessing by editor how to indent the code!) indentation.
 
-To jest moje (Kambiego) ulubione indentation do ktorego jestem przyzwyczajony
-jeszcze z edytorow Borlanda."
+Note: it requires now having indent-tabs-mode = nil, otherwise
+indent-relative-maybe (used internally here) may turn spaces -> tabs in new line.
+We like indent-tabs-mode = nil anyway, to make ethan-wspace consider
+tabs as errors."
   (interactive)
 
   (let ((needs-indenting))

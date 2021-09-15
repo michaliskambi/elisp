@@ -491,9 +491,15 @@ may be screwed up after running some program that changed screen size
 ;; - Not highlight whitespaces in buffers where I'll clean them (as they don't matter).
 ;;
 ;; And I can just activate it always!
+;;
+;; Note: I also customized indent-tabs-mode to be nil globally
+;; (previously I did it per-buffer).
+;; This makes insert-newline-indented-as-prev behave OK (not insert tabs,
+;; even when previous line had spaces),
+;; and makes ethan consider tabs as error (which is what I want too).
 
 (when (require 'ethan-wspace nil 'noerror)
-  ;; ethan-wspace takes care of it
+  ;; ethan-wspace takes care of it, and we should set mode-require-final-newlines at nil.
   ;; This is now done by customize -- otherwise sthg sets it to t.
   ;; (setq mode-require-final-newlines nil)
 

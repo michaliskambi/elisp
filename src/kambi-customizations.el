@@ -63,6 +63,7 @@
  '(helm-grep-truncate-lines t)
  '(helm-projectile-fuzzy-match nil)
  '(ibuffer-expert t)
+ '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(initial-buffer-choice nil)
  '(ispell-highlight-face (quote highlight))
