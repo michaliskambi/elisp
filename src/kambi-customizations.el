@@ -3,7 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(Man-notify-method (quote pushy))
+ '(Man-notify-method 'pushy)
  '(ac-auto-start 3)
  '(ac-ignore-case t)
  '(ac-trigger-key "TAB")
@@ -14,11 +14,10 @@
  '(ada-indent-align-comments nil)
  '(ada-indent-comment-as-code nil)
  '(ag-arguments
-   (quote
-    ("--line-number" "--ignore-case" "--nogroup" "--column" "--stats" "--")))
+   '("--line-number" "--ignore-case" "--nogroup" "--column" "--stats" "--"))
  '(ag-group-matches nil)
  '(ag-highlight-search t)
- '(ag-ignore-list (quote ("*~")))
+ '(ag-ignore-list '("*~"))
  '(anzu-cons-mode-line-p t)
  '(bibtex-comment-start "%%")
  '(blink-matching-paren-distance nil)
@@ -41,18 +40,17 @@
  '(dired-listing-switches "-alh --group-directories-first")
  '(dired-omit-files "^\\.?#\\|^\\.\\.$\\|^\\.$\\|^\\.[^.]")
  '(dired-omit-verbose nil)
- '(dired-recursive-copies (quote always))
- '(dired-recursive-deletes (quote always))
+ '(dired-recursive-copies 'always)
+ '(dired-recursive-deletes 'always)
  '(electric-indent-mode nil)
  '(focus-follows-mouse nil)
  '(grep-command "grep -i -n -e ")
  '(grep-find-ignored-files
-   (quote
-    (".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "*.json" "*.compiled" "*.lps" "*.atlas")))
+   '(".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "*.json" "*.compiled" "*.lps" "*.atlas"))
  '(grep-find-template
    "find . <X> -type f <F> -print0 | xargs -0 -e grep <C> -i -n -e <R>")
  '(grep-template "grep <C> -i -n -e <R> <F>")
- '(helm-ag-insert-at-point (quote word))
+ '(helm-ag-insert-at-point 'word)
  '(helm-ag-use-grep-ignore-list t)
  '(helm-buffer-max-length 30)
  '(helm-buffers-truncate-lines t)
@@ -66,64 +64,57 @@
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(initial-buffer-choice nil)
- '(ispell-highlight-face (quote highlight))
+ '(ispell-highlight-face 'highlight)
  '(ivy-do-completion-in-region nil)
  '(ivy-magic-tilde nil)
- '(jka-compr-load-suffixes (quote (".gz" ".x3dz")))
+ '(jka-compr-load-suffixes '(".gz" ".x3dz"))
  '(js-auto-indent-flag nil)
- '(log-edit-hook (quote (log-edit-show-files)))
+ '(log-edit-hook '(log-edit-show-files))
  '(ls-lisp-dirs-first t)
  '(ls-lisp-ignore-case t)
  '(ls-lisp-verbosity nil)
- '(magit-diff-section-arguments (quote ("--no-ext-diff" "-M" "-C")))
+ '(magit-diff-section-arguments '("--no-ext-diff" "-M" "-C"))
  '(magit-pull-arguments nil)
  '(minimap-major-modes
-   (quote
-    (prog-mode delphi-mode Custom-mode kambi-pascal-mode fundamental-mode text-mode comint-mode)))
+   '(prog-mode delphi-mode Custom-mode kambi-pascal-mode fundamental-mode text-mode comint-mode))
  '(minimap-mode t)
- '(minimap-recenter-type (quote relative))
+ '(minimap-recenter-type 'relative)
  '(minimap-update-delay 0.1)
  '(minimap-width-fraction 0.1)
- '(minimap-window-location (quote right))
+ '(minimap-window-location 'right)
  '(mmm-submode-decoration-level 1)
  '(mode-require-final-newline nil)
- '(ns-right-alternate-modifier (quote none))
+ '(ns-right-alternate-modifier 'none)
  '(opascal-tab-always-indents nil)
  '(org-replace-disputed-keys t)
- '(org-support-shift-select (quote always))
+ '(org-support-shift-select 'always)
  '(package-selected-packages
-   (quote
-    (ethan-wspace json-mode dsvn browse-kill-ring wgrep lua-mode csharp-mode php-mode groovy-mode projectile-ripgrep ripgrep iedit git-gutter+ json-reformat adoc-mode crux esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete magit)))
+   '(w3m ethan-wspace json-mode dsvn browse-kill-ring wgrep lua-mode csharp-mode php-mode groovy-mode projectile-ripgrep ripgrep iedit git-gutter+ json-reformat adoc-mode crux esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete magit))
  '(paradox-automatically-star t)
  '(password-store-password-length 33)
  '(projectile-generic-command
    "if which /home/michalis/common/scripts/projectile_ls > /dev/null; then /home/michalis/common/scripts/projectile_ls; else find . -type f -print0; fi")
  '(projectile-globally-ignored-directories
-   (quote
-    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work")))
+   '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work"))
  '(projectile-globally-ignored-file-suffixes
-   (quote
-    (".ppu" ".blend" ".blend1" ".blend2" ".pdf" ".png" ".xcf" ".jpg" ".jpeg" "castletexturefont_*.pas" ".ttf" ".otf" ".wav" ".dll" ".atlas" ".spine" ".json" ".dds" ".ai" "~")))
- '(projectile-ignored-project-function (quote file-remote-p))
+   '(".ppu" ".blend" ".blend1" ".blend2" ".pdf" ".png" ".xcf" ".jpg" ".jpeg" "castletexturefont_*.pas" ".ttf" ".otf" ".wav" ".dll" ".atlas" ".spine" ".json" ".dds" ".ai" "~"))
+ '(projectile-ignored-project-function 'file-remote-p)
  '(projectile-ignored-projects
-   (quote
-    ("/mnt/linux-32/home/michalis/sources/cat-astrophe-games/dragon_squash/" "/mnt/linux-32/home/michalis/sources/cat-astrophe-games/escape_universe/" "/home/michalis/sources/cat-astrophe-games/escape_universe/" "/home/michalis/sources/cat-astrophe-games/dragon_squash/" "/mnt/elementary-os/home/michalis/sources/cat-astrophe-games/escape_universe/" "/mnt/elementary-os/home/michalis/sources/cat-astrophe-games/dragon_squash/")))
+   '("/mnt/linux-32/home/michalis/sources/cat-astrophe-games/dragon_squash/" "/mnt/linux-32/home/michalis/sources/cat-astrophe-games/escape_universe/" "/home/michalis/sources/cat-astrophe-games/escape_universe/" "/home/michalis/sources/cat-astrophe-games/dragon_squash/" "/mnt/elementary-os/home/michalis/sources/cat-astrophe-games/escape_universe/" "/mnt/elementary-os/home/michalis/sources/cat-astrophe-games/dragon_squash/"))
  '(projectile-svn-command
    "if which /home/michalis/common/scripts/projectile_ls > /dev/null; then /home/michalis/common/scripts/projectile_ls; else find . -type f -print0; fi # use generic method, since svn list requires autenticating")
  '(ps-header-lines 1)
- '(ps-left-header (quote (ps-get-buffer-name)))
- '(ps-right-header (quote ("/pagenumberstring load")))
- '(recentf-auto-cleanup (quote never))
+ '(ps-left-header '(ps-get-buffer-name))
+ '(ps-right-header '("/pagenumberstring load"))
+ '(recentf-auto-cleanup 'never)
  '(recentf-exclude nil)
  '(recentf-max-saved-items 100)
  '(ripgrep-arguments
-   (quote
-    ("--max-columns" "200" "--fixed-strings" "--glob=!*~" "--glob=!#*#" "--ignore-case")))
+   '("--max-columns" "200" "--fixed-strings" "--glob=!*~" "--glob=!#*#" "--ignore-case"))
  '(safe-local-variable-values
-   (quote
-    ((kam-force-compilation-not-in-project . t)
+   '((kam-force-compilation-not-in-project . t)
      (encoding . utf-8)
-     (encoding . cp852))))
+     (encoding . cp852)))
  '(scroll-conservatively 0)
  '(scroll-margin 3)
  '(svn-status-hide-unmodified t)
@@ -131,11 +122,11 @@
  '(tab-always-indent nil)
  '(tool-bar-mode nil)
  '(truncate-lines t)
- '(vc-handled-backends (quote (RCS SCCS)))
+ '(vc-handled-backends '(RCS SCCS))
  '(visible-bell t)
- '(w3m-home-page "http://www.google.pl/")
- '(w3m-key-binding (quote info))
- '(warning-suppress-types (quote ((undo discard-info)))))
+ '(w3m-home-page "https://duckduckgo.com/")
+ '(w3m-key-binding 'info)
+ '(warning-suppress-types '((undo discard-info))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
