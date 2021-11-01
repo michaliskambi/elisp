@@ -693,7 +693,7 @@ i.e. point remains in the occur buffer."
 ;; and "cutting text just to delete it".
 (setq x-select-enable-clipboard t)
 
-(when kam-is-linux
+(when (kam-search-for-program "sensible-browser")
   ;; browse-url adjust for Debian
   (setq browse-url-generic-program "sensible-browser")
   (setq browse-url-browser-function 'browse-url-generic))
