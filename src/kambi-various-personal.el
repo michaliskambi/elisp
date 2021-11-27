@@ -930,6 +930,7 @@ parses local variables written in buffer."
 
 ;; (global-set-key (kbd "M-e") 'ins-eval-expression) ;; unused
 (global-set-key (kbd "C--") 'kam-insert-dashes)
+(global-set-key (kbd "C-y") 'kill-whole-line)
 
 (global-set-key (kbd "M-i") 'kam-indent-block-space)
 (global-set-key (kbd "M-u") 'kam-unindent-block-space)
