@@ -299,28 +299,6 @@ may be screwed up after running some program that changed screen size
 (add-hook 'makefile-mode-hook 'font-lock-mode-make-good t)
 (add-hook 'texinfo-mode-hook 'font-lock-mode-make-good t)
 
-;; adjust completion-ignored-extensions
-(setq completion-ignored-extensions
-  (delete ".log" completion-ignored-extensions))
-(setq completion-ignored-extensions
-  (add-to-list-new-items completion-ignored-extensions
-    '(".dcu"               ; created by Delphi
-      ;; ".obj"               ; created by C++Builder, TurboC ;; removed, as it makes opening Wavefront OBJ painful, and in practice this is where I now see .obj extension more often
-      ".tpu"               ; created by TurboPascal
-      ".ppu"               ; created by fpc (1.0.10 on linux and 1.9.x)
-      ".ow" ".ppw"         ; created by fpc 1.0.10 on windows
-      ".~pas"              ; created by Delphi/win32
-      ".exe" ".dll" ".so"  ; executable files
-      ".cmo" ".cmi" ".cmx" ; ocamlc/opt
-      ".blend1"            ; blender
-      ".bak"               ; various editors (e.g. Lazarus by default)
-      ; Do not add lpi here, as then helm find files ignores it too,
-      ; and it's difficult to open such files, and sometimes I need to...
-      ;; ".lpi"
-      ".compiled" ".lps" ; Lazarus
-     )
-))
-
 ;; info ----------------------------------------------------------------------
 
 ;; info viewing under Emacs
