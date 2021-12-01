@@ -42,3 +42,9 @@
 ;; maximize on startup?
 ;; https://emacs.stackexchange.com/questions/2999/how-to-maximize-my-emacs-frame-on-start-up
 ;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; sensible-browser on Ubuntu with Firefox from snap doesn't know Firefox alternative
+;; (and "sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /snap/bin/firefox 200"
+;; doesn't help, as running this way invokes snap, not firefox...).
+;; Workaroud for Emacs: just use firefox, not sensible-browser.
+;;(setq browse-url-generic-program "firefox")
