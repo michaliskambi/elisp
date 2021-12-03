@@ -112,7 +112,7 @@
  '(recentf-exclude nil)
  '(recentf-max-saved-items 100)
  '(ripgrep-arguments
-   '("--max-columns" "200" "--fixed-strings" "--glob=!*~" "--glob=!#*#" "--ignore-case"))
+   '("--max-columns" "2000" "--fixed-strings" "--glob=!*~" "--glob=!#*#" "--ignore-case"))
  '(safe-local-variable-values
    '((kam-force-compilation-not-in-project . t)
      (encoding . utf-8)
