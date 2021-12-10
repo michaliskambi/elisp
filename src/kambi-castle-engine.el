@@ -335,7 +335,8 @@ by projectile."
       (if (string-is-suffix "tools/build-tool/" dir-name)
           (concat "./castle-engine_compile.sh && " (kam-install-exe "castle-engine"))
         (if (string-is-suffix "tools/build-tool/code/" dir-name)
-            (concat "cd .. && ./castle-engine_compile.sh && " (kam-install-exe "castle-engine"))
+            ;; Additional "sh" is needed on Cygwin/Windows
+            (concat "cd .. && sh ./castle-engine_compile.sh && " (kam-install-exe "castle-engine"))
           (if (string-is-suffix "castle_game_engine/tests/" dir-name)
               (concat "./compile_console.sh && ./test_castle_game_engine -a")
             (if (string-is-suffix "castle-engine/tests/" dir-name)
