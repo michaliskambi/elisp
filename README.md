@@ -1,10 +1,12 @@
-This is the Emacs configuration of Michalis Kamburelis ( http://michalis.ii.uni.wroc.pl/~michalis/ ). I use this repo to synchronize my Emacs configuration between many systems.
+# Michalis Kamburelis' Emacs configuration
 
-Some of it is old, some of it is new. Some of it is more generally-useful, some of it is very specific to my personal needs and preferences.
+This is my ([Michalis Kamburelis](https://michalis.xyz/)) Emacs configuration.
 
-Reuse as you like:)
+I use this repo to synchronize my Emacs configuration between many systems. It works with many OSes like normal Unix (Linux, FreeBSD...), macOS, Windows. It assumes a "reasonably fresh" Emacs version (as found in various Linux distros, in their stable or newer versions).
 
-My typical setup instructions (assuming you put this in ~/elisp, otherwise edit the path in sample_dot_emacs.el):
+Some of this EmacsLisp code is very old, some of it is very new. Some of it is more generally-useful, some of it is very specific to my personal needs and preferences. Reuse as you like:)
+
+My typical setup instructions (assuming you want to put this in `~/elisp`, otherwise edit the path in sample_dot_emacs.el):
 
 ~~~~
 cd $HOME
