@@ -1,31 +1,16 @@
 ;;; kambi-utils --- various useful EmacsLisp functions.
 
+;; Some useful utilities:
+;; - search (search a substring, like Pos in Pascal, like strpos in PHP)
+;;   https://stackoverflow.com/questions/3896953/strpos-in-emacs-lisp
+(require 'cl)
+
 ;; string operations ---------------------------------------------------
 
 (defun string-repeat (STR COUNT)
   "Return STR repeated COUNT times."
   (let ((RESULT ""))
     (dotimes (i COUNT RESULT) (setq RESULT (concat RESULT STR))  )
-  )
-)
-
-(defun string-pos (SUBSTR STR &optional CASE-SENS)
-  "Search for substring SUBSTR in string STR, case sensitive if CASE-SENS.
-Jesli nie podasz 3-go parametru albo podasz nil to porownywanie bedzie
-ignorowalo duze/male litery, wpp.  nie.  Zwraca pierwsza pozycje SUBSTR
-w STR (zero-based) lub nil jesli nie znajdzie."
-  (let ((i 0)
-        (endi (- (length STR) (length SUBSTR)) )
-        (RESULT nil))
-    (while (and (<= i endi) (not RESULT))
-      (if (symbolp (compare-strings SUBSTR 0 nil
-                                    STR i (+ i (length SUBSTR))
-                                    (not CASE-SENS)))
-        (setq RESULT i)
-      )
-      (setq i (+ i 1))
-    )
-    RESULT
   )
 )
 
@@ -99,18 +84,18 @@ to make result at least MINLENGTH long."
 )
 
 ;; ------------------------------------------------------------
-;; define kam-is-* consts (requires string-pos to be defined)
+;; define kam-is-* consts
 
 (defconst kam-is-windows
-  (or (string-pos "windows" system-configuration)
-      (string-pos "msvc-nt" system-configuration)
-      (string-pos "mingw" system-configuration)
-      (string-pos "cygwin" system-configuration)
+  (or (search "windows" system-configuration)
+      (search "msvc-nt" system-configuration)
+      (search "mingw" system-configuration)
+      (search "cygwin" system-configuration)
   )
   "Non-nil if we're under Windows, else nil.")
 
 (defconst kam-is-freebsd
-  (string-pos "freebsd" system-configuration)
+  (search "freebsd" system-configuration)
   "Non-nil if we're under FreeBSD, else nil.")
 
 (defconst kam-is-linux
@@ -118,7 +103,7 @@ to make result at least MINLENGTH long."
   "Non-nil if we're under Linux, else nil.")
 
 (defconst kam-is-darwin
-  (string-pos "apple-darwin" system-configuration)
+  (search "apple-darwin" system-configuration)
   "Non-nil if we're under Darwin (Mac OS X), else nil.")
 
 (defconst kam-is-unix

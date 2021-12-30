@@ -34,5 +34,6 @@
 (require 'kambi-search)
 (require 'kambi-macosx)
 (require 'kambi-ffap)
+(require 'kambi-adoc)
 
 (provide 'kambi-startup)
