@@ -25,6 +25,13 @@
     ) t)
 
   (add-to-list 'auto-mode-alist '("\\.adoc\\'" . adoc-mode))
+
+  ;; fix colors for terminals (like for ssh session in castle-engine.io),
+  ;; otherwise some AsciiDoc parts are invisible "black on black".
+  (unless (display-graphic-p)
+    (set-face-foreground 'markup-meta-face "green")
+    (set-face-foreground 'markup-meta-hide-face "green")
+  )
 )
 
 (provide 'kambi-adoc)
