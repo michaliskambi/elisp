@@ -14,6 +14,16 @@
 
 (defconst php-mode-available (fboundp 'php-mode))
 
+(defun kam-open-cge-www-php ()
+  (interactive)
+  (counsel-locate-action-extern
+    (concat
+      "http://localhost/~michalis/castle-engine/"
+      (extract-file-name (buffer-file-name))
+    )
+  )
+)
+
 ;; php mode configuration (not dependent on availability of mmm-mode)
 (when php-mode-available
   (require 'php-mode)
@@ -66,6 +76,7 @@
     (require 'sgml-mode nil 'noerror)
     (local-set-key (kbd "C-c C-f") 'sgml-close-tag)
     (setq indent-line-function 'kam-noindent)
+    (local-set-key (kbd "M-b") 'kam-open-cge-www-php)
   )
   (add-hook 'php-mode-hook 'kam-customize-php-mode t)
 )
