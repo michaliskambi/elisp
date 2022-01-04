@@ -38,6 +38,20 @@
   (if (functionp 'magit-show-level-4-all)
       (local-set-key (kbd "`") 'magit-show-level-4-all)
     (local-set-key (kbd "`") 'magit-section-show-level-4-all))
+
+  ;; fix colors for terminals (like for ssh session in castle-engine.io),
+  ;; otherwise default colors are hardly visible on terminals.
+  (unless (display-graphic-p)
+    (set-face-foreground 'magit-diff-removed "black")
+    (set-face-background 'magit-diff-removed "red")
+    (set-face-foreground 'magit-diff-removed-highlight "white")
+    (set-face-background 'magit-diff-removed-highlight "red")
+
+    (set-face-foreground 'magit-diff-added "black")
+    (set-face-background 'magit-diff-added "green")
+    (set-face-foreground 'magit-diff-added-highlight "white")
+    (set-face-background 'magit-diff-added-highlight "green")
+  )
 )
 (add-hook 'magit-mode-hook 'kam-magit-mode-hook t)
 
