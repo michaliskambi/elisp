@@ -34,4 +34,22 @@
   )
 )
 
+(defun kam-convert-html-to-adoc ()
+  "Simple conversion HTML -> AsciiDoctor using a series of replacements.
+Tailored to the needs of Castle Game Engine www."
+  (interactive)
+  (save-excursion
+    (kam-beg-of-buf) (query-replace "<code>" "`")
+    (kam-beg-of-buf) (query-replace "</code>" "`")
+    (kam-beg-of-buf) (query-replace "<i>" "_")
+    (kam-beg-of-buf) (query-replace "</i>" "_")
+    (kam-beg-of-buf) (query-replace "<b>" "*")
+    (kam-beg-of-buf) (query-replace "</b>" "*")
+    ;; make CGE links relative
+    (kam-beg-of-buf) (query-replace-regexp "<a href=\"https://castle-engine.io/\\([^\"]+\\)\">\\([^<]+\\)</a>" "link:\\1[\\2]")
+    ;; keep other links as they were
+    (kam-beg-of-buf) (query-replace-regexp "<a href=\"\\([^\"]+\\)\">\\([^<]+\\)</a>" "link:\\1[\\2]")
+  )
+)
+
 (provide 'kambi-adoc)
