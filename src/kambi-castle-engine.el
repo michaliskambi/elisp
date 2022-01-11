@@ -643,6 +643,10 @@ by projectile."
     (kam-beg-of-buf) (query-replace "ttexturefont" "TCastleFont")
     (kam-beg-of-buf) (query-replace "tsimpletexturefont" "TCastleBitmapFont")
     (kam-beg-of-buf) (query-replace "tfontfamily" "TCastleFontFamily")
+
+    (kam-beg-of-buf) (query-replace "tuistate.current" "Container.View")
+    (kam-beg-of-buf) (query-replace "tuistate.push" "Container.PushView")
+    (kam-beg-of-buf) (query-replace "tuistate.pop" "Container.PopView")
   ))
 
 (defun kam-cge-delphi-upgrade ()
