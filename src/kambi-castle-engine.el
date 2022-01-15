@@ -446,6 +446,8 @@ by projectile."
     ;; https://emacs.stackexchange.com/questions/20567/syntax-highlighting-strings-incorrectly-for-strings-in-opascal-mode
     ;; Don't escape backslashes in pascal
     (modify-syntax-entry ?\\ ".")
+
+    (add-hook 'before-save-hook 'copyright-update)
   ) t)
 
 (add-hook 'nxml-mode-hook
@@ -742,6 +744,16 @@ by projectile."
   )
 )
 (global-set-key (kbd "<f6>") 'kam-www-fix)
+
+;; Not used anymore: using copyright.el package is easier.
+;;
+;; (defun kam-cge-update-copyright-year ()
+;;   """If the file has copyright of Michalis Kamburelis, update the copyright to include current year."""
+;;   (interactive)
+;;   (kam-simple-re-replace-buffer
+;;     "Copyright \\([0-9][0-9][0-9][0-9]\\)\\([,-][-0-9,]+\\)? Michalis Kamburelis"
+;;     (concat "Copyright \\1-" (format-time-string "%Y") " Michalis Kamburelis"))
+;; )
 
 ;; ------------------------------------------------------------
 
