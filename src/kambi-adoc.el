@@ -45,10 +45,21 @@ Tailored to the needs of Castle Game Engine www."
     (kam-beg-of-buf) (query-replace "</i>" "_")
     (kam-beg-of-buf) (query-replace "<b>" "*")
     (kam-beg-of-buf) (query-replace "</b>" "*")
+    (kam-beg-of-buf) (query-replace "<pre>" "```")
+    (kam-beg-of-buf) (query-replace "</pre>" "```")
+    (kam-beg-of-buf) (query-replace "<p>" "") ;; my HTML code usually already has a newline for paragraph
+    (kam-beg-of-buf) (query-replace "</p>" "")
     ;; make CGE links relative
     (kam-beg-of-buf) (query-replace-regexp "<a href=\"https://castle-engine.io/\\([^\"]+\\)\">\\([^<]+\\)</a>" "link:\\1[\\2]")
     ;; keep other links as they were
     (kam-beg-of-buf) (query-replace-regexp "<a href=\"\\([^\"]+\\)\">\\([^<]+\\)</a>" "link:\\1[\\2]")
+    ;; convert links using a_href_page
+    (kam-beg-of-buf) (query-replace-regexp "<\\?php echo a_href_page(['\"]\\([^'\"]+\\)['\"], *['\"]\\([^'\"]+\\)['\"]); *\\?>" "link:\\2.php[\\1]")
+    (kam-beg-of-buf) (query-replace-regexp "<dl>
+  <dt>\\([^<]*\\)</dt>
+  <dd>" "\\1:: ")
+    (kam-beg-of-buf) (query-replace-regexp "  <dt>\\([^<]*\\)</dt>
+  <dd>" "\\1:: ")
   )
 )
 
