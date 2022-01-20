@@ -18,7 +18,7 @@
   (interactive)
   (counsel-locate-action-extern
     (concat
-      "http://localhost/~michalis/castle-engine/"
+      "http://localhost:8777/"
       (extract-file-name (buffer-file-name))
     )
   )

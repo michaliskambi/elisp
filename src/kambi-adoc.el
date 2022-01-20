@@ -4,7 +4,7 @@
   (interactive)
   (counsel-locate-action-extern
     (concat
-      "http://localhost/~michalis/castle-engine/"
+      "http://localhost:8777/"
       (basename (buffer-file-name))
     )
   )
@@ -49,6 +49,8 @@ Tailored to the needs of Castle Game Engine www."
     (kam-beg-of-buf) (query-replace "</pre>" "```")
     (kam-beg-of-buf) (query-replace "<p>" "") ;; my HTML code usually already has a newline for paragraph
     (kam-beg-of-buf) (query-replace "</p>" "")
+    (kam-beg-of-buf) (query-replace "&lt;" "<")
+    (kam-beg-of-buf) (query-replace "&gt;" ">")
     ;; make CGE links relative
     (kam-beg-of-buf) (query-replace-regexp "<a href=\"https://castle-engine.io/\\([^\"]+\\)\">\\([^<]+\\)</a>" "link:\\1[\\2]")
     ;; keep other links as they were
@@ -60,6 +62,10 @@ Tailored to the needs of Castle Game Engine www."
   <dd>" "\\1:: ")
     (kam-beg-of-buf) (query-replace-regexp "  <dt>\\([^<]*\\)</dt>
   <dd>" "\\1:: ")
+    (kam-beg-of-buf) (query-replace-regexp "<?php echo pascal_highlight_file('\\(.*\\)'); ?>" "[source,pascal]
+----
+\\1
+----")
   )
 )
 

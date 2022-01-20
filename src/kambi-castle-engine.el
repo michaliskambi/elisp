@@ -336,7 +336,7 @@ by projectile."
           (concat "./castle-engine_compile.sh && " (kam-install-exe "castle-engine"))
         (if (string-is-suffix "tools/build-tool/code/" dir-name)
             ;; Additional "sh" is needed on Cygwin/Windows
-            (concat "cd .. && sh ./castle-engine_compile.sh && " (kam-install-exe "castle-engine"))
+            (concat "cd .. && bash ./castle-engine_compile.sh && " (kam-install-exe "castle-engine"))
           (if (string-is-suffix "castle_game_engine/tests/" dir-name)
               (concat "./compile_console.sh && ./test_castle_game_engine -a")
             (if (string-is-suffix "castle-engine/tests/" dir-name)
@@ -347,7 +347,7 @@ by projectile."
                     ;;(concat "castle-engine compile --mode=debug && castle-engine run")
                     nil ;; return nil to leave compilation command under projectile (per-project) control
                   (if (file-exists-p compile-script)
-                      (concat "sh " file-base-name "_compile.sh && ./" file-base-name kam-os-exe-extension)
+                      (concat "bash " file-base-name "_compile.sh && ./" file-base-name kam-os-exe-extension)
                     (if (string-match-p "castle_game_engine" dir-name)
                         (concat "castle-engine simple-compile --mode=debug " (file-name-nondirectory file-name) (when is-runnable (concat " && ./" file-base-name)))
                       (if (string-match-p "castle-engine" dir-name)
