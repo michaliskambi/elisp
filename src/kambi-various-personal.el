@@ -1241,6 +1241,12 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 
 (defalias 'set-default-font 'set-frame-font)
 
+;; copyright -----------------------------------------------------------------
+
+;; By default, copyright-update wants to change GPL "GPL >= 2" into "GPL >= 3".
+;; In CGE we keep allowing GPL 2, for now.
+(setq copyright-current-gpl-version nil)
+
 ;; provides (keep at the end) ------------------------------------------------
 
 (provide 'kambi-various-personal)
