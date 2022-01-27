@@ -447,7 +447,8 @@ by projectile."
     ;; Don't escape backslashes in pascal
     (modify-syntax-entry ?\\ ".")
 
-    (add-hook 'before-save-hook 'copyright-update)
+    ;; (add-hook 'before-save-hook 'copyright-update)
+    (add-hook 'before-save-hook 'kam-cge-update-copyright-year)
   ) t)
 
 (add-hook 'nxml-mode-hook
@@ -745,15 +746,28 @@ by projectile."
 )
 (global-set-key (kbd "<f6>") 'kam-www-fix)
 
-;; Not used anymore: using copyright.el package is easier.
+;; copyright -----------------------------------------------------------------
+
+;; Using copyright.el package could do this as well...
 ;;
-;; (defun kam-cge-update-copyright-year ()
-;;   """If the file has copyright of Michalis Kamburelis, update the copyright to include current year."""
-;;   (interactive)
-;;   (kam-simple-re-replace-buffer
-;;     "Copyright \\([0-9][0-9][0-9][0-9]\\)\\([,-][-0-9,]+\\)? Michalis Kamburelis"
-;;     (concat "Copyright \\1-" (format-time-string "%Y") " Michalis Kamburelis"))
-;; )
+;; Except it cannot make a range if previous copyright was not to last year.
+;; I.e. in 2022, copyright says "2017-2018", it will make "2017-2018, 2022",
+;; I want to make "2017-2022" because it just means I didn't update the file's copyright
+;; in 2019, I have lots of CGE files without updated copyright as I didn't want to "reset"
+;; the directory view at the beginning of each year, see
+;; https://trello.com/c/HhSLIeAf/102-update-copyright-notice-to-20202021 .
+
+;; By default, copyright-update wants to change GPL "GPL >= 2" into "GPL >= 3".
+;; In CGE we keep allowing GPL 2, for now.
+;; (setq copyright-current-gpl-version nil)
+
+(defun kam-cge-update-copyright-year ()
+  """If the file has copyright of Michalis Kamburelis, update the copyright to include current year."""
+  (interactive)
+  (kam-simple-re-replace-buffer
+    "Copyright \\([0-9][0-9][0-9][0-9]\\)\\([,-][-0-9,]+\\)? Michalis Kamburelis"
+    (concat "Copyright \\1-" (format-time-string "%Y") " Michalis Kamburelis"))
+)
 
 ;; ------------------------------------------------------------
 
