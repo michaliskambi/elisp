@@ -764,9 +764,29 @@ by projectile."
 (defun kam-cge-update-copyright-year ()
   """If the file has copyright of Michalis Kamburelis, update the copyright to include current year."""
   (interactive)
-  (kam-simple-re-replace-buffer
-    "Copyright \\([0-9][0-9][0-9][0-9]\\)\\([,-][-0-9,]+\\)? Michalis Kamburelis"
-    (concat "Copyright \\1-" (format-time-string "%Y") " Michalis Kamburelis"))
+
+  ;; We use re-search-forward and replace-match explicitly
+  ;; (instead of kam-simple-re-replace-buffer) because we try extra hard
+  ;; to *not* call replace-match if the replacement is not necessary.
+  ;;
+  ;; This is important for undo behavior in Emacs: if we would make meaningless
+  ;; replacement current year -> current year every time, we would introduce
+  ;; a meaningless operation in undo at each save.
+  ;; This breaks my workflow, as I often rely in C-z to bring me back to last edit.
+
+  (save-excursion
+    (let ((current-year-string (format-time-string "%Y")))
+      (goto-char (point-min))
+      (when (re-search-forward "Copyright \\([0-9][0-9][0-9][0-9]\\)\\([,-][-0-9,]+\\)? Michalis Kamburelis" nil t)
+        (unless (or (string-equal (match-string 2) (concat "-" current-year-string))
+                    (and (string-equal (match-string 1) current-year-string)
+                    (string-equal (match-string 2) ""))
+                )
+          (replace-match (concat "Copyright \\1-" current-year-string " Michalis Kamburelis"))
+        )
+      )
+    )
+  )
 )
 
 ;; ------------------------------------------------------------
