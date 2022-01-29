@@ -1,5 +1,10 @@
 ;;; kambi-utils --- various useful EmacsLisp functions.
 
+;; Some useful utilities:
+;; - search (search a substring, like Pos in Pascal, like strpos in PHP)
+;;   https://stackoverflow.com/questions/3896953/strpos-in-emacs-lisp
+(require 'cl)
+
 ;; string operations ---------------------------------------------------
 
 (defun string-repeat (STR COUNT)
@@ -82,15 +87,15 @@ to make result at least MINLENGTH long."
 ;; define kam-is-* consts
 
 (defconst kam-is-windows
-  (or (cl-search "windows" system-configuration)
-      (cl-search "msvc-nt" system-configuration)
-      (cl-search "mingw" system-configuration)
-      (cl-search "cygwin" system-configuration)
+  (or (search "windows" system-configuration)
+      (search "msvc-nt" system-configuration)
+      (search "mingw" system-configuration)
+      (search "cygwin" system-configuration)
   )
   "Non-nil if we're under Windows, else nil.")
 
 (defconst kam-is-freebsd
-  (cl-search "freebsd" system-configuration)
+  (search "freebsd" system-configuration)
   "Non-nil if we're under FreeBSD, else nil.")
 
 (defconst kam-is-linux
@@ -98,7 +103,7 @@ to make result at least MINLENGTH long."
   "Non-nil if we're under Linux, else nil.")
 
 (defconst kam-is-darwin
-  (cl-search "apple-darwin" system-configuration)
+  (search "apple-darwin" system-configuration)
   "Non-nil if we're under Darwin (Mac OS X), else nil.")
 
 (defconst kam-is-unix
