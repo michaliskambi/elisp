@@ -1,8 +1,13 @@
 ;;; kambi-utils --- various useful EmacsLisp functions.
 
-;; Some useful utilities:
-;; - search (search a substring, like Pos in Pascal, like strpos in PHP)
-;;   https://stackoverflow.com/questions/3896953/strpos-in-emacs-lisp
+;; We use this for search function
+;; (search a substring, like Pos in Pascal, like strpos in PHP)
+;; https://stackoverflow.com/questions/3896953/strpos-in-emacs-lisp
+;;
+;; Note: In Emacs 27 using cl is deprecated, and we can use cl-search instead.
+;; However it will fail then with Emacs 26.
+;; For now keep using cl. Some other packages we depend on package cl too for now,
+;; so anyway we have a warning about "cl deprecated" at start.
 (require 'cl)
 
 ;; string operations ---------------------------------------------------
