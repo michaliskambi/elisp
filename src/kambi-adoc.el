@@ -62,10 +62,11 @@ Tailored to the needs of Castle Game Engine www."
   <dd>" "\\1:: ")
     (kam-beg-of-buf) (query-replace-regexp "  <dt>\\([^<]*\\)</dt>
   <dd>" "\\1:: ")
-    (kam-beg-of-buf) (query-replace-regexp "<?php echo pascal_highlight_file('\\(.*\\)'); ?>" "[source,pascal]
+    (kam-beg-of-buf) (query-replace-regexp "<\\?php echo pascal_highlight_file('\\(.*\\)'); \\?>" "[source,pascal]
 ----
 \\1
 ----")
+    (kam-beg-of-buf) (query-replace-regexp "<\\?php api_link('\\([^']+\\)', '\\([^']+\\)'); \\?>" "cgeref:\\1[]")
   )
 )
 
