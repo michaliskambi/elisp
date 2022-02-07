@@ -92,6 +92,7 @@
 (defun kam-customize-html-mode-hook ()
   (local-set-key (kbd "C-z") 'undo)
   (local-set-key (kbd "C-c C-f") 'sgml-close-tag)
+  (local-set-key (kbd "M-b") 'kam-open-cge-www-php)
   (setq indent-line-function 'kam-noindent)
 )
 (add-hook 'html-mode-hook 'kam-customize-html-mode-hook t)
