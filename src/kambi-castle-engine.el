@@ -589,8 +589,8 @@ by projectile."
     (kam-beg-of-buf) (query-replace "tuicontrolsizeable" "TCastleUserInterface")
     (kam-beg-of-buf) (query-replace "tuicontrol" "TCastleUserInterface")
     (kam-beg-of-buf) (query-replace "tcastleuserinterfacerect" "TCastleUserInterface")
-    (kam-beg-of-buf) (query-replace "tcastlewindowcustom" "TCastleWindowBase")
-    (kam-beg-of-buf) (query-replace "tcastlecontrolcustom" "TCastleControlBase")
+    (kam-beg-of-buf) (query-replace "tcastlewindowcustom" "TCastleWindow")
+    (kam-beg-of-buf) (query-replace "tcastlecontrolcustom" "TCastleControl")
 
     (kam-beg-of-buf) (query-replace "rgbpixels" "Pixels")
     (kam-beg-of-buf) (query-replace "grayscalealphapixels" "Pixels")
@@ -633,8 +633,9 @@ by projectile."
     (kam-beg-of-buf) (query-replace "t3dmoving" "TCastleMoving")
     (kam-beg-of-buf) (query-replace "castle3d" "CastleTransform, CastleTransformExtra")
     (kam-beg-of-buf) (query-replace "scenemanager" "Viewport")
-    (kam-beg-of-buf) (query-replace "castlewindow.create" "CastleWindowBase.Create")
-    (kam-beg-of-buf) (query-replace "castlecontrol.create" "CastleControlBase.Create")
+    ;; we again use names without "Base" suffix
+    ;; (kam-beg-of-buf) (query-replace "castlewindow.create" "CastleWindowBase.Create")
+    ;; (kam-beg-of-buf) (query-replace "castlecontrol.create" "CastleControlBase.Create")
     (kam-beg-of-buf) (query-replace "{ CASTLE-INITIALIZATION-USES-BEGIN }" "{$region 'Castle Initialization Uses'}")
     (kam-beg-of-buf) (query-replace "{ CASTLE-INITIALIZATION-USES-END }"   "{$endregion 'Castle Initialization Uses'}")
     (kam-beg-of-buf) (query-replace "{ CASTLE-STATE-CREATE-BEGIN }"        "{$region 'Castle State Creation'}")
