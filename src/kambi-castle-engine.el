@@ -632,7 +632,10 @@ by projectile."
     (kam-beg-of-buf) (query-replace "t3dlinearmoving" "TCastleLinearMoving")
     (kam-beg-of-buf) (query-replace "t3dmoving" "TCastleMoving")
     (kam-beg-of-buf) (query-replace "castle3d" "CastleTransform, CastleTransformExtra")
-    (kam-beg-of-buf) (query-replace "scenemanager" "Viewport")
+
+    ;; too often I want to leave old things unchanged; new things are upgraded to viewport now
+    ;; (kam-beg-of-buf) (query-replace "scenemanager" "Viewport")
+
     ;; we again use names without "Base" suffix
     ;; (kam-beg-of-buf) (query-replace "castlewindow.create" "CastleWindowBase.Create")
     ;; (kam-beg-of-buf) (query-replace "castlecontrol.create" "CastleControlBase.Create")
@@ -646,9 +649,10 @@ by projectile."
     (kam-beg-of-buf) (query-replace "tsimpletexturefont" "TCastleBitmapFont")
     (kam-beg-of-buf) (query-replace "tfontfamily" "TCastleFontFamily")
 
-    (kam-beg-of-buf) (query-replace "tuistate.current" "Container.View")
-    (kam-beg-of-buf) (query-replace "tuistate.push" "Container.PushView")
-    (kam-beg-of-buf) (query-replace "tuistate.pop" "Container.PopView")
+    ;; not in master yet
+    ;; (kam-beg-of-buf) (query-replace "tuistate.current" "Container.View")
+    ;; (kam-beg-of-buf) (query-replace "tuistate.push" "Container.PushView")
+    ;; (kam-beg-of-buf) (query-replace "tuistate.pop" "Container.PopView")
 
     (kam-beg-of-buf) (query-replace-regexp "Data: *(\\([-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\))" "X: \\1; Y:\\2")
     (kam-beg-of-buf) (query-replace-regexp "Data: *(\\([-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\))" "X: \\1; Y:\\2; Z:\\3")
