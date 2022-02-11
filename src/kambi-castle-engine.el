@@ -648,6 +648,18 @@ by projectile."
     (kam-beg-of-buf) (query-replace "tuistate.current" "Container.View")
     (kam-beg-of-buf) (query-replace "tuistate.push" "Container.PushView")
     (kam-beg-of-buf) (query-replace "tuistate.pop" "Container.PopView")
+
+    (kam-beg-of-buf) (query-replace-regexp "Data: *(\\([-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\))" "X: \\1; Y:\\2")
+    (kam-beg-of-buf) (query-replace-regexp "Data: *(\\([-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\))" "X: \\1; Y:\\2; Z:\\3")
+    (kam-beg-of-buf) (query-replace-regexp "Data: *(\\([-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\))" "X: \\1; Y:\\2; Z:\\3; W:\\4")
+
+    (kam-beg-of-buf) (query-replace-regexp "Data: *(\\( *[-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\))" "X:\\1; Y:\\2")
+    (kam-beg-of-buf) (query-replace-regexp "Data: *(\\( *[-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\))" "X:\\1; Y:\\2; Z:\\3")
+    (kam-beg-of-buf) (query-replace-regexp "Data: *(\\( *[-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\),\\( *[-+Ee.0-9]+ *\\))" "X:\\1; Y:\\2; Z:\\3; W:\\4")
+    (kam-beg-of-buf) (query-replace "Data[0]" "X")
+    (kam-beg-of-buf) (query-replace "Data[1]" "Y")
+    (kam-beg-of-buf) (query-replace "Data[2]" "Z")
+    (kam-beg-of-buf) (query-replace "Data[3]" "W")
   ))
 
 (defun kam-cge-delphi-upgrade ()
