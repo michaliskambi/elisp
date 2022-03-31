@@ -42,6 +42,9 @@
 
 ;; Some special things to cooperate with Cygwin under Windows
 (when kam-is-windows
+  ;; for cygwin-mount
+  (add-to-list 'load-path (concat kambi-elisp-path "contrib/"))
+
   (require 'cygwin-mount)
   (cygwin-mount-activate)
 
