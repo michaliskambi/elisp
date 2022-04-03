@@ -1241,6 +1241,13 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 
 (defalias 'set-default-font 'set-frame-font)
 
+;; freebsd -------------------------------------------------------------------
+
+;; see https://forums.freebsd.org/threads/emacs-listing-directory-failed-but-access-file-worked.80243/
+;; requires https://www.freshports.org/sysutils/coreutils/ installed on FreeBSD,
+;; makes dired work OK
+(when (eq system-type 'berkeley-unix) (setq insert-directory-program "/usr/local/bin/gls"))
+
 ;; provides (keep at the end) ------------------------------------------------
 
 (provide 'kambi-various-personal)
