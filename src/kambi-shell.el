@@ -187,6 +187,10 @@
 
 ;; use bash even when $SHELL points to zsh, makes ripgrep commands work OK
 (when kam-is-unix
-  (setq shell-file-name "/bin/bash"))
+  (if (file-exists-p "/bin/bash")
+      (setq shell-file-name "/bin/bash")
+    (if (file-exists-p "/usr/local/bin/bash") ;; support alt location on FreeBSD
+        (setq shell-file-name "/usr/local/bin/bash")))
+)
 
 (provide 'kambi-shell)
