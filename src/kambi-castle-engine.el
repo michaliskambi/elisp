@@ -637,8 +637,10 @@ by projectile."
     ;; (kam-beg-of-buf) (query-replace "scenemanager" "Viewport")
 
     ;; we again use names without "Base" suffix
-    ;; (kam-beg-of-buf) (query-replace "castlewindow.create" "CastleWindowBase.Create")
-    ;; (kam-beg-of-buf) (query-replace "castlecontrol.create" "CastleControlBase.Create")
+    (kam-beg-of-buf) (query-replace "tcastlewindowbase" "TCastleWindow")
+    (kam-beg-of-buf) (query-replace "tcastlecontrolbase" "TCastleControl")
+    (kam-beg-of-buf) (query-replace "castlewindowbase.create" "CastleWindow.Create")
+    (kam-beg-of-buf) (query-replace "castlecontrolbase.create" "CastleControl.Create")
     (kam-beg-of-buf) (query-replace "{ CASTLE-INITIALIZATION-USES-BEGIN }" "{$region 'Castle Initialization Uses'}")
     (kam-beg-of-buf) (query-replace "{ CASTLE-INITIALIZATION-USES-END }"   "{$endregion 'Castle Initialization Uses'}")
     (kam-beg-of-buf) (query-replace "{ CASTLE-STATE-CREATE-BEGIN }"        "{$region 'Castle State Creation'}")
