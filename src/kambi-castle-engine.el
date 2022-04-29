@@ -667,6 +667,9 @@ by projectile."
     (kam-beg-of-buf) (query-replace "Data[1]" "Y")
     (kam-beg-of-buf) (query-replace "Data[2]" "Z")
     (kam-beg-of-buf) (query-replace "Data[3]" "W")
+
+    (kam-beg-of-buf) (query-replace "LongWord" "UInt32")
+    (kam-beg-of-buf) (query-replace "LongInt" "Int32")
   ))
 
 (defun kam-cge-delphi-upgrade ()
