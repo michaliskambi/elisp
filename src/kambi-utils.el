@@ -1156,12 +1156,16 @@ for us."
 
 (defun kam-svn-directory-p (dir)
   "Does DIR, or some parent, contain .svn subdir."
+  ;; (message "Looking at %s" dir) ;; debug
   (or
     (file-exists-p (kam-file-name-in-directory dir ".svn"))
     (and
       (not (equal dir "/"))
       (let ((parent-dir (file-name-directory (directory-file-name dir))))
-        (kam-svn-directory-p parent-dir)
+        ;; using here "unless" prevents infinite loop on Windows, where the parent-most dir is drive like "c:/"
+        (unless (equal parent-dir dir)
+          (kam-svn-directory-p parent-dir)
+        )
       )
     )
   )
