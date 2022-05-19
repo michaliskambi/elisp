@@ -1062,16 +1062,17 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;; Useful, as on some servers dir is not writeable (like /var/www/wpi/) for security.
 ;; See http://www.gnu.org/software/emacs/manual/html_node/tramp/Auto_002dsave-and-Backup.html
 
-(setq backup-enable-predicate
-  (lambda (name)
-    (and (normal-backup-enable-predicate name)
-         (not
-          (let ((method (file-remote-p name 'method)))
-            (when (stringp method)
-              (member method '("su" "sudo" "scp"))))))))
+;; Later: I do not need this anymore.
+;; Also, it prevents from saving these files in recentf, and I miss that --
+;; I want to save tramp filenames to recentf as they are hard to type!
 
-(defconst kam-inc-extension-default-php nil
-  "Should the .inc extension by default indicate PHP (non-nil) or Pascal (nil).")
+;; (setq backup-enable-predicate
+;;   (lambda (name)
+;;     (and (normal-backup-enable-predicate name)
+;;          (not
+;;           (let ((method (file-remote-p name 'method)))
+;;             (when (stringp method)
+;;               (member method '("su" "sudo" "scp"))))))))
 
 ;; org -----------------------------------------------------------------------
 

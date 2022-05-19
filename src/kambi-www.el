@@ -24,6 +24,9 @@
   )
 )
 
+(defconst kam-inc-extension-default-php nil
+  "Should the .inc extension by default indicate PHP (non-nil) or Pascal (nil).")
+
 ;; php mode configuration (not dependent on availability of mmm-mode)
 (when php-mode-available
   (require 'php-mode)
