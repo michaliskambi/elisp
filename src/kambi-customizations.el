@@ -91,6 +91,7 @@
  '(mode-require-final-newline nil)
  '(ns-right-alternate-modifier 'none)
  '(opascal-tab-always-indents nil)
+ '(org-cycle-separator-lines 1)
  '(org-link-descriptive nil)
  '(org-replace-disputed-keys t)
  '(org-support-shift-select 'always)
