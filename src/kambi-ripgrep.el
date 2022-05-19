@@ -14,7 +14,13 @@
 ;; include kambi-projectile 1st
 (require 'kambi-projectile)
 
-;; use our own binaries, to make it easy for me under Linux ------------------
+;; ---------------------------------------------------------------------------
+;; use our own binaries as a fallback
+;; (useful on various systems that are not my own, but I want to use there my Emacs easily)
+;;
+;; Note: do not use if "rg" found on $PATH.
+;; Very useful to keep "rg" command simple, so C-g even works in Tramp connections,
+;; if remote has rg installed.
 
 ;; from https://emacs.stackexchange.com/questions/11052/how-to-determine-operating-system-bits-32-vs-64-bit-in-elisp
 (defconst kam-cpu-i386
@@ -27,7 +33,7 @@
   (not (null (string-match "^x86_64-.*" system-configuration))))
 
 (when (require 'ripgrep nil 'noerror)
-  (unless (file-exists-p ripgrep-executable)
+  (unless (or (file-exists-p ripgrep-executable) (kam-search-for-program ripgrep-executable))
     (when (string-equal system-type "gnu/linux")
 
       ;; try the one installed by cargo

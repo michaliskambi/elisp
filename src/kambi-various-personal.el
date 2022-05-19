@@ -1083,10 +1083,18 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
     (local-set-key (kbd "RET") 'insert-newline-indented-as-prev)
     (local-set-key (kbd "C-e") 'move-end-of-line)
     (local-set-key (kbd "<end>") 'move-end-of-line)
+
+    ;; reassing some org commands
+    (local-set-key (kbd "<S-return>") 'org-open-at-point)
   )
   t)
 
 (add-to-list 'auto-mode-alist '("\\.org.txt\\'" . org-mode))
+
+;; https://orgmode.org/org.html#Clean-View
+(setq org-adapt-indentation t
+      org-hide-leading-stars t
+      org-odd-levels-only t)
 
 ;; ido -----------------------------------------------------------------------
 
