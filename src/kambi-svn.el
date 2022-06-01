@@ -23,14 +23,6 @@
 )
 
 (when (require 'diff-mode nil 'noerror)
-  ;; Customizations to diff-mode.
-  ;; In theory independent from dsvn customizations, but in practice I use diff-mode
-  ;; only with diff-mode.
-  ;; Make these keys consistent with my magit keybindings.
-  (define-key diff-mode-map (kbd "e") 'diff-refine-hunk)
-  (define-key diff-mode-map (kbd "C-c") 'cua-copy-region)
-;;  (define-key diff-mode-map (kbd "c") ')
-
   (defun kam-svn-show-diff ()
     (svn-diff ".")
   )

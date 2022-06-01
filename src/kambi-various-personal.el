@@ -549,28 +549,36 @@ i.e. point remains in the occur buffer."
 ;; hijacking it again to mean digit-argument. That is because special-mode-map
 ;; calls suppress-keymap, which is a really shitty way to disable editing a buffer,
 ;; since it just blindly remaps the keys, even when they would not cause editing.
-(add-hook 'special-mode-hook
-  (lambda ()
-    (local-set-key (kbd "M-0") 'kam-buffer-menu)
-    (local-set-key (kbd "M-1") 'delete-other-windows)
-    (local-set-key (kbd "M-2") 'split-window-vertically)
-    (local-set-key (kbd "M-3") 'split-window-horizontally)
-  ) t)
+(defun kam-special-mode-hook ()
+  (local-set-key (kbd "M-0") 'kam-buffer-menu)
+  (local-set-key (kbd "M-1") 'delete-other-windows)
+  (local-set-key (kbd "M-2") 'split-window-vertically)
+  (local-set-key (kbd "M-3") 'split-window-horizontally)
+)
+(add-hook 'special-mode-hook 'kam-special-mode-hook t)
 
 ;; diff-mode
-(add-hook 'diff-mode-hook
-  (lambda ()
-    ;; redefine to use my standard shortcut, since diff-mode overrides
-    ;; the global definitions for these keys.
-    ;; Note that special-mode-hook above is not enough,
-    ;; we need to repeat this, since diff-mode doesn't inherit from special-mode,
-    ;; it only uses it's keymap as a starting point.
-    (local-set-key (kbd "M-o") 'other-window)
-    (local-set-key (kbd "M-1") 'delete-other-windows)       ; like C-x 1
-    (local-set-key (kbd "M-2") 'split-window-vertically)    ; like C-x 2
-    (local-set-key (kbd "M-3") 'split-window-horizontally)  ; like C-x 3
-    (local-set-key (kbd "M-0") 'kam-buffer-menu)
-  ) t)
+(defun kam-diff-mode-hook ()
+  ;; redefine to use my standard shortcut, since diff-mode overrides
+  ;; the global definitions for these keys.
+  ;; Note that special-mode-hook above is not enough,
+  ;; we need to repeat this, since diff-mode doesn't inherit from special-mode,
+  ;; it only uses it's keymap as a starting point.
+  (local-set-key (kbd "M-o") 'other-window)
+  (local-set-key (kbd "M-1") 'delete-other-windows)       ; like C-x 1
+  (local-set-key (kbd "M-2") 'split-window-vertically)    ; like C-x 2
+  (local-set-key (kbd "M-3") 'split-window-horizontally)  ; like C-x 3
+  (local-set-key (kbd "M-0") 'kam-buffer-menu)
+
+  ;; Customizations to diff-mode.
+  ;; Make these keys consistent with my magit keybindings.
+  (local-set-key (kbd "e") 'diff-refine-hunk)
+  (local-set-key (kbd "C-c") 'cua-copy-region)
+
+  ;; useful when working with actual patch files
+  (local-set-key (kbd "C-a") 'diff-apply-hunk)
+)
+(add-hook 'diff-mode-hook 'kam-diff-mode-hook t)
 
 ;; fill-column
 (setq default-fill-column 70)
