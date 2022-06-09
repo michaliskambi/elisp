@@ -89,6 +89,9 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
     'browse-kill-ring
     'dsvn
     'ethan-wspace
+    'yaml-mode
+    'markdown-mode
+    'gh-md
   ))
 )
 
@@ -1264,6 +1267,14 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 ;; requires https://www.freshports.org/sysutils/coreutils/ installed on FreeBSD,
 ;; makes dired work OK
 (when (eq system-type 'berkeley-unix) (setq insert-directory-program "/usr/local/bin/gls"))
+
+;; markdown ------------------------------------------------------------------
+
+(defun kam-markdown-mode-hook ()
+  ;; Alt+B (consistent with M-b in php and html modes) to view Markdown just
+  ;; as GitHub does (nice to write GitHub README.md etc.).
+  (local-set-key (kbd "M-b") 'gh-md-render-buffer))
+(add-hook 'markdown-mode-hook 'kam-markdown-mode-hook)
 
 ;; provides (keep at the end) ------------------------------------------------
 
