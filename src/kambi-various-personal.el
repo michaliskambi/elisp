@@ -1096,6 +1096,7 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
     (local-set-key (kbd "RET") 'insert-newline-indented-as-prev)
     (local-set-key (kbd "C-e") 'move-end-of-line)
     (local-set-key (kbd "<end>") 'move-end-of-line)
+    (local-set-key (kbd "M-h") 'kam-shell-killable)
 
     ;; reassing some org commands
     (local-set-key (kbd "<S-return>") 'org-open-at-point)
