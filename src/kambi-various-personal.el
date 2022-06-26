@@ -11,11 +11,12 @@
   (setq kam-package-force-http nil))
 
 (defconst kam-package-protocol
-  ;; Note: On Windows, use http instead of https, standard Emacs cannot handle https:
-  ;; https://stackoverflow.com/questions/35345045/emacs-install-a-package-with-melpa-on-windows
-  ;; https://emacs.stackexchange.com/questions/22468/how-do-i-get-melpa-working-on-my-windows-8-laptop
-  ;; Same is necessary on Raspberry Pi... Just honor kam-package-force-http.
-  (if (or kam-is-windows kam-package-force-http) "http" "https")
+  ;; Note: With older Emacs versions:
+  ;; - On Windows we had to use http instead of https, standard Emacs cannot handle https:
+  ;;   https://stackoverflow.com/questions/35345045/emacs-install-a-package-with-melpa-on-windows
+  ;;   https://emacs.stackexchange.com/questions/22468/how-do-i-get-melpa-working-on-my-windows-8-laptop
+  ;; - Same is necessary on Raspberry Pi.
+  (if kam-package-force-http "http" "https")
 )
 
 (when (require 'package nil 'noerror)
