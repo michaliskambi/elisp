@@ -1,4 +1,9 @@
 #!/bin/bash
 set -eu
 
-emacs --load `pwd`/../src/kambi-batch-upgrade-packages.el --batch
+CUR_DIR="`pwd`"
+if which cygpath > /dev/null 2>&1; then
+  CUR_DIR="`cygpath --mixed \"${CUR_DIR}\"`"
+fi
+
+emacs --load "${CUR_DIR}"/../src/kambi-batch-upgrade-packages.el --batch
