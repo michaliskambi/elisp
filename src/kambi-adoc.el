@@ -70,4 +70,31 @@ Tailored to the needs of Castle Game Engine www."
   )
 )
 
+(defun kam-adoc-upgrade-to-cgeref ()
+  (interactive)
+  (save-excursion
+    (kam-beg-of-buf) (query-replace-regexp "https://castle-engine\\.io/apidoc-unstable/html/\\([a-zA-Z_0-9]+\\)\\.\\([a-zA-Z_0-9]+\\)\\.html#\\([a-zA-Z_0-9]+\\)\\[\\([^]]+\\)\\]" "cgeref:\\2.\\3[\\4]")
+    (kam-beg-of-buf) (query-replace-regexp "https://castle-engine\\.io/apidoc-unstable/html/\\([a-zA-Z_0-9]+\\)\\.\\([a-zA-Z_0-9]+\\)\\.html\\[\\([^]]+\\)\\]" "cgeref:\\2[\\3]")
+    (kam-beg-of-buf) (query-replace-regexp "https://castle-engine\\.io/apidoc-unstable/html/\\([a-zA-Z_0-9]+\\)\\.html#\\([a-zA-Z_0-9]+\\)\\[\\([^]]+\\)\\]" "cgeref:\\2[\\3]")
+    (kam-beg-of-buf) (query-replace-regexp "https://castle-engine\\.io/apidoc-unstable/html/\\([a-zA-Z_0-9]+\\)\\.html\\[\\([^]]+\\)\\]" "cgeref:\\1[\\2]")
+
+    (kam-beg-of-buf) (query-replace-regexp "https://castle-engine\\.io/apidoc-unstable/html/\\([a-zA-Z_0-9]+\\)\\.\\([a-zA-Z_0-9]+\\)\\.html#\\([a-zA-Z_0-9]+\\)" "cgeref:\\2.\\3[]")
+    (kam-beg-of-buf) (query-replace-regexp "https://castle-engine\\.io/apidoc-unstable/html/\\([a-zA-Z_0-9]+\\)\\.\\([a-zA-Z_0-9]+\\)\\.html" "cgeref:\\2[]")
+    (kam-beg-of-buf) (query-replace-regexp "https://castle-engine\\.io/apidoc-unstable/html/\\([a-zA-Z_0-9]+\\)\\.html#\\([a-zA-Z_0-9]+\\)" "cgeref:\\2[]")
+    (kam-beg-of-buf) (query-replace-regexp "https://castle-engine\\.io/apidoc-unstable/html/\\([a-zA-Z_0-9]+\\)\\.html" "cgeref:\\1[]")
+  )
+)
+
+(defun kam-php-upgrade-to-cgeref ()
+  (interactive)
+  (save-excursion
+    (kam-beg-of-buf) (query-replace-regexp "<a href=\"https://castle-engine\\.io/apidoc-unstable/html/\\([a-zA-Z_0-9]+\\)\\.\\([a-zA-Z_0-9]+\\)\\.html#\\([a-zA-Z_0-9]+\\)\">\\([^<]+\\)</a>" "<?php echo cgeRef('\\2.\\3', '\\4'); ?>")
+    (kam-beg-of-buf) (query-replace-regexp "<a href=\"https://castle-engine\\.io/apidoc-unstable/html/\\([a-zA-Z_0-9]+\\)\\.\\([a-zA-Z_0-9]+\\)\\.html\">\\([^<]+\\)</a>" "<?php echo cgeRef('\\2', '\\3'); ?>")
+    (kam-beg-of-buf) (query-replace-regexp "<a href=\"https://castle-engine\\.io/apidoc-unstable/html/\\([a-zA-Z_0-9]+\\)\\.html#\\([a-zA-Z_0-9]+\\)\">\\([^<]+\\)</a>" "<?php echo cgeRef('\\2', '\\3'); ?>")
+    (kam-beg-of-buf) (query-replace-regexp "<a href=\"https://castle-engine\\.io/apidoc-unstable/html/\\([a-zA-Z_0-9]+\\)\\.html\">\\([^<]+\\)</a>" "<?php echo cgeRef('\\1', '\\2'); ?>")
+
+    (kam-beg-of-buf) (query-replace-regexp "<\\?php api_link('\\([^']+\\)', '\\([^']+\\)'); \\?>" "<?php echo cgeRef('\\1'); ?>")
+  )
+)
+
 (provide 'kambi-adoc)
