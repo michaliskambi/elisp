@@ -49,6 +49,11 @@ Tailored to the needs of Castle Game Engine www."
     (kam-beg-of-buf) (query-replace "</pre>" "```")
     (kam-beg-of-buf) (query-replace "<p>" "") ;; my HTML code usually already has a newline for paragraph
     (kam-beg-of-buf) (query-replace "</p>" "")
+    (kam-beg-of-buf) (query-replace "<ul>" "")
+    (kam-beg-of-buf) (query-replace "</ul>" "")
+    (kam-beg-of-buf) (query-replace "<ol>" "")
+    (kam-beg-of-buf) (query-replace "</ol>" "")
+    (kam-beg-of-buf) (query-replace-regexp "^ *<li>" "- ")
     (kam-beg-of-buf) (query-replace "&lt;" "<")
     (kam-beg-of-buf) (query-replace "&gt;" ">")
     ;; make CGE links relative
@@ -67,6 +72,7 @@ Tailored to the needs of Castle Game Engine www."
 \\1
 ----")
     (kam-beg-of-buf) (query-replace-regexp "<\\?php api_link('\\([^']+\\)', '\\([^']+\\)'); \\?>" "cgeref:\\1[]")
+    (kam-beg-of-buf) (query-replace-regexp "<\\?php echo cgeRef('\\([^']+\\)'); \\?>" "cgeref:\\1[]")
   )
 )
 
