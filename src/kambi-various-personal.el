@@ -1233,7 +1233,12 @@ set-face-background to BG-COLOR (or leave as is if BG-COLOR is nil)."
 
 ;; hl-line-mode --------------------------------------------------------------
 
-;; on terminals, hl-mode often looks unreadable (background and foreground colors look the same)
+;; Don't enable on terminals,
+;; hl-mode often looks unreadable (background and foreground colors look the same).
+;;
+;; Note: hl-line prevents using describe-face / describe-char to know what's current face.
+;; Just temporarily disable (global-hl-line-mode) to use describe-face / describe-char
+;; to investigate current face.
 (when (display-graphic-p)
   (global-hl-line-mode))
 

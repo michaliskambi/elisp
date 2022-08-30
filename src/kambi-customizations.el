@@ -162,6 +162,7 @@
  '(markup-verbatim-face ((t (:box (:line-width 1 :color "grey25")))))
  '(mmm-default-submode-face ((t (:background "gray10"))))
  '(nxml-comment-content-face ((t (:foreground "gray"))))
+ '(org-block ((t (:inherit shadow :foreground "green"))))
  '(t2t-bold-face ((t (:background unspecified :foreground unspecified :weight bold :width extra-expanded))))
  '(t2t-bold-italic-face ((t (:background unspecified :foreground unspecified :underline nil :slant italic :weight extra-bold :width extra-expanded))))
  '(t2t-comments-face ((t (:background "black" :foreground "gray"))))
