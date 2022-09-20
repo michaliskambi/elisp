@@ -131,6 +131,10 @@ testcase for FPC bug report, and trimming away code that doesn't affect bug."
   (query-replace-regexp "\nbegin\n[^e][^`]+?\nend;\n" "\nbegin { single line, to not match anymore } end;\n")
 )
 
+;; So that e.g. /home/michalis/sources/castle-engine/castle-engine/examples/instantfpc/castle_open_dialog
+;; opens in my Pascal mode
+(add-to-list 'interpreter-mode-alist '("instantfpc" . kambi-pascal-mode))
+
 ;; ------------------------------------------------------------
 
 (provide 'kambi-pascal)
