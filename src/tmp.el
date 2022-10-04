@@ -992,3 +992,23 @@ CLICK-EVENT should be a mouse-click event."
   )
 )
 (global-set-key (kbd "<f5>") 'kam-www-fix)
+------------------------------------------------------------------------------
+Below in .emacs is not needed in the end -- it is easier to just add Cygwin's bin
+to Windows PATH.
+Then also in scripts, "which" etc is found OK.
+
+(setq exec-path (append
+  (list
+    cygwin-mount-cygwin-bin-directory
+;;    (concat kam-home-directory "/bin") ;; no need to, added to Windows PATH
+;;    (concat kam-home-directory "/common/scripts") ;; no need to, added to Windows PATH
+  )
+  exec-path)
+)
+
+;; Force using Cygwin's bash and find inside scripts, even when Cygwin bin is not on Windows PATH.
+;; Execution through bash will make it add Cygwin path for scripts.
+(setq projectile-generic-command
+  (concat cygwin-mount-cygwin-bin-directory "/bash.exe /home/michalis/common/scripts/projectile_ls"))
+(setq projectile-svn-command
+  (concat cygwin-mount-cygwin-bin-directory "/bash.exe /home/michalis/common/scripts/projectile_ls"))
