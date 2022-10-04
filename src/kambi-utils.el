@@ -1194,12 +1194,24 @@ Assumes that DIR is for sure an SVN dir."
           (kam-top-most-svn-dir parent-dir)
         dir))))
 
+(defun kam-project-known (dir)
+  "Add DIR to projectile known projects."
+  (when (require 'projectile nil 'noerror)
+    (projectile-add-known-project dir)
+  )
+)
+
 (defun kam-version-control (&optional force-current-dir)
   "Call magit-status in GIT, svn-status in SVN.
 
 When FORCE-CURRENT-DIR, then we call SVN in the current directory,
 instead of top-level. This sometimes makes sense (svn-status is not fast
-for large repos)."
+for large repos).
+
+Also (when not FORCE-CURRENT-DIR) add project to projectile known projects.
+This way projectile knows about it (even if you don't open any file inside
+-- useful to projects where you don't visit files with Emacs, e.g. projects
+with gfx data)."
   (interactive)
 
   ;; Load magit, for kam-version-control.
@@ -1223,7 +1235,12 @@ for large repos)."
 
   (if (and (require 'magit nil 'noerror)
            (magit-toplevel))
-      (call-interactively 'magit-status)
+
+      (progn
+        (call-interactively 'magit-status)
+        (kam-project-known (magit-toplevel))
+      )
+
     ;; Old comment:
     ;; we expand dir, because svn-version-controlled-dir-p calls "svn info ..."
     ;; on it, so it needs ~ expanded.
@@ -1233,6 +1250,7 @@ for large repos)."
           (if force-current-dir
               (svn-status expanded-dir)
             (svn-status (kam-top-most-svn-dir expanded-dir))
+            (kam-project-known (kam-top-most-svn-dir expanded-dir))
           )
         (error "Neither in GIT or SVN repository.")))))
 
