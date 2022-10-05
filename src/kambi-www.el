@@ -96,6 +96,7 @@
   (local-set-key (kbd "C-z") 'undo)
   (local-set-key (kbd "C-c C-f") 'sgml-close-tag)
   (local-set-key (kbd "M-b") 'kam-open-cge-www-php)
+  (local-set-key (kbd "M-o") 'other-window)
   (setq indent-line-function 'kam-noindent)
 )
 (add-hook 'html-mode-hook 'kam-customize-html-mode-hook t)
@@ -106,6 +107,11 @@
 ;; I never use this (and I can't think about any sensible HTML template
 ;; that would suit my needs) so I turn this off.
 (setq psgml-html-build-new-buffer nil)
+
+;; doesn't work, unknown why
+;; (when (require 'sgml-mode nil 'noerror)
+;;   (define-keys-to-nil html-mode-map '("M-o")) ;; by default it does facemode-xxx
+;; )
 
 ;; php-suspicious-code-* ----------------------------------------
 
