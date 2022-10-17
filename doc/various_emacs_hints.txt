@@ -124,4 +124,9 @@ ps-print-region-with-faces
 customize-group postscript
 contains all the settings.
 
+------------------------------------------------------------------------------
+Access files over ssh using Tramp:
+
+/ssh:michalis@ssh.castle-engine.io:/home/michalis/
+
 eof --------------------------------------------------------------------------
