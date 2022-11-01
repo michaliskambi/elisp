@@ -1,15 +1,74 @@
-Testing https://microsoft.github.io/language-server-protocol/
-with
-https://github.com/arjanadriaanse/pascal-language-server
-https://github.com/arjanadriaanse/lsp-pascal/blob/master/lsp-pascal.el
+# Goal
 
-# Install
+Trying to get Pascal intelligent completion in Emacs using LSP.
 
-lsp-ivy
-lsp-ui
-lsp-mode
+LSP is cross-editor protocol, known from VS Code but useful in other editors alike,
+see https://microsoft.github.io/language-server-protocol/ .
 
-# Customize
+## Testing various LSP Pascal servers in VS Code
+
+- LSP server:
+
+    fork 1 https://github.com/genericptr/pascal-language-server
+
+      ```
+      git clone https://github.com/genericptr/pascal-language-server genericptr-pascal-language-server
+      cd genericptr-pascal-language-server
+      fix in options.pas: constructor Create(_commands: TStringArray);
+      sudo apt install libsqlite3-dev
+      lazbuild pasls.lpi
+
+      TODO: cannot make it to work in VS Code, VS Code reports (when opening any Pascal file):
+
+      [Error - 02:25:51] Server initialization failed.
+        Message: TFPCUnitToSrcCache.GetConfigCache missing CompilerFilename
+        Code: -32603
+      [Error - 02:25:51] Starting client failed
+        Message: TFPCUnitToSrcCache.GetConfigCache missing CompilerFilename
+        Code: -32603
+      ```
+
+    fork 2: https://github.com/Isopod/pascal-language-server
+            https://github.com/Kagamma/pascal-language-server
+
+      ```
+      git clone https://github.com/Isopod/pascal-language-server
+      cd pascal-language-server/
+      git submodule update --init --recursive
+      cd server
+      lazbuild pasls.lpi
+
+      DONE: Works in VS Code, for simple Pascal programs.
+
+      TODO: Make it aware of CGE paths, make it do completion in CGE units like gamestatemain.pas
+      ```
+
+- VS Code Extension (not useful for Emacs users, just mentioning for completeness):
+
+    https://github.com/genericptr/pasls-vscode
+
+    ```
+    git clone https://github.com/genericptr/pasls-vscode
+    install vsix
+    config:
+    - FPC sources:
+    - Laz sources:
+    - FPC exe:
+    - pasls exe: the one you got from above
+    ```
+
+## Use from Emacs
+
+- lsp-pascal from https://github.com/arjanadriaanse/lsp-pascal is in Melpa now.
+  So just install it.
+
+- lsp-mode will be installed as dependency of lsp-pascal
+
+- lsp-ivy (because I like Ivy completion)
+
+- lsp-ui
+
+## Customize
 
 ```
  '(lsp-pascal-command
