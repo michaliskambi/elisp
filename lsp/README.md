@@ -68,47 +68,35 @@ see https://microsoft.github.io/language-server-protocol/ .
 
 - lsp-ui
 
-## Customize
+- company (completion framework that lsp needs to work)
+
+## Add this to ~/.emacs
 
 ```
- '(lsp-pascal-command
-   "/home/michalis/elisp/lsp/pascal-language-server/lib/x86_64-linux/pasls")
- ;; Should this lead to /home/michalis/installed/fpclazarus/current/fpc or fpcsrc?
- ;; Description suggests it's for source, name suggests it's passed to FPC so it should contain just compiled units.
- ;; Later: Message on FPC mailing lists confirms it's for source.
- '(lsp-pascal-fpcdir "/home/michalis/installed/fpclazarus/current/fpcsrc/")
- '(lsp-pascal-lazarusdir "/home/michalis/installed/fpclazarus/current/lazarus")
- '(lsp-pascal-pp
-   "/home/michalis/installed/fpclazarus/current/fpc/bin/x86_64-linux/fpc.sh")
+(add-to-list 'load-path (concat kambi-elisp-path "lsp/"))
+(require 'kambi-pascal-lsp)
 ```
 
-# Add this to ~/.emacs
+## Test
 
-```
-;; see https://github.com/emacs-lsp/lsp-mode
-(setq lsp-keymap-prefix "<C-f11>") ;; must be before (require 'lsp-mode)
-(require 'lsp-mode)
+Open a new Pascal file.
 
-;; configure lsp-pascal
-(add-to-list 'load-path (concat kambi-elisp-path "lsp/lsp-pascal/"))
-(require 'lsp-pascal)
-(add-hook 'kambi-pascal-mode-hook #'lsp)
-(add-to-list 'lsp-language-id-configuration '(kambi-pascal-mode . "pascal"))
-(lsp-register-client
- (make-lsp-client :new-connection (lsp-stdio-connection (lambda ()
-                                                          lsp-pascal-command))
-                  :major-modes '(opascal-mode pascal-mode kambi-pascal-mode)
-                  :environment-fn (lambda ()
-                                    '(("FPCDIR" . lsp-pascal-fpcdir)
-                                      ("PP" . lsp-pascal-pp)
-                                      ("LAZARUSDIR" . lsp-pascal-lazarusdir)
-                                      ("FPCTARGET" . lsp-pascal-fpctarget)
-                                      ("FPCTARGETCPU" . lsp-pascal-fpctargetcpu)))
-                  :server-id 'pasls))
+Declare instance of some known class from used unit, e.g. TList.
 
-;; TODO:
-;; - M-x company-capf doesn't complete
-;; - F11 T h says it doesn't do anything
-;; - at exit: Error processing message (lsp-unknown-message-type #s(hash-table size 65 test equal rehash-size 1.5 rehash-threshold 0.8125 data ("jsonrpc" "2.0" "error" #s(hash-table size 65 test equal rehash-size 1.5 rehash-threshold 0.8125 data ("code" -32603 "message" "Access violation")) "id" nil))).
-;; Am I doing something wrong?
-```
+Type `MyInstance.` and then M-x company-capf.
+This should be intelligent completion, listing TList properties/methods now.
+
+TODO:
+
+- Explore how to configure it best from Emacs.
+  For now I just bound "Tab" to company-capf.
+
+  Any more functionality from company autocompletion?
+    read https://company-mode.github.io/
+  Any more functionality from LSP?
+
+- Anything like "code complete" (Ctrl Shift C in Lazarus?)
+
+- Anything like "just to interface" / "jump to implementation" from Lazarus
+
+- See previous TODO: how to make pasls aware of CGE units
