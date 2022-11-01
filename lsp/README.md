@@ -26,6 +26,8 @@ see https://microsoft.github.io/language-server-protocol/ .
       [Error - 02:25:51] Starting client failed
         Message: TFPCUnitToSrcCache.GetConfigCache missing CompilerFilename
         Code: -32603
+
+      From Emacs lsp-pascal, fails with the same message.
       ```
 
     fork 2: https://github.com/Isopod/pascal-language-server
