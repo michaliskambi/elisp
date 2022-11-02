@@ -1,39 +1,54 @@
 # Goal
 
-Trying to get Pascal intelligent completion in Emacs using LSP.
+Trying to get Pascal intelligent completion in Emacs (and VS Code) using LSP.
 
 LSP is cross-editor protocol, known from VS Code but useful in other editors alike,
 see https://microsoft.github.io/language-server-protocol/ .
 
-## Testing various LSP Pascal servers in VS Code
+## Various LSP Pascal servers
 
 - LSP server:
 
-    fork 1 https://github.com/genericptr/pascal-language-server
+    1. fork family 1 (genericptr):
+
+      https://github.com/genericptr/pascal-language-server
+      https://github.com/michaliskambi/pascal-language-server-genericptr
+
+      Installation:
 
       ```
-      git clone https://github.com/genericptr/pascal-language-server genericptr-pascal-language-server
-      cd genericptr-pascal-language-server
-      fix in options.pas: constructor Create(_commands: TStringArray);
+      git clone https://github.com/michaliskambi/pascal-language-server-genericptr
+      cd pascal-language-server-genericptr
       sudo apt install libsqlite3-dev
       lazbuild pasls.lpi
-
-      TODO: cannot make it to work in VS Code, VS Code reports (when opening any Pascal file):
-
-      [Error - 02:25:51] Server initialization failed.
-        Message: TFPCUnitToSrcCache.GetConfigCache missing CompilerFilename
-        Code: -32603
-      [Error - 02:25:51] Starting client failed
-        Message: TFPCUnitToSrcCache.GetConfigCache missing CompilerFilename
-        Code: -32603
-
-      From Emacs lsp-pascal, fails with the same message.
       ```
 
-    fork family 2:
+      Notes:
+
+      * DONE: initially failed to work in VS Code, VS Code reports (when opening any Pascal file):
+
+          ```
+          [Error - 02:25:51] Server initialization failed.
+            Message: TFPCUnitToSrcCache.GetConfigCache missing CompilerFilename
+            Code: -32603
+          [Error - 02:25:51] Starting client failed
+            Message: TFPCUnitToSrcCache.GetConfigCache missing CompilerFilename
+            Code: -32603
+          ```
+
+          From Emacs lsp-pascal, fails with the same message.
+
+          Fixed by https://github.com/michaliskambi/pascal-language-server-genericptr/commit/210f131f9cd32a9441f90d4613938c503fa1ec03
+
+      * Nice: It exposes extra FPC options, which allows me to add CGE paths.
+
+    2. fork family 2 (Isopod):
+
       https://github.com/Isopod/pascal-language-server
       https://github.com/Kagamma/pascal-language-server
       https://github.com/castle-engine/pascal-language-server
+
+      Installation:
 
       ```
       git clone https://github.com/castle-engine/pascal-language-server cge-pascal-language-server
@@ -42,43 +57,49 @@ see https://microsoft.github.io/language-server-protocol/ .
       cd server
       lazbuild pasls.lpi
       create $HOME/.config/pasls/castle-pasls.ini following https://github.com/castle-engine/pascal-language-server docs
-
-      DONE: Works in VS Code, for simple Pascal programs.
-
-      TODO: Make it aware of even LCL units? Seems like it cannot find any LCL unit,
-      despite setting Lazarus dir.
-
-      DONE: Make it aware of CGE paths, make it do completion in CGE units like gamestatemain.pas.
-      Done in https://github.com/castle-engine/pascal-language-server
-      by special option in config file.
       ```
 
-- VS Code Extension (not useful for Emacs users, just mentioning for completeness):
+      Notes:
 
-    https://github.com/genericptr/pasls-vscode
+      * DONE: Works in VS Code, for simple Pascal programs.
 
-    ```
-    git clone https://github.com/genericptr/pasls-vscode
-    install vsix
-    config:
-    - FPC sources:
-    - Laz sources:
-    - FPC exe:
-    - pasls exe: the one you got from above
-    ```
+      * TODO: Make it aware of even LCL units? Seems like it cannot find any LCL unit, despite setting Lazarus dir.
 
-## Use from Emacs
+      * DONE: Make it aware of CGE paths, make it do completion in CGE units like gamestatemain.pas.
+        Done in https://github.com/castle-engine/pascal-language-server by special option in config file.
 
-- lsp-pascal from https://github.com/arjanadriaanse/lsp-pascal is in Melpa now.
-  So just install it.
+      * TODO: extremely fragile when unit on uses clause not found,
+        and its poor in finding such units.
+        Needs
+        - config to read units in Lazarus automatically?
+        - read units in current project automatically.
 
-- lsp-mode will be installed as dependency of lsp-pascal
+## VS Code Extension (not useful for Emacs users, just mentioning for completeness):
 
-- lsp-ivy (because I like Ivy completion)
+https://github.com/genericptr/pasls-vscode
 
-- lsp-ui
+```
+git clone https://github.com/genericptr/pasls-vscode
+install vsix in VS Code
+config:
+- FPC sources:
+- Laz sources:
+- FPC exe:
+- pasls exe: the one you got from above
+```
 
-- company (completion framework that lsp needs to work)
+## Installing necessary packages in Emacs
+
+- `lsp-pascal` from https://github.com/arjanadriaanse/lsp-pascal is in Melpa now.
+  So just install it as a normal Emacs packages (e.g. choosing in `M-x package-list-packages`).
+
+- `lsp-mode` will be installed as dependency of `lsp-pascal`, good
+
+- `lsp-ivy` (because I like Ivy completion)
+
+- `lsp-ui`
+
+- `company` (completion framework that `lsp-mode` needs to work)
 
 ## Add this to ~/.emacs
 
@@ -87,22 +108,26 @@ see https://microsoft.github.io/language-server-protocol/ .
 (require 'kambi-pascal-lsp)
 ```
 
+Read and customize `kambi-pascal-lsp.el`.
+
 ## What works
-
-Open a new Pascal file.
-
-Declare instance of some known class from used unit, e.g. TList.
-
-Type `MyInstance.` and then M-x company-complete.
-This should be intelligent completion, listing TList properties/methods now.
 
 * Completion aware of methods/properties in each namespace.
 
-* Click on identifier jumps to declaration (in VS Code; TODO: how to get it in Emacs).
+    Demo:
+    * Open a new Pascal file.
+    * Declare instance of some known class from used unit, e.g. `TList`.
+    * Type `MyInstance.` and then `M-x company-complete`.
+    * This should be intelligent completion, listing `TList` properties/methods now.
 
-* When you start (, you see parameters of method/routine.
+* Ctrll+clicking on identifier jumps to declaration (works in VS Code and Emacs alike).
 
-    TODO: how to show them all in Emacs?
+* When you start `(`, you see parameters of method/routine.
+
+    TODO: How to show them all in Emacs?
+    Currently I only see 1st parameters (in case of overloads) in Emacs, with prefix like "1/2", I still don't know how to view them all.
+    And/or how to see all possible parameters using a tooltop, like in VS Code.
+    So functionality works in Emacs, but presentation is poor.
 
 * "Go to Definition" / "Go to Declaration"
 
@@ -112,41 +137,30 @@ This should be intelligent completion, listing TList properties/methods now.
     lsp-find-declaration
     lsp-find-definition
 
-TODO:
+## TODO (in general, for both VS Code and Emacs)
 
-- Isopod pasls is extremely fragile when unit on uses clause not found,
-  and its poor in finding such units.
-  Needs
-  - config to read units in Lazarus automatically?
-  - read units in current project automatically.
+- Is there anything like "Code complete" (Ctrl+Shift+C in Lazarus) available in any fork?
 
-- Explore how to configure it best from Emacs.
-  For now I just bound "Tab" to company-capf.
+    So that e.g. writing "MyButton.OnClick := @Foo", pressing Ctrl+Shift+C would
+    automatically create empty Foo implementation.
 
-  Any more functionality from company autocompletion?
-    read https://company-mode.github.io/
-  Any more functionality from LSP?
+## TODO (specifically for Emacs)
 
-- Anything like "code complete" (Ctrl Shift C in Lazarus?)
+- How to see CGE docs in company mode?
 
-- Anything like "just to interface" / "jump to implementation" from Lazarus
-
-- See previous TODO: how to make pasls aware of CGE units
-
-- what key shortcuts to show other parameters
-
-- company-mode in Emacs can show docs in F1.
+  company-mode in Emacs can show docs in F1.
   How to configure it to show docs of CGE routine?
   It is useful from VS Code too?
 
-- TODO: how to use this:
+- How to make company-show-location work?
 
+  company docs say:
+
+  """
   C-w ¶
   Display a buffer with the definition of the selected candidate (company-show-location).
+  """
+
+  but it does nothing for me.
 
 - In Emacs: make completion not case sensitive, e.g. Event.is should complete IsKey.
-
-## Related functionality
-
-TODO: How to make VS Code automatically know to execute "castle-engine compile && castle-engine run"
-when CastleEngineManifest.xml available in some upper dir?
