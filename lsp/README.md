@@ -9,7 +9,7 @@ see https://microsoft.github.io/language-server-protocol/ .
 
 ## Arjan Adriaanse repo (original, unmaintained)
 
-https://github.com/arjanadriaanse/lsp-pascal started it all, but after 3 commits in 2020 it seems unmaintained.
+https://github.com/arjanadriaanse/pascal-language-server started it all, but after 4 commits in 2020 it seems unmaintained.
 
 I found 2 maintained forks of it that I got to work (by creating forks of my own, through once I figure out more I'll want to contribute back).
 
