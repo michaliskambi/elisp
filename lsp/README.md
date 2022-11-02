@@ -30,19 +30,27 @@ see https://microsoft.github.io/language-server-protocol/ .
       From Emacs lsp-pascal, fails with the same message.
       ```
 
-    fork 2: https://github.com/Isopod/pascal-language-server
-            https://github.com/Kagamma/pascal-language-server
+    fork family 2:
+      https://github.com/Isopod/pascal-language-server
+      https://github.com/Kagamma/pascal-language-server
+      https://github.com/castle-engine/pascal-language-server
 
       ```
-      git clone https://github.com/Isopod/pascal-language-server
-      cd pascal-language-server/
+      git clone https://github.com/castle-engine/pascal-language-server cge-pascal-language-server
+      cd cge-pascal-language-server/
       git submodule update --init --recursive
       cd server
       lazbuild pasls.lpi
+      create $HOME/.config/pasls/castle-pasls.ini following https://github.com/castle-engine/pascal-language-server docs
 
       DONE: Works in VS Code, for simple Pascal programs.
 
-      TODO: Make it aware of CGE paths, make it do completion in CGE units like gamestatemain.pas
+      TODO: Make it aware of even LCL units? Seems like it cannot find any LCL unit,
+      despite setting Lazarus dir.
+
+      DONE: Make it aware of CGE paths, make it do completion in CGE units like gamestatemain.pas.
+      Done in https://github.com/castle-engine/pascal-language-server
+      by special option in config file.
       ```
 
 - VS Code Extension (not useful for Emacs users, just mentioning for completeness):
@@ -79,16 +87,30 @@ see https://microsoft.github.io/language-server-protocol/ .
 (require 'kambi-pascal-lsp)
 ```
 
-## Test
+## What works
 
 Open a new Pascal file.
 
 Declare instance of some known class from used unit, e.g. TList.
 
-Type `MyInstance.` and then M-x company-capf.
+Type `MyInstance.` and then M-x company-complete.
 This should be intelligent completion, listing TList properties/methods now.
 
+* Completion aware of methods/properties in each namespace.
+
+* Click on identifier jumps to declaration (in VS Code; TODO: how to get it in Emacs).
+
+* When you start (, you see parameters of method/routine.
+
+    TODO: how to show them all in Emacs?
+
 TODO:
+
+- Isopod pasls is extremely fragile when unit on uses clause not found,
+  and its poor in finding such units.
+  Needs
+  - config to read units in Lazarus automatically?
+  - read units in current project automatically.
 
 - Explore how to configure it best from Emacs.
   For now I just bound "Tab" to company-capf.
@@ -102,3 +124,21 @@ TODO:
 - Anything like "just to interface" / "jump to implementation" from Lazarus
 
 - See previous TODO: how to make pasls aware of CGE units
+
+- what key shortcuts to show other parameters
+
+- company-mode in Emacs can show docs in F1.
+  How to configure it to show docs of CGE routine?
+  It is useful from VS Code too?
+
+- TODO: how to use this:
+
+  C-w ¶
+  Display a buffer with the definition of the selected candidate (company-show-location).
+
+- In Emacs: make completion not case sensitive, e.g. Event.is should complete IsKey.
+
+## Related functionality
+
+TODO: How to make VS Code automatically know to execute "castle-engine compile && castle-engine run"
+when CastleEngineManifest.xml available in some upper dir?

@@ -6,7 +6,7 @@
 (require 'lsp-pascal)
 
 ;; configure lsp-pascal variables
-(setq lsp-pascal-command "/home/michalis/sources/lsp/Isopod-pascal-language-server/server/lib/x86_64-linux/pasls")
+(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-pascal-language-server/server/lib/x86_64-linux/pasls")
 ;;(setq lsp-pascal-command "/home/michalis/sources/lsp/genericptr-pascal-language-server/lib/x86_64-linux/pasls")
  ;; Should this lead to /home/michalis/installed/fpclazarus/current/fpc or fpcsrc?
  ;; Description suggests it's for source, name suggests it's passed to FPC so it should contain just compiled units.
@@ -52,6 +52,22 @@
 (with-eval-after-load 'company
   (define-key company-active-map (kbd "<escape>") #'company-abort)
   (define-key company-active-map (kbd "<tab>") #'company-complete-selection)
+
+  ;; Testing options from https://company-mode.github.io/manual/Getting-Started.html#Getting-Started
+  ;; (define-key company-active-map (kbd "C-t") #'company-complete-common-or-cycle)
+  ;; (define-key company-active-map (kbd "C-c")
+  ;;   (lambda ()
+  ;;     (interactive)
+  ;;     (company-complete-common-or-cycle -1)))
 )
+
+;;(add-hook 'after-init-hook 'company-tng-mode)
+
+;; Company completion can be configured to ignore case. E.g. `Event.is` -> should offer completion for `IsKey`.
+;; We do this in kambi-customizations.el :
+;;   (company-keywords-ignore-case t)
+
+;; use company e.g. also in shell mode
+(add-hook 'after-init-hook 'global-company-mode)
 
 (provide 'kambi-pascal-lsp)
