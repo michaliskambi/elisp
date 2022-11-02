@@ -7,74 +7,82 @@ see https://microsoft.github.io/language-server-protocol/ .
 
 ## Various LSP Pascal servers
 
-- LSP server:
+## Arjan Adriaanse repo (original, unmaintained)
 
-    1. fork family 1 (genericptr):
+https://github.com/arjanadriaanse/lsp-pascal started it all, but after 3 commits in 2020 it seems unmaintained.
 
-      https://github.com/genericptr/pascal-language-server
-      https://github.com/michaliskambi/pascal-language-server-genericptr
+I found 2 maintained forks of it that I got to work (by creating forks of my own, through once I figure out more I'll want to contribute back).
 
-      Installation:
+### Ryan Joseph (genericptr) fork
 
-      ```
-      git clone https://github.com/michaliskambi/pascal-language-server-genericptr
-      cd pascal-language-server-genericptr
-      sudo apt install libsqlite3-dev
-      lazbuild pasls.lpi
-      ```
+https://github.com/genericptr/pascal-language-server
 
-      Notes:
+Michalis fork: https://github.com/michaliskambi/pascal-language-server-genericptr
 
-      * DONE: initially failed to work in VS Code, VS Code reports (when opening any Pascal file):
+Installation:
 
-          ```
-          [Error - 02:25:51] Server initialization failed.
-            Message: TFPCUnitToSrcCache.GetConfigCache missing CompilerFilename
-            Code: -32603
-          [Error - 02:25:51] Starting client failed
-            Message: TFPCUnitToSrcCache.GetConfigCache missing CompilerFilename
-            Code: -32603
-          ```
+```
+sudo apt install libsqlite3-dev
+git clone https://github.com/michaliskambi/pascal-language-server-genericptr
+cd pascal-language-server-genericptr
+lazbuild pasls.lpi
+```
 
-          From Emacs lsp-pascal, fails with the same message.
+Notes:
 
-          Fixed by https://github.com/michaliskambi/pascal-language-server-genericptr/commit/210f131f9cd32a9441f90d4613938c503fa1ec03
+* DONE: initially failed to work, VS Code reports (when opening any Pascal file):
 
-      * Nice: It exposes extra FPC options, which allows me to add CGE paths.
+    ```
+    [Error - 02:25:51] Server initialization failed.
+      Message: TFPCUnitToSrcCache.GetConfigCache missing CompilerFilename
+      Code: -32603
+    [Error - 02:25:51] Starting client failed
+      Message: TFPCUnitToSrcCache.GetConfigCache missing CompilerFilename
+      Code: -32603
+    ```
 
-    2. fork family 2 (Isopod):
+    From Emacs lsp-pascal, failed with the same message.
 
-      https://github.com/Isopod/pascal-language-server
-      https://github.com/Kagamma/pascal-language-server
-      https://github.com/castle-engine/pascal-language-server
+    Fixed by https://github.com/michaliskambi/pascal-language-server-genericptr/commit/210f131f9cd32a9441f90d4613938c503fa1ec03
 
-      Installation:
+* Nice: It exposes extra FPC options, which allows me to add CGE paths.
 
-      ```
-      git clone https://github.com/castle-engine/pascal-language-server cge-pascal-language-server
-      cd cge-pascal-language-server/
-      git submodule update --init --recursive
-      cd server
-      lazbuild pasls.lpi
-      create $HOME/.config/pasls/castle-pasls.ini following https://github.com/castle-engine/pascal-language-server docs
-      ```
+### Philip Zander (Isopod) fork
 
-      Notes:
+https://github.com/Isopod/pascal-language-server
+https://github.com/Kagamma/pascal-language-server
 
-      * DONE: Works in VS Code, for simple Pascal programs.
+Michalis fork: https://github.com/castle-engine/pascal-language-server
 
-      * TODO: Make it aware of even LCL units? Seems like it cannot find any LCL unit, despite setting Lazarus dir.
+Installation:
 
-      * DONE: Make it aware of CGE paths, make it do completion in CGE units like gamestatemain.pas.
-        Done in https://github.com/castle-engine/pascal-language-server by special option in config file.
+```
+git clone https://github.com/castle-engine/pascal-language-server cge-pascal-language-server
+cd cge-pascal-language-server/
+git submodule update --init --recursive
+cd server
+lazbuild pasls.lpi
+create $HOME/.config/pasls/castle-pasls.ini following https://github.com/castle-engine/pascal-language-server docs
+```
 
-      * TODO: extremely fragile when unit on uses clause not found,
-        and its poor in finding such units.
-        Needs
-        - config to read units in Lazarus automatically?
-        - read units in current project automatically.
+Notes:
 
-## VS Code Extension (not useful for Emacs users, just mentioning for completeness):
+* DONE: Works in VS Code, for simple Pascal programs.
+
+* TODO: Make it aware of even LCL units? Seems like it cannot find any LCL unit, despite setting Lazarus dir.
+
+* DONE: Make it aware of CGE paths, make it do completion in CGE units like gamestatemain.pas.
+  Done in https://github.com/castle-engine/pascal-language-server by special option in config file.
+
+* TODO: extremely fragile when unit on uses clause not found,
+  and its poor in finding such units.
+  Needs
+  - config to read units in Lazarus automatically?
+  - read units in current project automatically.
+
+## Other editors than Emacs (mentioning it here for completeness)
+
+### VS Code Extension
 
 https://github.com/genericptr/pasls-vscode
 
@@ -87,6 +95,12 @@ config:
 - FPC exe:
 - pasls exe: the one you got from above
 ```
+
+Tested, works nicely, with both pasls forks.
+
+### Neovim
+
+Available in https://github.com/Isopod/pascal-language-server repo in client/nvim ( https://github.com/Isopod/pascal-language-server/tree/master/client/nvim ).
 
 ## Installing necessary packages in Emacs
 
