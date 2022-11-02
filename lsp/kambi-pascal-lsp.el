@@ -44,7 +44,9 @@
 (defun kambi-pascal-lsp-config ()
   (require 'company)
   ;; use company autocompletion, that uses LSP
-  (global-set-key (kbd "<tab>") 'company-complete)
+  (local-set-key (kbd "<tab>") 'company-complete)
+  (local-set-key (kbd "<C-prior>") 'lsp-find-declaration)
+  (local-set-key (kbd "<C-next>") 'lsp-find-definition)
 )
 (add-hook 'kambi-pascal-mode-hook 'kambi-pascal-lsp-config)
 

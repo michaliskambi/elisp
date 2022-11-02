@@ -104,6 +104,14 @@ This should be intelligent completion, listing TList properties/methods now.
 
     TODO: how to show them all in Emacs?
 
+* "Go to Definition" / "Go to Declaration"
+
+    In VS Code: context menu (right click), ctrl + click, F12.
+
+    In Emacs: context menu (right click), ctrl + click, shortcuts mentioned there.
+    lsp-find-declaration
+    lsp-find-definition
+
 TODO:
 
 - Isopod pasls is extremely fragile when unit on uses clause not found,
