@@ -26,6 +26,7 @@ sudo apt install libsqlite3-dev
 git clone https://github.com/michaliskambi/pascal-language-server-genericptr
 cd pascal-language-server-genericptr
 lazbuild pasls.lpi
+create $HOME/.config/pasls/castle-pasls.ini following https://github.com/michaliskambi/pascal-language-server-genericptr docs
 ```
 
 Notes:
@@ -45,12 +46,15 @@ Notes:
 
     Fixed by https://github.com/michaliskambi/pascal-language-server-genericptr/commit/210f131f9cd32a9441f90d4613938c503fa1ec03
 
-* Nice: It exposes extra FPC options, which allows me to add CGE paths.
+* Nice: It exposes extra FPC options, which allows me to add CGE paths from VS Code.
+
+    Still, in my fork I added ability to read `~/.config/pasls/castle-pasls.ini` (compatible with other fork). This makes it easier to provide all CGE paths, and this works with all text editors (Emacs, VS Code) with a single configuration.
 
 ### Philip Zander (Isopod) fork
 
 https://github.com/Isopod/pascal-language-server
-https://github.com/Kagamma/pascal-language-server
+
+Kagamma fork: https://github.com/Kagamma/pascal-language-server
 
 Michalis fork: https://github.com/castle-engine/pascal-language-server
 
@@ -114,6 +118,8 @@ Available in https://github.com/Isopod/pascal-language-server repo in client/nvi
 - `lsp-ui`
 
 - `company` (completion framework that `lsp-mode` needs to work)
+
+- `yasnippet` (necessary to show nicely routine parameters)
 
 ## Add this to ~/.emacs
 

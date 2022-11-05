@@ -6,8 +6,8 @@
 (require 'lsp-pascal)
 
 ;; configure lsp-pascal variables
-;;(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-pascal-language-server/server/lib/x86_64-linux/pasls")
-(setq lsp-pascal-command "/home/michalis/sources/lsp/genericptr-pascal-language-server/lib/x86_64-linux/pasls")
+;;(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-isopod-pascal-language-server/server/lib/x86_64-linux/pasls")
+(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-genericptr-pascal-language-server/lib/x86_64-linux/pasls")
  ;; Should this lead to /home/michalis/installed/fpclazarus/current/fpc or fpcsrc?
  ;; Description suggests it's for source, name suggests it's passed to FPC so it should contain just compiled units.
  ;; Later: Message on FPC mailing lists confirms it's for source.
@@ -47,6 +47,7 @@
   (local-set-key (kbd "<tab>") 'company-complete)
   (local-set-key (kbd "<C-prior>") 'lsp-find-declaration)
   (local-set-key (kbd "<C-next>") 'lsp-find-definition)
+  (yas-minor-mode-on)
 )
 (add-hook 'kambi-pascal-mode-hook 'kambi-pascal-lsp-config)
 
