@@ -99,7 +99,7 @@ Ryan Joseph advantages:
 
 Ryan Joseph disadvantages:
 
-- On really invalid syntax (e.g. open LFM and try to use kambi-pascal-mode) it can send invalid JSON to LSP (`{"result":,"id":85,"jsonrpc":"2.0"}`), and Emacs will spam console with errors.
+- (SOLVED IN MY FORK, BUT WITH A HACK) On really invalid syntax (e.g. open LFM and try to use kambi-pascal-mode) it can send invalid JSON to LSP (`{"result":,"id":85,"jsonrpc":"2.0"}`), and Emacs will spam console with errors.
 
     ```
     Warning (lsp-mode): Failed to parse the following chunk:
