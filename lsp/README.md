@@ -84,6 +84,40 @@ Notes:
   - config to read units in Lazarus automatically?
   - read units in current project automatically.
 
+### Comparison (Ryan Joseph vs Philip Zander forks):
+
+Their capabilites are really quite even, due to them both enabling just Lazarus CodeTools as LSP server.
+
+Ryan Joseph advantages:
+
+- Passes extra FPC params from LSP initialization options. This is a clean way to pass FPC options from any LSP client.
+
+     This also means I could, in principle, use it with CGE without my mods to add `~/.config/pasls/castle-pasls.ini`. Though `~/.config/pasls/castle-pasls.ini` still makes it easier by allowing me to provide just single CGE path.
+- Seems a bit more active lately
+- Doesn't read stuff from Lazarus config, doesn't need Lazarus config location -- it seems better to not read it if we don't need it
+- It seems more tolerant for units missing on uses clause
+
+Ryan Joseph disadvantages:
+
+- On really invalid syntax (e.g. open LFM and try to use kambi-pascal-mode) it can send invalid JSON to LSP (`{"result":,"id":85,"jsonrpc":"2.0"}`), and Emacs will spam console with errors.
+
+    ```
+    Warning (lsp-mode): Failed to parse the following chunk:
+    ’’’
+    Content-Type: application/vscode-jsonrpc; charset=utf-8
+    Content-Length: 35
+
+    {"result":,"id":85,"jsonrpc":"2.0"}Content-Type: application/vscode-jsonrpc; charset=utf-8
+    Content-Length: 39
+
+    {"result":null,"id":86,"jsonrpc":"2.0"}Content-Type: application/vscode-jsonrpc; charset=utf-8
+    Content-Length: 39
+
+    {"result":null,"id":87,"jsonrpc":"2.0"}
+    ’’’
+    with message (json-parse-error unexpected token near ',' <callback> 1 11 11)
+    ```
+
 ## Other editors than Emacs (mentioning it here for completeness)
 
 ### VS Code Extension
