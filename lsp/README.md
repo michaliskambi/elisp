@@ -142,7 +142,7 @@ Notes specific to this fork:
           GameStatePlay, Foobar;
         ```
 
-        -> now completion completely fails.
+        -> now completion completely fails. `But` cannot be completed to anything. Which is a shame, it would be better IMHO if CodeTools would just ignore the missing `Foobar` in the `uses` clause.
 
 * Both LSP servers fail at finding LCL units (unless I misconfigured them).
 
