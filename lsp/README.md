@@ -154,13 +154,13 @@ Notes specific to this fork:
 
     - type `Start` and try to complete.
 
-         Your fork (well, my fork of your fork :), https://github.com/castle-engine/pascal-language-server ) will answer that `Laz_AVL_Tree` cannot be found.
+         Philip Zander's LSP server will fail to complete anything, answering that `Laz_AVL_Tree` cannot be found.
 
-         Ryan Joseph fork will fail to complete anything, without any message. (So actually it is worse.)
+         Ryan Joseph's LSP server will fail to complete anything, without any message. (So actually it is a bit worse.)
 
-         Lazarus IDE manages to be good here: it evidently finds `Laz_AVL_Tree`.
+         Lazarus IDE is better: it can do code completion, so it evidently finds `Laz_AVL_Tree` (since we know it would fail to do code completion when units are missing).
 
-    - Removing `Laz_AVL_Tree`, your LSP server reports it cannot find `LazFileUtils`. Then `CTUnitGraph`, and then `CodeCache`. Code completion starts to work only once I hack `uses` clause to be this:
+    - Removing `Laz_AVL_Tree`, Philip Zander's LSP server reports it cannot find `LazFileUtils`. Then `CTUnitGraph`, and then `CodeCache`. Code completion starts to work only once I hack `uses` clause to be this:
 
         ```delphi
         uses
