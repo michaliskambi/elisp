@@ -31,6 +31,8 @@ create $HOME/.config/pasls/castle-pasls.ini following https://github.com/michali
 
 Notes:
 
+* Tested in both VS Code and Emacs.
+
 * DONE: initially failed to work, VS Code reports (when opening any Pascal file):
 
     ```
@@ -46,9 +48,28 @@ Notes:
 
     Fixed by https://github.com/michaliskambi/pascal-language-server-genericptr/commit/210f131f9cd32a9441f90d4613938c503fa1ec03
 
-* Nice: It exposes extra FPC options, which allows me to add CGE paths from VS Code.
+* (NICE): It exposes extra FPC options as LSP initialization options, which allows me to add CGE paths from VS Code.
 
-    Still, in my fork I added ability to read `~/.config/pasls/castle-pasls.ini` (compatible with other fork). This makes it easier to provide all CGE paths, and this works with all text editors (Emacs, VS Code) with a single configuration.
+     This also means I could, in principle, use it with CGE without my mods to add `~/.config/pasls/castle-pasls.ini`. Though `~/.config/pasls/castle-pasls.ini` still makes it easier by allowing me to provide just single CGE path.
+
+* (SOLVED IN MY FORK, BUT WITH A HACK): On really invalid syntax (e.g. open LFM and try to use kambi-pascal-mode) it can send invalid JSON to LSP (`{"result":,"id":85,"jsonrpc":"2.0"}`), and Emacs will spam console with errors.
+
+    ```
+    Warning (lsp-mode): Failed to parse the following chunk:
+    ’’’
+    Content-Type: application/vscode-jsonrpc; charset=utf-8
+    Content-Length: 35
+
+    {"result":,"id":85,"jsonrpc":"2.0"}Content-Type: application/vscode-jsonrpc; charset=utf-8
+    Content-Length: 39
+
+    {"result":null,"id":86,"jsonrpc":"2.0"}Content-Type: application/vscode-jsonrpc; charset=utf-8
+    Content-Length: 39
+
+    {"result":null,"id":87,"jsonrpc":"2.0"}
+    ’’’
+    with message (json-parse-error unexpected token near ',' <callback> 1 11 11)
+    ```
 
 ### Philip Zander (Isopod) fork
 
@@ -69,54 +90,91 @@ lazbuild pasls.lpi
 create $HOME/.config/pasls/castle-pasls.ini following https://github.com/castle-engine/pascal-language-server docs
 ```
 
-Notes:
+Notes specific to this fork:
 
-* DONE: Works in VS Code, for simple Pascal programs.
-
-* TODO: Make it aware of even LCL units? Seems like it cannot find any LCL unit, despite setting Lazarus dir.
+* Tested in both VS Code and Emacs.
 
 * DONE: Make it aware of CGE paths, make it do completion in CGE units like gamestatemain.pas.
   Done in https://github.com/castle-engine/pascal-language-server by special option in config file.
 
-* TODO: extremely fragile when unit on uses clause not found,
-  and its poor in finding such units.
-  Needs
-  - config to read units in Lazarus automatically?
-  - read units in current project automatically.
+* TODO: It doesn't take extra FPC options as LSP initialization options, though author is open to add this functionality ( https://github.com/michaliskambi/elisp/issues/1 ).
 
-### Comparison (Ryan Joseph vs Philip Zander forks):
+* As an extra feature, can read configuration from Lazarus options in home directory. This is completely optional though.
 
-Their capabilites are really quite even, due to them both enabling just Lazarus CodeTools as LSP server.
+### Notes about both:
 
-Ryan Joseph advantages:
+* Their capabilites are really quite even, due to them both enabling just Lazarus CodeTools as LSP server.
 
-- Passes extra FPC params from LSP initialization options. This is a clean way to pass FPC options from any LSP client.
+* Both are active.
 
-     This also means I could, in principle, use it with CGE without my mods to add `~/.config/pasls/castle-pasls.ini`. Though `~/.config/pasls/castle-pasls.ini` still makes it easier by allowing me to provide just single CGE path.
-- Seems a bit more active lately
-- Doesn't read stuff from Lazarus config, doesn't need Lazarus config location -- it seems better to not read it if we don't need it
-- It seems more tolerant for units missing on uses clause
+     https://github.com/genericptr/pascal-language-server has last commit on October 16th, 2022.
 
-Ryan Joseph disadvantages:
+     https://github.com/Isopod/pascal-language-server has last commit on November 2021, but the maintainer was quick to find + address my findings on https://github.com/michaliskambi/elisp/issues/1 , and encourage merge requests. Much appreciated.
 
-- (SOLVED IN MY FORK, BUT WITH A HACK) On really invalid syntax (e.g. open LFM and try to use kambi-pascal-mode) it can send invalid JSON to LSP (`{"result":,"id":85,"jsonrpc":"2.0"}`), and Emacs will spam console with errors.
+* Both LSP server forks **and Lazarus IDE too** are rather "fragile" when it comes to having non-existing units on the `uses` clause. The code completion fails until the CodeTools can find the unit.
 
-    ```
-    Warning (lsp-mode): Failed to parse the following chunk:
-    ’’’
-    Content-Type: application/vscode-jsonrpc; charset=utf-8
-    Content-Length: 35
+    Testcase:
 
-    {"result":,"id":85,"jsonrpc":"2.0"}Content-Type: application/vscode-jsonrpc; charset=utf-8
-    Content-Length: 39
+    - I opened CGE unit https://github.com/castle-engine/castle-engine/blob/master/examples/creature_behaviors/code/gamestatemenu.pas .
 
-    {"result":null,"id":86,"jsonrpc":"2.0"}Content-Type: application/vscode-jsonrpc; charset=utf-8
-    Content-Length: 39
+    - I tested my forks that add simple CGE support ( https://github.com/michaliskambi/pascal-language-server-genericptr , https://github.com/castle-engine/pascal-language-server ) -- this just results in adding a bunch of `-Fuxxx`, `-Fixxx` to FPC options. I tested also Lazarus IDE 2.2.2.
 
-    {"result":null,"id":87,"jsonrpc":"2.0"}
-    ’’’
-    with message (json-parse-error unexpected token near ',' <callback> 1 11 11)
-    ```
+    - If I edit the `TStateMenu.Start` to say `But` and try to complete...
+
+        ```delphi
+        begin
+          inherited;
+          ButtonPlay.OnClick := {$ifdef FPC}@{$endif} ClickPlay;
+          ButtonQuit.OnClick := {$ifdef FPC}@{$endif} ClickQuit;
+          // Hide "Quit" button on mobile/console platforms, where users don't expect such button
+          ButtonQuit.Exists := ApplicationProperties.ShowUserInterfaceToQuit;
+
+          But
+        end;
+        ```
+
+        -> this works great. It says to me that it can complete `But` to `ButtonPlay` or `ButtonQuit`.
+
+    - But if I now mess up the `uses` clause, adding there non-existent name...
+
+        ```delphi
+        uses CastleApplicationProperties, CastleWindow,
+          GameStatePlay, Foobar;
+        ```
+
+        -> now completion completely fails.
+
+* Both LSP servers fail at finding LCL units (unless I misconfigured them).
+
+    Testcase:
+
+    - editing https://github.com/michaliskambi/pascal-language-server-genericptr/blob/castle-master/references.pas
+
+    - go to line 91, https://github.com/michaliskambi/pascal-language-server-genericptr/blob/castle-master/references.pas#L91 , after `StartSrcCode:=CodeToolBoss.LoadFile(Filename,false,false);` assignment
+
+    - type `Start` and try to complete.
+
+         Your fork (well, my fork of your fork :), https://github.com/castle-engine/pascal-language-server ) will answer that `Laz_AVL_Tree` cannot be found.
+
+         Ryan Joseph fork will fail to complete anything, without any message. (So actually it is worse.)
+
+         Lazarus IDE manages to be good here: it evidently finds `Laz_AVL_Tree`.
+
+    - Removing `Laz_AVL_Tree`, your LSP server reports it cannot find `LazFileUtils`. Then `CTUnitGraph`, and then `CodeCache`. Code completion starts to work only once I hack `uses` clause to be this:
+
+        ```delphi
+        uses
+          { RTL }
+          SysUtils, Classes,
+          { CodeTools }
+          URIParser, //CodeToolManager, //CodeCache, {CTUnitGraph,}
+          { LazUtils }
+          //LazFileUtils, Laz_AVL_Tree,
+          { LSP }
+          lsp, basic, general;
+        ```
+
+        It will not compile of course, I removed all LCL units, but I can complete `Start` identifier now :)
 
 ## Other editors than Emacs (mentioning it here for completeness)
 
