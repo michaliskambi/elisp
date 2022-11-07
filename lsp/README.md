@@ -71,6 +71,8 @@ Notes:
     with message (json-parse-error unexpected token near ',' <callback> 1 11 11)
     ```
 
+* TODO: (possibly Emacs lsp-mode or lsp-pascal problem, not related to this LSP server -- but the Philip Zander's fork is better in this regard): When a unit is missing, it fails silently in Emacs, saying "no completions". But in VS Code there is a clear message "unit not found: Xxx".
+
 ### Philip Zander (Isopod) fork
 
 https://github.com/Isopod/pascal-language-server
@@ -156,9 +158,9 @@ Notes specific to this fork:
 
     - type `Start` and try to complete.
 
-         Philip Zander's LSP server will fail to complete anything, answering that `Laz_AVL_Tree` cannot be found.
+         Philip Zander's LSP server will fail to complete anything, answering that `Laz_AVL_Tree` cannot be found (error visible in Emacs).
 
-         Ryan Joseph's LSP server will fail to complete anything, without any message. (So actually it is a bit worse.)
+         Ryan Joseph's LSP server will fail to complete anything. Without any message in Emacs (so it is a bit worse), though there is a clear message in VS Code.
 
          Lazarus IDE is better: it can do code completion, so it evidently finds `Laz_AVL_Tree` (since we know it would fail to do code completion when units are missing).
 
