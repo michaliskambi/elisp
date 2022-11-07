@@ -101,6 +101,8 @@ Notes specific to this fork:
 
 * As an extra feature, can read configuration from Lazarus options in home directory. This is completely optional though.
 
+* Nice: When the unit is missing on the `uses` clause (this makes it impossible to do code completion, in both LSP server forks and in Lazarus IDE) it results in clear error so you know _which unit is missing_.
+
 ### Notes about both:
 
 * Their capabilites are really quite even, due to them both enabling just Lazarus CodeTools as LSP server.
