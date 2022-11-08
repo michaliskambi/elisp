@@ -148,6 +148,10 @@ Notes specific to this fork:
 
         -> now completion completely fails. `But` cannot be completed to anything. Which is a shame, it would be better IMHO if CodeTools would just ignore the missing `Foobar` in the `uses` clause.
 
+* TODO: We have to make LSP server find and understand `CastleEngineManifest.xml` in containing directory, and extract extra file paths from it. Alternatively: extract extra paths from LPI.
+
+    This is extra important in the light of above (CodeTools fail if unit cannot be found). E.g. right now code completion fails on CGE `tests/code/testcases/testcastlecomponentserialize.pas`, because it cannot find `CastleTestCase` which is in `tests/code/tester-fpcunit/`. And LSP cannot guess by itself to search in `../tester-fpcunit/` for this. Only project files (we maintain both `CastleEngineManifest.xml` and LPI for this) contain the necessary information to find all units.
+
 * Both LSP servers fail at finding LCL units (unless I misconfigured them).
 
     Testcase:
