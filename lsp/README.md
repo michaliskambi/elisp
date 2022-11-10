@@ -178,11 +178,21 @@ Notes specific to this fork:
 
         -> now completion completely fails. `But` cannot be completed to anything. Which is a shame, it would be better IMHO if CodeTools would just ignore the missing `Foobar` in the `uses` clause.
 
-* TODO: Maybe we should make LSP server find and understand `CastleEngineManifest.xml` in containing directory, and extract extra file paths from it.
+* TODO: We should make LSP server find and understand `CastleEngineManifest.xml` in containing directory, and extract extra file paths from it.
 
-    Not that critical anymore: Philip Zander's LSP server can read LPI / LPK, it works in both VS Code and (after https://github.com/Isopod/pascal-language-server/pull/1 ) in Emacs, and it makes the testcase below solved:
+    Now this fails: Code completion on CGE `tests/code/testcases/testcastlecomponentserialize.pas` fails: it cannot find `CastleTestCase` which is in `tests/code/tester-fpcunit/`. And LSP cannot guess by itself to search in `../tester-fpcunit/` for this. Only project files (we maintain both `CastleEngineManifest.xml` and LPI for this) contain the necessary information to find all units.
 
-    Code completion on CGE `tests/code/testcases/testcastlecomponentserialize.pas`: it needs either LPI / LPK or `CastleEngineManifest.xml` understanding, otherwise it could not find `CastleTestCase` which is in `tests/code/tester-fpcunit/`. And LSP cannot guess by itself to search in `../tester-fpcunit/` for this. Only project files (we maintain both `CastleEngineManifest.xml` and LPI for this) contain the necessary information to find all units.
+    Although Philip Zander's LSP server can read LPI / LPK, and works in both VS Code and (after https://github.com/Isopod/pascal-language-server/pull/1 ) in Emacs... but still completion in `tests/code/testcases/testcastlecomponentserialize.pas` fails: no wonder, it doesn't know which LPI to process for `tests/code/testcases/testcastlecomponentserialize.pas`.
+
+    Our `CastleEngineManifest.xml` can make assumption, as our editor: just go up in dir hierarchy, finding first `CastleEngineManifest.xml`.
+
+    Workaround for now: `castle-pasls.ini` with
+
+    ```
+    [extra_options]
+    ;; makes code completion in CGE tests working, otherwise it cannot find CastleTestCase
+    option_1=-Fu/home/michalis/sources/castle-engine/castle-engine/tests/code/tester-fpcunit
+    ```
 
 ## Other editors than Emacs (mentioning it here for completeness)
 
