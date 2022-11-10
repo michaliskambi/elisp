@@ -180,7 +180,9 @@ Notes specific to this fork:
 
 * TODO: Maybe we should make LSP server find and understand `CastleEngineManifest.xml` in containing directory, and extract extra file paths from it.
 
-    E.g. right now code completion fails on CGE `tests/code/testcases/testcastlecomponentserialize.pas`, because it cannot find `CastleTestCase` which is in `tests/code/tester-fpcunit/`. And LSP cannot guess by itself to search in `../tester-fpcunit/` for this. Only project files (we maintain both `CastleEngineManifest.xml` and LPI for this) contain the necessary information to find all units.
+    Not that critical anymore: Philip Zander's LSP server can read LPI / LPK, it works in both VS Code and (after https://github.com/Isopod/pascal-language-server/pull/1 ) in Emacs, and it makes the testcase below solved:
+
+    Code completion on CGE `tests/code/testcases/testcastlecomponentserialize.pas`: it needs either LPI / LPK or `CastleEngineManifest.xml` understanding, otherwise it could not find `CastleTestCase` which is in `tests/code/tester-fpcunit/`. And LSP cannot guess by itself to search in `../tester-fpcunit/` for this. Only project files (we maintain both `CastleEngineManifest.xml` and LPI for this) contain the necessary information to find all units.
 
 ## Other editors than Emacs (mentioning it here for completeness)
 
