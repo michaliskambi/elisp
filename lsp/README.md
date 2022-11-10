@@ -71,7 +71,25 @@ Notes:
     with message (json-parse-error unexpected token near ',' <callback> 1 11 11)
     ```
 
-* TODO: (possibly Emacs lsp-mode or lsp-pascal problem, not related to this LSP server -- but the Philip Zander's fork is better in this regard): When a unit is missing, it fails silently in Emacs, saying "no completions". But in VS Code there is a clear message "unit not found: Xxx".
+* TODO: (possibly Emacs lsp-mode or lsp-pascal problem, not related to this LSP server -- but the Philip Zander's fork is better in this regard): When a unit is missing, it fails silently in Emacs, saying "no completions".
+
+    But in VS Code there is a clear message "unit not found: Xxx".
+
+* Fails at finding LCL units, it seems.
+
+    Testcase:
+
+    - editing https://github.com/michaliskambi/pascal-language-server-genericptr/blob/castle-master/references.pas
+
+    - go to line 91, https://github.com/michaliskambi/pascal-language-server-genericptr/blob/castle-master/references.pas#L91 , after `StartSrcCode:=CodeToolBoss.LoadFile(Filename,false,false);` assignment
+
+    - type `Start` and try to complete.
+
+         Ryan Joseph's LSP server fails to complete. Without any message in Emacs (but lack of clear message may be Emacs problem), though there is a clear message in VS Code. It cannot find `Laz_AVL_Tree`.
+
+         Lazarus IDE does code completion, so it evidently finds `Laz_AVL_Tree` (since we know it would fail to do code completion when units are missing).
+
+         Philip Zander's LSP server does code completion (after fix in https://github.com/Isopod/pascal-language-server/pull/1 ). The conversation in https://github.com/michaliskambi/elisp/issues/1 , and my tests confirm now, that it can find LPK/LPI nicely and from them know that `lazutils` package is used and it contains `Laz_AVL_Tree`.
 
 ### Philip Zander (Isopod) fork
 
@@ -104,6 +122,18 @@ Notes specific to this fork:
 * As an extra feature, can read configuration from Lazarus options in home directory. This is completely optional though.
 
 * Nice: When the unit is missing on the `uses` clause (this makes it impossible to do code completion, in both LSP server forks and in Lazarus IDE) it results in clear error so you know _which unit is missing_.
+
+    Possibly this is Emacs-specific thing. It the code, there's explicit comment that error reporting is adjusted to work with NeoVim -- maybe it helps Emacs too?
+
+    ```
+    ... There is also the call window/showMessage, but this one is not
+    // implemented by NeoVim. So we work around it by showing a fake
+    // completion item.
+    ```
+
+* Nice: It reads LPK / LPI, and is thus better at finding units, e.g. can find `Laz_AVL_Tree` when the program uses `LazUtils` package.
+
+    This is extra important in the light of above (CodeTools fail if unit cannot be found).
 
 ### Notes about both:
 
@@ -148,41 +178,9 @@ Notes specific to this fork:
 
         -> now completion completely fails. `But` cannot be completed to anything. Which is a shame, it would be better IMHO if CodeTools would just ignore the missing `Foobar` in the `uses` clause.
 
-* TODO: We have to make LSP server find and understand `CastleEngineManifest.xml` in containing directory, and extract extra file paths from it. Alternatively: extract extra paths from LPI.
+* TODO: Maybe we should make LSP server find and understand `CastleEngineManifest.xml` in containing directory, and extract extra file paths from it.
 
-    This is extra important in the light of above (CodeTools fail if unit cannot be found). E.g. right now code completion fails on CGE `tests/code/testcases/testcastlecomponentserialize.pas`, because it cannot find `CastleTestCase` which is in `tests/code/tester-fpcunit/`. And LSP cannot guess by itself to search in `../tester-fpcunit/` for this. Only project files (we maintain both `CastleEngineManifest.xml` and LPI for this) contain the necessary information to find all units.
-
-* Both LSP servers fail at finding LCL units (unless I misconfigured them).
-
-    Testcase:
-
-    - editing https://github.com/michaliskambi/pascal-language-server-genericptr/blob/castle-master/references.pas
-
-    - go to line 91, https://github.com/michaliskambi/pascal-language-server-genericptr/blob/castle-master/references.pas#L91 , after `StartSrcCode:=CodeToolBoss.LoadFile(Filename,false,false);` assignment
-
-    - type `Start` and try to complete.
-
-         Philip Zander's LSP server will fail to complete anything, answering that `Laz_AVL_Tree` cannot be found (error visible in Emacs).
-
-         Ryan Joseph's LSP server will fail to complete anything. Without any message in Emacs (so it is a bit worse), though there is a clear message in VS Code.
-
-         Lazarus IDE is better: it can do code completion, so it evidently finds `Laz_AVL_Tree` (since we know it would fail to do code completion when units are missing).
-
-    - Removing `Laz_AVL_Tree`, Philip Zander's LSP server reports it cannot find `LazFileUtils`. Then `CTUnitGraph`, and then `CodeCache`. Code completion starts to work only once I hack `uses` clause to be this:
-
-        ```delphi
-        uses
-          { RTL }
-          SysUtils, Classes,
-          { CodeTools }
-          URIParser, //CodeToolManager, //CodeCache, {CTUnitGraph,}
-          { LazUtils }
-          //LazFileUtils, Laz_AVL_Tree,
-          { LSP }
-          lsp, basic, general;
-        ```
-
-        It will not compile of course, I removed all LCL units, but I can complete `Start` identifier now :)
+    E.g. right now code completion fails on CGE `tests/code/testcases/testcastlecomponentserialize.pas`, because it cannot find `CastleTestCase` which is in `tests/code/tester-fpcunit/`. And LSP cannot guess by itself to search in `../tester-fpcunit/` for this. Only project files (we maintain both `CastleEngineManifest.xml` and LPI for this) contain the necessary information to find all units.
 
 ## Other editors than Emacs (mentioning it here for completeness)
 

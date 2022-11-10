@@ -6,7 +6,8 @@
 (require 'lsp-pascal)
 
 ;; configure lsp-pascal variables
-(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-isopod-pascal-language-server/server/lib/x86_64-linux/pasls")
+(setq lsp-pascal-command "/home/michalis/sources/lsp/pascal-language-server/server/lib/x86_64-linux/pasls")
+;;(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-isopod-pascal-language-server/server/lib/x86_64-linux/pasls")
 ;;(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-genericptr-pascal-language-server/lib/x86_64-linux/pasls")
  ;; Should this lead to /home/michalis/installed/fpclazarus/current/fpc or fpcsrc?
  ;; Description suggests it's for source, name suggests it's passed to FPC so it should contain just compiled units.
@@ -14,6 +15,8 @@
 (setq lsp-pascal-fpcdir "/home/michalis/installed/fpclazarus/current/fpcsrc/")
 (setq lsp-pascal-lazarusdir "/home/michalis/installed/fpclazarus/current/lazarus")
 (setq lsp-pascal-pp "/home/michalis/installed/fpclazarus/current/fpc/bin/x86_64-linux/fpc.sh")
+(setq lsp-pascal-fpctarget "linux") ;;/ TODO should be autodetected
+(setq lsp-pascal-fpctargetcpu "x86_64") ;;/ TODO should be autodetected
 
 ;; enable lsp-pascal for my kambi-pascal-mode
 (add-hook 'kambi-pascal-mode-hook #'lsp)
