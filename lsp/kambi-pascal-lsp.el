@@ -7,8 +7,8 @@
 
 ;; configure lsp-pascal variables
 ;;(setq lsp-pascal-command "/home/michalis/sources/lsp/pascal-language-server/server/lib/x86_64-linux/pasls")
-(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-isopod-pascal-language-server/server/lib/x86_64-linux/pasls")
-;;(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-genericptr-pascal-language-server/lib/x86_64-linux/pasls")
+;;(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-isopod-pascal-language-server/server/lib/x86_64-linux/pasls")
+(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-genericptr-pascal-language-server/lib/x86_64-linux/pasls")
  ;; Should this lead to /home/michalis/installed/fpclazarus/current/fpc or fpcsrc?
  ;; Description suggests it's for source, name suggests it's passed to FPC so it should contain just compiled units.
  ;; Later: Message on FPC mailing lists confirms it's for source.
@@ -37,6 +37,21 @@
                                       ("LAZARUSDIR" . lsp-pascal-lazarusdir)
                                       ("FPCTARGET" . lsp-pascal-fpctarget)
                                       ("FPCTARGETCPU" . lsp-pascal-fpctargetcpu)))
+                  ;; initialization options handled by Ryan Joseph LSP server
+                  :initialization-options
+                    (lambda ()
+                      `(:showSyntaxErrors t
+                        :overloadPolicy 3
+                        :maximumCompletions 100
+                        :insertCompletionsAsSnippets t
+                        :insertCompletionProcedureBrackets nil
+                        :includeWorkspaceFoldersAsUnitPaths t
+                        :includeWorkspaceFoldersAsIncludePaths t
+                        :checkSyntax t
+                        :publishDiagnostics t
+                        :documentSymbols t
+                       )
+                    )
                   :server-id 'pasls))
 
 ;; Disable AC (autocomplete), to make sure I only use company for completion using LSP.

@@ -11,9 +11,9 @@ see https://microsoft.github.io/language-server-protocol/ .
 
 https://github.com/arjanadriaanse/pascal-language-server started it all, but after 4 commits in 2020 it seems unmaintained.
 
-I found 2 maintained forks of it that I got to work (by creating forks of my own, through once I figure out more I'll want to contribute back).
+I found 2 maintained forks of it that I got to work. (I did create 2 forks of them in turn, through I also contributed back some commits to original authors.)
 
-### Ryan Joseph (genericptr) fork
+### Ryan Joseph (genericptr) LSP server
 
 https://github.com/genericptr/pascal-language-server
 
@@ -71,11 +71,24 @@ Notes:
     with message (json-parse-error unexpected token near ',' <callback> 1 11 11)
     ```
 
-* TODO: (possibly Emacs lsp-mode or lsp-pascal problem, not related to this LSP server -- but the Philip Zander's fork is better in this regard): When a unit is missing, it fails silently in Emacs, saying "no completions".
+* It does error message (like on missing unit) using LSP `window/showMessage` method. To activate this you need to pass LSP initialization options with showSyntaxErrors=true (all LSP clients should enable to pass LSP initialization options somehow).
 
-    But in VS Code there is a clear message "unit not found: Xxx".
+    This works great in VS Code.
 
-* Fails at finding LCL units, it seems.
+    It works poorly in Emacs,
+    - The message is there but it is immediately covered by _"No completion found"_. You have to switch to Emacs `*Messages*` buffer to see it.
+    - TODO: How to activate it using Lisp?
+
+        ```
+        :initialization-options
+        (lambda ()
+          `(:options (:showSyntaxErrors t))
+        )
+        ```
+
+        fails, though JSON looks good.
+
+* It is not efficient at finding LCL units, it seems. It does not read LPI / LPK, unlike Philip Zander's LSP server.
 
     Testcase:
 
@@ -91,7 +104,7 @@ Notes:
 
          Philip Zander's LSP server does code completion (after fix in https://github.com/Isopod/pascal-language-server/pull/1 ). The conversation in https://github.com/michaliskambi/elisp/issues/1 , and my tests confirm now, that it can find LPK/LPI nicely and from them know that `lazutils` package is used and it contains `Laz_AVL_Tree`.
 
-### Philip Zander (Isopod) fork
+### Philip Zander (Isopod) LSP server
 
 https://github.com/Isopod/pascal-language-server
 
@@ -121,9 +134,13 @@ Notes specific to this fork:
 
 * As an extra feature, can read configuration from Lazarus options in home directory. This is completely optional though.
 
-* Nice: When the unit is missing on the `uses` clause (this makes it impossible to do code completion, in both LSP server forks and in Lazarus IDE) it results in clear error so you know _which unit is missing_.
+* It does error message by a hack, special completion item.
 
-    Possibly this is Emacs-specific thing. It the code, there's explicit comment that error reporting is adjusted to work with NeoVim -- maybe it helps Emacs too?
+    This works great in VS Code.
+
+    It is acceptable but still poor in Emacs, the Emacs buries it inside a Lisp error. And fixing the error (adding isIncomplete:false) makes the completion label inserted into buffer by Emacs on `company-complete`... It seems neither LSP server plays really nicely with Emacs in regards to nice error messages.
+
+    It should work with NeoVim, which is used by Philip Zander, author of this LSP server. The code comment addresses this:
 
     ```
     ... There is also the call window/showMessage, but this one is not
@@ -144,6 +161,14 @@ Notes specific to this fork:
      https://github.com/genericptr/pascal-language-server has last commit on October 16th, 2022.
 
      https://github.com/Isopod/pascal-language-server has last commit on November 2021, but the maintainer was quick to find + address my findings on https://github.com/michaliskambi/elisp/issues/1 , and encourage merge requests. Much appreciated.
+
+* My forks:
+
+     https://github.com/michaliskambi/pascal-language-server-genericptr
+
+     https://github.com/castle-engine/pascal-language-server
+
+     ...strive to "standardize" part of them: they both support reading an INI file with a few useful options. They both allow to specify a per-process log file, that allows to debug JSON requests / responses. It's sometimes tremendously useful to compare what happens with 2 LSP servers.
 
 * Both LSP server forks **and Lazarus IDE too** are rather "fragile" when it comes to having non-existing units on the `uses` clause. The code completion fails until the CodeTools can find the unit.
 
