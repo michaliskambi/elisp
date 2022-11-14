@@ -75,18 +75,7 @@ Notes:
 
     This works great in VS Code.
 
-    It works poorly in Emacs,
-    - The message is there but it is immediately covered by _"No completion found"_. You have to switch to Emacs `*Messages*` buffer to see it.
-    - TODO: How to activate it using Lisp?
-
-        ```
-        :initialization-options
-        (lambda ()
-          `(:options (:showSyntaxErrors t))
-        )
-        ```
-
-        fails, though JSON looks good.
+    It works in Emacs, but poorly: The message is there but it is immediately covered by _"No completion found"_. You have to switch to Emacs `*Messages*` buffer to see it. Note: see `kambi-pascal-lsp.el` for `:initialization-options` example how to activate it using Lisp.
 
 * It is not efficient at finding LCL units, it seems. It does not read LPI / LPK, unlike Philip Zander's LSP server.
 
