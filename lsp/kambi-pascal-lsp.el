@@ -51,8 +51,8 @@
                         :checkSyntax t
                         :publishDiagnostics t
                         :documentSymbols t
-                        ;; initialization options handled by CGE fork on Philip Zander LSP server
-                        :syntaxErrorCausesLspError t
+                        ;; initialization options handled by CGE fork of Philip Zander LSP server, see https://github.com/Isopod/pascal-language-server/pull/2
+                        :syntaxErrorReportingMode 2
                        )
                     )
                   :server-id 'pasls))
