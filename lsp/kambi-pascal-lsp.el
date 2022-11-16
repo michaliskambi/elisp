@@ -52,10 +52,27 @@
                         :publishDiagnostics t
                         :documentSymbols t
                         ;; initialization options handled by CGE fork of Philip Zander LSP server, see https://github.com/Isopod/pascal-language-server/pull/2
-                        :syntaxErrorReportingMode 2
+                        :syntaxErrorReportingMode 1
                        )
                     )
                   :server-id 'pasls))
+
+;; Filter messages, to avoid obscuring LSP messages (e.g. Pascal syntax errors).
+;;
+;; Adjusted from https://www.emacswiki.org/emacs/EchoArea#h5o-3 ,
+;; (removed from it hacky way to extend *Messages* buffer directly
+;; that doesn't work in Emacs 27.1).
+(defvar kam-message-filter-regexp-list '("^No completion found$")
+  "Filter messages, to avoid obscuring LSP messages (e.g. Pascal syntax errors).")
+(defadvice message (around message-filter-by-regexp activate)
+  (if (not (ad-get-arg 0))
+      ad-do-it
+    (let ((formatted-string (apply 'format (ad-get-args 0))))
+      (unless (and (stringp formatted-string)
+               (some (lambda (re) (string-match re formatted-string)) kam-message-filter-regexp-list))
+        (progn
+          (ad-set-args 0 `("%s" ,formatted-string))
+          ad-do-it)))))
 
 ;; Disable AC (autocomplete), to make sure I only use company for completion using LSP.
 ;; They actually can work nicely together -- but for now I want to make sure I exercise company.
