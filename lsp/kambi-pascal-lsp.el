@@ -52,7 +52,7 @@
                         :publishDiagnostics t
                         :documentSymbols t
                         ;; initialization options handled by CGE fork of Philip Zander LSP server, see https://github.com/Isopod/pascal-language-server/pull/2
-                        :syntaxErrorReportingMode 1
+;;                        :syntaxErrorReportingMode 1
                        )
                     )
                   :server-id 'pasls))
