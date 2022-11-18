@@ -208,6 +208,20 @@ Notes specific to this fork:
     option_1=-Fu/home/michalis/sources/castle-engine/castle-engine/tests/code/tester-fpcunit
     ```
 
+### Delphi LSP
+
+To be complete, I should mention Embarcadero also makes their proprietary LSP server.
+
+Docs: https://docwiki.embarcadero.com/RADStudio/Alexandria/en/Using_DelphiLSP_Code_Insight_with_Other_Editors
+
+To use it, make sure to generate `.delphilsp.json` in the project folder, following
+https://docwiki.embarcadero.com/RADStudio/Alexandria/en/Code_Insight_Reference#Creating_.delphilsp.json_Files :
+
+* Go to Tools > Options > User Interface > Editor > Language > Code Insight and turn on Generate LSP Config
+* Save and close your project in the IDE.
+
+TODO: I didn't manage to make it actually work. When trying to complete, it fails with `DelphiLSP Agent1 terminated and will be respawned.`.
+
 ## Other editors than Emacs (mentioning it here for completeness)
 
 ### VS Code Extension
@@ -245,7 +259,27 @@ Available in https://github.com/Isopod/pascal-language-server repo in client/nvi
 
 - `yasnippet` (necessary to show nicely routine parameters)
 
-## Add this to ~/.emacs
+## Basic config
+
+This is the basic configuration you need:
+
+```
+(require 'lsp-pascal)
+
+;; choose LSP server binary
+(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-isopod-pascal-language-server/server/lib/x86_64-linux/pasls")
+
+;; pass basic info to LSP server, all LSP Pascal servers above support these:
+(setq lsp-pascal-fpcdir "/home/michalis/installed/fpclazarus/current/fpcsrc/")
+(setq lsp-pascal-lazarusdir "/home/michalis/installed/fpclazarus/current/lazarus")
+(setq lsp-pascal-pp "/home/michalis/installed/fpclazarus/current/fpc/bin/x86_64-linux/fpc.sh")
+(setq lsp-pascal-fpctarget "linux")
+(setq lsp-pascal-fpctargetcpu "x86_64")
+```
+
+## Complicated configuration, specific to Michalis preferences
+
+Add this to ~/.emacs
 
 ```
 (add-to-list 'load-path (concat kambi-elisp-path "lsp/"))
