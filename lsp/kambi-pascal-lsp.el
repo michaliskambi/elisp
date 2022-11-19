@@ -29,7 +29,7 @@
 
   (progn
     ;;(setq lsp-pascal-command "/home/michalis/sources/lsp/pascal-language-server/server/lib/x86_64-linux/pasls")
-    (setq lsp-pascal-command "/home/michalis/sources/lsp/castle-isopod-pascal-language-server/server/lib/x86_64-linux/pasls")
+    (setq lsp-pascal-command "/home/michalis/sources/castle-engine/castle-engine/bin/pasls")
     ;;(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-genericptr-pascal-language-server/lib/x86_64-linux/pasls")
 
     ;; Should this lead to /home/michalis/installed/fpclazarus/current/fpc or fpcsrc?
