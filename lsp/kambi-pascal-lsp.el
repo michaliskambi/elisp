@@ -17,7 +17,7 @@
 
 (if kam-is-windows
     (progn
-      (setq lsp-pascal-command "D:/cygwin64/home/michalis/sources/castle-engine/pascal-language-server/server/lib/x86_64-win64/pasls.exe")
+      (setq lsp-pascal-command "D:/cygwin64/home/michalis/sources/castle-engine/castle-engine/bin/pasls.exe")
       ;;(setq lsp-pascal-command "c:/Program Files (x86)/Embarcadero/Studio/22.0/bin/DelphiLSP.exe")
 
       (setq lsp-pascal-fpcdir "D:/cygwin64/home/michalis/installed/fpclazarus/3.2.2-lazarus2.2/fpcsrc/")
