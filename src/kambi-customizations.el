@@ -77,6 +77,7 @@
  '(ls-lisp-dirs-first t)
  '(ls-lisp-ignore-case t)
  '(ls-lisp-verbosity nil)
+ '(lsp-auto-guess-root t)
  '(magit-diff-section-arguments '("--no-ext-diff" "-M" "-C"))
  '(magit-pull-arguments nil)
  '(minimap-major-modes

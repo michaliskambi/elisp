@@ -6,6 +6,12 @@
   'lsp-pascal
 ))
 
+;; configure company autocompletion, it is used by lsp-mode
+(require 'kambi-company)
+
+;; used by lsp-mode to display routine parameters
+(yas-global-mode 1)
+
 ;; see https://github.com/emacs-lsp/lsp-mode
 (setq lsp-keymap-prefix "<C-f11>") ;; must be before (require 'lsp-mode)
 (require 'lsp-mode)
@@ -14,7 +20,6 @@
 (require 'lsp-pascal)
 
 ;; configure lsp-pascal variables
-
 (if kam-is-windows
     (progn
       (setq lsp-pascal-command "D:/cygwin64/home/michalis/sources/castle-engine/castle-engine/bin/pasls.exe")
@@ -29,7 +34,7 @@
 
   (progn
     ;;(setq lsp-pascal-command "/home/michalis/sources/lsp/pascal-language-server/server/lib/x86_64-linux/pasls")
-    (setq lsp-pascal-command "/home/michalis/sources/castle-engine/castle-engine/bin/pasls")
+    (setq lsp-pascal-command "/home/michalis/sources/lsp/castle-isopod-pascal-language-server/server/pasls")
     ;;(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-genericptr-pascal-language-server/lib/x86_64-linux/pasls")
 
     ;; Should this lead to /home/michalis/installed/fpclazarus/current/fpc or fpcsrc?
@@ -98,42 +103,5 @@
         (progn
           (ad-set-args 0 `("%s" ,formatted-string))
           ad-do-it)))))
-
-;; Disable AC (autocomplete), to make sure I only use company for completion using LSP.
-;; They actually can work nicely together -- but for now I want to make sure I exercise company.
-;; Note: for some (subjective) comparison, see https://github.com/company-mode/company-mode/issues/68 .
-(setq ac-modes (delete 'kambi-pascal-mode ac-modes))
-
-(defun kambi-pascal-lsp-config ()
-  (require 'company)
-  ;; use company autocompletion, that uses LSP
-  (local-set-key (kbd "<tab>") 'company-complete)
-  (local-set-key (kbd "<C-prior>") 'lsp-find-declaration)
-  (local-set-key (kbd "<C-next>") 'lsp-find-definition)
-  (yas-minor-mode-on)
-)
-(add-hook 'kambi-pascal-mode-hook 'kambi-pascal-lsp-config)
-
-;; otherwise aborting is bound to C-g, unintuitive
-(with-eval-after-load 'company
-  (define-key company-active-map (kbd "<escape>") #'company-abort)
-  (define-key company-active-map (kbd "<tab>") #'company-complete-selection)
-
-  ;; Testing options from https://company-mode.github.io/manual/Getting-Started.html#Getting-Started
-  ;; (define-key company-active-map (kbd "C-t") #'company-complete-common-or-cycle)
-  ;; (define-key company-active-map (kbd "C-c")
-  ;;   (lambda ()
-  ;;     (interactive)
-  ;;     (company-complete-common-or-cycle -1)))
-)
-
-;;(add-hook 'after-init-hook 'company-tng-mode)
-
-;; Company completion can be configured to ignore case. E.g. `Event.is` -> should offer completion for `IsKey`.
-;; We do this in kambi-customizations.el :
-;;   (company-keywords-ignore-case t)
-
-;; use company e.g. also in shell mode
-(add-hook 'after-init-hook 'global-company-mode)
 
 (provide 'kambi-pascal-lsp)
