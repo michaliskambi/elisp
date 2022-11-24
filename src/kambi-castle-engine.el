@@ -40,6 +40,7 @@ environment variable, if possible."
       ;; (added to search path regardless of kam-is-windows, kam-is-unix,
       ;; because filenames must be unique (for Lazarus packages) anyway).
       (castle-engine-path "src/base/")
+      (castle-engine-path "src/common_includes/")
       (castle-engine-path "src/base/android/")
       (castle-engine-path "src/base/unix/")
       (castle-engine-path "src/base/windows/")
