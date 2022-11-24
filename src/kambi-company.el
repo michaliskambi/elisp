@@ -5,12 +5,16 @@
 (when (require 'company nil 'noerror)
 
   (with-eval-after-load 'company
+    ;; change company-mode-map, not global key assignment,
+    ;; this way <tab> doesn't change meaning in modes excluded from company
+    ;; (see "(setq company-global-modes ...)" lower in this file).
     (define-key company-mode-map (kbd "<tab>") 'company-complete)
     (define-key company-mode-map (kbd "<C-prior>") 'lsp-find-declaration)
     (define-key company-mode-map (kbd "<C-next>") 'lsp-find-definition)
 
     ;; otherwise aborting is bound to C-g, unintuitive
     (define-key company-active-map (kbd "<escape>") #'company-abort)
+
     (define-key company-active-map (kbd "<tab>") #'company-complete-selection)
 
     ;; Testing options from https://company-mode.github.io/manual/Getting-Started.html#Getting-Started
@@ -27,8 +31,15 @@
   ;; We do this in kambi-customizations.el :
   ;;   (company-keywords-ignore-case t)
 
-  ;; do not use company in shell-mode, as "../" completing to "../../" is confusing my typing
-  (setq company-global-modes '(not shell-mode magit-mode))
+  (setq company-global-modes '(not
+    ;; do not use company in shell-mode, as "../" completing to "../../" is confusing my typing
+    shell-mode
+    ;; keep tab switching views in magit
+    magit-status-mode
+    ;; to keep tab making indent in Makefiles
+    makefile-gmake-mode
+    makefile-mode
+  ))
 
   ;; use company in all modes (except listed above)
   (add-hook 'after-init-hook 'global-company-mode)
