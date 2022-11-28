@@ -39,6 +39,8 @@
     ;; to keep tab making indent in Makefiles
     makefile-gmake-mode
     makefile-mode
+    ;; to keep tab collapsing/uncollapsing
+    org-mode
   ))
 
   ;; use company in all modes (except listed above)
