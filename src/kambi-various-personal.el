@@ -63,6 +63,7 @@ PACKAGE-LIST is expected to be a list of symbols (packages)."
     )
   )
   (kam-install-if-needed (list
+    'use-package
 ;;    'ag ;; no longer used, ripgrep is even better
     'ripgrep
     'projectile-ripgrep

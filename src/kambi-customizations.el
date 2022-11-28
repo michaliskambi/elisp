@@ -96,7 +96,7 @@
  '(org-replace-disputed-keys t)
  '(org-support-shift-select 'always)
  '(package-selected-packages
-   '(lsp-mode yasnippet company lsp-ui lsp-pascal lsp-ivy powershell markdown-mode yaml-mode sass-mode w3m ethan-wspace json-mode dsvn browse-kill-ring wgrep lua-mode csharp-mode php-mode groovy-mode projectile-ripgrep ripgrep iedit git-gutter+ json-reformat adoc-mode crux esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete magit))
+   '(omnisharp lsp-mode yasnippet company lsp-ui lsp-pascal lsp-ivy powershell markdown-mode yaml-mode sass-mode w3m ethan-wspace json-mode dsvn browse-kill-ring wgrep lua-mode csharp-mode php-mode groovy-mode projectile-ripgrep ripgrep iedit git-gutter+ json-reformat adoc-mode crux esup gh-md hydra ivy paradox projectile dired-collapse dired-du dired-quick-sort smartscan counsel-projectile counsel ivy-hydra auto-complete magit))
  '(paradox-automatically-star t)
  '(paradox-github-token t)
  '(password-store-password-length 33)

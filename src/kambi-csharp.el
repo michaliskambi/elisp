@@ -1,4 +1,5 @@
-(when (require 'csharp-mode nil 'noerror)
+(use-package csharp-mode
+  :config
 
   (defun kam-indent-block-4-spaces ()
     "Indents current region by 1 space."
@@ -39,5 +40,11 @@
 
   (add-to-list 'auto-mode-alist '("\\.cs\\'" . kambi-csharp-mode))
 )
+
+(use-package omnisharp
+  :after company
+  :config
+  (add-hook 'csharp-mode-hook 'omnisharp-mode)
+  (add-to-list 'company-backends 'company-omnisharp))
 
 (provide 'kambi-csharp)
