@@ -16,6 +16,8 @@
 (setq lsp-keymap-prefix "<C-f11>") ;; must be before (require 'lsp-mode)
 (require 'lsp-mode)
 
+(define-key lsp-mode-map (kbd "<C-return>") 'lsp-find-definition)
+
 ;; configure lsp-pascal
 (require 'lsp-pascal)
 

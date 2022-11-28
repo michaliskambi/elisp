@@ -41,10 +41,23 @@
   (add-to-list 'auto-mode-alist '("\\.cs\\'" . kambi-csharp-mode))
 )
 
+;; Following https://joshwolfe.ca/posts/emacs-csharp-development/ ,
+;; omnisharp gives us code completion in C#.
+;;
+;; Note: This doesn't use lsp-mode, it implements some things on its own.
+;;
+;; Useful:
+;;   omnisharp-solution-errors
+;;
+;; Also
+;; use-package docs: https://github.com/jwiegley/use-package
 (use-package omnisharp
   :after company
   :config
   (add-hook 'csharp-mode-hook 'omnisharp-mode)
-  (add-to-list 'company-backends 'company-omnisharp))
+  (add-to-list 'company-backends 'company-omnisharp)
+  (define-key csharp-mode-map (kbd "<C-return>") 'omnisharp-go-to-definition)
+  (define-key csharp-mode-map (kbd "<M-left>") 'pop-tag-mark)
+)
 
 (provide 'kambi-csharp)
