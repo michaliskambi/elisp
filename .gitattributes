@@ -1,0 +1,3 @@
+# Even on Windows, shell scripts line endings must be Unix, to work with Cygwin's bash.
+*.sh text eol=lf
+scripts/* eol=lf
