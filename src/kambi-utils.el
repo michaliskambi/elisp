@@ -8,6 +8,13 @@
 ;; However it will fail then with Emacs 26.
 ;; For now keep using cl. Some other packages we depend on package cl too for now,
 ;; so anyway we have a warning about "cl deprecated" at start.
+;;
+;; Note: In Emacs 28 the warning is more annoying,
+;;   Warning (bytecomp): ‘some’ is an obsolete function (as of 27.1); use ‘cl-some’ instead.
+;; But
+;; - removing (require 'cl)
+;; - and (search -> (cl-serach
+;; ... leaves me with errors about "some" missing. And omnisharp still uses 'cl... ignore for now.
 (require 'cl)
 
 ;; string operations ---------------------------------------------------
