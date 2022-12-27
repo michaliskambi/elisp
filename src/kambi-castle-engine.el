@@ -616,6 +616,7 @@ by projectile."
     (kam-beg-of-buf) (query-replace "TCamera" "TCastleNavigation") ;; too risky with tcamera lowercase
     (kam-beg-of-buf) (query-replace "twalkcamera" "TCastleWalkNavigation")
     (kam-beg-of-buf) (query-replace "texaminecamera" "TCastleExamineNavigation")
+    (kam-beg-of-buf) (query-replace "tuistate" "TCastleView")
 
     (kam-beg-of-buf) (query-replace "currentprojectionwidth" "Camera.Orthographic.EffectiveWidth")
     (kam-beg-of-buf) (query-replace "currentprojectionheight" "Camera.Orthographic.EffectiveHeight")
