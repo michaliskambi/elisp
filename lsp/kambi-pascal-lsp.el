@@ -22,6 +22,10 @@
 (require 'lsp-pascal)
 
 ;; configure lsp-pascal variables
+;;
+;; Note: CGE pasls will autodetect OS/CPU, if they are not specified explicitly, based on current platform.
+;; Note: Philip Zander LSP will try to autodetect it looking at Lazarus config too.
+;; So you don't strictly need to specify them.
 (if kam-is-windows
     (progn
       (setq lsp-pascal-command "D:/cygwin64/home/michalis/sources/castle-engine/castle-engine/bin/pasls.exe")
@@ -30,8 +34,8 @@
       (setq lsp-pascal-fpcdir "D:/cygwin64/home/michalis/installed/fpclazarus/3.2.2-lazarus2.2/fpcsrc/")
       (setq lsp-pascal-lazarusdir "D:/cygwin64/home/michalis/installed/fpclazarus/3.2.2-lazarus2.2/lazarus")
       (setq lsp-pascal-pp "D:/cygwin64/home/michalis/installed/fpclazarus/3.2.2-lazarus2.2/fpc/bin/x86_64-win64/fpc.exe")
-      (setq lsp-pascal-fpctarget "win64") ;;/ TODO should be autodetected
-      (setq lsp-pascal-fpctargetcpu "x86_64") ;;/ TODO should be autodetected
+      (setq lsp-pascal-fpctarget "win64")
+      (setq lsp-pascal-fpctargetcpu "x86_64")
     )
 
   (progn
@@ -45,8 +49,8 @@
     (setq lsp-pascal-fpcdir "/home/michalis/installed/fpclazarus/current/fpcsrc/")
     (setq lsp-pascal-lazarusdir "/home/michalis/installed/fpclazarus/current/lazarus")
     (setq lsp-pascal-pp "/home/michalis/installed/fpclazarus/current/fpc/bin/x86_64-linux/fpc.sh")
-    (setq lsp-pascal-fpctarget "linux") ;;/ TODO should be autodetected
-    (setq lsp-pascal-fpctargetcpu "x86_64") ;;/ TODO should be autodetected
+    (setq lsp-pascal-fpctarget "linux")
+    (setq lsp-pascal-fpctargetcpu "x86_64")
   )
 )
 
