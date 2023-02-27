@@ -40,7 +40,18 @@
 
   (progn
     ;;(setq lsp-pascal-command "/home/michalis/sources/lsp/pascal-language-server/server/lib/x86_64-linux/pasls")
+
+    ;; mkdir -p ~/sources/lsp
+    ;; cd ~/sources/lsp
+    ;; git clone https://github.com/castle-engine/pascal-language-server castle-isopod-pascal-language-server
+    ;; cd castle-isopod-pascal-language-server
+    ;; git submodule update --init --recursive
+    ;; lazbuild server/pasls.lpi
+    ;;
+    ;; mkdir -p ~/.config/pasls/
+    ;; emacs ~/.config/pasls/castle-pasls.ini # use sample from https://github.com/castle-engine/pascal-language-server, define CGE path
     (setq lsp-pascal-command "/home/michalis/sources/lsp/castle-isopod-pascal-language-server/server/pasls")
+
     ;;(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-genericptr-pascal-language-server/lib/x86_64-linux/pasls")
 
     ;; Should this lead to /home/michalis/installed/fpclazarus/current/fpc or fpcsrc?

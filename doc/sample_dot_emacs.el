@@ -48,3 +48,7 @@
 ;; doesn't help, as running this way invokes snap, not firefox...).
 ;; Workaroud for Emacs: just use firefox, not sensible-browser.
 ;;(setq browse-url-generic-program "firefox")
+
+;; Install first pasls, consult if ~/elisp/lsp/kambi-pascal-lsp.el paths are right
+;;(add-to-list 'load-path (concat kambi-elisp-path "lsp/"))
+;;(require 'kambi-pascal-lsp)
