@@ -53,6 +53,7 @@
 ;; use-package docs: https://github.com/jwiegley/use-package
 (use-package omnisharp
   :after company
+  :ensure t
   :config
   (add-hook 'csharp-mode-hook 'omnisharp-mode)
   (add-to-list 'company-backends 'company-omnisharp)
