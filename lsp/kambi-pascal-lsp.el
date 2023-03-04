@@ -44,6 +44,7 @@
     ;; quick installation instructions:
     ;;
     ;; mkdir -p ~/sources/castle-engine
+    ;; cd ~/sources/castle-engine
     ;; git clone https://github.com/castle-engine/pascal-language-server
     ;; cd pascal-language-server
     ;; git submodule update --init --recursive
