@@ -129,4 +129,14 @@ Access files over ssh using Tramp:
 
 /ssh:michalis@ssh.castle-engine.io:/home/michalis/
 
+------------------------------------------------------------------------------
+Recompile lisp bytecode:
+
+(byte-recompile-directory package-user-dir nil 'force)
+https://www.reddit.com/r/emacs/comments/w2zw6x/compatinhibitprefixed_error_in_orgroam/
+
+Same thing?
+M-x byte-force-recompile RET ~/.emacs.d/ RET
+https://github.com/magit/magit/issues/4841#issuecomment-1375342042
+
 eof --------------------------------------------------------------------------
