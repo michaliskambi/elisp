@@ -57,6 +57,7 @@ environment variable, if possible."
       (castle-engine-path "src/scene/glsl/")
       (castle-engine-path "src/scene/load/")
       (castle-engine-path "src/scene/load/spine/")
+      (castle-engine-path "src/scene/load/md3/")
       (castle-engine-path "src/scene/load/pasgltf/")
       (castle-engine-path "src/scene/load/collada/")
       (castle-engine-path "src/audio/")
