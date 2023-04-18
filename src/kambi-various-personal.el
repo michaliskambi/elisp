@@ -877,6 +877,7 @@ parses local variables written in buffer."
 (global-set-key (kbd "<C-f5>") 'kam-refresh-colors-in-buffer)
 
 (global-set-key (kbd "C-t") 'invert-truncate-lines)
+(global-set-key (kbd "M-z") 'invert-truncate-lines) ;; compatible with VS Code default
 
 (global-set-key (kbd "M-a") 'after-find-file-i)
 (global-set-key (kbd "M-c") 'set-buffer-file-coding-system)
