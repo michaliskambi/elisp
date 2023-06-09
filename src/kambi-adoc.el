@@ -56,6 +56,8 @@ Tailored to the needs of Castle Game Engine www."
     (kam-beg-of-buf) (query-replace-regexp "^ *<li>" "- ")
     (kam-beg-of-buf) (query-replace "&lt;" "<")
     (kam-beg-of-buf) (query-replace "&gt;" ">")
+    (kam-beg-of-buf) (query-replace "&amp;" "&")
+    (kam-beg-of-buf) (query-replace "&mdash;" "--")
     ;; make CGE links relative
     (kam-beg-of-buf) (query-replace-regexp "<a href=\"https://castle-engine.io/\\([^\"]+\\)\">\\([^<]+\\)</a>" "link:\\1[\\2]")
     ;; keep other links as they were
