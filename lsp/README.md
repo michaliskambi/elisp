@@ -29,7 +29,7 @@ see https://microsoft.github.io/language-server-protocol/ .
 
 ## Various LSP Pascal servers
 
-## Arjan Adriaanse repo (original, unmaintained)
+### Arjan Adriaanse repo (original, unmaintained)
 
 https://github.com/arjanadriaanse/pascal-language-server started it all, but after 4 commits in 2020 it seems unmaintained.
 
