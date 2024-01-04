@@ -5,6 +5,28 @@ Trying to get Pascal intelligent completion in Emacs (and VS Code) using LSP.
 LSP is cross-editor protocol, known from VS Code but useful in other editors alike,
 see https://microsoft.github.io/language-server-protocol/ .
 
+## Short version
+
+- Install [lsp-pascal](https://github.com/arjanadriaanse/lsp-pascal), `lsp-mode`, `company` Emacs packages.
+
+- Install LSP server from https://github.com/castle-engine/pascal-language-server . It is easiest to just download it with [Castle Game Engine](https://castle-engine.io/), find the `pasls` in `bin` subdirectory of CGE.
+
+- Configure it like this in your `~/.emacs`:
+
+```
+(require 'lsp-pascal)
+
+;; choose LSP server binary
+(setq lsp-pascal-command "/home/michalis/cge/bin/pasls")
+
+;; pass basic info to LSP server, all LSP Pascal servers above support these:
+(setq lsp-pascal-fpcdir "/home/michalis/cge/tools/contrib/fpc/src")
+(setq lsp-pascal-lazarusdir "/home/michalis/lazarus")
+(setq lsp-pascal-pp "/home/michalis/cge/tools/contrib/fpc/bin/fpc-cge")
+(setq lsp-pascal-fpctarget "linux")
+(setq lsp-pascal-fpctargetcpu "x86_64")
+```
+
 ## Various LSP Pascal servers
 
 ## Arjan Adriaanse repo (original, unmaintained)
@@ -97,9 +119,38 @@ Notes:
 
 https://github.com/Isopod/pascal-language-server
 
-Kagamma fork: https://github.com/Kagamma/pascal-language-server
+Notes specific to this fork:
 
-Michalis fork: https://github.com/castle-engine/pascal-language-server
+* Tested in both VS Code and Emacs.
+
+* DONE: Make it aware of CGE paths, make it do completion in CGE units like gamestatemain.pas.
+  Done in https://github.com/castle-engine/pascal-language-server by special option in config file.
+
+* TODO: It doesn't take extra FPC options as LSP initialization options, though author is open to add this functionality ( https://github.com/michaliskambi/elisp/issues/1 ).
+
+* As an extra feature, can read configuration from Lazarus options in home directory. This is completely optional though.
+
+* Nice: Error message reporting is configurable and can work everywhere. See `syntaxErrorReportingMode` option documented on https://github.com/Isopod/pascal-language-server
+
+* Nice: It reads LPK / LPI, and is thus better at finding units, e.g. can find `Laz_AVL_Tree` when the program uses `LazUtils` package.
+
+    This is extra important in the light of above (CodeTools fail if unit cannot be found).
+
+### Kagamma
+
+https://github.com/Kagamma/pascal-language-server
+
+Fork of Isopod version ( https://github.com/Isopod/pascal-language-server ).
+
+Adds Windows compatibility (but since then it was addressed by Michalis, in CGE and Isopod versions) and more.
+
+### Castle Game Engine (Michalis Kamburelis, Andrzej Kilijanski, other CGE developers) 
+
+https://github.com/castle-engine/pascal-language-server
+
+Fork of Isopod version ( https://github.com/Isopod/pascal-language-server ). We added various enhancements, contributing back to upstream.
+
+We also added some CGE-specific options, and work now on tighter CGE integration in [cge_vscode_extension branch](https://github.com/castle-engine/pascal-language-server/tree/cge_vscode_extension).
 
 Installation:
 
@@ -112,44 +163,15 @@ lazbuild pasls.lpi
 create $HOME/.config/pasls/castle-pasls.ini following https://github.com/castle-engine/pascal-language-server docs
 ```
 
-Notes specific to this fork:
-
-* Tested in both VS Code and Emacs.
-
-* DONE: Make it aware of CGE paths, make it do completion in CGE units like gamestatemain.pas.
-  Done in https://github.com/castle-engine/pascal-language-server by special option in config file.
-
-* TODO: It doesn't take extra FPC options as LSP initialization options, though author is open to add this functionality ( https://github.com/michaliskambi/elisp/issues/1 ).
-
-* As an extra feature, can read configuration from Lazarus options in home directory. This is completely optional though.
-
-* It does error message by a hack, special completion item.
-
-    This works great in VS Code.
-
-    It is acceptable but still poor in Emacs, the Emacs buries it inside a Lisp error. And fixing the error (adding isIncomplete:false) makes the completion label inserted into buffer by Emacs on `company-complete`... It seems neither LSP server plays really nicely with Emacs in regards to nice error messages.
-
-    It should work with NeoVim, which is used by Philip Zander, author of this LSP server. The code comment addresses this:
-
-    ```
-    ... There is also the call window/showMessage, but this one is not
-    // implemented by NeoVim. So we work around it by showing a fake
-    // completion item.
-    ```
-
-* Nice: It reads LPK / LPI, and is thus better at finding units, e.g. can find `Laz_AVL_Tree` when the program uses `LazUtils` package.
-
-    This is extra important in the light of above (CodeTools fail if unit cannot be found).
-
-### Notes about both:
+### Notes about both Ryan Joseph (genericptr) and Philip Zander (Isopod) versions
 
 * Their capabilites are really quite even, due to them both enabling just Lazarus CodeTools as LSP server.
 
-* Both are active.
+* Both are actively developed with recent commmmits and multiple devs (confirmed again as of 2024-01-04).
 
-     https://github.com/genericptr/pascal-language-server has last commit on October 16th, 2022.
+     https://github.com/genericptr/pascal-language-server/commits/trunk/
 
-     https://github.com/Isopod/pascal-language-server has last commit on November 2021, but the maintainer was quick to find + address my findings on https://github.com/michaliskambi/elisp/issues/1 , and encourage merge requests. Much appreciated.
+     https://github.com/Isopod/pascal-language-server/commits/master/
 
 * My forks:
 
@@ -158,6 +180,8 @@ Notes specific to this fork:
      https://github.com/castle-engine/pascal-language-server
 
      ...strive to "standardize" part of them: they both support reading an INI file with a few useful options. They both allow to specify a per-process log file, that allows to debug JSON requests / responses. It's sometimes tremendously useful to compare what happens with 2 LSP servers.
+
+      We put more intensive work in https://github.com/castle-engine/pascal-language-server , adding CGE-specific features, making it aware of CGE projects.
 
 * Both LSP server forks **and Lazarus IDE too** are rather "fragile" when it comes to having non-existing units on the `uses` clause. The code completion fails until the CodeTools can find the unit.
 
@@ -192,7 +216,7 @@ Notes specific to this fork:
 
         -> now completion completely fails. `But` cannot be completed to anything. Which is a shame, it would be better IMHO if CodeTools would just ignore the missing `Foobar` in the `uses` clause.
 
-* TODO: We should make LSP server find and understand `CastleEngineManifest.xml` in containing directory, and extract extra file paths from it.
+* TODO (IN PROGRESS, see [cge_vscode_extension branch](https://github.com/castle-engine/pascal-language-server/tree/cge_vscode_extension) ): We should make LSP server find and understand `CastleEngineManifest.xml` in containing directory, and extract extra file paths from it.
 
     Now this fails: Code completion on CGE `tests/code/testcases/testcastlecomponentserialize.pas` fails: it cannot find `CastleTestCase` which is in `tests/code/tester-fpcunit/`. And LSP cannot guess by itself to search in `../tester-fpcunit/` for this. Only project files (we maintain both `CastleEngineManifest.xml` and LPI for this) contain the necessary information to find all units.
 
@@ -267,7 +291,7 @@ This is the basic configuration you need:
 (require 'lsp-pascal)
 
 ;; choose LSP server binary
-(setq lsp-pascal-command "/home/michalis/sources/lsp/castle-isopod-pascal-language-server/server/lib/x86_64-linux/pasls")
+(setq lsp-pascal-command "/home/michalis/sources/pascal-language-server/server/lib/x86_64-linux/pasls")
 
 ;; pass basic info to LSP server, all LSP Pascal servers above support these:
 (setq lsp-pascal-fpcdir "/home/michalis/installed/fpclazarus/current/fpcsrc/")
@@ -321,6 +345,8 @@ Read and customize `kambi-pascal-lsp.el`.
 
     So that e.g. writing "MyButton.OnClick := @Foo", pressing Ctrl+Shift+C would
     automatically create empty Foo implementation.
+
+    Note: _GitHub Copilot_ in practice can often perform this job.
 
 ## TODO (specifically for Emacs)
 
